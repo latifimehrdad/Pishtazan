@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.FragmentSplashBinding;
+import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Splash;
 
 public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
@@ -62,15 +63,16 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
 
     private void StartAnimationSplash() {//_________________________________________________________ StartAnimationSplash
         ImageViewSplash.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.bounce));
+        vm_splash.CheckLogin();
     }//_____________________________________________________________________________________________ StartAnimationSplash
 
 
     @Override
     public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
-//        if (action == StaticValues.ML_GotoHome) {
-//            navController.navigate(R.id.action_splash_to_home2);
-//        }
+        if (action == StaticValues.ML_GotoHome) {
+            navController.navigate(R.id.action_splash_to_signUp);
+        }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 

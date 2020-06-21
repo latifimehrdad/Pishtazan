@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <solid android:color="@color/ML_Harmony" />
+            <corners android:topRightRadius="@dimen/_3sdp"
+                android:bottomRightRadius="@dimen/_3sdp"/>
+
+            <stroke android:width="@dimen/_1sdp" android:color="@color/ML_Harmony"/>
+
+            <padding android:left="5.0dip"
+                android:top="5.0dip"
+                android:right="5.0dip"
+                android:bottom="5.0dip" />
+        </shape>
+    </item>
+
+
+</selector>

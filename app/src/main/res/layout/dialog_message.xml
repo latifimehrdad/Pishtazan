@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="titel"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ML_Dialog"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp"
+        android:tag="layout/dialog_progress_0">
+
+        <ImageView
+            android:id="@+id/DialogImg"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            />
+
+        <TextView
+            android:id="@+id/DialogTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxLines="3"
+            android:textColor="@color/ML_HarmonyDark"
+            android:textSize="@dimen/_9sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            />
+
+
+        <Button
+            android:id="@+id/DialogIgnor"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/dw_back_bottom"
+            android:text="@string/Cancel"
+            android:textColor="@color/ML_White"
+            android:textSize="@dimen/_9sdp" />
+    </LinearLayout>
+
+</layout>

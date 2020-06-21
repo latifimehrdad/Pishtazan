@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="signup"
+            type="ir.bppir.pishtazan.viewmodels.fragments.VM_SignUp" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4.5"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginRight="@dimen/_20sdp"
+                        android:layout_marginLeft="@dimen/_20sdp"
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_15sdp"
+                            android:layout_marginTop="@dimen/_1sdp"
+                            android:layout_marginRight="@dimen/_15sdp"
+                            android:gravity="center"
+                            android:maxLines="2"
+                            fontPath="font/iransans_web_medium.ttf"
+                            android:text="@string/EnterPhoneNumber"
+                            android:textColor="@color/ML_Harmony"
+                            android:textSize="@dimen/_9sdp" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:orientation="horizontal">
+
+
+                            <EditText
+                                android:id="@+id/EditPhoneNumber"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:minHeight="@dimen/_27sdp"
+                                android:background="@drawable/dw_edit_back"
+                                android:inputType="phone"
+                                android:gravity="center"
+                                android:textColor="@color/ML_Harmony"
+                                android:textSize="@dimen/_12sdp"
+                                android:hint="@string/PhoneNumber"
+                                android:maxLength="11"
+                                />
+
+                            <ImageView
+                                android:layout_width="@dimen/_25sdp"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/dw_icon_background"
+                                android:src="@drawable/ic_baseline_phone_android"
+                                android:tint="@color/colorAccent" />
+
+                        </LinearLayout>
+
+
+                        <RelativeLayout
+                            android:id="@+id/ButtonSignUp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_35sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@drawable/dw_back_bottom"
+                            android:paddingTop="@dimen/_3sdp"
+                            android:paddingBottom="@dimen/_3sdp">
+
+                            <ImageView
+                                android:id="@+id/imgProgress"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/ic_baseline_lock_open"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:tint="@color/colorAccent" />
+
+
+                            <TextView
+                                android:id="@+id/BtnLoginText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:text="@string/GetVerifyCode"
+                                fontPath="font/iransans_web_medium.ttf"
+                                android:textColor="@color/ML_White"
+                                android:textSize="@dimen/_12sdp" />
+
+                            <com.cunoraz.gifview.library.GifView
+                                android:id="@+id/ProgressGif"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:visibility="invisible"
+                                custom:gif="@drawable/loading" />
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+                </ScrollView>
+
+
+
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

@@ -1,3 +1,13 @@
 <resources>
+
     <string name="app_name">Pishtazan</string>
+
+    <string name="EnterPhoneNumber">شماره تلفن همراه خود را وارد نمایید</string>
+    <string name="PhoneNumber">تلفن همراه</string>
+    <string name="GetVerifyCode">دریافت کد</string>
+    <string name="Cancel">بیخیال</string>
+    <string name="InternetNotAvailable">اینترنت دستگاه خود را روشن کنید</string>
+
+
+
 </resources>
