@@ -7,7 +7,18 @@
     <string name="GetVerifyCode">دریافت کد</string>
     <string name="Cancel">بیخیال</string>
     <string name="InternetNotAvailable">اینترنت دستگاه خود را روشن کنید</string>
+    <string name="VerifyCode">6 رقم کد فعال سازی را وارد نمایید</string>
+    <string name="ElapsedTimeGetSMS">زمان باقی مانده\n برای دریافت پیامک</string>
+    <string name="ReTryGetSMS">دریافت دوباره\n پیامک</string>
+    <string name="PleaseWait">شکیبا باش ...</string>
+    <string name="Partners">همکاران</string>
+    <string name="Customer">مشتری</string>
 
+
+
+    //___________________________ Values For SharedPreference ______________________________________
+    <string name="ML_PhoneNumber">PhoneNumber</string>
+    <string name="ML_PartnersType">PartnersType</string>
 
 
 </resources>

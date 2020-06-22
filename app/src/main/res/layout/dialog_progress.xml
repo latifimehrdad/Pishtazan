@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="string"
+            type="String" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ML_WhiteGray"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp"
+        android:tag="layout/dialog_progress_0">
+
+        <TextView
+            android:id="@+id/DialogProgressTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxLines="2"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_9sdp" />
+
+
+        <com.cunoraz.gifview.library.GifView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            custom:gif="@drawable/watting"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            />
+
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="@string/PleaseWait"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_9sdp" />
+
+        <Button
+            android:id="@+id/DialogProgressIgnor"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/dw_back_bottom"
+            android:text="@string/Cancel"
+            android:textColor="@color/ML_White"
+            fontPath="font/iransans_web_medium.ttf"
+            android:textSize="@dimen/_9sdp" />
+    </LinearLayout>
+
+</layout>

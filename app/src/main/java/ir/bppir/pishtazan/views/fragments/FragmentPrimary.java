@@ -10,6 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
+import ir.bppir.pishtazan.utility.StaticValues;
 
 public class FragmentPrimary extends Fragment {
 
@@ -30,12 +31,14 @@ public class FragmentPrimary extends Fragment {
     public void onCreate(Bundle savedInstanceState) {//_____________________________________________ onCreate
         super.onCreate(savedInstanceState);
         context = getActivity();
+        StaticValues.isCancel = true;
     }//_____________________________________________________________________________________________ onCreate
 
 
     @Override
     public void onDestroy() {//_____________________________________________________________________ onDestroy
         super.onDestroy();
+        StaticValues.isCancel = true;
         if (disposableObserver != null)
             disposableObserver.dispose();
         disposableObserver = null;

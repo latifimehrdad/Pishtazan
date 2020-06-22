@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#ffd918</color>
-    <color name="colorPrimaryDark">#ff9f18</color>
-    <color name="colorAccent">#ffd918</color>
+    <color name="colorPrimary">#1E23A3</color>
+    <color name="colorPrimaryDark">#0f1259</color>
+    <color name="colorAccent">#3863FF</color>
 
     <color name="ML_Splash">#252627</color>
-    <color name="ML_Harmony">#1d22ab</color>
-    <color name="ML_HarmonyDark">#0f1259</color>
-    <color name="ML_HarmonyLight">#3863FF</color>
+    <color name="ML_Harmony">#FFAA18</color>
+    <color name="ML_HarmonyDark">#B57507</color>
     <color name="ML_White">#FFFFFF</color>
     <color name="ML_Dialog">#CDCDCD</color>
 
     <color name="ML_Red">#CF1818</color>
     <color name="ML_EditEmpty">#FAD85A</color>
+    <color name="ML_Trans">#00000000</color>
+    <color name="ML_WhiteGray">#EBEAEA</color>
 
 
 </resources>

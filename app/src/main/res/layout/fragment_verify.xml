@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="verify"
+            type="ir.bppir.pishtazan.viewmodels.fragments.VM_Verify" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4.5"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="6">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="vertical"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:gravity="center"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_1sdp"
+                        android:layout_marginRight="@dimen/_15sdp"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="@string/VerifyCode"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/_10sdp" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            >
+
+                            <EditText
+                                android:id="@+id/VerifyCode1"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:minHeight="@dimen/_35sdp"
+                                android:minWidth="@dimen/_25sdp"
+                                android:inputType="number"
+                                android:padding="@dimen/_2sdp"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/_14sdp"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:maxLength="1"
+                                />
+
+                            <EditText
+                                android:id="@+id/VerifyCode2"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:minHeight="@dimen/_35sdp"
+                                android:minWidth="@dimen/_25sdp"
+                                android:inputType="number"
+                                android:padding="@dimen/_2sdp"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="@dimen/_14sdp"
+                                android:gravity="center"
+                                android:layout_marginLeft="@dimen/_7sdp"
+                                android:maxLines="1"
+                                android:maxLength="1"
+                                />
+
+                            <EditText
+                                android:id="@+id/VerifyCode3"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:minHeight="@dimen/_35sdp"
+                                android:minWidth="@dimen/_25sdp"
+                                android:inputType="number"
+                                android:padding="@dimen/_2sdp"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="@dimen/_14sdp"
+                                android:gravity="center"
+                                android:layout_marginLeft="@dimen/_7sdp"
+                                android:maxLines="1"
+                                android:maxLength="1"
+                                />
+
+                            <EditText
+                                android:id="@+id/VerifyCode4"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:minHeight="@dimen/_35sdp"
+                                android:minWidth="@dimen/_25sdp"
+                                android:inputType="number"
+                                android:padding="@dimen/_2sdp"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="@dimen/_14sdp"
+                                android:gravity="center"
+                                android:layout_marginLeft="@dimen/_7sdp"
+                                android:maxLines="1"
+                                android:maxLength="1"
+                                />
+
+                            <EditText
+                                android:id="@+id/VerifyCode5"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:minHeight="@dimen/_35sdp"
+                                android:minWidth="@dimen/_25sdp"
+                                android:inputType="number"
+                                android:padding="@dimen/_2sdp"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="@dimen/_14sdp"
+                                android:gravity="center"
+                                android:layout_marginLeft="@dimen/_7sdp"
+                                android:maxLines="1"
+                                android:maxLength="1"
+                                />
+
+                            <EditText
+                                android:id="@+id/VerifyCode6"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:minHeight="@dimen/_35sdp"
+                                android:minWidth="@dimen/_25sdp"
+                                android:inputType="number"
+                                android:padding="@dimen/_2sdp"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="@dimen/_14sdp"
+                                android:gravity="center"
+                                android:layout_marginLeft="@dimen/_7sdp"
+                                android:maxLines="1"
+                                android:maxLength="1"
+                                />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+
+
+                    <RelativeLayout
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_100sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        >
+
+                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_100sdp"
+                            android:max="100"
+                            android:progress="20"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/dw_half_circle_progress_back"
+                            android:progressDrawable="@drawable/dw_half_circle_progress" />
+
+
+                        <TextView
+                            android:id="@+id/message"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:gravity="center"
+                            android:textSize="@dimen/_9sdp"
+                            android:text="@string/ElapsedTimeGetSMS"
+                            android:maxLines="2"
+                            android:layout_marginTop="@dimen/_40sdp"
+                            />
+
+                        <TextView
+                            android:id="@+id/TimeElapsed"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimary"
+                            android:gravity="center"
+                            android:textSize="@dimen/_9sdp"
+                            android:text="1:56"
+                            android:maxLines="2"
+                            android:layout_below="@id/message"
+                            />
+
+
+                    </RelativeLayout>
+
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</layout>

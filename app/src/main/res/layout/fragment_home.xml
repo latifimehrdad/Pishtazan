@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="home"
+            type="ir.bppir.pishtazan.viewmodels.fragments.VM_Home" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_205sdp"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            >
+
+            <LinearLayout
+                android:id="@+id/LinearLayoutPartners"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="bottom|center_horizontal"
+                android:background="@drawable/dw_home_circle_top"
+                android:orientation="vertical">
+
+
+                <ImageView
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:src="@drawable/ic_baseline_people"
+                    android:tint="@color/ML_Harmony"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/ML_Harmony"
+                    android:textSize="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:text="@string/Partners"
+                    fontPath="fonts/iransans_web_medium.ttf"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayoutCustomer"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="@drawable/dw_home_circle_bottom"
+                android:gravity="top|center_horizontal"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:src="@drawable/ic_baseline_how_to_reg"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:tint="@color/ML_Harmony"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/ML_Harmony"
+                    android:textSize="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_1sdp"
+                    android:text="@string/Customer"
+                    fontPath="fonts/iransans_web_medium.ttf"
+                    />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</layout>

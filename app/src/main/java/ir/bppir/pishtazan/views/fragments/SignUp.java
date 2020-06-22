@@ -68,7 +68,6 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
             binding.setSignup(vm_signUp);
             setView(binding.getRoot());
             ButterKnife.bind(this, getView());
-            StaticValues.isCancel = true;
             SetClick();
             SetTextWatcher();
         }
@@ -79,9 +78,28 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
+        init();
+    }//_____________________________________________________________________________________________ onStart
+
+
+    private void init() {//_________________________________________________________________________ init
         setGetMessageFromObservable(SignUp.this, vm_signUp.getPublishSubject());
         navController = Navigation.findNavController(getView());
-    }//_____________________________________________________________________________________________ onStart
+    }//_____________________________________________________________________________________________ init
+
+
+    @Override
+    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+
+        if (action == StaticValues.ML_GotoVerify) {
+            DismissLoading();
+            Bundle bundle = new Bundle();
+            bundle.putString(getContext()
+                    .getString(R.string.ML_PhoneNumber),EditPhoneNumber.getText().toString());
+            navController.navigate(R.id.action_signUp_to_verify,bundle);
+        }
+
+    }//_____________________________________________________________________________________________ GetMessageFromObservable
 
 
 
@@ -121,16 +139,6 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
         EditPhoneNumber.addTextChangedListener(TextChangeForChangeBack(EditPhoneNumber));
     }//_____________________________________________________________________________________________ End SetTextWatcher
 
-
-
-    @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
-
-//        if (action == StaticValues.ML_GotoHome) {
-//            navController.navigate(R.id.action_splash_to_home2);
-//        }
-
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
 
 
     private void ShowMessage(String message, int color, Drawable icon, int tintColor) {//___________ ShowMessage
@@ -183,7 +191,6 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
 
 
     private void ShowLoading() {//__________________________________________________________________ ShowLoading
-        StaticValues.isCancel = false;
         BtnLoginText.setText(getResources().getString(R.string.Cancel));
         ButtonSignUp.setBackground(getResources().getDrawable(R.drawable.dw_back_bottom_connection));
         ProgressGif.setVisibility(View.VISIBLE);

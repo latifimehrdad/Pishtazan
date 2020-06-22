@@ -60,7 +60,7 @@
                             android:maxLines="2"
                             fontPath="font/iransans_web_medium.ttf"
                             android:text="@string/EnterPhoneNumber"
-                            android:textColor="@color/ML_Harmony"
+                            android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/_9sdp" />
 
 
@@ -81,7 +81,7 @@
                                 android:background="@drawable/dw_edit_back"
                                 android:inputType="phone"
                                 android:gravity="center"
-                                android:textColor="@color/ML_Harmony"
+                                android:textColor="@color/colorPrimaryDark"
                                 android:textSize="@dimen/_12sdp"
                                 android:hint="@string/PhoneNumber"
                                 android:maxLength="11"
@@ -92,7 +92,7 @@
                                 android:layout_height="match_parent"
                                 android:background="@drawable/dw_icon_background"
                                 android:src="@drawable/ic_baseline_phone_android"
-                                android:tint="@color/colorAccent" />
+                                android:tint="@color/ML_Harmony" />
 
                         </LinearLayout>
 
@@ -114,7 +114,7 @@
                                 android:layout_centerVertical="true"
                                 android:src="@drawable/ic_baseline_lock_open"
                                 android:layout_marginLeft="@dimen/_5sdp"
-                                android:tint="@color/colorAccent" />
+                                android:tint="@color/ML_Harmony" />
 
 
                             <TextView

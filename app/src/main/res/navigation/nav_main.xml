@@ -19,12 +19,66 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"/>
 
+        <action
+            android:id="@+id/action_splash_to_home"
+            app:destination="@id/home"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
     </fragment>
 
     <fragment
         android:id="@+id/signUp"
         android:name="ir.bppir.pishtazan.views.fragments.SignUp"
         android:label="SignUp"
-        tools:layout="@layout/fragment_signup"/>
+        tools:layout="@layout/fragment_signup">
+
+        <argument android:name="@string/ML_PhoneNumber"
+            android:defaultValue="null"/>
+
+        <action
+            android:id="@+id/action_signUp_to_verify"
+            app:destination="@id/verify"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/verify"
+        android:name="ir.bppir.pishtazan.views.fragments.Verify"
+        android:label="Verify"
+        tools:layout="@layout/fragment_verify"
+        />
+
+    <fragment
+        android:id="@+id/home"
+        android:name="ir.bppir.pishtazan.views.fragments.Home"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+
+        <argument android:name="@string/ML_PartnersType"
+            android:defaultValue="true"/>
+
+        <action
+            android:id="@+id/action_home_to_partners"
+            app:destination="@id/partners"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/partners"
+        android:name="ir.bppir.pishtazan.views.fragments.Partners"
+        android:label="Partners"
+        tools:layout="@layout/fragment_partners"
+        />
 
 </navigation>

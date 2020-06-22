@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <solid android:color="@color/ML_Harmony" />
+            <solid android:color="@color/colorPrimary" />
             <corners android:topRightRadius="@dimen/_3sdp"
                 android:bottomRightRadius="@dimen/_3sdp"/>
 
-            <stroke android:width="@dimen/_1sdp" android:color="@color/ML_Harmony"/>
+            <stroke android:width="@dimen/_1sdp" android:color="@color/colorPrimary"/>
 
             <padding android:left="5.0dip"
                 android:top="5.0dip"

@@ -21,9 +21,12 @@ public class VM_Splash extends VM_Primary {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                getPublishSubject().onNext(StaticValues.ML_GotoHome);
+                if (!StaticValues.isLogin)
+                    getPublishSubject().onNext(StaticValues.ML_GotoSplash);
+                else
+                    getPublishSubject().onNext(StaticValues.ML_GotoHome);
             }
-        },2000);
+        }, 2000);
 
     }//_____________________________________________________________________________________________ CheckLogin
 
