@@ -13,7 +13,12 @@
     <string name="PleaseWait">شکیبا باش ...</string>
     <string name="Partners">همکاران</string>
     <string name="Customer">مشتری</string>
-
+    <string name="Certain">قطعی</string>
+    <string name="Maybe">بالقوه</string>
+    <string name="Possible">احتمالی</string>
+    <string name="ShowOnMap">نمایش افراد روی نقشه</string>
+    <string name="DescriptionForShowMap">در قسمت ویرایش اطلاعات، میتوانید با انتخاب موقعیت افراد، آنها را روی نقشه مشاهده کنید</string>
+    <string name="ActionPrompt">عملیات ها</string>
 
 
     //___________________________ Values For SharedPreference ______________________________________

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="person"
+            type="ir.bppir.pishtazan.models.MD_Person" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:padding="@dimen/_5sdp"
+        android:background="@drawable/dw_back_recycler"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/_10sdp"
+                fontPath="font/iransans_web_medium.ttf"
+                android:text="@{person.name}"
+                />
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/MaterialSpinnerAction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:prompt="@string/ActionPrompt"
+                app:ms_background_color="@color/ML_Dialog"
+                app:ms_text_color="@color/ML_Black" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:padding="@dimen/_3sdp"
+                android:background="@drawable/dw_circle_border"/>
+
+
+            <ImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginRight="@dimen/_3sdp"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/_2sdp"
+                android:background="@drawable/dw_circle_harmony_dark"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>

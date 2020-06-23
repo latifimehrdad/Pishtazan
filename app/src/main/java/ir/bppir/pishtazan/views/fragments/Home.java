@@ -82,7 +82,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(getContext().getString(R.string.ML_PartnersType), true);
-                navController.navigate(R.id.action_home_to_partners, bundle);
+                navController.navigate(R.id.action_home_to_panel, bundle);
             }
         });
 
@@ -91,7 +91,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(getContext().getString(R.string.ML_PartnersType), false);
-                navController.navigate(R.id.action_home_to_partners, bundle);
+                navController.navigate(R.id.action_home_to_panel, bundle);
             }
         });
 

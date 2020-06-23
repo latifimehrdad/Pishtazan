@@ -10,7 +10,7 @@
     <color name="ML_HarmonyDark">#B57507</color>
     <color name="ML_White">#FFFFFF</color>
     <color name="ML_Dialog">#CDCDCD</color>
-
+    <color name="ML_Black">#000000</color>
     <color name="ML_Red">#CF1818</color>
     <color name="ML_EditEmpty">#FAD85A</color>
     <color name="ML_Trans">#00000000</color>

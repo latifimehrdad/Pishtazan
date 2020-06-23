@@ -65,8 +65,8 @@
             android:defaultValue="true"/>
 
         <action
-            android:id="@+id/action_home_to_partners"
-            app:destination="@id/partners"
+            android:id="@+id/action_home_to_panel"
+            app:destination="@id/panel"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
@@ -75,10 +75,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/partners"
-        android:name="ir.bppir.pishtazan.views.fragments.Partners"
-        android:label="Partners"
-        tools:layout="@layout/fragment_partners"
+        android:id="@+id/panel"
+        android:name="ir.bppir.pishtazan.views.fragments.Panel"
+        android:label="Panel"
+        tools:layout="@layout/fragment_panel"
         />
 
 </navigation>
