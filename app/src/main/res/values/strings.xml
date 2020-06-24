@@ -3,14 +3,14 @@
     <string name="app_name">Pishtazan</string>
 
     <string name="EnterPhoneNumber">شماره تلفن همراه خود را وارد نمایید</string>
-    <string name="PhoneNumber">تلفن همراه</string>
+    <string name="MobileNumber">تلفن همراه</string>
     <string name="GetVerifyCode">دریافت کد</string>
     <string name="Cancel">بیخیال</string>
     <string name="InternetNotAvailable">اینترنت دستگاه خود را روشن کنید</string>
     <string name="VerifyCode">6 رقم کد فعال سازی را وارد نمایید</string>
     <string name="ElapsedTimeGetSMS">زمان باقی مانده\n برای دریافت پیامک</string>
     <string name="ReTryGetSMS">دریافت دوباره\n پیامک</string>
-    <string name="PleaseWait">شکیبا باش ...</string>
+    <string name="PleaseWait">شکیبا باشید ...</string>
     <string name="Partners">همکاران</string>
     <string name="Customer">مشتری</string>
     <string name="Certain">قطعی</string>
@@ -19,6 +19,12 @@
     <string name="ShowOnMap">نمایش افراد روی نقشه</string>
     <string name="DescriptionForShowMap">در قسمت ویرایش اطلاعات، میتوانید با انتخاب موقعیت افراد، آنها را روی نقشه مشاهده کنید</string>
     <string name="ActionPrompt">عملیات ها</string>
+    <string name="AddPerson">اضافه کردن افراد</string>
+    <string name="AddFromContact">انتخاب از لیست مخاطبین</string>
+    <string name="Name_LastName">نام و نام خانوادگی</string>
+    <string name="Save">ذخیره</string>
+    <string name="ContactIsEmpty">لیست مخاطبین شما خالی است</string>
+    <string name="PhoneNumber">تلفن</string>
 
 
     //___________________________ Values For SharedPreference ______________________________________

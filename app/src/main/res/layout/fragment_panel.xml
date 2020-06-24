@@ -69,12 +69,16 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:padding="@dimen/_5sdp">
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_2sdp">
 
             </androidx.recyclerview.widget.RecyclerView>
 
+
             <LinearLayout
-                android:id="@+id/ButtonSignUp"
+                android:id="@+id/LinearLayoutAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginTop="@dimen/_5sdp"
@@ -87,19 +91,19 @@
                 <ImageView
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:src="@drawable/ic_baseline_lock_open"
-                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:src="@drawable/ic_baseline_group_add"
+                    android:layout_marginLeft="@dimen/_7sdp"
                     android:tint="@color/ML_Harmony" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/GetVerifyCode"
+                    android:text="@string/AddPerson"
                     fontPath="font/iransans_web_medium.ttf"
                     android:textColor="@color/ML_White"
-                    android:paddingRight="@dimen/_20sdp"
-                    android:paddingLeft="@dimen/_20sdp"
+                    android:paddingRight="@dimen/_15sdp"
+                    android:paddingLeft="@dimen/_15sdp"
                     android:layout_marginRight="@dimen/_5sdp"
                     android:textSize="@dimen/_12sdp" />
 

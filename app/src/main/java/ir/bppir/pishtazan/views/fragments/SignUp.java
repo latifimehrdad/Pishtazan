@@ -141,15 +141,6 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
 
 
 
-    private void ShowMessage(String message, int color, Drawable icon, int tintColor) {//___________ ShowMessage
-
-        DialogMessage dialogMessage = new DialogMessage(getContext(), message, color, icon, tintColor);
-        dialogMessage.setCancelable(false);
-        dialogMessage.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
-
-    }//_____________________________________________________________________________________________ ShowMessage
-
-
     private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
 
         boolean mobile = true;

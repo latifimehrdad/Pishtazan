@@ -39,6 +39,9 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
     @BindView(R.id.RecyclerViewPanel)
     RecyclerView RecyclerViewPanel;
 
+    @BindView(R.id.LinearLayoutAdd)
+    LinearLayout LinearLayoutAdd;
+
 
     public Panel() {//______________________________________________________________________________ Panel
 
@@ -54,7 +57,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         if (getView() == null) {
             vm_panel = new VM_Panel(getContext());
             FragmentPanelBinding binding = DataBindingUtil.inflate(
-                    inflater, R.layout.fragment_panel, container,false);
+                    inflater, R.layout.fragment_panel, container, false);
             binding.setPartners(vm_panel);
             setView(binding.getRoot());
             ButterKnife.bind(this, getView());
@@ -69,6 +72,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
         init();
+        GetList();
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -83,8 +87,14 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
             LinearLayoutParent.setBackgroundColor(getContext().getResources().getColor(R.color.colorPrimary));
             TextViewTitle.setText(getContext().getResources().getString(R.string.Customer));
         }
-        vm_panel.GetPerson(Partner, PersonType);
+
     }//_____________________________________________________________________________________________ init
+
+
+    private void GetList() {//______________________________________________________________________ GetList
+        if (ab_person == null)
+            vm_panel.GetPerson(Partner, PersonType);
+    }//_____________________________________________________________________________________________ GetList
 
 
     @Override
@@ -99,12 +109,20 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
 
     private void SetClick() {//_____________________________________________________________________ SetClick
 
+        LinearLayoutAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(getContext().getString(R.string.ML_PartnersType), Partner);
+                navController.navigate(R.id.action_panel_to_addPerson, bundle);
+            }
+        });
+
     }//_____________________________________________________________________________________________ SetClick
 
 
-
     private void SetAdapterPerson() {//_____________________________________________________________ SetAdapterPerson
-        ab_person = new AB_Person(vm_panel.getPersonList(),getContext());
+        ab_person = new AB_Person(vm_panel.getPersonList(), getContext());
         RecyclerViewPanel.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewPanel.setAdapter(ab_person);
     }//_____________________________________________________________________________________________ SetAdapterPerson

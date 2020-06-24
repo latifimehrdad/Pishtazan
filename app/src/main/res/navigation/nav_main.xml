@@ -79,6 +79,25 @@
         android:name="ir.bppir.pishtazan.views.fragments.Panel"
         android:label="Panel"
         tools:layout="@layout/fragment_panel"
-        />
+        >
+
+        <argument android:name="@string/ML_PartnersType"
+            android:defaultValue="true"/>
+
+        <action
+            android:id="@+id/action_panel_to_addPerson"
+            app:destination="@id/addPerson"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/addPerson"
+        android:name="ir.bppir.pishtazan.views.fragments.AddPerson"
+        android:label="AddPerson"
+        tools:layout="@layout/fragment_add_person"/>
 
 </navigation>

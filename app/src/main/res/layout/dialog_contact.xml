@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/ML_WhiteGray"
+    >
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecyclerViewContact"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="@dimen/_10sdp"/>
+
+
+    <LinearLayout
+        android:id="@+id/LinearLayoutCancel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:background="@color/ML_Splash">
+
+        <TextView
+            fontPath="fonts/iransans_web_medium.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/ML_White"
+            android:text="@string/Cancel"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+</LinearLayout>

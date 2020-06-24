@@ -1,9 +1,11 @@
 package ir.bppir.pishtazan.views.fragments;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -11,6 +13,7 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import ir.bppir.pishtazan.utility.StaticValues;
+import ir.bppir.pishtazan.views.dialogs.DialogMessage;
 
 public class FragmentPrimary extends Fragment {
 
@@ -18,6 +21,7 @@ public class FragmentPrimary extends Fragment {
     private Context context;
     private View view;
     private GetMessageFromObservable getMessageFromObservable;
+    private boolean AccessClick;
 
 
     public interface GetMessageFromObservable {//___________________________________________________ GetMessageFromObservable
@@ -31,7 +35,8 @@ public class FragmentPrimary extends Fragment {
     public void onCreate(Bundle savedInstanceState) {//_____________________________________________ onCreate
         super.onCreate(savedInstanceState);
         context = getActivity();
-        StaticValues.isCancel = true;
+        AccessClick = true;
+
     }//_____________________________________________________________________________________________ onCreate
 
 
@@ -115,4 +120,22 @@ public class FragmentPrimary extends Fragment {
     }//_____________________________________________________________________________________________ SetObserverToObservable
 
 
+    public void ShowMessage(String message, int color, Drawable icon, int tintColor) {//___________ ShowMessage
+
+        DialogMessage dialogMessage = new DialogMessage(getContext(), message, color, icon, tintColor);
+        dialogMessage.setCancelable(false);
+        dialogMessage.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+
+    }//_____________________________________________________________________________________________ ShowMessage
+
+
+
+    public boolean isAccessClick() {//______________________________________________________________ isAccessClick
+        return AccessClick;
+    }//_____________________________________________________________________________________________ isAccessClick
+
+
+    public void setAccessClick(boolean accessClick) {//_____________________________________________ setAccessClick
+        AccessClick = accessClick;
+    }//_____________________________________________________________________________________________ setAccessClick
 }

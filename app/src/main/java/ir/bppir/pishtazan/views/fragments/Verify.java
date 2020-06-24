@@ -296,15 +296,6 @@ public class Verify extends FragmentPrimary implements FragmentPrimary.GetMessag
     }//_____________________________________________________________________________________________ End ShowProgressDialog
 
 
-    private void ShowMessage(String message, int color, Drawable icon, int tintColor) {//___________ Start ShowMessage
-
-        DialogMessage dialogMessage = new DialogMessage(getContext(), message, color, icon, tintColor);
-        dialogMessage.setCancelable(false);
-        dialogMessage.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
-
-    }//_____________________________________________________________________________________________ End ShowMessage
-
-
     private void DismissProgress() {//______________________________________________________________ Start DismissProgress
         if (progress != null)
             progress.dismiss();

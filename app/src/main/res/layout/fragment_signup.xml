@@ -83,7 +83,7 @@
                                 android:gravity="center"
                                 android:textColor="@color/colorPrimaryDark"
                                 android:textSize="@dimen/_12sdp"
-                                android:hint="@string/PhoneNumber"
+                                android:hint="@string/MobileNumber"
                                 android:maxLength="11"
                                 />
 

@@ -11,5 +11,7 @@ public class StaticValues {
     public static Byte ML_ReTrySensSms = 2;
     public static Byte ML_GotoSplash = 3;
     public static Byte ML_GetPerson = 4;
+    public static Byte ML_GetContact = 5;
+    public static Byte ML_Error = 6;
 
 }

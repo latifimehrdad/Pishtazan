@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
         <variable
             name="person"
@@ -14,14 +15,16 @@
         android:background="@drawable/dw_back_recycler"
         android:gravity="center"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginBottom="@dimen/_5sdp">
+        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_marginBottom="@dimen/_7sdp">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginRight="@dimen/_5sdp"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp"
             android:orientation="vertical">
 
             <TextView
@@ -39,7 +42,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_weight="1"
                 android:gravity="right"
                 android:prompt="@string/ActionPrompt"
                 app:ms_background_color="@color/ML_Dialog"
@@ -51,23 +53,26 @@
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_70sdp">
 
-            <ImageView
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_60sdp"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:padding="@dimen/_3sdp"
-                android:background="@drawable/dw_circle_border"/>
+                android:src="@drawable/google_maps_icon"
+                app:civ_border_width="@dimen/_2sdp"
+                app:civ_border_color="@color/ML_Harmony"/>
 
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="@dimen/_25sdp"
                 android:layout_height="@dimen/_25sdp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:layout_marginRight="@dimen/_3sdp"
+                android:src="@drawable/google_maps_icon"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginRight="@dimen/_1sdp"
                 android:layout_alignParentRight="true"
-                android:padding="@dimen/_2sdp"
-                android:background="@drawable/dw_circle_harmony_dark"/>
+                app:civ_border_width="@dimen/_2sdp"
+                app:civ_border_color="@color/colorPrimary"/>
+
 
         </RelativeLayout>
 

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="contact"
+            type="ir.bppir.pishtazan.models.MD_Contact" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:padding="@dimen/_5sdp"
+        android:background="@drawable/dw_back_recycler"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_marginBottom="@dimen/_7sdp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textColor="@color/ML_Splash"
+                android:textSize="@dimen/_8sdp"
+                android:text="@string/Name_LastName"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/_10sdp"
+                fontPath="font/iransans_web_medium.ttf"
+                android:text="@{contact.name}"
+                android:layout_marginTop="@dimen/_1sdp"
+                />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textColor="@color/ML_Splash"
+                android:textSize="@dimen/_8sdp"
+                android:text="@string/PhoneNumber"
+                android:layout_marginTop="@dimen/_5sdp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/_10sdp"
+                fontPath="font/iransans_web_medium.ttf"
+                android:text="@{contact.phone}"
+                android:layout_marginTop="@dimen/_1sdp"
+                />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/dw_circle_border"
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/ic_baseline_account_circle"
+            android:tint="@color/colorPrimary"/>
+
+    </LinearLayout>
+
+</layout>

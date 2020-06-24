@@ -78,4 +78,7 @@ dependencies {
     implementation "com.jakewharton.rxbinding2:rxbinding:2.0.0"
 
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
+
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 }
