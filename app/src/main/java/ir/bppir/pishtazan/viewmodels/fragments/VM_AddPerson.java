@@ -3,15 +3,19 @@ package ir.bppir.pishtazan.viewmodels.fragments;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Handler;
 import android.provider.ContactsContract;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
 import ir.bppir.pishtazan.R;
+import ir.bppir.pishtazan.database.DB_Persons;
 import ir.bppir.pishtazan.models.MD_Contact;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
+import ir.bppir.pishtazan.views.application.PishtazanApplication;
 
 public class VM_AddPerson extends VM_Primary {
 
@@ -22,6 +26,49 @@ public class VM_AddPerson extends VM_Primary {
     public VM_AddPerson(Context context) {//________________________________________________________ VM_AddPerson
         this.context = context;
     }//_____________________________________________________________________________________________ VM_AddPerson
+
+
+    public void AddPerson(String Name, String Phone, Byte Degree, boolean Partner) {//______________ AddPerson
+
+        Realm realm = PishtazanApplication
+                .getApplication(context)
+                .getRealmComponent()
+                .getRealm();
+        try {
+            realm.beginTransaction();
+            realm
+                    .createObject(DB_Persons.class)
+                    .insert(0,
+                            Name,
+                            Phone,
+                            "",
+                            "",
+                            0.0,
+                            0.0,
+                            "",
+                            true,
+                            "",
+                            Degree,
+                            Partner,
+                            (byte) 0);
+            realm.commitTransaction();
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    setResponseMessage(context.getResources().getString(R.string.AddPersonOk));
+                    getPublishSubject().onNext(StaticValues.ML_AddPerson);
+                }
+            },1000);
+
+        } catch (Exception e) {
+            realm.cancelTransaction();
+            setResponseMessage(context.getResources().getString(R.string.ErrorForSave));
+            getPublishSubject().onNext(StaticValues.ML_Error);
+        }
+
+    }//_____________________________________________________________________________________________ AddPerson
 
 
     public void GetContact() {//____________________________________________________________________ GetContact
@@ -46,7 +93,7 @@ public class VM_AddPerson extends VM_Primary {
                         while (pCur.moveToNext()) {
                             String phoneNo = pCur.getString(pCur.getColumnIndex(
                                     ContactsContract.CommonDataKinds.Phone.NUMBER));
-                            phoneNo = phoneNo.replaceAll("-","");
+                            phoneNo = phoneNo.replaceAll("-", "");
                             md_contacts.add(new MD_Contact(name, phoneNo));
                         }
                         pCur.close();
@@ -68,7 +115,6 @@ public class VM_AddPerson extends VM_Primary {
 
 
     }//_____________________________________________________________________________________________ GetContact
-
 
 
     public void FilterContact(String text) {//______________________________________________________ FilterContact

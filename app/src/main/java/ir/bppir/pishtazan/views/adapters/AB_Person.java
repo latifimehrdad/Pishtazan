@@ -15,18 +15,20 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.RealmResults;
 import ir.bppir.pishtazan.R;
+import ir.bppir.pishtazan.database.DB_Persons;
 import ir.bppir.pishtazan.databinding.AdabterPersonPanelBinding;
 import ir.bppir.pishtazan.models.MD_Person;
 
 public class AB_Person extends RecyclerView.Adapter<AB_Person.CustomHolder> {
 
-    private List<MD_Person> personList;
+    private RealmResults<DB_Persons> db_persons;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public AB_Person(List<MD_Person> personList, Context context) {
-        this.personList = personList;
+    public AB_Person(RealmResults<DB_Persons> db_persons, Context context) {
+        this.db_persons = db_persons;
         this.context = context;
     }
 
@@ -38,11 +40,11 @@ public class AB_Person extends RecyclerView.Adapter<AB_Person.CustomHolder> {
     }
 
     public void onBindViewHolder(AB_Person.CustomHolder holder, int position) {
-        holder.bind(personList.get(position), position);
+        holder.bind(db_persons.get(position), position);
     }
 
     public int getItemCount() {
-        return personList.size();
+        return db_persons.size();
     }
 
     public class CustomHolder extends RecyclerView.ViewHolder {
@@ -59,7 +61,7 @@ public class AB_Person extends RecyclerView.Adapter<AB_Person.CustomHolder> {
             ButterKnife.bind(this, view);
         }
 
-        public void bind(MD_Person item, final int positon) {
+        public void bind(DB_Persons item, final int positon) {
             binding.setPerson(item);
 
             List<String> list = new ArrayList<>();

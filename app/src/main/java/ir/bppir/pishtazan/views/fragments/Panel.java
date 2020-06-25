@@ -42,6 +42,15 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
     @BindView(R.id.LinearLayoutAdd)
     LinearLayout LinearLayoutAdd;
 
+    @BindView(R.id.LinearLayoutMaybe)
+    LinearLayout LinearLayoutMaybe;
+
+    @BindView(R.id.LinearLayoutPossible)
+    LinearLayout LinearLayoutPossible;
+
+    @BindView(R.id.LinearLayoutCertain)
+    LinearLayout LinearLayoutCertain;
+
 
     public Panel() {//______________________________________________________________________________ Panel
 
@@ -63,6 +72,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
             ButterKnife.bind(this, getView());
             SetClick();
             PersonType = 0;
+            LinearLayoutAdd.setVisibility(View.VISIBLE);
         }
         return getView();
     }//_____________________________________________________________________________________________ onCreateView
@@ -74,6 +84,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         init();
         GetList();
     }//_____________________________________________________________________________________________ onStart
+
 
 
     private void init() {//_________________________________________________________________________ init
@@ -94,6 +105,8 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
     private void GetList() {//______________________________________________________________________ GetList
         if (ab_person == null)
             vm_panel.GetPerson(Partner, PersonType);
+        else
+            ab_person.notifyDataSetChanged();
     }//_____________________________________________________________________________________________ GetList
 
 
@@ -118,11 +131,48 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
             }
         });
 
+
+        LinearLayoutMaybe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LinearLayoutAdd.setVisibility(View.VISIBLE);
+                LinearLayoutPossible.setBackground(null);
+                LinearLayoutCertain.setBackground(null);
+                LinearLayoutMaybe.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
+                PersonType = StaticValues.ML_Maybe;
+                GetList();
+            }
+        });
+
+        LinearLayoutPossible.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LinearLayoutAdd.setVisibility(View.GONE);
+                LinearLayoutMaybe.setBackground(null);
+                LinearLayoutCertain.setBackground(null);
+                LinearLayoutPossible.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
+                PersonType = StaticValues.ML_Possible;
+                GetList();
+            }
+        });
+
+        LinearLayoutCertain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LinearLayoutAdd.setVisibility(View.GONE);
+                LinearLayoutMaybe.setBackground(null);
+                LinearLayoutPossible.setBackground(null);
+                LinearLayoutCertain.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
+                PersonType = StaticValues.ML_Certain;
+                GetList();
+            }
+        });
+
     }//_____________________________________________________________________________________________ SetClick
 
 
     private void SetAdapterPerson() {//_____________________________________________________________ SetAdapterPerson
-        ab_person = new AB_Person(vm_panel.getPersonList(), getContext());
+        ab_person = new AB_Person(vm_panel.getDb_persons(), getContext());
         RecyclerViewPanel.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewPanel.setAdapter(ab_person);
     }//_____________________________________________________________________________________________ SetAdapterPerson

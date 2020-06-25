@@ -20,16 +20,19 @@ import ir.bppir.pishtazan.databinding.AdabterContactBinding;
 import ir.bppir.pishtazan.databinding.AdabterPersonPanelBinding;
 import ir.bppir.pishtazan.models.MD_Contact;
 import ir.bppir.pishtazan.models.MD_Person;
+import ir.bppir.pishtazan.views.fragments.AddPerson;
 
 public class AB_Contact extends RecyclerView.Adapter<AB_Contact.CustomHolder> {
 
     private List<MD_Contact> md_contacts;
     private LayoutInflater layoutInflater;
     private Context context;
+    private AddPerson addPerson;
 
-    public AB_Contact(List<MD_Contact> md_contacts, Context context) {
+    public AB_Contact(List<MD_Contact> md_contacts, Context context, AddPerson addPerson) {
         this.md_contacts = md_contacts;
         this.context = context;
+        this.addPerson = addPerson;
     }
 
     public AB_Contact.CustomHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -50,16 +53,23 @@ public class AB_Contact extends RecyclerView.Adapter<AB_Contact.CustomHolder> {
     public class CustomHolder extends RecyclerView.ViewHolder {
 
         AdabterContactBinding binding;
+        View view;
 
         public CustomHolder(AdabterContactBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-            View view = binding.getRoot();
+            view = binding.getRoot();
             ButterKnife.bind(this, view);
         }
 
         public void bind(MD_Contact item, final int position) {
             binding.setContact(item);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    addPerson.ClickContact(position);
+                }
+            });
             binding.executePendingBindings();
         }
 

@@ -13,6 +13,7 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import ir.bppir.pishtazan.utility.StaticValues;
+import ir.bppir.pishtazan.views.application.PishtazanApplication;
 import ir.bppir.pishtazan.views.dialogs.DialogMessage;
 
 public class FragmentPrimary extends Fragment {

@@ -49,6 +49,8 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_AddPerson;
 import ir.bppir.pishtazan.views.adapters.AB_Contact;
 
+import static ir.bppir.pishtazan.utility.StaticFunctions.TextChangeForChangeBack;
+
 public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
     private NavController navController;
@@ -73,6 +75,19 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
     @BindView(R.id.GifViewAdd)
     GifView GifViewAdd;
 
+    @BindView(R.id.EditTextName)
+    EditText EditTextName;
+
+    @BindView(R.id.EditTextPhoneNumber)
+    EditText EditTextPhoneNumber;
+
+    @BindView(R.id.LinearLayoutCancel)
+    LinearLayout LinearLayoutCancel;
+
+
+    @BindView(R.id.LinearLayoutSave)
+    LinearLayout LinearLayoutSave;
+
 
     public AddPerson() {//__________________________________________________________________________ AddPerson
 
@@ -92,6 +107,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
             binding.setAddPerson(vm_addPerson);
             setView(binding.getRoot());
             ButterKnife.bind(this, getView());
+            SetTextWatcher();
             SetClick();
         }
         return getView();
@@ -121,13 +137,13 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
     @Override
     public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
-        if (action == StaticValues.ML_Error) {
-            FinishWaiting();
+        if (action == StaticValues.ML_AddPerson) {
             ShowMessage(
                     vm_addPerson.getResponseMessage(),
                     getResources().getColor(R.color.ML_Dialog),
-                    getResources().getDrawable(R.drawable.ic_baseline_warning),
-                    getResources().getColor(R.color.ML_Red));
+                    getResources().getDrawable(R.drawable.ic_baseline_how_to_reg),
+                    getResources().getColor(R.color.ML_OK));
+            getActivity().onBackPressed();
             return;
         }
 
@@ -152,6 +168,15 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
             return;
         }
 
+        if (action == StaticValues.ML_Error) {
+            FinishWaiting();
+            ShowMessage(
+                    vm_addPerson.getResponseMessage(),
+                    getResources().getColor(R.color.ML_Dialog),
+                    getResources().getDrawable(R.drawable.ic_baseline_warning),
+                    getResources().getColor(R.color.ML_Red));
+            return;
+        }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
@@ -175,7 +200,36 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
             }
         });
 
+        LinearLayoutCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
+
+
+        LinearLayoutSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (CheckEmpty()) {
+                    vm_addPerson.AddPerson(
+                            EditTextName.getText().toString(),
+                            EditTextPhoneNumber.getText().toString(),
+                            (byte) 0,
+                            Partner
+                    );
+                }
+            }
+        });
+
     }//_____________________________________________________________________________________________ SetClick
+
+
+    private void SetTextWatcher() {//_______________________________________________________________ Start SetTextWatcher
+        EditTextPhoneNumber.addTextChangedListener(TextChangeForChangeBack(EditTextPhoneNumber));
+        EditTextName.addTextChangedListener(TextChangeForChangeBack(EditTextName));
+    }//_____________________________________________________________________________________________ End SetTextWatcher
+
 
 
     private void ShowWaiting() {//__________________________________________________________________ ShowWaiting
@@ -241,7 +295,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
     }//_____________________________________________________________________________________________ ShowContactDialog
 
 
-    private DisposableObserver<TextViewTextChangeEvent> searchContactsTextWatcher() {//_____________ Start searchContactsTextWatcher
+    private DisposableObserver<TextViewTextChangeEvent> searchContactsTextWatcher() {//_____________ searchContactsTextWatcher
         return new DisposableObserver<TextViewTextChangeEvent>() {
             @Override
             public void onNext(TextViewTextChangeEvent textViewTextChangeEvent) {
@@ -258,14 +312,50 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
 
             }
         };
-    }//_____________________________________________________________________________________________ End searchContactsTextWatcher
+    }//_____________________________________________________________________________________________ searchContactsTextWatcher
 
 
     private void SetContactAdapter() {//____________________________________________________________ SetContactAdapter
-        ab_contact = new AB_Contact(md_contacts, getContext());
+        ab_contact = new AB_Contact(md_contacts, getContext(), AddPerson.this);
         RecyclerViewContact.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewContact.setAdapter(ab_contact);
     }//_____________________________________________________________________________________________ SetContactAdapter
 
+
+
+    public void ClickContact(Integer position) {//__________________________________________________ SetContactAdapter
+        dialogContact.dismiss();
+        dialogContact = null;
+        ab_contact = null;
+        EditTextName.setText(md_contacts.get(position).getName());
+        EditTextPhoneNumber.setText(md_contacts.get(position).getPhone());
+    }//_____________________________________________________________________________________________ SetContactAdapter
+
+
+    private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
+
+        boolean name = true;
+        boolean mobile = true;
+
+        if (EditTextPhoneNumber.getText().length() < 11) {
+            EditTextPhoneNumber.setBackgroundResource(R.drawable.dw_edit_empty_background);
+            EditTextPhoneNumber.setError(getResources().getString(R.string.EnterPhoneNumber));
+            EditTextPhoneNumber.requestFocus();
+            mobile = false;
+        }
+
+        if (EditTextName.getText().length() == 0) {
+            EditTextName.setBackgroundResource(R.drawable.dw_edit_empty_background);
+            EditTextName.setError(getResources().getString(R.string.EmptyContactName));
+            EditTextName.requestFocus();
+            name = false;
+        }
+
+        if (mobile&&name)
+            return true;
+        else
+            return false;
+
+    }//_____________________________________________________________________________________________ CheckEmpty
 
 }

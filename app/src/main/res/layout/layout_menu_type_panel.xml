@@ -15,6 +15,7 @@
         >
 
         <LinearLayout
+            android:id="@+id/LinearLayoutCertain"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -24,7 +25,7 @@
                 fontPath="fonts/iransans_web_medium.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@color/ML_Dialog"
+                android:textColor="@color/ML_HarmonyDark"
                 android:textSize="@dimen/_10sdp"
                 android:gravity="center"
                 android:text="@string/Certain"/>
@@ -32,6 +33,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/LinearLayoutPossible"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -42,7 +44,7 @@
                 fontPath="fonts/iransans_web_medium.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@color/ML_Dialog"
+                android:textColor="@color/ML_HarmonyDark"
                 android:textSize="@dimen/_10sdp"
                 android:gravity="center"
                 android:text="@string/Possible"/>
@@ -50,6 +52,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/LinearLayoutMaybe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -59,7 +62,7 @@
                 fontPath="fonts/iransans_web_medium.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@color/ML_Black"
+                android:textColor="@color/ML_HarmonyDark"
                 android:textSize="@dimen/_10sdp"
                 android:gravity="center"
                 android:text="@string/Maybe"/>

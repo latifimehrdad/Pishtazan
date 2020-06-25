@@ -5,6 +5,11 @@ public class StaticValues {
     public static boolean isCancel = false;
     public static boolean isLogin = true;
 
+    public static Byte ML_Maybe = 0;
+    public static Byte ML_Possible = 1;
+    public static Byte ML_Certain = 2;
+
+
     //___________________ Numbers For Control Observable
     public static Byte ML_GotoHome = 0;
     public static Byte ML_GotoVerify = 1;
@@ -14,5 +19,8 @@ public class StaticValues {
     public static Byte ML_GetContact = 5;
     public static Byte ML_Error = 6;
     public static Byte ML_GetContactFilter = 7;
+    public static Byte ML_AddPerson = 8;
+
+
 
 }

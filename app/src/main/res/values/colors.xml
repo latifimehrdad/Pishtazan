@@ -17,6 +17,7 @@
     <color name="ML_EditEmpty">#FAD85A</color>
     <color name="ML_Trans">#00000000</color>
     <color name="ML_WhiteGray">#EBEAEA</color>
+    <color name="ML_OK">#058101</color>
 
 
 </resources>
