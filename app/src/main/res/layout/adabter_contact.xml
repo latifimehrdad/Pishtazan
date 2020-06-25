@@ -27,47 +27,70 @@
             android:paddingRight="@dimen/_10sdp"
             android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:textColor="@color/ML_Splash"
-                android:textSize="@dimen/_8sdp"
-                android:text="@string/Name_LastName"
-                />
+                android:orientation="horizontal">
 
-            <TextView
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/_10sdp"
+                    fontPath="font/iransans_web_medium.ttf"
+                    android:text="@{contact.name}"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:textColor="@color/ML_Splash"
+                    android:textSize="@dimen/_8sdp"
+                    android:text="@string/Name_LastName"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/_10sdp"
-                fontPath="font/iransans_web_medium.ttf"
-                android:text="@{contact.name}"
-                android:layout_marginTop="@dimen/_1sdp"
-                />
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:textColor="@color/ML_Splash"
-                android:textSize="@dimen/_8sdp"
-                android:text="@string/PhoneNumber"
+                android:layout_height="1dp"
+                android:background="@color/ML_Dialog"
                 android:layout_marginTop="@dimen/_5sdp"
-                />
+                android:layout_marginBottom="@dimen/_5sdp"/>
 
-            <TextView
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/_10sdp"
-                fontPath="font/iransans_web_medium.ttf"
-                android:text="@{contact.phone}"
-                android:layout_marginTop="@dimen/_1sdp"
-                />
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/_10sdp"
+                    fontPath="font/iransans_web_medium.ttf"
+                    android:text="@{contact.phone}"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:textColor="@color/ML_Splash"
+                    android:textSize="@dimen/_8sdp"
+                    android:text="@string/PhoneNumber"
+                    />
+
+            </LinearLayout>
 
         </LinearLayout>
 

@@ -7,11 +7,46 @@
     android:background="@color/ML_WhiteGray"
     >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:orientation="horizontal">
+
+
+        <EditText
+            android:id="@+id/EditTextName"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/_27sdp"
+            android:background="@drawable/dw_edit_back"
+            android:inputType="textPostalAddress"
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_12sdp"
+            android:hint="@string/SearchContact"
+            android:maxLength="11"
+            />
+
+        <ImageView
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="match_parent"
+            android:background="@drawable/dw_icon_background"
+            android:src="@drawable/ic_baseline_contact_phone"
+            android:tint="@color/ML_Harmony" />
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecyclerViewContact"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_marginTop="@dimen/_5sdp"
         android:padding="@dimen/_10sdp"/>
 
 

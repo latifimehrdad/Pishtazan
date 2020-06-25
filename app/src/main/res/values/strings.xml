@@ -25,6 +25,7 @@
     <string name="Save">ذخیره</string>
     <string name="ContactIsEmpty">لیست مخاطبین شما خالی است</string>
     <string name="PhoneNumber">تلفن</string>
+    <string name="SearchContact">جستجوی مخاطب</string>
 
 
     //___________________________ Values For SharedPreference ______________________________________

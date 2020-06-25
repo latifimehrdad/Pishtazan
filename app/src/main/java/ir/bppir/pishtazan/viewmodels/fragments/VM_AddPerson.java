@@ -17,6 +17,7 @@ public class VM_AddPerson extends VM_Primary {
 
     private Context context;
     private List<MD_Contact> md_contacts;
+    private List<MD_Contact> md_contactsFilter;
 
     public VM_AddPerson(Context context) {//________________________________________________________ VM_AddPerson
         this.context = context;
@@ -45,6 +46,7 @@ public class VM_AddPerson extends VM_Primary {
                         while (pCur.moveToNext()) {
                             String phoneNo = pCur.getString(pCur.getColumnIndex(
                                     ContactsContract.CommonDataKinds.Phone.NUMBER));
+                            phoneNo = phoneNo.replaceAll("-","");
                             md_contacts.add(new MD_Contact(name, phoneNo));
                         }
                         pCur.close();
@@ -68,8 +70,37 @@ public class VM_AddPerson extends VM_Primary {
     }//_____________________________________________________________________________________________ GetContact
 
 
+
+    public void FilterContact(String text) {//______________________________________________________ FilterContact
+        if (text == null || text.length() == 0) {
+            getPublishSubject().onNext(StaticValues.ML_GetContact);
+        } else {
+            if (md_contactsFilter == null)
+                md_contactsFilter = new ArrayList<>();
+            else
+                md_contactsFilter.clear();
+
+            for (MD_Contact contact : md_contacts) {
+                String name = contact.getName();
+                String Phone = contact.getPhone();
+                if (name.toLowerCase().contains(text.toLowerCase()))
+                    md_contactsFilter.add(contact);
+                else if (Phone.toLowerCase().contains(text.toLowerCase()))
+                    md_contactsFilter.add(contact);
+            }
+            getPublishSubject().onNext(StaticValues.ML_GetContactFilter);
+        }
+
+
+    }//_____________________________________________________________________________________________ FilterContact
+
+
     public List<MD_Contact> getMd_contacts() {//____________________________________________________ getMd_contacts
         return md_contacts;
     }//_____________________________________________________________________________________________ getMd_contacts
 
+
+    public List<MD_Contact> getMd_contactsFilter() {//______________________________________________ getMd_contactsFilter
+        return md_contactsFilter;
+    }//_____________________________________________________________________________________________ getMd_contactsFilter
 }
