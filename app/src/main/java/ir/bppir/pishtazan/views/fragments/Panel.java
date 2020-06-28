@@ -37,10 +37,14 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
 
     private NavController navController;
     private VM_Panel vm_panel;
-    private Boolean Partner;
+    private int panelType;
     private AP_Person AP_person;
     private Byte PersonType = 0;
     private Dialog dialog;
+    private Long longDate;
+    private String stringDate;
+    private Long longTime;
+    private String stringTime;
 
     @BindView(R.id.LinearLayoutParent)
     LinearLayout LinearLayoutParent;
@@ -114,8 +118,8 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
 
     private void init() {//_________________________________________________________________________ init
 
-        Partner = getArguments().getBoolean(getContext().getString(R.string.ML_PartnersType), true);
-        if (Partner) {
+        panelType = getArguments().getInt(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
+        if (panelType == StaticValues.Partner) {
             LinearLayoutParent.setBackgroundColor(getContext().getResources().getColor(R.color.ML_White));
             TextViewTitle.setText(getContext().getResources().getString(R.string.Partners));
         } else {
@@ -127,7 +131,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
 
 
     private void GetList() {//______________________________________________________________________ GetList
-        vm_panel.GetPerson(Partner, PersonType);
+        vm_panel.GetPerson(panelType, PersonType);
     }//_____________________________________________________________________________________________ GetList
 
 
@@ -175,7 +179,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putBoolean(getContext().getString(R.string.ML_PartnersType), Partner);
+                bundle.putInt(getContext().getString(R.string.ML_PanelType), panelType);
                 navController.navigate(R.id.action_panel_to_addPerson, bundle);
             }
         });
@@ -262,6 +266,10 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
             case 3:// ثبت یادآوری جلسه  : Action 3
                 ShowMeetingReminder(Position);
                 break;
+
+            case 5:// Action 5 : انتقال به احتمالی
+                MoveToPossible(Position);
+                break;
         }
 
     }//_____________________________________________________________________________________________ ActionForMaybe
@@ -280,6 +288,9 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
 
             case 3:// ثبت یادآوری جلسه  : Action 3
                 ShowMeetingReminder(Position);
+                break;
+            case 5:// Action 5 : انتقال به قطعی
+                MoveToCertain(Position);
                 break;
         }
 
@@ -323,13 +334,20 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
                 persianCalendar.setListener(new Listener() {
                     @Override
                     public void onDateSelected(PersianCalendar persianCalendar) {
-                        StringBuilder sb = new StringBuilder();
-                        sb.append(persianCalendar.getPersianYear());
-                        sb.append("/");
-                        sb.append(String.format("%02d", persianCalendar.getPersianMonth()));
-                        sb.append("/");
-                        sb.append(String.format("%02d", persianCalendar.getPersianDay()));
-                        TextViewChooseDate.setText(sb.toString());
+                        StringBuilder sb1 = new StringBuilder();
+                        sb1.append(persianCalendar.getPersianYear());
+                        sb1.append(String.format("%02d", persianCalendar.getPersianMonth()));
+                        sb1.append(String.format("%02d", persianCalendar.getPersianDay()));
+                        longDate = Long.valueOf(sb1.toString());
+
+                        StringBuilder sb2 = new StringBuilder();
+                        sb2.append(persianCalendar.getPersianYear());
+                        sb2.append("/");
+                        sb2.append(String.format("%02d", persianCalendar.getPersianMonth()));
+                        sb2.append("/");
+                        sb2.append(String.format("%02d", persianCalendar.getPersianDay()));
+                        stringDate = sb2.toString();
+                        TextViewChooseDate.setText(stringDate);
                     }
 
                     @Override
@@ -360,6 +378,17 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
             public void onClick(View view) {
                 dialog.dismiss();
                 dialog = null;
+                StringBuilder sb1 = new StringBuilder();
+                sb1.append(String.format("%02d", TimePickerReminder.getCurrentHour()));
+                sb1.append(String.format("%02d", TimePickerReminder.getCurrentMinute()));
+                longTime = Long.valueOf(sb1.toString());
+
+                StringBuilder sb2 = new StringBuilder();
+                sb2.append(String.format("%02d", TimePickerReminder.getCurrentHour()));
+                sb2.append(":");
+                sb2.append(String.format("%02d", TimePickerReminder.getCurrentMinute()));
+                stringTime = sb2.toString();
+
                 SaveCallReminder(Position);
             }
         });
@@ -406,13 +435,20 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
                 persianCalendar.setListener(new Listener() {
                     @Override
                     public void onDateSelected(PersianCalendar persianCalendar) {
-                        StringBuilder sb = new StringBuilder();
-                        sb.append(persianCalendar.getPersianYear());
-                        sb.append("/");
-                        sb.append(String.format("%02d", persianCalendar.getPersianMonth()));
-                        sb.append("/");
-                        sb.append(String.format("%02d", persianCalendar.getPersianDay()));
-                        TextViewChooseDate.setText(sb.toString());
+                        StringBuilder sb1 = new StringBuilder();
+                        sb1.append(persianCalendar.getPersianYear());
+                        sb1.append(String.format("%02d", persianCalendar.getPersianMonth()));
+                        sb1.append(String.format("%02d", persianCalendar.getPersianDay()));
+                        longDate = Long.valueOf(sb1.toString());
+
+                        StringBuilder sb2 = new StringBuilder();
+                        sb2.append(persianCalendar.getPersianYear());
+                        sb2.append("/");
+                        sb2.append(String.format("%02d", persianCalendar.getPersianMonth()));
+                        sb2.append("/");
+                        sb2.append(String.format("%02d", persianCalendar.getPersianDay()));
+                        stringDate = sb2.toString();
+                        TextViewChooseDate.setText(stringDate);
                     }
 
                     @Override
@@ -443,6 +479,16 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
             public void onClick(View view) {
                 dialog.dismiss();
                 dialog = null;
+                StringBuilder sb1 = new StringBuilder();
+                sb1.append(String.format("%02d", TimePickerReminder.getCurrentHour()));
+                sb1.append(String.format("%02d", TimePickerReminder.getCurrentMinute()));
+                longTime = Long.valueOf(sb1.toString());
+
+                StringBuilder sb2 = new StringBuilder();
+                sb2.append(String.format("%02d", TimePickerReminder.getCurrentHour()));
+                sb2.append(":");
+                sb2.append(String.format("%02d", TimePickerReminder.getCurrentMinute()));
+                stringTime = sb2.toString();
                 SaveMeetingReminder(Position);
             }
         });
@@ -512,12 +558,23 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
 
 
     private void SaveCallReminder(Integer Position) {//_____________________________________________ SaveCallReminder
-        vm_panel.SaveCallReminder(Position);
+        vm_panel.SaveCallReminder(Position, longDate, stringDate, longTime, stringTime);
     }//_____________________________________________________________________________________________ SaveCallReminder
 
 
     private void SaveMeetingReminder(Integer Position) {//__________________________________________ SaveMeetingReminder
-        vm_panel.SaveMeetingReminder(Position);
+        vm_panel.SaveMeetingReminder(Position, longDate, stringDate, longTime, stringTime);
     }//_____________________________________________________________________________________________ SaveMeetingReminder
+
+
+    private void MoveToPossible(Integer Position) {//_______________________________________________ MoveToPossible
+        vm_panel.MoveToPossible(Position);
+    }//_____________________________________________________________________________________________ MoveToPossible
+
+
+    private void MoveToCertain(Integer Position) {//_______________________________________________ MoveToPossible
+        vm_panel.MoveToCertain(Position);
+    }//_____________________________________________________________________________________________ MoveToPossible
+
 
 }

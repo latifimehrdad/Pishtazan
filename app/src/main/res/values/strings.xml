@@ -44,10 +44,14 @@
     <string name="AreYouSureYouWantToDeleteIt1">آیا برای حذف</string>
     <string name="AreYouSureYouWantToDeleteIt2">مطمئن هستید؟</string>
     <string name="SuccessDeletePerson">شخص با موفقیت از لیست حذف شد</string>
+    <string name="MoveToPossible">انتقال به احتمالی</string>
+    <string name="MoveToCertain">انتقال به قطعی</string>
+    <string name="SuccessForMoveToPossible">شخص با موفقیت به لیست احتمالی منتقل شد</string>
+    <string name="SuccessForMoveToCertain">شخص با موفقیت به لیست قطعی منتقل شد</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>
-    <string name="ML_PartnersType">PartnersType</string>
+    <string name="ML_PanelType">PanelType</string>
 
 
 </resources>

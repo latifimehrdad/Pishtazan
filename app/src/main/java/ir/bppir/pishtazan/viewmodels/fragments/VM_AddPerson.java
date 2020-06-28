@@ -28,7 +28,7 @@ public class VM_AddPerson extends VM_Primary {
     }//_____________________________________________________________________________________________ VM_AddPerson
 
 
-    public void AddPerson(String Name, String Phone, Byte Degree, boolean Partner) {//______________ AddPerson
+    public void AddPerson(String Name, String Phone, Byte Degree, int panelType) {//______________ AddPerson
 
         Realm realm = PishtazanApplication
                 .getApplication(context)
@@ -49,7 +49,7 @@ public class VM_AddPerson extends VM_Primary {
                             true,
                             "",
                             Degree,
-                            Partner,
+                            panelType,
                             (byte) 0);
             realm.commitTransaction();
 

@@ -61,8 +61,8 @@
         android:label="Home"
         tools:layout="@layout/fragment_home">
 
-        <argument android:name="@string/ML_PartnersType"
-            android:defaultValue="true"/>
+        <argument android:name="@string/ML_PanelType"
+            android:defaultValue="0"/>
 
         <action
             android:id="@+id/action_home_to_panel"
@@ -81,8 +81,8 @@
         tools:layout="@layout/fragment_panel"
         >
 
-        <argument android:name="@string/ML_PartnersType"
-            android:defaultValue="true"/>
+        <argument android:name="@string/ML_PanelType"
+            android:defaultValue="0"/>
 
         <action
             android:id="@+id/action_panel_to_addPerson"

@@ -9,6 +9,11 @@ public class StaticValues {
     public static Byte ML_Possible = 1;
     public static Byte ML_Certain = 2;
 
+    public static Byte Call = 0;
+    public static Byte Meeting = 1;
+
+    public static Byte Customer = 0;
+    public static Byte Partner = 1;
 
     //___________________ Numbers For Control Observable
     public static Byte ML_GotoHome = 0;

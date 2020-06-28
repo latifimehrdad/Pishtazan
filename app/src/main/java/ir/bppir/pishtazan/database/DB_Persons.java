@@ -28,11 +28,11 @@ public class DB_Persons extends RealmObject {
 
     private Byte Degree;
 
-    private boolean Partner;
+    private int panelType;
 
     private Byte PersonType;
 
-    public void insert(Integer id, String name, String phoneNumber, String job, String birthDay, double lat, double lng, String address, boolean gender, String imgUrl, Byte degree, boolean partner, Byte personType) {
+    public void insert(Integer id, String name, String phoneNumber, String job, String birthDay, double lat, double lng, String address, boolean gender, String imgUrl, Byte degree, int paneltype, Byte personType) {
         Id = id;
         Name = name;
         PhoneNumber = phoneNumber;
@@ -44,7 +44,7 @@ public class DB_Persons extends RealmObject {
         Gender = gender;
         ImgUrl = imgUrl;
         Degree = degree;
-        Partner = partner;
+        panelType = paneltype;
         PersonType = personType;
     }
 
@@ -92,9 +92,6 @@ public class DB_Persons extends RealmObject {
         return Degree;
     }
 
-    public boolean isPartner() {
-        return Partner;
-    }
 
     public Byte getPersonType() {
         return PersonType;
@@ -144,11 +141,15 @@ public class DB_Persons extends RealmObject {
         Degree = degree;
     }
 
-    public void setPartner(boolean partner) {
-        Partner = partner;
-    }
-
     public void setPersonType(Byte personType) {
         PersonType = personType;
+    }
+
+    public int getPanelType() {
+        return panelType;
+    }
+
+    public void setPanelType(int panelType) {
+        this.panelType = panelType;
     }
 }

@@ -19,6 +19,7 @@ import io.realm.RealmResults;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.database.DB_Persons;
 import ir.bppir.pishtazan.databinding.AdabterPersonPanelBinding;
+import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.views.fragments.Panel;
 
 public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
@@ -66,13 +67,25 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
         public void bind(DB_Persons item, final int itemPosition) {
             binding.setPerson(item);
 
-            List<String> list = new ArrayList<>();
-            list.add(context.getResources().getString(R.string.ActionPrompt));// position 0
-            list.add(context.getResources().getString(R.string.CompleteInformation));//position 1
-            list.add(context.getResources().getString(R.string.SetCallReminder));//position 2
-            list.add(context.getResources().getString(R.string.SetMeetingReminder));//position 3
-            list.add(context.getResources().getString(R.string.DeleteFromList));
-            MaterialSpinnerAction.setItems(list);
+            if (item.getPersonType() == StaticValues.ML_Maybe) {
+                List<String> list = new ArrayList<>();
+                list.add(context.getResources().getString(R.string.ActionPrompt));// position 0
+                list.add(context.getResources().getString(R.string.CompleteInformation));//position 1
+                list.add(context.getResources().getString(R.string.SetCallReminder));//position 2
+                list.add(context.getResources().getString(R.string.SetMeetingReminder));//position 3
+                list.add(context.getResources().getString(R.string.DeleteFromList));//position 4
+                list.add(context.getResources().getString(R.string.MoveToPossible));//position 5
+                MaterialSpinnerAction.setItems(list);
+            } else if (item.getPersonType() == StaticValues.ML_Possible) {
+                List<String> list = new ArrayList<>();
+                list.add(context.getResources().getString(R.string.ActionPrompt));// position 0
+                list.add(context.getResources().getString(R.string.CompleteInformation));//position 1
+                list.add(context.getResources().getString(R.string.SetCallReminder));//position 2
+                list.add(context.getResources().getString(R.string.SetMeetingReminder));//position 3
+                list.add(context.getResources().getString(R.string.DeleteFromList));//position 4
+                list.add(context.getResources().getString(R.string.MoveToCertain));//position 5
+                MaterialSpinnerAction.setItems(list);
+            }
 
             MaterialSpinnerAction.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
                 @Override

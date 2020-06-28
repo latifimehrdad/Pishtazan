@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
@@ -81,7 +80,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putBoolean(getContext().getString(R.string.ML_PartnersType), true);
+                bundle.putInt(getContext().getString(R.string.ML_PanelType), StaticValues.Partner);
                 navController.navigate(R.id.action_home_to_panel, bundle);
             }
         });
@@ -90,7 +89,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putBoolean(getContext().getString(R.string.ML_PartnersType), false);
+                bundle.putInt(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
                 navController.navigate(R.id.action_home_to_panel, bundle);
             }
         });

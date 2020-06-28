@@ -46,7 +46,7 @@ import static ir.bppir.pishtazan.utility.StaticFunctions.TextChangeForChangeBack
 public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
     private NavController navController;
-    private Boolean Partner;
+    private int panelType;
     private VM_AddPerson vm_addPerson;
     private Dialog dialogContact;
     private AP_Contact AP_contact;
@@ -116,8 +116,8 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
     private void init() {//_________________________________________________________________________ init
         navController = Navigation.findNavController(getView());
         setGetMessageFromObservable(AddPerson.this, vm_addPerson.getPublishSubject());
-        Partner = getArguments().getBoolean(getContext().getString(R.string.ML_PartnersType), true);
-        if (Partner) {
+        panelType = getArguments().getInt(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
+        if (panelType == StaticValues.Customer) {
 
         } else {
 
@@ -208,7 +208,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
                             EditTextName.getText().toString(),
                             EditTextPhoneNumber.getText().toString(),
                             (byte) 0,
-                            Partner
+                            panelType
                     );
                 }
             }
