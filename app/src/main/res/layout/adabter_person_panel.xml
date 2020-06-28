@@ -43,8 +43,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:gravity="right"
+                android:background="@drawable/dw_edit_back"
                 android:prompt="@string/ActionPrompt"
-                app:ms_background_color="@color/ML_Dialog"
+                app:ms_arrow_tint="@color/colorPrimary"
                 app:ms_text_color="@color/ML_Black" />
 
         </LinearLayout>

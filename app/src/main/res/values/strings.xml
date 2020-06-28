@@ -18,7 +18,6 @@
     <string name="Possible">احتمالی</string>
     <string name="ShowOnMap">نمایش افراد روی نقشه</string>
     <string name="DescriptionForShowMap">در قسمت ویرایش اطلاعات، میتوانید با انتخاب موقعیت افراد، آنها را روی نقشه مشاهده کنید</string>
-    <string name="ActionPrompt">عملیات ها</string>
     <string name="AddPerson">اضافه کردن افراد</string>
     <string name="AddFromContact">انتخاب از لیست مخاطبین</string>
     <string name="Name_LastName">نام و نام خانوادگی</string>
@@ -29,7 +28,22 @@
     <string name="EmptyContactName">لطفا نام شخص را وارد نمایید</string>
     <string name="ErrorForSave">خطا در ثبت اطلاعات</string>
     <string name="AddPersonOk">شخص به لیست شما اضافه شد</string>
-
+    <string name="ActionPrompt">عملیات ها</string>
+    <string name="CompleteInformation">تکمیل اطلاعات</string>
+    <string name="SetCallReminder">ثبت یادآوری تماس</string>
+    <string name="SetMeetingReminder">ثبت یادآوری جلسه</string>
+    <string name="DeleteFromList">حذف کردن از لیست</string>
+    <string name="ChooseDate">انتخاب تاریخ</string>
+    <string name="ChooseTime">انتخاب ساعت</string>
+    <string name="TodayDate">تاریخ امروز</string>
+    <string name="SaveCallReminderAndConvert">یادآوری تماس ثبت شد و شخص به لیست احتمالی اضافه شد</string>
+    <string name="SaveCallReminder">یادآوری تماس ثبت شد</string>
+    <string name="SaveMeetingReminderAndConvert">یادآوری جلسه ثبت شد و شخص به لیست احتمالی اضافه شد</string>
+    <string name="SaveMeetingReminder">یادآوری جلسه ثبت شد</string>
+    <string name="Yes">بلی</string>
+    <string name="AreYouSureYouWantToDeleteIt1">آیا برای حذف</string>
+    <string name="AreYouSureYouWantToDeleteIt2">مطمئن هستید؟</string>
+    <string name="SuccessDeletePerson">شخص با موفقیت از لیست حذف شد</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>

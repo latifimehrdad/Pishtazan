@@ -189,6 +189,7 @@
                         android:layout_weight="1"
                         android:orientation="horizontal"
                         android:gravity="center"
+                        android:layout_marginLeft="@dimen/_5sdp"
                         android:background="@drawable/dw_back_question_right"
                         >
 

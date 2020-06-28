@@ -99,4 +99,56 @@ public class DB_Persons extends RealmObject {
     public Byte getPersonType() {
         return PersonType;
     }
+
+    public void setId(Integer id) {
+        Id = id;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        PhoneNumber = phoneNumber;
+    }
+
+    public void setJob(String job) {
+        Job = job;
+    }
+
+    public void setBirthDay(String birthDay) {
+        BirthDay = birthDay;
+    }
+
+    public void setLat(double lat) {
+        Lat = lat;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public void setGender(boolean gender) {
+        Gender = gender;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        ImgUrl = imgUrl;
+    }
+
+    public void setDegree(Byte degree) {
+        Degree = degree;
+    }
+
+    public void setPartner(boolean partner) {
+        Partner = partner;
+    }
+
+    public void setPersonType(Byte personType) {
+        PersonType = personType;
+    }
 }

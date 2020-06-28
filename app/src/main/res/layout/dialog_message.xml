@@ -38,7 +38,7 @@
         <Button
             android:id="@+id/DialogIgnor"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:background="@drawable/dw_back_bottom"
             android:text="@string/Cancel"

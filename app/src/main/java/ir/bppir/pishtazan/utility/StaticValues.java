@@ -20,6 +20,8 @@ public class StaticValues {
     public static Byte ML_Error = 6;
     public static Byte ML_GetContactFilter = 7;
     public static Byte ML_AddPerson = 8;
+    public static Byte ML_ConvertPerson = 9;
+    public static Byte ML_DeletePerson = 10;
 
 
 

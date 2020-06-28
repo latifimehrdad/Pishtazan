@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,16 +18,29 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center"
             >
 
             <TextView
                 fontPath="fonts/iransans_web_medium.ttf"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:textColor="@color/ML_HarmonyDark"
                 android:textSize="@dimen/_10sdp"
                 android:gravity="center"
                 android:text="@string/Certain"/>
+
+            <com.cunoraz.gifview.library.GifView
+                android:id="@+id/ProgressGifCertain"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                custom:gif="@drawable/loading2"
+                android:visibility="gone"
+                android:layout_marginRight="@dimen/_3sdp"
+                />
+
 
         </LinearLayout>
 
@@ -38,16 +50,29 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginRight="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_10sdp">
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <TextView
                 fontPath="fonts/iransans_web_medium.ttf"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:textColor="@color/ML_HarmonyDark"
                 android:textSize="@dimen/_10sdp"
                 android:gravity="center"
                 android:text="@string/Possible"/>
+
+            <com.cunoraz.gifview.library.GifView
+                android:id="@+id/ProgressGifPossible"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                custom:gif="@drawable/loading2"
+                android:visibility="gone"
+                android:layout_marginRight="@dimen/_3sdp"
+                />
+
 
         </LinearLayout>
 
@@ -56,16 +81,30 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/dw_back_recycler">
+            android:background="@drawable/dw_back_recycler"
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <TextView
                 fontPath="fonts/iransans_web_medium.ttf"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:textColor="@color/ML_HarmonyDark"
                 android:textSize="@dimen/_10sdp"
                 android:gravity="center"
                 android:text="@string/Maybe"/>
+
+
+            <com.cunoraz.gifview.library.GifView
+                android:id="@+id/ProgressGifMaybe"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                custom:gif="@drawable/loading2"
+                android:visibility="gone"
+                android:layout_marginRight="@dimen/_3sdp"
+                />
+
 
         </LinearLayout>
 

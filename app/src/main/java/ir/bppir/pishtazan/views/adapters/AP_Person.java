@@ -19,27 +19,29 @@ import io.realm.RealmResults;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.database.DB_Persons;
 import ir.bppir.pishtazan.databinding.AdabterPersonPanelBinding;
-import ir.bppir.pishtazan.models.MD_Person;
+import ir.bppir.pishtazan.views.fragments.Panel;
 
-public class AB_Person extends RecyclerView.Adapter<AB_Person.CustomHolder> {
+public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
 
     private RealmResults<DB_Persons> db_persons;
     private LayoutInflater layoutInflater;
     private Context context;
+    private Panel panel;
 
-    public AB_Person(RealmResults<DB_Persons> db_persons, Context context) {
+    public AP_Person(RealmResults<DB_Persons> db_persons, Context context, Panel panel) {
         this.db_persons = db_persons;
         this.context = context;
+        this.panel = panel;
     }
 
-    public AB_Person.CustomHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AP_Person.CustomHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (layoutInflater == null) {
             layoutInflater = LayoutInflater.from(parent.getContext());
         }
-        return new AB_Person.CustomHolder(DataBindingUtil.inflate(layoutInflater, R.layout.adabter_person_panel, parent, false));
+        return new AP_Person.CustomHolder(DataBindingUtil.inflate(layoutInflater, R.layout.adabter_person_panel, parent, false));
     }
 
-    public void onBindViewHolder(AB_Person.CustomHolder holder, int position) {
+    public void onBindViewHolder(AP_Person.CustomHolder holder, int position) {
         holder.bind(db_persons.get(position), position);
     }
 
@@ -61,16 +63,28 @@ public class AB_Person extends RecyclerView.Adapter<AB_Person.CustomHolder> {
             ButterKnife.bind(this, view);
         }
 
-        public void bind(DB_Persons item, final int positon) {
+        public void bind(DB_Persons item, final int itemPosition) {
             binding.setPerson(item);
 
             List<String> list = new ArrayList<>();
-            list.add("تکمیل اطلاعات");
-            list.add("ثبت یادآوری");
-            list.add("ثبت تماس");
+            list.add(context.getResources().getString(R.string.ActionPrompt));// position 0
+            list.add(context.getResources().getString(R.string.CompleteInformation));//position 1
+            list.add(context.getResources().getString(R.string.SetCallReminder));//position 2
+            list.add(context.getResources().getString(R.string.SetMeetingReminder));//position 3
+            list.add(context.getResources().getString(R.string.DeleteFromList));
             MaterialSpinnerAction.setItems(list);
-            binding.executePendingBindings();
 
+            MaterialSpinnerAction.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                    if (position != 0) {
+                        panel.ChooseActionFromList(itemPosition, position);
+                        MaterialSpinnerAction.setSelectedIndex(0);
+                    }
+                }
+            });
+
+            binding.executePendingBindings();
 
         }
 

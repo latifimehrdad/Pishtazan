@@ -3,8 +3,6 @@ package ir.bppir.pishtazan.views.fragments;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
@@ -28,18 +25,13 @@ import com.cunoraz.gifview.library.GifView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.jakewharton.rxbinding2.widget.TextViewTextChangeEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import ir.bppir.pishtazan.R;
@@ -47,7 +39,7 @@ import ir.bppir.pishtazan.databinding.FragmentAddPersonBinding;
 import ir.bppir.pishtazan.models.MD_Contact;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_AddPerson;
-import ir.bppir.pishtazan.views.adapters.AB_Contact;
+import ir.bppir.pishtazan.views.adapters.AP_Contact;
 
 import static ir.bppir.pishtazan.utility.StaticFunctions.TextChangeForChangeBack;
 
@@ -57,7 +49,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
     private Boolean Partner;
     private VM_AddPerson vm_addPerson;
     private Dialog dialogContact;
-    private AB_Contact ab_contact;
+    private AP_Contact AP_contact;
     private CompositeDisposable disposable = new CompositeDisposable();
     private List<MD_Contact> md_contacts;
     private RecyclerView RecyclerViewContact;
@@ -148,7 +140,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
         }
 
         if (action == StaticValues.ML_GetContact) {
-            if (ab_contact == null) {
+            if (AP_contact == null) {
                 FinishWaiting();
                 ShowContactDialog();
             } else {
@@ -316,9 +308,9 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
 
 
     private void SetContactAdapter() {//____________________________________________________________ SetContactAdapter
-        ab_contact = new AB_Contact(md_contacts, getContext(), AddPerson.this);
+        AP_contact = new AP_Contact(md_contacts, getContext(), AddPerson.this);
         RecyclerViewContact.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        RecyclerViewContact.setAdapter(ab_contact);
+        RecyclerViewContact.setAdapter(AP_contact);
     }//_____________________________________________________________________________________________ SetContactAdapter
 
 
@@ -326,7 +318,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
     public void ClickContact(Integer position) {//__________________________________________________ SetContactAdapter
         dialogContact.dismiss();
         dialogContact = null;
-        ab_contact = null;
+        AP_contact = null;
         EditTextName.setText(md_contacts.get(position).getName());
         EditTextPhoneNumber.setText(md_contacts.get(position).getPhone());
     }//_____________________________________________________________________________________________ SetContactAdapter
