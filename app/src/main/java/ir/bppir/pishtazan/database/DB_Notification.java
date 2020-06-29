@@ -23,6 +23,10 @@ public class DB_Notification extends RealmObject {
 
     private String Description;
 
+    private String PersonName;
+
+    private String PhoneNumber;
+
     public void insert(MD_Notify md_notify) {
         setNotifyType(md_notify.getNotifyType());
         setPersonType(md_notify.getPersonType());
@@ -31,6 +35,8 @@ public class DB_Notification extends RealmObject {
         setStringTime(md_notify.getStringTime());
         setLongTime(md_notify.getLongTime());
         setDescription(getDescription());
+        setPersonName(md_notify.getPersonName());
+        setPhoneNumber(md_notify.getPhoneNumber());
     }
 
 
@@ -92,5 +98,21 @@ public class DB_Notification extends RealmObject {
 
     public void setDescription(String description) {
         Description = description;
+    }
+
+    public String getPersonName() {
+        return PersonName;
+    }
+
+    public void setPersonName(String personName) {
+        PersonName = personName;
+    }
+
+    public String getPhoneNumber() {
+        return PhoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        PhoneNumber = phoneNumber;
     }
 }

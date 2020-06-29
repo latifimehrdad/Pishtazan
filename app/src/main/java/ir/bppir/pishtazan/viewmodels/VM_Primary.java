@@ -1,9 +1,12 @@
 package ir.bppir.pishtazan.viewmodels;
 
 import android.content.Context;
+import android.os.Handler;
 
 import io.reactivex.subjects.PublishSubject;
 import io.realm.Realm;
+import io.realm.RealmResults;
+import ir.bppir.pishtazan.background.NotificationManagerClass;
 import ir.bppir.pishtazan.database.DB_Notification;
 import ir.bppir.pishtazan.models.MD_Notify;
 import ir.bppir.pishtazan.utility.StaticValues;
@@ -38,9 +41,33 @@ public class VM_Primary {
         realm.createObject(DB_Notification.class, id).insert(md_notify);
         realm.commitTransaction();
         getPublishSubject().onNext(StaticValues.ML_ConvertPerson);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ShowNotification(context);
+            }
+        },2000);
+
 
     }//_____________________________________________________________________________________________ SaveToNotify
 
+
+    private void ShowNotification(Context context) {
+
+        Realm realm = PishtazanApplication
+                .getApplication(context)
+                .getRealmComponent()
+                .getRealm();
+
+        DB_Notification results = realm.where(DB_Notification.class).findAll().last();
+
+        NotificationManagerClass managerClass = new NotificationManagerClass(
+                context,
+                false,
+                results
+        );
+    }
 
     public PublishSubject<Byte> getPublishSubject() {//_____________________________________________ getPublishSubject
         return publishSubject;

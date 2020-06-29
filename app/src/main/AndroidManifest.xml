@@ -20,6 +20,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".background.NotificationReceiver">
+            <intent-filter>
+                <action android:name="Ignore"/>
+                <action android:name="Call"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

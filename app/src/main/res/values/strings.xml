@@ -59,10 +59,19 @@
     <string name="DegreePeach">هلو</string>
     <string name="DegreeGiant">غول</string>
     <string name="ChoosePersonDegree">درجه شخص را انتخاب کنید</string>
+    <string name="RememberCall">یادآوری تماس</string>
+    <string name="RememberMeeting">یادآوری جلسه</string>
+    <string name="CallWith">تماس با</string>
+    <string name="Clock">ساعت</string>
+    <string name="MeetingWith">جلسه با</string>
+    <string name="Calling">گرفتن تماس</string>
+    <string name="ShowDetail">جزییات بیشتر</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>
     <string name="ML_PanelType">PanelType</string>
-
+    <string name="ML_Id">Id</string>
+    <string name="ML_Ignore">Ignore</string>
+    <string name="ML_Calling">Calling</string>
 
 </resources>

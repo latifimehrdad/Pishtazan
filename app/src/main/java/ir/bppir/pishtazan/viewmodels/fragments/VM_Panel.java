@@ -84,7 +84,9 @@ public class VM_Panel extends VM_Primary {
                 longDate,
                 stringTime,
                 longTime,
-                null);
+                null,
+                db_persons.get(Position).getName(),
+                db_persons.get(Position).getPhoneNumber());
         SaveToNotify(md_notify, context);
 
     }//_____________________________________________________________________________________________ SaveCallReminder
@@ -111,13 +113,15 @@ public class VM_Panel extends VM_Primary {
         realm.commitTransaction();
 
         MD_Notify md_notify = new MD_Notify(
-                StaticValues.Call,
+                StaticValues.Meeting,
                 db_persons.get(Position).getPersonType(),
                 stringDate,
                 longDate,
                 stringTime,
                 longTime,
-                null);
+                null,
+                db_persons.get(Position).getName(),
+                db_persons.get(Position).getPhoneNumber());
         SaveToNotify(md_notify, context);
 
         getPublishSubject().onNext(StaticValues.ML_ConvertPerson);

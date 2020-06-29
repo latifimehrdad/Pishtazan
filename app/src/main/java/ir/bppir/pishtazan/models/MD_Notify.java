@@ -16,7 +16,12 @@ public class MD_Notify {
 
     private String Description;
 
-    public MD_Notify(Byte notifyType, Byte personType, String stringDate, Long longDate, String stringTime, Long longTime, String description) {
+    private String PersonName;
+
+    private String PhoneNumber;
+
+
+    public MD_Notify(Byte notifyType, Byte personType, String stringDate, Long longDate, String stringTime, Long longTime, String description, String personName, String phoneNumber) {
         this.notifyType = notifyType;
         this.personType = personType;
         this.stringDate = stringDate;
@@ -24,6 +29,8 @@ public class MD_Notify {
         this.stringTime = stringTime;
         this.longTime = longTime;
         Description = description;
+        PersonName = personName;
+        PhoneNumber = phoneNumber;
     }
 
     public Byte getNotifyType() {
@@ -80,5 +87,21 @@ public class MD_Notify {
 
     public void setDescription(String description) {
         Description = description;
+    }
+
+    public String getPersonName() {
+        return PersonName;
+    }
+
+    public void setPersonName(String personName) {
+        PersonName = personName;
+    }
+
+    public String getPhoneNumber() {
+        return PhoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        PhoneNumber = phoneNumber;
     }
 }
