@@ -33,8 +33,8 @@ public class DialogMessage extends DialogFragment {
     private int tintColor;
     private Drawable icon;
 
-    @BindView(R.id.DialogIgnor)
-    Button DialogIgnor;
+    @BindView(R.id.LinearLayoutAdd)
+    LinearLayout LinearLayoutAdd;
 
     @BindView(R.id.DialogTitle)
     TextView DialogTitle;
@@ -76,7 +76,7 @@ public class DialogMessage extends DialogFragment {
         DialogTitle.setText(Title);
         DialogImg.setImageDrawable(icon);
         DialogImg.setColorFilter(tintColor);
-        DialogIgnor.setOnClickListener(new View.OnClickListener() {
+        LinearLayoutAdd.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 DialogMessage.this.dismiss();
             }

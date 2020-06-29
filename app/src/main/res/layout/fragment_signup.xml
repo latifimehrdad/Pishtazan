@@ -10,19 +10,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.2" />
+        android:orientation="vertical"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="4.5"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -40,6 +35,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
+                    android:scrollbarStyle="outsideOverlay"
+                    android:fillViewport="true"
                     >
 
                     <LinearLayout
@@ -48,14 +45,19 @@
                         android:orientation="vertical"
                         android:layout_marginRight="@dimen/_20sdp"
                         android:layout_marginLeft="@dimen/_20sdp"
+                        android:gravity="center_horizontal"
                         >
+
+                        <ImageView
+                            android:id="@+id/ImageViewSplash"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_100sdp"
+                            android:src="@drawable/logo_splash" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_15sdp"
-                            android:layout_marginTop="@dimen/_1sdp"
-                            android:layout_marginRight="@dimen/_15sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
                             android:gravity="center"
                             android:maxLines="2"
                             fontPath="font/iransans_web_medium.ttf"
@@ -100,7 +102,7 @@
                         <RelativeLayout
                             android:id="@+id/ButtonSignUp"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_35sdp"
+                            android:layout_height="@dimen/_40sdp"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:background="@drawable/dw_back_bottom"
                             android:paddingTop="@dimen/_3sdp"
@@ -110,10 +112,10 @@
                                 android:id="@+id/imgProgress"
                                 android:layout_width="@dimen/_20sdp"
                                 android:layout_height="@dimen/_20sdp"
-                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
                                 android:src="@drawable/ic_baseline_lock_open"
-                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:layout_marginRight="@dimen/_8sdp"
                                 android:tint="@color/ML_Harmony" />
 
 
@@ -132,11 +134,11 @@
                                 android:id="@+id/ProgressGif"
                                 android:layout_width="@dimen/_20sdp"
                                 android:layout_height="@dimen/_20sdp"
-                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:layout_marginRight="@dimen/_8sdp"
                                 android:visibility="invisible"
-                                custom:gif="@drawable/loading" />
+                                custom:gif="@drawable/loading3" />
 
                         </RelativeLayout>
 

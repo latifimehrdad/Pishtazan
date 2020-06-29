@@ -5,6 +5,7 @@ import android.os.Handler;
 
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
+import ir.bppir.pishtazan.views.application.PishtazanApplication;
 
 public class VM_SignUp extends VM_Primary {
 
@@ -16,6 +17,12 @@ public class VM_SignUp extends VM_Primary {
 
 
     public void SendNumber(String PhoneNumber) {//__________________________________________________ SendNumber
+
+        PhoneNumber = PishtazanApplication
+                .getApplication(context)
+                .getApplicationUtilityComponent()
+                .getApplicationUtility()
+                .PersianToEnglish(PhoneNumber);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

@@ -10,9 +10,11 @@
     <string name="VerifyCode">6 رقم کد فعال سازی را وارد نمایید</string>
     <string name="ElapsedTimeGetSMS">زمان باقی مانده\n برای دریافت پیامک</string>
     <string name="ReTryGetSMS">دریافت دوباره\n پیامک</string>
-    <string name="PleaseWait">شکیبا باشید ...</string>
+    <string name="PleaseWait">شکیبا باشید</string>
     <string name="Partners">همکاران</string>
     <string name="Customer">مشتری</string>
+    <string name="PartnerPanel">پنل همکاران</string>
+    <string name="CustomerPanel">پنل مشتریان</string>
     <string name="Certain">قطعی</string>
     <string name="Maybe">بالقوه</string>
     <string name="Possible">احتمالی</string>
@@ -48,6 +50,15 @@
     <string name="MoveToCertain">انتقال به قطعی</string>
     <string name="SuccessForMoveToPossible">شخص با موفقیت به لیست احتمالی منتقل شد</string>
     <string name="SuccessForMoveToCertain">شخص با موفقیت به لیست قطعی منتقل شد</string>
+    <string name="PleaseWaitingForConnectingToServer">در حال برقراری ارتباط با مرکز</string>
+    <string name="PowerBy">قدرت گرفته از قلب تپنده پیشتازان</string>
+    <string name="PartnerReport">گزارشات همکاران</string>
+    <string name="CustomerReport">گزارشات مشتریان</string>
+    <string name="Close">بستن</string>
+    <string name="DegreeNormal">عادی</string>
+    <string name="DegreePeach">هلو</string>
+    <string name="DegreeGiant">غول</string>
+    <string name="ChoosePersonDegree">درجه شخص را انتخاب کنید</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>

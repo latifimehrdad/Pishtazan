@@ -15,6 +15,7 @@ import ir.bppir.pishtazan.R;
 
 public class StaticFunctions {
 
+
     public static void hideKeyboard(Activity activity) {//__________________________________________ Start hideKeyboard
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         //Find the currently focused view, so we can grab the correct window token from it.
@@ -49,7 +50,7 @@ public class StaticFunctions {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                    editText.setBackgroundResource(R.drawable.dw_edit_back);
+                editText.setBackgroundResource(R.drawable.dw_edit_back);
             }
 
             @Override
@@ -59,7 +60,6 @@ public class StaticFunctions {
         };
 
     }//_____________________________________________________________________________________________ TextChangeForChangeBack
-
 
 
 }

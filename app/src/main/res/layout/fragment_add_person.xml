@@ -18,205 +18,228 @@
             android:layout_height="1dp"
             android:layout_weight="1"/>
 
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutAdd"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@drawable/dw_back_bottom"
-                android:paddingTop="@dimen/_3sdp"
-                android:paddingBottom="@dimen/_3sdp">
-
-                <ImageView
-                    android:id="@+id/ImageViewAdd"
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_baseline_contact_phone"
-                    android:layout_marginLeft="@dimen/_7sdp"
-                    android:tint="@color/ML_Harmony" />
-
-                <TextView
-                    android:id="@+id/TextViewAdd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/AddFromContact"
-                    fontPath="font/iransans_web_medium.ttf"
-                    android:textColor="@color/ML_White"
-                    android:textSize="@dimen/_12sdp" />
-
-                <com.cunoraz.gifview.library.GifView
-                    android:id="@+id/GifViewAdd"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:visibility="invisible"
-                    custom:gif="@drawable/loading" />
-
-            </RelativeLayout>
+            android:layout_weight="5">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:orientation="horizontal">
-
-
-                <EditText
-                    android:id="@+id/EditTextName"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:minHeight="@dimen/_27sdp"
-                    android:background="@drawable/dw_edit_back"
-                    android:inputType="textPersonName"
-                    android:gravity="center"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/_12sdp"
-                    android:hint="@string/Name_LastName"
-                    android:maxLength="30"
-                    />
-
-                <ImageView
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/dw_icon_background"
-                    android:src="@drawable/ic_baseline_person"
-                    android:tint="@color/ML_Harmony" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:orientation="horizontal">
-
-
-                <EditText
-                    android:id="@+id/EditTextPhoneNumber"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:minHeight="@dimen/_27sdp"
-                    android:background="@drawable/dw_edit_back"
-                    android:inputType="phone"
-                    android:gravity="center"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/_12sdp"
-                    android:hint="@string/MobileNumber"
-                    android:maxLength="11"
-                    />
-
-                <ImageView
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/dw_icon_background"
-                    android:src="@drawable/ic_baseline_phone_android"
-                    android:tint="@color/ML_Harmony" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_20sdp">
+
+                <RelativeLayout
+                    android:id="@+id/RelativeLayoutAdd"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@drawable/dw_back_bottom"
+                    android:paddingTop="@dimen/_3sdp"
+                    android:paddingBottom="@dimen/_3sdp">
+
+
+                    <TextView
+                        android:id="@+id/TextViewAdd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/AddFromContact"
+                        fontPath="font/iransans_web_medium.ttf"
+                        android:textColor="@color/ML_White"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <ImageView
+                        android:id="@+id/ImageViewAdd"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_baseline_contact_phone"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:tint="@color/ML_Harmony" />
+
+
+                    <com.cunoraz.gifview.library.GifView
+                        android:id="@+id/GifViewAdd"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:visibility="invisible"
+                        custom:gif="@drawable/loading3" />
+
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
-                    android:orientation="horizontal"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    >
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:orientation="horizontal">
+
+
+                    <EditText
+                        android:id="@+id/EditTextName"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/_27sdp"
+                        android:background="@drawable/dw_edit_back"
+                        android:inputType="textPersonName"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/_12sdp"
+                        android:hint="@string/Name_LastName"
+                        android:maxLength="30"
+                        />
+
+                    <ImageView
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/dw_icon_background"
+                        android:src="@drawable/ic_baseline_person"
+                        android:tint="@color/ML_Harmony" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal">
+
+
+                    <EditText
+                        android:id="@+id/EditTextPhoneNumber"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/_27sdp"
+                        android:background="@drawable/dw_edit_back"
+                        android:inputType="phone"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/_12sdp"
+                        android:hint="@string/MobileNumber"
+                        android:maxLength="11"
+                        />
+
+                    <ImageView
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/dw_icon_background"
+                        android:src="@drawable/ic_baseline_phone_android"
+                        android:tint="@color/ML_Harmony" />
+
+                </LinearLayout>
+
+
+                <include layout="@layout/layout_degree_person"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:orientation="vertical"
+                    android:gravity="center">
 
                     <LinearLayout
-                        android:id="@+id/LinearLayoutSave"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
                         android:orientation="horizontal"
                         android:gravity="center"
-                        android:background="@drawable/dw_back_question_left"
                         >
 
-                        <ImageView
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp"
-                            android:layout_marginLeft="@dimen/_7sdp"
-                            android:layout_marginRight="@dimen/_2sdp"
-                            android:src="@drawable/ic_baseline_how_to_reg"
-                            android:tint="@color/ML_White"
-                            />
-
-                        <TextView
-                            fontPath="fonts/iransans_web_medium.ttf"
-                            android:layout_width="match_parent"
+                        <LinearLayout
+                            android:id="@+id/LinearLayoutSave"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:layout_height="52dp"
-                            android:layout_marginRight="@dimen/_2sdp"
+                            android:orientation="horizontal"
                             android:gravity="center"
-                            android:paddingLeft="@dimen/_5sdp"
-                            android:paddingRight="@dimen/_5sdp"
-                            android:maxLines="2"
-                            android:text="@string/Save"
-                            android:textColor="@color/ML_White"
-                            android:textSize="@dimen/_9sdp" />
+                            android:background="@drawable/dw_back_question_left"
+                            >
 
+                            <ImageView
+                                android:id="@+id/ImageViewSend"
+                                android:layout_width="@dimen/_25sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:layout_marginLeft="@dimen/_8sdp"
+                                android:layout_marginRight="@dimen/_2sdp"
+                                android:src="@drawable/ic_baseline_how_to_reg"
+                                android:tint="@color/ML_White"
+                                />
+
+                            <com.cunoraz.gifview.library.GifView
+                                android:id="@+id/GifViewSend"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_marginLeft="@dimen/_8sdp"
+                                android:layout_marginRight="@dimen/_2sdp"
+                                android:visibility="gone"
+                                custom:gif="@drawable/loading3" />
+
+                            <TextView
+                                android:id="@+id/TextViewSend"
+                                fontPath="fonts/iransans_web_medium.ttf"
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="52dp"
+                                android:layout_marginRight="@dimen/_2sdp"
+                                android:gravity="center"
+                                android:paddingLeft="@dimen/_5sdp"
+                                android:paddingRight="@dimen/_5sdp"
+                                android:maxLines="2"
+                                android:text="@string/Save"
+                                android:textColor="@color/ML_White"
+                                android:textSize="@dimen/_9sdp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/LinearLayoutCancel"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:background="@drawable/dw_back_question_right"
+                            >
+
+                            <TextView
+                                fontPath="fonts/iransans_web_medium.ttf"
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="52dp"
+                                android:layout_marginRight="@dimen/_2sdp"
+                                android:gravity="center"
+                                android:paddingLeft="@dimen/_5sdp"
+                                android:paddingRight="@dimen/_5sdp"
+                                android:maxLines="2"
+                                android:text="@string/Cancel"
+                                android:textColor="@color/ML_White"
+                                android:textSize="@dimen/_9sdp" />
+
+                            <ImageView
+                                android:layout_width="@dimen/_25sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:layout_marginLeft="@dimen/_2sdp"
+                                android:layout_marginRight="@dimen/_8sdp"
+                                android:src="@drawable/ic_baseline_cancel"
+                                android:tint="@color/ML_White"
+                                />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/LinearLayoutCancel"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal"
-                        android:gravity="center"
-                        android:layout_marginLeft="@dimen/_5sdp"
-                        android:background="@drawable/dw_back_question_right"
-                        >
-
-                        <TextView
-                            fontPath="fonts/iransans_web_medium.ttf"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1"
-                            android:layout_height="52dp"
-                            android:layout_marginRight="@dimen/_2sdp"
-                            android:gravity="center"
-                            android:paddingLeft="@dimen/_5sdp"
-                            android:paddingRight="@dimen/_5sdp"
-                            android:maxLines="2"
-                            android:text="@string/Cancel"
-                            android:textColor="@color/ML_White"
-                            android:textSize="@dimen/_9sdp" />
-
-                        <ImageView
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp"
-                            android:layout_marginLeft="@dimen/_2sdp"
-                            android:layout_marginRight="@dimen/_7sdp"
-                            android:src="@drawable/ic_baseline_cancel"
-                            android:tint="@color/ML_White"
-                            />
-
-                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -224,7 +247,10 @@
             </LinearLayout>
 
 
-        </LinearLayout>
+        </ScrollView>
+
+
+
 
 
         <LinearLayout

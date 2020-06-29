@@ -15,6 +15,12 @@ public class StaticValues {
     public static Byte Customer = 0;
     public static Byte Partner = 1;
 
+
+    public static Byte DegreeNormal = 1;
+    public static Byte DegreePeach = 2;
+    public static Byte DegreeGiant = 3;
+
+
     //___________________ Numbers For Control Observable
     public static Byte ML_GotoHome = 0;
     public static Byte ML_GotoVerify = 1;

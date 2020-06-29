@@ -118,8 +118,9 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
                     return;
                 }
 
-                if (StaticValues.isCancel) {
+                if (isAccessClick()) {
                     if (CheckEmpty()) {
+                        setAccessClick(false);
                         ShowLoading();
                         vm_signUp.SendNumber(
                                 EditPhoneNumber.getText().toString());
@@ -172,7 +173,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
 
 
     private void DismissLoading() {//_______________________________________________________________ DismissLoading
-        StaticValues.isCancel = true;
+        setAccessClick(true);
         BtnLoginText.setText(getResources().getString(R.string.GetVerifyCode));
         ButtonSignUp.setBackground(getResources().getDrawable(R.drawable.dw_back_bottom));
         ProgressGif.setVisibility(View.GONE);

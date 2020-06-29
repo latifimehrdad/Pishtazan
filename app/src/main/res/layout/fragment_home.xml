@@ -6,24 +6,25 @@
             type="ir.bppir.pishtazan.viewmodels.fragments.VM_Home" />
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
         >
 
         <LinearLayout
-            android:layout_width="@dimen/_200sdp"
-            android:layout_height="@dimen/_205sdp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            >
+            android:gravity="center">
+
+            <include layout="@layout/home_action_button"/>
 
             <LinearLayout
                 android:id="@+id/LinearLayoutPartners"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_100sdp"
                 android:gravity="bottom|center_horizontal"
                 android:background="@drawable/dw_home_circle_top"
                 android:orientation="vertical">
@@ -49,12 +50,11 @@
 
             <LinearLayout
                 android:id="@+id/LinearLayoutCustomer"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_100sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:background="@drawable/dw_home_circle_bottom"
                 android:gravity="top|center_horizontal"
-                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <ImageView
@@ -77,10 +77,9 @@
 
             </LinearLayout>
 
-
         </LinearLayout>
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </layout>

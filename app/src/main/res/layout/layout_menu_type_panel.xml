@@ -36,7 +36,7 @@
                 android:id="@+id/ProgressGifCertain"
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
-                custom:gif="@drawable/loading2"
+                custom:gif="@drawable/loading3"
                 android:visibility="gone"
                 android:layout_marginRight="@dimen/_3sdp"
                 />
@@ -68,7 +68,7 @@
                 android:id="@+id/ProgressGifPossible"
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
-                custom:gif="@drawable/loading2"
+                custom:gif="@drawable/loading3"
                 android:visibility="gone"
                 android:layout_marginRight="@dimen/_3sdp"
                 />
@@ -100,7 +100,7 @@
                 android:id="@+id/ProgressGifMaybe"
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
-                custom:gif="@drawable/loading2"
+                custom:gif="@drawable/loading3"
                 android:visibility="gone"
                 android:layout_marginRight="@dimen/_3sdp"
                 />

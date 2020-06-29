@@ -51,17 +51,22 @@
 
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary"/>
+
+    <LinearLayout
         android:id="@+id/LinearLayoutCancel"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_35sdp"
-        android:background="@color/ML_Splash">
+        android:background="@color/ML_Harmony">
 
         <TextView
             fontPath="fonts/iransans_web_medium.ttf"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="@dimen/_12sdp"
-            android:textColor="@color/ML_White"
+            android:textColor="@color/colorPrimaryDark"
             android:text="@string/Cancel"
             android:gravity="center"/>
 

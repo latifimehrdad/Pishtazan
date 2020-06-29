@@ -120,11 +120,9 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
 
         panelType = getArguments().getInt(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
         if (panelType == StaticValues.Partner) {
-            LinearLayoutParent.setBackgroundColor(getContext().getResources().getColor(R.color.ML_White));
-            TextViewTitle.setText(getContext().getResources().getString(R.string.Partners));
+            TextViewTitle.setText(getContext().getResources().getString(R.string.PartnerPanel));
         } else {
-            LinearLayoutParent.setBackgroundColor(getContext().getResources().getColor(R.color.colorPrimary));
-            TextViewTitle.setText(getContext().getResources().getString(R.string.Customer));
+            TextViewTitle.setText(getContext().getResources().getString(R.string.CustomerPanel));
         }
 
     }//_____________________________________________________________________________________________ init
@@ -240,7 +238,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
 
     public void ChooseActionFromList(Integer Position, Integer Action) {//__________________________ ChooseActionFromList
 
-        if (Action == 4)
+        if (Action == 5)
             ShowDeleteQuestion(Position);
         else {
             if (PersonType == StaticValues.ML_Maybe)
@@ -267,7 +265,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
                 ShowMeetingReminder(Position);
                 break;
 
-            case 5:// Action 5 : انتقال به احتمالی
+            case 4:// Action 5 : انتقال به احتمالی
                 MoveToPossible(Position);
                 break;
         }
@@ -289,7 +287,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
             case 3:// ثبت یادآوری جلسه  : Action 3
                 ShowMeetingReminder(Position);
                 break;
-            case 5:// Action 5 : انتقال به قطعی
+            case 4:// Action 5 : انتقال به قطعی
                 MoveToCertain(Position);
                 break;
         }
@@ -304,6 +302,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         dialog = null;
 
 
+        longDate = Long.valueOf(0);
         dialog = null;
         dialog = new Dialog(getContext());
         dialog.setCancelable(false);
@@ -348,6 +347,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
                         sb2.append(String.format("%02d", persianCalendar.getPersianDay()));
                         stringDate = sb2.toString();
                         TextViewChooseDate.setText(stringDate);
+                        TextViewChooseDate.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_back));
                     }
 
                     @Override
@@ -376,6 +376,10 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         LinearLayoutSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (longDate == 0) {
+                    TextViewChooseDate.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_empty_background));
+                    return;
+                }
                 dialog.dismiss();
                 dialog = null;
                 StringBuilder sb1 = new StringBuilder();
@@ -404,7 +408,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
             dialog.dismiss();
         dialog = null;
 
-
+        longDate = Long.valueOf(0);
         dialog = null;
         dialog = new Dialog(getContext());
         dialog.setCancelable(false);
@@ -449,6 +453,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
                         sb2.append(String.format("%02d", persianCalendar.getPersianDay()));
                         stringDate = sb2.toString();
                         TextViewChooseDate.setText(stringDate);
+                        TextViewChooseDate.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_back));
                     }
 
                     @Override
@@ -477,6 +482,10 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         LinearLayoutSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (longDate == 0) {
+                    TextViewChooseDate.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_empty_background));
+                    return;
+                }
                 dialog.dismiss();
                 dialog = null;
                 StringBuilder sb1 = new StringBuilder();

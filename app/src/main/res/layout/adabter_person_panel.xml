@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:padding="@dimen/_5sdp"
-        android:background="@drawable/dw_back_recycler"
+        android:background="@drawable/dw_back_recycler_person"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/_7sdp"
@@ -20,19 +19,20 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_70sdp"
             android:layout_weight="1"
             android:layout_marginRight="@dimen/_5sdp"
             android:paddingLeft="@dimen/_10sdp"
             android:paddingRight="@dimen/_10sdp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/_10sdp"
+                android:textSize="@dimen/_11sdp"
                 fontPath="font/iransans_web_medium.ttf"
                 android:text="@{person.name}"
                 />
@@ -43,7 +43,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:gravity="right"
-                android:background="@drawable/dw_edit_back"
                 android:prompt="@string/ActionPrompt"
                 app:ms_arrow_tint="@color/colorPrimary"
                 app:ms_text_color="@color/ML_Black" />
@@ -51,28 +50,32 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_width="@dimen/_70sdp"
-            android:layout_height="@dimen/_70sdp">
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:background="@drawable/dw_adabter_peroson_right">
 
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_60sdp"
-                android:src="@drawable/google_maps_icon"
+                android:src="@drawable/ic_baseline_account_circle"
                 app:civ_border_width="@dimen/_2sdp"
-                app:civ_border_color="@color/ML_Harmony"/>
+                app:civ_border_color="@color/ML_Harmony"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_centerVertical="true"
+                />
 
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="@dimen/_25sdp"
                 android:layout_height="@dimen/_25sdp"
-                android:src="@drawable/google_maps_icon"
-                android:layout_marginTop="@dimen/_1sdp"
-                android:layout_marginRight="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginRight="@dimen/_3sdp"
                 android:layout_alignParentRight="true"
                 app:civ_border_width="@dimen/_2sdp"
-                app:civ_border_color="@color/colorPrimary"/>
+                app:civ_border_color="@color/ML_WhiteGray"
+                app:SetDegreePersonImage="@{person.degree}"/>
 
 
         </RelativeLayout>

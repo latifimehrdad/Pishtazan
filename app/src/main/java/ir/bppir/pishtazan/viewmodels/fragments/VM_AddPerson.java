@@ -30,6 +30,12 @@ public class VM_AddPerson extends VM_Primary {
 
     public void AddPerson(String Name, String Phone, Byte Degree, int panelType) {//______________ AddPerson
 
+        Phone = PishtazanApplication
+                .getApplication(context)
+                .getApplicationUtilityComponent()
+                .getApplicationUtility()
+                .PersianToEnglish(Phone);
+
         Realm realm = PishtazanApplication
                 .getApplication(context)
                 .getRealmComponent()
@@ -60,7 +66,7 @@ public class VM_AddPerson extends VM_Primary {
                     setResponseMessage(context.getResources().getString(R.string.AddPersonOk));
                     getPublishSubject().onNext(StaticValues.ML_AddPerson);
                 }
-            },1000);
+            },2000);
 
         } catch (Exception e) {
             realm.cancelTransaction();
@@ -121,6 +127,13 @@ public class VM_AddPerson extends VM_Primary {
         if (text == null || text.length() == 0) {
             getPublishSubject().onNext(StaticValues.ML_GetContact);
         } else {
+
+            text = PishtazanApplication
+                    .getApplication(context)
+                    .getApplicationUtilityComponent()
+                    .getApplicationUtility()
+                    .PersianToEnglish(text);
+
             if (md_contactsFilter == null)
                 md_contactsFilter = new ArrayList<>();
             else

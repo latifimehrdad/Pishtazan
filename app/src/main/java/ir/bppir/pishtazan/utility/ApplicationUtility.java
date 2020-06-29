@@ -296,6 +296,52 @@ public class ApplicationUtility {
     }//_____________________________________________________________________________________________ End calcSolarCalendar
 
 
+    public String PersianToEnglish(String persianStr) {//___________________________________________ PersianToEnglish
+        String result = "";
+
+        for (int i = 0; i < persianStr.length(); i++) {
+            char c = persianStr.charAt(i);
+            switch (c) {
+                case '۰':
+                    result = result + "0";
+                    break;
+                case '۱':
+                    result = result + "1";
+                    break;
+                case '۲':
+                    result = result + "2";
+                    break;
+                case '۳':
+                    result = result + "3";
+                    break;
+                case '۴':
+                    result = result + "4";
+                    break;
+                case '۵':
+                    result = result + "5";
+                    break;
+                case '۶':
+                    result = result + "6";
+                    break;
+                case '۷':
+                    result = result + "7";
+                    break;
+                case '۸':
+                    result = result + "8";
+                    break;
+                case '۹':
+                    result = result + "9";
+                    break;
+                default:
+                    result = result + c;
+                    break;
+            }
+        }
+
+        return result;
+    }//_____________________________________________________________________________________________ PersianToEnglish
+
+
     public void CustomToastShow(Context context, String message) {
         Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
         View view = toast.getView();

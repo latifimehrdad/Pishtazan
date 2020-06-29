@@ -26,7 +26,7 @@ public class VM_Splash extends VM_Primary {
                 else
                     getPublishSubject().onNext(StaticValues.ML_GotoHome);
             }
-        }, 2000);
+        }, 5000);
 
     }//_____________________________________________________________________________________________ CheckLogin
 

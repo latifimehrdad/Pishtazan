@@ -73,8 +73,9 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
                 list.add(context.getResources().getString(R.string.CompleteInformation));//position 1
                 list.add(context.getResources().getString(R.string.SetCallReminder));//position 2
                 list.add(context.getResources().getString(R.string.SetMeetingReminder));//position 3
-                list.add(context.getResources().getString(R.string.DeleteFromList));//position 4
-                list.add(context.getResources().getString(R.string.MoveToPossible));//position 5
+                list.add(context.getResources().getString(R.string.MoveToPossible));//position 4
+                list.add(context.getResources().getString(R.string.DeleteFromList));//position 5
+
                 MaterialSpinnerAction.setItems(list);
             } else if (item.getPersonType() == StaticValues.ML_Possible) {
                 List<String> list = new ArrayList<>();
@@ -82,8 +83,8 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
                 list.add(context.getResources().getString(R.string.CompleteInformation));//position 1
                 list.add(context.getResources().getString(R.string.SetCallReminder));//position 2
                 list.add(context.getResources().getString(R.string.SetMeetingReminder));//position 3
-                list.add(context.getResources().getString(R.string.DeleteFromList));//position 4
-                list.add(context.getResources().getString(R.string.MoveToCertain));//position 5
+                list.add(context.getResources().getString(R.string.MoveToCertain));//position 4
+                list.add(context.getResources().getString(R.string.DeleteFromList));//position 5
                 MaterialSpinnerAction.setItems(list);
             }
 

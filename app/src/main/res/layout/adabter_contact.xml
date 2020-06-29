@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:textColor="@color/ML_Splash"
+                    android:textColor="@color/ML_Dark"
                     android:textSize="@dimen/_8sdp"
                     android:text="@string/Name_LastName"
                     />
@@ -85,7 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:textColor="@color/ML_Splash"
+                    android:textColor="@color/ML_Dark"
                     android:textSize="@dimen/_8sdp"
                     android:text="@string/PhoneNumber"
                     />
