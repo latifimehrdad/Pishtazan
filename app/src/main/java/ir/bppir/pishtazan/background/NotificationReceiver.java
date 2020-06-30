@@ -26,8 +26,11 @@ public class NotificationReceiver extends BroadcastReceiver {
         } else if(action.equalsIgnoreCase(context.getResources().getString(R.string.ML_Calling))){
             String PhoneNumber = intent.getStringExtra(context.getResources().getString(R.string.ML_PhoneNumber));
             CallPerson(PhoneNumber);
+            int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
+            CancelNotification(id);
         } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_Later))) {
-
+            int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
+            CancelNotification(id);
         }
 
 

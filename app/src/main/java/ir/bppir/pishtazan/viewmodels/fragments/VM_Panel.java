@@ -48,7 +48,7 @@ public class VM_Panel extends VM_Primary {
             public void run() {
                 getPublishSubject().onNext(StaticValues.ML_GetPerson);
             }
-        }, 500);
+        }, 1000);
 
     }//_____________________________________________________________________________________________ GetPerson
 
