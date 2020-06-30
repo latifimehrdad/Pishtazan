@@ -12,15 +12,33 @@ import ir.bppir.pishtazan.database.DB_Notification;
 import ir.bppir.pishtazan.models.MD_Notify;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
+import retrofit2.Call;
 
 public class VM_Primary {
 
     private PublishSubject<Byte> publishSubject;
     private String ResponseMessage;
+    private Call PrimaryCall;
 
     public VM_Primary() {//_________________________________________________________________________ VM_Primary
         publishSubject = PublishSubject.create();
     }//_____________________________________________________________________________________________ VM_Primary
+
+
+    public void CancelRequest() {//_________________________________________________________________ CancelRequest
+        if (PrimaryCall != null)
+            PrimaryCall.cancel();
+    }//_____________________________________________________________________________________________ CancelRequest
+
+
+    public Call getPrimaryCall() {//________________________________________________________________ getPrimaryCall
+        return PrimaryCall;
+    }//_____________________________________________________________________________________________ getPrimaryCall
+
+    public void setPrimaryCall(Call primaryCall) {//________________________________________________ setPrimaryCall
+        PrimaryCall = null;
+        PrimaryCall = primaryCall;
+    }//_____________________________________________________________________________________________ setPrimaryCall
 
 
     public void SaveToNotify(MD_Notify md_notify, Context context) {//______________________________ SaveToNotify

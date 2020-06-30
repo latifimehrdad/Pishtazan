@@ -93,11 +93,38 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
 
         if (action == StaticValues.ML_GotoVerify) {
             DismissLoading();
+            ShowMessage(
+                    vm_signUp.getResponseMessage(),
+                    getResources().getColor(R.color.ML_Dialog),
+                    getResources().getDrawable(R.drawable.ic_baseline_how_to_reg),
+                    getResources().getColor(R.color.ML_OK));
             Bundle bundle = new Bundle();
             bundle.putString(getContext()
                     .getString(R.string.ML_PhoneNumber),EditPhoneNumber.getText().toString());
             navController.navigate(R.id.action_signUp_to_verify,bundle);
+            return;
         }
+
+        if (action == StaticValues.ML_ResponseError) {
+            DismissLoading();
+            ShowMessage(
+                    vm_signUp.getResponseMessage(),
+                    getResources().getColor(R.color.ML_Dialog),
+                    getResources().getDrawable(R.drawable.ic_baseline_warning),
+                    getResources().getColor(R.color.ML_Red));
+            return;
+        }
+
+        if (action == StaticValues.ML_ResponseFailure) {
+            DismissLoading();
+            ShowMessage(
+                    getContext().getString(R.string.RequestFailure),
+                    getResources().getColor(R.color.ML_Dialog),
+                    getResources().getDrawable(R.drawable.ic_baseline_warning),
+                    getResources().getColor(R.color.ML_Red));
+            return;
+        }
+
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 

@@ -3,7 +3,7 @@ package ir.bppir.pishtazan.utility;
 public class StaticValues {
 
     public static boolean isCancel = false;
-    public static boolean isLogin = true;
+    public static boolean isLogin = false;
 
     public static Byte ML_Maybe = 0;
     public static Byte ML_Possible = 1;
@@ -33,6 +33,9 @@ public class StaticValues {
     public static Byte ML_AddPerson = 8;
     public static Byte ML_ConvertPerson = 9;
     public static Byte ML_DeletePerson = 10;
+    public static Byte ML_RequestCancel = 11;
+    public static Byte ML_ResponseFailure = 12;
+    public static Byte ML_ResponseError = 13;
 
 
 

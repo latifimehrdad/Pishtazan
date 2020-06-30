@@ -1,11 +1,19 @@
 package ir.bppir.pishtazan.viewmodels.fragments;
 
-import android.content.Context;
-import android.os.Handler;
+        import android.content.Context;
+        import android.os.Handler;
 
-import ir.bppir.pishtazan.utility.StaticValues;
-import ir.bppir.pishtazan.viewmodels.VM_Primary;
-import ir.bppir.pishtazan.views.application.PishtazanApplication;
+        import io.realm.Realm;
+        import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
+        import ir.bppir.pishtazan.database.DB_Login;
+        import ir.bppir.pishtazan.models.MD_RequestGenerateCode;
+        import ir.bppir.pishtazan.models.MD_RequestVerifyCode;
+        import ir.bppir.pishtazan.utility.StaticValues;
+        import ir.bppir.pishtazan.viewmodels.VM_Primary;
+        import ir.bppir.pishtazan.views.application.PishtazanApplication;
+        import retrofit2.Call;
+        import retrofit2.Callback;
+        import retrofit2.Response;
 
 public class VM_Verify extends VM_Primary {
 
@@ -24,13 +32,38 @@ public class VM_Verify extends VM_Primary {
                 .getApplicationUtility()
                 .PersianToEnglish(PhoneNumber);
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+
+        RetrofitComponent retrofitComponent = PishtazanApplication
+                .getApplication(context)
+                .getRetrofitComponent();
+
+        setPrimaryCall(retrofitComponent
+                .getRetrofitApiInterface()
+                .REQUEST_GENERATE_CODE_CALL(PhoneNumber));
+
+        getPrimaryCall().enqueue(new Callback<MD_RequestGenerateCode>() {
             @Override
-            public void run() {
-                getPublishSubject().onNext(StaticValues.ML_ReTrySensSms);
+            public void onResponse(Call<MD_RequestGenerateCode> call, Response<MD_RequestGenerateCode> response) {
+                if (response.body() == null)
+                    getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
+                else {
+                    setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 0)
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    else
+                        getPublishSubject().onNext(StaticValues.ML_GotoVerify);
+                }
             }
-        },2000);
+
+            @Override
+            public void onFailure(Call<MD_RequestGenerateCode> call, Throwable t) {
+                if (getPrimaryCall().isCanceled())
+                    getPublishSubject().onNext(StaticValues.ML_RequestCancel);
+                else
+                    getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
+            }
+        });
+
     }//_____________________________________________________________________________________________ SendNumber
 
 
@@ -47,12 +80,58 @@ public class VM_Verify extends VM_Primary {
                 .getApplicationUtility()
                 .PersianToEnglish(VerifyCode);
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+
+        RetrofitComponent retrofitComponent = PishtazanApplication
+                .getApplication(context)
+                .getRetrofitComponent();
+
+        setPrimaryCall(retrofitComponent
+                .getRetrofitApiInterface()
+                .REQUEST_VERIFY_CODE_CALL(PhoneNumber, VerifyCode));
+
+        getPrimaryCall().enqueue(new Callback<MD_RequestVerifyCode>() {
             @Override
-            public void run() {
-                getPublishSubject().onNext(StaticValues.ML_GotoHome);
+            public void onResponse(Call<MD_RequestVerifyCode> call, Response<MD_RequestVerifyCode> response) {
+                if (response.body() == null)
+                    getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
+                else {
+                    setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 0)
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    else
+                        SaveLogin(response.body());
+                }
             }
-        },2000);
+
+            @Override
+            public void onFailure(Call<MD_RequestVerifyCode> call, Throwable t) {
+                if (getPrimaryCall().isCanceled())
+                    getPublishSubject().onNext(StaticValues.ML_RequestCancel);
+                else
+                    getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
+            }
+        });
+
     }//_____________________________________________________________________________________________ SendNumber
+
+
+    private void SaveLogin(MD_RequestVerifyCode md) {//_____________________________________________ SaveLogin
+        Realm realm = Realm.getDefaultInstance();
+        try {
+            realm.beginTransaction();
+            realm.createObject(DB_Login.class).insert(
+                  md.getId(),
+                  md.getFullName(),
+                  md.getLocationStateId(),
+                  md.
+            );
+            realm.commitTransaction();
+        } finally {
+            if (realm != null)
+                realm.close();
+        }
+        getPublishSubject().onNext(StaticValues.ML_GotoHome);
+    }//_____________________________________________________________________________________________ SaveLogin
+
+
 }

@@ -13,8 +13,8 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import ir.bppir.pishtazan.utility.StaticValues;
-import ir.bppir.pishtazan.views.application.PishtazanApplication;
 import ir.bppir.pishtazan.views.dialogs.DialogMessage;
+
 
 public class FragmentPrimary extends Fragment {
 
@@ -29,8 +29,12 @@ public class FragmentPrimary extends Fragment {
         void GetMessageFromObservable(Byte action);
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
-    public FragmentPrimary() {
-    }
+
+    public FragmentPrimary() {//____________________________________________________________________ FragmentPrimary
+
+    }//_____________________________________________________________________________________________ FragmentPrimary
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {//_____________________________________________ onCreate
