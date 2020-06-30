@@ -138,6 +138,8 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
     public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         if (action == StaticValues.ML_GetPerson) {
+            if (PersonType == StaticValues.ML_Maybe)
+                LinearLayoutAdd.setVisibility(View.VISIBLE);
             SetAdapterPerson();
             return;
         }
@@ -188,7 +190,6 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         LinearLayoutMaybe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LinearLayoutAdd.setVisibility(View.VISIBLE);
                 LinearLayoutPossible.setBackground(null);
                 LinearLayoutCertain.setBackground(null);
                 LinearLayoutMaybe.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
