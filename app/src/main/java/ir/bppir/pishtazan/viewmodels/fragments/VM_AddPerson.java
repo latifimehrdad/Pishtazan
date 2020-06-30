@@ -11,6 +11,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import ir.bppir.pishtazan.R;
+import ir.bppir.pishtazan.database.DB_Notification;
 import ir.bppir.pishtazan.database.DB_Persons;
 import ir.bppir.pishtazan.models.MD_Contact;
 import ir.bppir.pishtazan.utility.StaticValues;
@@ -36,16 +37,22 @@ public class VM_AddPerson extends VM_Primary {
                 .getApplicationUtility()
                 .PersianToEnglish(Phone);
 
-        Realm realm = PishtazanApplication
-                .getApplication(context)
-                .getRealmComponent()
-                .getRealm();
+        Realm realm = Realm.getDefaultInstance();
+
         try {
             realm.beginTransaction();
+
+            int id;
+            Number currentIdNum = realm.where(DB_Persons.class).max("Id");
+            if (currentIdNum == null) {
+                id = 1;
+            } else {
+                id = currentIdNum.intValue() + 1;
+            }
+
             realm
-                    .createObject(DB_Persons.class)
-                    .insert(0,
-                            Name,
+                    .createObject(DB_Persons.class, id)
+                    .insert(Name,
                             Phone,
                             "",
                             "",
@@ -66,13 +73,18 @@ public class VM_AddPerson extends VM_Primary {
                     setResponseMessage(context.getResources().getString(R.string.AddPersonOk));
                     getPublishSubject().onNext(StaticValues.ML_AddPerson);
                 }
-            },2000);
+            }, 2000);
 
-        } catch (Exception e) {
-            realm.cancelTransaction();
-            setResponseMessage(context.getResources().getString(R.string.ErrorForSave));
-            getPublishSubject().onNext(StaticValues.ML_Error);
+        } finally {
+            if (realm != null)
+                realm.close();
         }
+
+//        catch (Exception e) {
+//            realm.cancelTransaction();
+//            setResponseMessage(context.getResources().getString(R.string.ErrorForSave));
+//            getPublishSubject().onNext(StaticValues.ML_Error);
+//        }
 
     }//_____________________________________________________________________________________________ AddPerson
 

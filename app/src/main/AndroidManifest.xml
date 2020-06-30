@@ -23,8 +23,9 @@
 
         <receiver android:name=".background.NotificationReceiver">
             <intent-filter>
-                <action android:name="Ignore"/>
-                <action android:name="Call"/>
+                <action android:name="ML_Ignore"/>
+                <action android:name="ML_Calling"/>
+                <action android:name="ML_Later"/>
             </intent-filter>
         </receiver>
 

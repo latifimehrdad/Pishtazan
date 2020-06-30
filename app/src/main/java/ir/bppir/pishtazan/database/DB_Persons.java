@@ -1,11 +1,12 @@
 package ir.bppir.pishtazan.database;
 
-import com.google.android.gms.maps.model.LatLng;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class DB_Persons extends RealmObject {
 
+    @PrimaryKey
     private Integer Id;
 
     private String Name;
@@ -32,8 +33,7 @@ public class DB_Persons extends RealmObject {
 
     private Byte PersonType;
 
-    public void insert(Integer id, String name, String phoneNumber, String job, String birthDay, double lat, double lng, String address, boolean gender, String imgUrl, Byte degree, int paneltype, Byte personType) {
-        Id = id;
+    public void insert(String name, String phoneNumber, String job, String birthDay, double lat, double lng, String address, boolean gender, String imgUrl, Byte degree, int paneltype, Byte personType) {
         Name = name;
         PhoneNumber = phoneNumber;
         Job = job;

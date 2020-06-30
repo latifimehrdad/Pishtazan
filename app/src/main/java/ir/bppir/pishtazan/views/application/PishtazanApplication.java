@@ -1,6 +1,8 @@
 package ir.bppir.pishtazan.views.application;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.IntentFilter;
 
 import androidx.multidex.MultiDexApplication;
 
@@ -10,22 +12,23 @@ import io.github.inflationx.viewpump.ViewPump;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import ir.bppir.pishtazan.R;
+import ir.bppir.pishtazan.background.NotificationReceiver;
 import ir.bppir.pishtazan.daggers.applicationutility.ApplicationUtilityComponent;
 import ir.bppir.pishtazan.daggers.applicationutility.ApplicationUtilityModul;
 import ir.bppir.pishtazan.daggers.applicationutility.DaggerApplicationUtilityComponent;
 import ir.bppir.pishtazan.daggers.datepicker.DaggerPersianPickerComponent;
 import ir.bppir.pishtazan.daggers.datepicker.PersianPickerComponent;
 import ir.bppir.pishtazan.daggers.datepicker.PersianPickerModule;
-import ir.bppir.pishtazan.daggers.realm.DaggerRealmComponent;
-import ir.bppir.pishtazan.daggers.realm.RealmComponent;
-import ir.bppir.pishtazan.daggers.realm.RealmModul;
+import ir.bppir.pishtazan.daggers.retrofit.DaggerRetrofitComponent;
+import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
+import ir.bppir.pishtazan.daggers.retrofit.RetrofitModule;
 
 public class PishtazanApplication extends MultiDexApplication {
 
     private Context context;
-    private RealmComponent realmComponent;
     private ApplicationUtilityComponent applicationUtilityComponent;
     private PersianPickerComponent persianPickerComponent;
+    private RetrofitComponent retrofitComponent;
 
     @Override
     public void onCreate() {//______________________________________________________________________ onCreate
@@ -34,10 +37,26 @@ public class PishtazanApplication extends MultiDexApplication {
         ConfigurationCalligraphy();
         ConfigurationApplicationUtility();
         ConfigurationDataPicker();
-//        ConfigrationRetrofitComponent();
+        ConfigurationRetrofitComponent();
         ConfigurationRealmComponent();
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(context.getResources().getString(R.string.ML_Ignore));
+        intentFilter.addAction(context.getResources().getString(R.string.ML_Calling));
+        intentFilter.addAction(context.getResources().getString(R.string.ML_Later));
+        BroadcastReceiver noti = new NotificationReceiver();
+        registerReceiver(noti, intentFilter);
+
 //        ConfigurationImageLoader();
     }//_____________________________________________________________________________________________ onCreate
+
+    private void ConfigurationRetrofitComponent() {//_______________________________________________ ConfigurationRetrofitComponent
+        retrofitComponent = DaggerRetrofitComponent
+                .builder()
+                .retrofitModule(new RetrofitModule(context))
+                .build();
+    }//_____________________________________________________________________________________________ ConfigurationRetrofitComponent
+
 
 
     public static PishtazanApplication getApplication(Context context) {//__________________________ getApplication
@@ -60,11 +79,8 @@ public class PishtazanApplication extends MultiDexApplication {
         Realm.init(this);
         Realm.setDefaultConfiguration(new RealmConfiguration.Builder()
                 .name("Pishatazan")
-                .schemaVersion(1).build());
-        realmComponent = DaggerRealmComponent
-                .builder()
-                .realmModul(new RealmModul())
-                .build();
+                .schemaVersion(1)
+                .build());
     }//_____________________________________________________________________________________________ ConfigurationRealmComponent
 
 
@@ -78,11 +94,6 @@ public class PishtazanApplication extends MultiDexApplication {
     }//_____________________________________________________________________________________________ ConfigurationDataPicker
 
 
-    public RealmComponent getRealmComponent() {//___________________________________________________ getRealmComponent
-        return realmComponent;
-    }//_____________________________________________________________________________________________ getRealmComponent
-
-
     public ApplicationUtilityComponent getApplicationUtilityComponent() {//_________________________ getApplicationUtilityComponent
         return applicationUtilityComponent;
     }//_____________________________________________________________________________________________ getApplicationUtilityComponent
@@ -90,4 +101,10 @@ public class PishtazanApplication extends MultiDexApplication {
     public PersianPickerComponent getPersianPickerComponent() {//___________________________________ getPersianPickerComponent
         return persianPickerComponent;
     }//_____________________________________________________________________________________________ getPersianPickerComponent
+
+
+    public RetrofitComponent getRetrofitComponent() {//_____________________________________________ Start getRetrofitComponent
+        return retrofitComponent;
+    }//_____________________________________________________________________________________________ End getRetrofitComponent
+
 }

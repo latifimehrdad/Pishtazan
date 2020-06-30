@@ -9,19 +9,15 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import ir.bppir.pishtazan.R;
-import ir.bppir.pishtazan.daggers.realm.RealmComponent;
 import ir.bppir.pishtazan.database.DB_Persons;
 import ir.bppir.pishtazan.models.MD_Notify;
-import ir.bppir.pishtazan.models.MD_Person;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
-import ir.bppir.pishtazan.views.application.PishtazanApplication;
 
 public class VM_Panel extends VM_Primary {
 
     private Context context;
-    //    private List<MD_Person> personList;
-    private RealmResults<DB_Persons> db_persons;
+    private List<DB_Persons> personList;
 
     public VM_Panel(Context context) {//____________________________________________________________ VM_Partners
         this.context = context;
@@ -30,17 +26,21 @@ public class VM_Panel extends VM_Primary {
 
     public void GetPerson(int panelType, Byte PersonType) {//_____________________________________ GetPerson
 
-        Realm realm = PishtazanApplication
-                .getApplication(context)
-                .getRealmComponent()
-                .getRealm();
+        Realm realm = Realm.getDefaultInstance();
+        try {
+            RealmResults<DB_Persons> db_persons = realm
+                    .where(DB_Persons.class)
+                    .equalTo("panelType", panelType)
+                    .and()
+                    .equalTo("PersonType", PersonType)
+                    .findAll();
 
-        db_persons = realm
-                .where(DB_Persons.class)
-                .equalTo("panelType", panelType)
-                .and()
-                .equalTo("PersonType", PersonType)
-                .findAll();
+            personList = new ArrayList<>();
+            personList.addAll(realm.copyFromRealm(db_persons));
+        } finally {
+            if (realm != null)
+                realm.close();
+        }
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -52,9 +52,10 @@ public class VM_Panel extends VM_Primary {
 
     }//_____________________________________________________________________________________________ GetPerson
 
-    public RealmResults<DB_Persons> getDb_persons() {//_____________________________________________ getDb_persons
-        return db_persons;
-    }//_____________________________________________________________________________________________ getDb_persons
+
+    public List<DB_Persons> getPersonList() {//_____________________________________________________ getPersonList
+        return personList;
+    }//_____________________________________________________________________________________________ getPersonList
 
 
     public void SaveCallReminder(
@@ -64,29 +65,36 @@ public class VM_Panel extends VM_Primary {
             Long longTime,
             String stringTime) {//__________________________________________________________________ SaveCallReminder
 
-        if (db_persons.get(Position).getPersonType() == 0)
+        if (personList.get(Position).getPersonType() == 0)
             setResponseMessage(context.getResources().getString(R.string.SaveCallReminderAndConvert));
         else
             setResponseMessage(context.getResources().getString(R.string.SaveCallReminder));
 
-        Realm realm = PishtazanApplication
-                .getApplication(context)
-                .getRealmComponent()
-                .getRealm();
-        realm.beginTransaction();
-        db_persons.get(Position).setPersonType(StaticValues.ML_Possible);
-        realm.commitTransaction();
+        Realm realm = Realm.getDefaultInstance();
+        try {
+            realm.beginTransaction();
+            DB_Persons db_persons = realm
+                    .where(DB_Persons.class)
+                    .equalTo("Id", personList.get(Position).getId())
+                    .findAll().first();
+            if (db_persons != null)
+                db_persons.setPersonType(StaticValues.ML_Possible);
+            realm.commitTransaction();
+        } finally {
+            if (realm != null)
+                realm.close();
+        }
 
         MD_Notify md_notify = new MD_Notify(
                 StaticValues.Call,
-                db_persons.get(Position).getPersonType(),
+                personList.get(Position).getPersonType(),
                 stringDate,
                 longDate,
                 stringTime,
                 longTime,
                 null,
-                db_persons.get(Position).getName(),
-                db_persons.get(Position).getPhoneNumber());
+                personList.get(Position).getName(),
+                personList.get(Position).getPhoneNumber());
         SaveToNotify(md_notify, context);
 
     }//_____________________________________________________________________________________________ SaveCallReminder
@@ -99,76 +107,99 @@ public class VM_Panel extends VM_Primary {
             Long longTime,
             String stringTime) {//______________________________ ____________________________________ SaveMeetingReminder
 
-        if (db_persons.get(Position).getPersonType() == 0)
+        if (personList.get(Position).getPersonType() == 0)
             setResponseMessage(context.getResources().getString(R.string.SaveMeetingReminderAndConvert));
         else
             setResponseMessage(context.getResources().getString(R.string.SaveMeetingReminder));
 
-        Realm realm = PishtazanApplication
-                .getApplication(context)
-                .getRealmComponent()
-                .getRealm();
-        realm.beginTransaction();
-        db_persons.get(Position).setPersonType(StaticValues.ML_Possible);
-        realm.commitTransaction();
+        Realm realm = Realm.getDefaultInstance();
+        try {
+            realm.beginTransaction();
+            DB_Persons db_persons = realm
+                    .where(DB_Persons.class)
+                    .equalTo("Id", personList.get(Position).getId())
+                    .findAll().first();
+            if (db_persons != null)
+                db_persons.setPersonType(StaticValues.ML_Possible);
+            realm.commitTransaction();
+        } finally {
+            if (realm != null)
+                realm.close();
+        }
+
 
         MD_Notify md_notify = new MD_Notify(
                 StaticValues.Meeting,
-                db_persons.get(Position).getPersonType(),
+                personList.get(Position).getPersonType(),
                 stringDate,
                 longDate,
                 stringTime,
                 longTime,
                 null,
-                db_persons.get(Position).getName(),
-                db_persons.get(Position).getPhoneNumber());
+                personList.get(Position).getName(),
+                personList.get(Position).getPhoneNumber());
         SaveToNotify(md_notify, context);
-
-        getPublishSubject().onNext(StaticValues.ML_ConvertPerson);
     }//_____________________________________________________________________________________________ SaveMeetingReminder
 
 
     public void DeletePerson(Integer Position) {//__________________________________________________ DeletePerson
         setResponseMessage(context.getResources().getString(R.string.SuccessDeletePerson));
-        Realm realm = PishtazanApplication
-                .getApplication(context)
-                .getRealmComponent()
-                .getRealm();
-        realm.beginTransaction();
-        db_persons.get(Position).deleteFromRealm();
-        realm.commitTransaction();
+        Realm realm = Realm.getDefaultInstance();
+        try {
+            realm.beginTransaction();
+            DB_Persons db_persons = realm
+                    .where(DB_Persons.class)
+                    .equalTo("Id", personList.get(Position).getId())
+                    .findAll().first();
+            if (db_persons != null)
+                db_persons.deleteFromRealm();
+            realm.commitTransaction();
+        } finally {
+            if (realm != null)
+                realm.close();
+        }
         getPublishSubject().onNext(StaticValues.ML_DeletePerson);
     }//_____________________________________________________________________________________________ DeletePerson
 
 
     public void MoveToPossible(Integer Position) {//________________________________________________ MoveToPossible
         setResponseMessage(context.getResources().getString(R.string.SuccessForMoveToPossible));
-        Realm realm = PishtazanApplication
-                .getApplication(context)
-                .getRealmComponent()
-                .getRealm();
-        realm.beginTransaction();
-        db_persons.get(Position).setPersonType(StaticValues.ML_Possible);
-        realm.commitTransaction();
+        Realm realm = Realm.getDefaultInstance();
+        try {
+            realm.beginTransaction();
+            DB_Persons db_persons = realm
+                    .where(DB_Persons.class)
+                    .equalTo("Id", personList.get(Position).getId())
+                    .findAll().first();
+            if (db_persons != null)
+                db_persons.setPersonType(StaticValues.ML_Possible);
+            realm.commitTransaction();
+        } finally {
+            if (realm != null)
+                realm.close();
+        }
         getPublishSubject().onNext(StaticValues.ML_ConvertPerson);
     }//_____________________________________________________________________________________________ MoveToPossible
 
 
     public void MoveToCertain(Integer Position) {//________________________________________________ MoveToPossible
         setResponseMessage(context.getResources().getString(R.string.SuccessForMoveToCertain));
-        Realm realm = PishtazanApplication
-                .getApplication(context)
-                .getRealmComponent()
-                .getRealm();
-        realm.beginTransaction();
-        db_persons.get(Position).setPersonType(StaticValues.ML_Certain);
-        realm.commitTransaction();
+        Realm realm = Realm.getDefaultInstance();
+        try {
+            realm.beginTransaction();
+            DB_Persons db_persons = realm
+                    .where(DB_Persons.class)
+                    .equalTo("Id", personList.get(Position).getId())
+                    .findAll().first();
+            if (db_persons != null)
+                db_persons.setPersonType(StaticValues.ML_Certain);
+            realm.commitTransaction();
+        } finally {
+            if (realm != null)
+                realm.close();
+        }
         getPublishSubject().onNext(StaticValues.ML_ConvertPerson);
     }//_____________________________________________________________________________________________ MoveToPossible
 
 
-
-    //    public List<MD_Person> getPersonList() {//______________________________________________________ getPersonList
-//        return personList;
-//    }//_____________________________________________________________________________________________ getPersonList
 }

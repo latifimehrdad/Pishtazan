@@ -6,6 +6,7 @@ import android.os.Handler;
 import io.reactivex.subjects.PublishSubject;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.background.NotificationManagerClass;
 import ir.bppir.pishtazan.database.DB_Notification;
 import ir.bppir.pishtazan.models.MD_Notify;
@@ -24,30 +25,40 @@ public class VM_Primary {
 
     public void SaveToNotify(MD_Notify md_notify, Context context) {//______________________________ SaveToNotify
 
-        Realm realm = PishtazanApplication
-                .getApplication(context)
-                .getRealmComponent()
-                .getRealm();
+        Realm realm = Realm.getDefaultInstance();
 
-        int id;
-        Number currentIdNum = realm.where(DB_Notification.class).max("Id");
-        if (currentIdNum == null) {
-            id = 1;
-        } else {
-            id = currentIdNum.intValue() + 1;
+        try {
+
+            int id;
+            Number currentIdNum = realm.where(DB_Notification.class).max("Id");
+            if (currentIdNum == null) {
+                id = 1;
+            } else {
+                id = currentIdNum.intValue() + 1;
+            }
+
+            realm.beginTransaction();
+            realm.createObject(DB_Notification.class, id).insert(md_notify);
+            realm.commitTransaction();
+            getPublishSubject().onNext(StaticValues.ML_ConvertPerson);
+            ShowNotification(context);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            }, 2000);
+        } finally {
+            if (realm != null)
+                realm.close();
         }
 
-        realm.beginTransaction();
-        realm.createObject(DB_Notification.class, id).insert(md_notify);
-        realm.commitTransaction();
-        getPublishSubject().onNext(StaticValues.ML_ConvertPerson);
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ShowNotification(context);
-            }
-        },2000);
+//        catch (Exception e) {
+//            realm.cancelTransaction();
+//            setResponseMessage(context.getResources().getString(R.string.ErrorForSave));
+//            getPublishSubject().onNext(StaticValues.ML_Error);
+//        }
 
 
     }//_____________________________________________________________________________________________ SaveToNotify
@@ -55,18 +66,22 @@ public class VM_Primary {
 
     private void ShowNotification(Context context) {
 
-        Realm realm = PishtazanApplication
-                .getApplication(context)
-                .getRealmComponent()
-                .getRealm();
+        Realm realm = Realm.getDefaultInstance();
 
-        DB_Notification results = realm.where(DB_Notification.class).findAll().last();
+        try {
 
-        NotificationManagerClass managerClass = new NotificationManagerClass(
-                context,
-                false,
-                results
-        );
+            DB_Notification results = realm.where(DB_Notification.class).findAll().last();
+
+            NotificationManagerClass managerClass = new NotificationManagerClass(
+                    context,
+                    false,
+                    results
+            );
+        } finally {
+            if (realm != null)
+                realm.close();
+        }
+
     }
 
     public PublishSubject<Byte> getPublishSubject() {//_____________________________________________ getPublishSubject

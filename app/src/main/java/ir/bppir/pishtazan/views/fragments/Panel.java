@@ -45,6 +45,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
     private String stringDate;
     private Long longTime;
     private String stringTime;
+    private boolean GoToAddPerson;
 
     @BindView(R.id.LinearLayoutParent)
     LinearLayout LinearLayoutParent;
@@ -110,9 +111,9 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         super.onStart();
         navController = Navigation.findNavController(getView());
         setGetMessageFromObservable(Panel.this, vm_panel.getPublishSubject());
-        if (AP_person != null)
-            AP_person.notifyDataSetChanged();
-
+        if (GoToAddPerson == true)
+            GetList();
+        GoToAddPerson = false;
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -142,7 +143,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         }
 
         if (action == StaticValues.ML_ConvertPerson) {
-            AP_person.notifyDataSetChanged();
+            GetList();
             ShowMessage(
                     vm_panel.getResponseMessage(),
                     getResources().getColor(R.color.ML_Dialog),
@@ -152,7 +153,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         }
 
         if (action == StaticValues.ML_DeletePerson) {
-            AP_person.notifyDataSetChanged();
+            GetList();
             ShowMessage(
                     vm_panel.getResponseMessage(),
                     getResources().getColor(R.color.ML_Dialog),
@@ -176,6 +177,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         LinearLayoutAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                GoToAddPerson = true;
                 Bundle bundle = new Bundle();
                 bundle.putInt(getContext().getString(R.string.ML_PanelType), panelType);
                 navController.navigate(R.id.action_panel_to_addPerson, bundle);
@@ -200,7 +202,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         LinearLayoutPossible.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LinearLayoutAdd.setVisibility(View.GONE);
+                LinearLayoutAdd.setVisibility(View.INVISIBLE);
                 LinearLayoutMaybe.setBackground(null);
                 LinearLayoutCertain.setBackground(null);
                 LinearLayoutPossible.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
@@ -214,7 +216,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         LinearLayoutCertain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LinearLayoutAdd.setVisibility(View.GONE);
+                LinearLayoutAdd.setVisibility(View.INVISIBLE);
                 LinearLayoutMaybe.setBackground(null);
                 LinearLayoutPossible.setBackground(null);
                 LinearLayoutCertain.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
@@ -230,7 +232,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
 
     private void SetAdapterPerson() {//_____________________________________________________________ SetAdapterPerson
         GoneGifLoading();
-        AP_person = new AP_Person(vm_panel.getDb_persons(), getContext(), Panel.this);
+        AP_person = new AP_Person(vm_panel.getPersonList(), getContext(), Panel.this);
         RecyclerViewPanel.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewPanel.setAdapter(AP_person);
     }//_____________________________________________________________________________________________ SetAdapterPerson
@@ -238,61 +240,107 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
 
     public void ChooseActionFromList(Integer Position, Integer Action) {//__________________________ ChooseActionFromList
 
-        if (Action == 5)
-            ShowDeleteQuestion(Position);
-        else {
-            if (PersonType == StaticValues.ML_Maybe)
-                ActionForMaybe(Position, Action);
-            else if (PersonType == StaticValues.ML_Possible)
-                ActionForPossible(Position, Action);
+        if (dialog != null)
+            dialog.dismiss();
+        dialog = null;
+
+        longDate = Long.valueOf(0);
+        dialog = null;
+        dialog = new Dialog(getContext());
+        dialog.setCancelable(true);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_actions);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        Window window = dialog.getWindow();
+        lp.copyFrom(window.getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(lp);
+
+        LinearLayout LinearLayoutCompleteInformation = (LinearLayout)
+                dialog.findViewById(R.id.LinearLayoutCompleteInformation);
+
+        LinearLayout LinearLayoutCallReminder = (LinearLayout)
+                dialog.findViewById(R.id.LinearLayoutCallReminder);
+
+        LinearLayout LinearLayoutMeetingReminder = (LinearLayout)
+                dialog.findViewById(R.id.LinearLayoutMeetingReminder);
+
+        LinearLayout LinearLayoutMoveToPossible = (LinearLayout)
+                dialog.findViewById(R.id.LinearLayoutMoveToPossible);
+
+        LinearLayout LinearLayoutMoveToCertain = (LinearLayout)
+                dialog.findViewById(R.id.LinearLayoutMoveToCertain);
+
+        LinearLayout LinearLayoutDeleteFromList = (LinearLayout)
+                dialog.findViewById(R.id.LinearLayoutDeleteFromList);
+
+        LinearLayout LinearLayoutCancel = (LinearLayout)
+                dialog.findViewById(R.id.LinearLayoutCancel);
+
+        if (vm_panel.getPersonList().get(Position).getPersonType() == StaticValues.ML_Maybe) {
+            LinearLayoutMoveToPossible.setVisibility(View.VISIBLE);
+            LinearLayoutMoveToCertain.setVisibility(View.GONE);
+        } else if (vm_panel.getPersonList().get(Position).getPersonType() == StaticValues.ML_Possible) {
+            LinearLayoutMoveToPossible.setVisibility(View.GONE);
+            LinearLayoutMoveToCertain.setVisibility(View.VISIBLE);
         }
+
+        LinearLayoutCallReminder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShowCallReminder(Position);
+            }
+        });
+
+        LinearLayoutMeetingReminder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShowMeetingReminder(Position);
+            }
+        });
+
+        LinearLayoutMoveToPossible.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MoveToPossible(Position);
+            }
+        });
+
+        LinearLayoutMoveToCertain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MoveToCertain(Position);
+            }
+        });
+
+        LinearLayoutDeleteFromList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShowDeleteQuestion(Position);
+            }
+        });
+
+        LinearLayoutCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                dialog = null;
+            }
+        });
+
+        dialog.show();
+
+
+//        if (Action == 5)
+//            ShowDeleteQuestion(Position);
+//        else {
+//            if (PersonType == StaticValues.ML_Maybe)
+//                ActionForMaybe(Position, Action);
+//            else if (PersonType == StaticValues.ML_Possible)
+//                ActionForPossible(Position, Action);
+//        }
 
     }//_____________________________________________________________________________________________ ChooseActionFromList
-
-
-    private void ActionForMaybe(Integer Position, Integer Action) {//_______________________________ ActionForMaybe
-
-        switch (Action) {
-            case 1:// تکمیل اطلاعات  : Action 1
-
-                break;
-
-            case 2:// ثبت یادآوری تماس  : Action 2
-                ShowCallReminder(Position);
-                break;
-
-            case 3:// ثبت یادآوری جلسه  : Action 3
-                ShowMeetingReminder(Position);
-                break;
-
-            case 4:// Action 5 : انتقال به احتمالی
-                MoveToPossible(Position);
-                break;
-        }
-
-    }//_____________________________________________________________________________________________ ActionForMaybe
-
-
-    private void ActionForPossible(Integer Position, Integer Action) {//____________________________ ActionForPossible
-
-        switch (Action) {
-            case 1:// تکمیل اطلاعات  : Action 1
-
-                break;
-
-            case 2:// ثبت یادآوری تماس  : Action 2
-                ShowCallReminder(Position);
-                break;
-
-            case 3:// ثبت یادآوری جلسه  : Action 3
-                ShowMeetingReminder(Position);
-                break;
-            case 4:// Action 5 : انتقال به قطعی
-                MoveToCertain(Position);
-                break;
-        }
-
-    }//_____________________________________________________________________________________________ ActionForPossible
 
 
     private void ShowCallReminder(Integer Position) {//_____________________________________________ ShowCallReminder
@@ -532,7 +580,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         StringBuilder sp = new StringBuilder();
         sp.append(getContext().getResources().getString(R.string.AreYouSureYouWantToDeleteIt1));
         sp.append(" ");
-        sp.append(vm_panel.getDb_persons().get(Position).getName());
+        sp.append(vm_panel.getPersonList().get(Position).getName());
         sp.append(" ");
         sp.append(getContext().getResources().getString(R.string.AreYouSureYouWantToDeleteIt2));
 

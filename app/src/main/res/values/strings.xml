@@ -66,12 +66,14 @@
     <string name="MeetingWith">جلسه با</string>
     <string name="Calling">گرفتن تماس</string>
     <string name="ShowDetail">جزییات بیشتر</string>
+    <string name="RemindAgain">یادآوری مجدد</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>
     <string name="ML_PanelType">PanelType</string>
     <string name="ML_Id">Id</string>
-    <string name="ML_Ignore">Ignore</string>
-    <string name="ML_Calling">Calling</string>
+    <string name="ML_Ignore">ML_Ignore</string>
+    <string name="ML_Calling">ML_Calling</string>
+    <string name="ML_Later">ML_Later</string>
 
 </resources>
