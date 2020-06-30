@@ -30,7 +30,7 @@
     <string name="EmptyContactName">لطفا نام شخص را وارد نمایید</string>
     <string name="ErrorForSave">خطا در ثبت اطلاعات</string>
     <string name="AddPersonOk">شخص به لیست شما اضافه شد</string>
-    <string name="ActionPrompt">عملیات ها</string>
+    <string name="ChooseAction">انتخاب عملیات</string>
     <string name="CompleteInformation">تکمیل اطلاعات</string>
     <string name="SetCallReminder">ثبت یادآوری تماس</string>
     <string name="SetMeetingReminder">ثبت یادآوری جلسه</string>

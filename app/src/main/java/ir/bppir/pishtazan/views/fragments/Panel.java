@@ -238,7 +238,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
     }//_____________________________________________________________________________________________ SetAdapterPerson
 
 
-    public void ChooseActionFromList(Integer Position, Integer Action) {//__________________________ ChooseActionFromList
+    public void ChooseActionFromList(Integer Position) {//__________________________________________ ChooseActionFromList
 
         if (dialog != null)
             dialog.dismiss();
@@ -288,13 +288,18 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         LinearLayoutCallReminder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.dismiss();
+                dialog = null;
                 ShowCallReminder(Position);
+
             }
         });
 
         LinearLayoutMeetingReminder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.dismiss();
+                dialog = null;
                 ShowMeetingReminder(Position);
             }
         });
@@ -302,6 +307,8 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         LinearLayoutMoveToPossible.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.dismiss();
+                dialog = null;
                 MoveToPossible(Position);
             }
         });
@@ -309,6 +316,8 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         LinearLayoutMoveToCertain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.dismiss();
+                dialog = null;
                 MoveToCertain(Position);
             }
         });
@@ -316,6 +325,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         LinearLayoutDeleteFromList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 ShowDeleteQuestion(Position);
             }
         });

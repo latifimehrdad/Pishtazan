@@ -46,9 +46,9 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:text="@string/AddFromContact"
-                        fontPath="font/iransans_web_medium.ttf"
+                        fontPath="fonts/iransans_web_medium.ttf"
                         android:textColor="@color/ML_White"
-                        android:textSize="@dimen/_12sdp" />
+                        android:textSize="@dimen/_11sdp" />
 
                     <ImageView
                         android:id="@+id/ImageViewAdd"

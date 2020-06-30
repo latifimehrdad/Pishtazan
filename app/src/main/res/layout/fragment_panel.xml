@@ -84,12 +84,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/AddPerson"
-                    fontPath="font/iransans_web_medium.ttf"
+                    fontPath="fonts/iransans_web_medium.ttf"
                     android:textColor="@color/ML_White"
                     android:paddingRight="@dimen/_15sdp"
                     android:paddingLeft="@dimen/_15sdp"
                     android:layout_marginLeft="@dimen/_5sdp"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_11sdp" />
 
                 <ImageView
                     android:layout_width="@dimen/_25sdp"

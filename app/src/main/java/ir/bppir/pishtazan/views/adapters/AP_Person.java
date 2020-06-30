@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,6 +55,8 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
 
         AdabterPersonPanelBinding binding;
 
+        @BindView(R.id.LinearLayoutAction)
+        LinearLayout LinearLayoutAction;
 
         public CustomHolder(AdabterPersonPanelBinding binding) {
             super(binding.getRoot());
@@ -65,6 +68,12 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
         public void bind(DB_Persons item, final int itemPosition) {
             binding.setPerson(item);
 
+            LinearLayoutAction.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    panel.ChooseActionFromList(itemPosition);
+                }
+            });
 
             binding.executePendingBindings();
 

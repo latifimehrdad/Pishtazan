@@ -60,7 +60,7 @@
                             android:layout_marginTop="@dimen/_10sdp"
                             android:gravity="center"
                             android:maxLines="2"
-                            fontPath="font/iransans_web_medium.ttf"
+                            fontPath="fonts/iransans_web_medium.ttf"
                             android:text="@string/EnterPhoneNumber"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/_9sdp" />
@@ -126,7 +126,7 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_centerVertical="true"
                                 android:text="@string/GetVerifyCode"
-                                fontPath="font/iransans_web_medium.ttf"
+                                fontPath="fonts/iransans_web_medium.ttf"
                                 android:textColor="@color/ML_White"
                                 android:textSize="@dimen/_12sdp" />
 

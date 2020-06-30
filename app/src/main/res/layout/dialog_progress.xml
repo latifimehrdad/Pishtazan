@@ -56,7 +56,7 @@
             android:background="@drawable/dw_back_bottom"
             android:text="@string/Cancel"
             android:textColor="@color/ML_White"
-            fontPath="font/iransans_web_medium.ttf"
+            fontPath="fonts/iransans_web_medium.ttf"
             android:textSize="@dimen/_9sdp" />
     </LinearLayout>
 
