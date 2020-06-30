@@ -25,7 +25,7 @@
                 android:id="@+id/ImageViewSplash"
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="@dimen/_100sdp"
-                android:src="@drawable/logo_splash" />
+                android:src="@drawable/pishtaz_logo" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

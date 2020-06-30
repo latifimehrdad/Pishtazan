@@ -154,7 +154,13 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
                     getResources().getColor(R.color.ML_Dialog),
                     getResources().getDrawable(R.drawable.ic_baseline_how_to_reg),
                     getResources().getColor(R.color.ML_OK));
-            getActivity().onBackPressed();
+            EditTextName.getText().clear();
+            EditTextPhoneNumber.getText().clear();
+            EditTextName.requestFocus();
+            LinearLayoutGiant.setBackground(null);
+            LinearLayoutNormal.setBackground(null);
+            LinearLayoutPeach.setBackground(null);
+            //getActivity().onBackPressed();
             return;
         }
 

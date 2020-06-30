@@ -68,11 +68,11 @@ public class NotificationManagerClass {
         PendingIntent AgainPendingIntent = PendingIntent.getBroadcast(context, 7126, AgainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
-        Bitmap icon = BitmapFactory.decodeResource(context.getResources(),R.drawable.logo_splash);
+        Bitmap icon = BitmapFactory.decodeResource(context.getResources(),R.drawable.logo_pishtazan);
         Notification.Builder builder = new Notification.Builder(context, CHANNEL_ONE_ID)
                 .addAction(R.drawable.ic_baseline_cancel, context.getResources().getString(R.string.Cancel), IgnorePendingIntent)
                 .addAction(R.drawable.ic_baseline_contact_phone, context.getResources().getString(R.string.RemindAgain), AgainPendingIntent)
-                .setSmallIcon(R.drawable.logo_splash)
+                .setSmallIcon(R.drawable.logo_pishtazan_small)
                 .setOngoing(ShowAlways)
                 .setLargeIcon(icon)
                 .setSubText(context.getResources().getString(R.string.ShowDetail))
@@ -144,7 +144,7 @@ public class NotificationManagerClass {
 
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-        builder.setSmallIcon(R.drawable.logo_splash)
+        builder.setSmallIcon(R.drawable.logo_pishtazan_small)
                 .setTicker(context.getString(R.string.app_name))
                 .setWhen(0)
                 .setColor(context.getResources().getColor(R.color.ML_Dialog))

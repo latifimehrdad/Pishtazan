@@ -9,9 +9,6 @@ import android.widget.LinearLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jaredrummler.materialspinner.MaterialSpinner;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;

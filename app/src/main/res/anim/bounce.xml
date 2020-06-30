@@ -10,8 +10,8 @@
         android:repeatCount="infinite"
         android:repeatMode="reverse"
         android:fromXScale="0.85"
-        android:toXScale="1.1"
+        android:toXScale="1"
         android:fromYScale="0.85"
-        android:toYScale="1.1" />
+        android:toYScale="1" />
 
 </set>
