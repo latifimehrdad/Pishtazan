@@ -23,6 +23,7 @@ import ir.bppir.pishtazan.daggers.retrofit.DaggerRetrofitComponent;
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitModule;
 
+
 public class PishtazanApplication extends MultiDexApplication {
 
     private Context context;

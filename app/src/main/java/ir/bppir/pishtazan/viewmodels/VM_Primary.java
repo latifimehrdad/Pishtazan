@@ -3,6 +3,9 @@ package ir.bppir.pishtazan.viewmodels;
 import android.content.Context;
 import android.os.Handler;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import io.reactivex.subjects.PublishSubject;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -13,6 +16,7 @@ import ir.bppir.pishtazan.models.MD_Notify;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
 import retrofit2.Call;
+import retrofit2.Response;
 
 public class VM_Primary {
 
@@ -72,14 +76,42 @@ public class VM_Primary {
                 realm.close();
         }
 
-//        catch (Exception e) {
-//            realm.cancelTransaction();
-//            setResponseMessage(context.getResources().getString(R.string.ErrorForSave));
-//            getPublishSubject().onNext(StaticValues.ML_Error);
-//        }
-
 
     }//_____________________________________________________________________________________________ SaveToNotify
+
+
+
+    public boolean ResponseIsOk(Response response) {//______________________________________________ ResponseIsOk
+        if (response.body() == null)
+            return false;
+        else
+            return true;
+    }//_____________________________________________________________________________________________ ResponseIsOk
+
+
+    public String ResponseErrorMessage(Response response) {//_______________________________________ ResponseErrorMessage
+        try {
+            JSONObject jObjError = new JSONObject(response.errorBody().string());
+            String jobErrorString = jObjError.toString();
+            String message = "";
+            if (jobErrorString.contains("messages")) {
+                JSONArray jsonArray = jObjError.getJSONArray("messages");
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject temp = new JSONObject(jsonArray.get(i).toString());
+                    message = message + temp.getString("message");
+                    message = message + "\n";
+                }
+            } else {
+                message = message + jObjError.getString("message");
+            }
+            return message;
+        } catch (Exception ex) {
+            return ex.toString();
+        }
+    }//_____________________________________________________________________________________________ ResponseErrorMessage
+
+
 
 
     private void ShowNotification(Context context) {

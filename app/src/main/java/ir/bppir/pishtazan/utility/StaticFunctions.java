@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import ir.bppir.pishtazan.R;
+import retrofit2.Response;
 
 public class StaticFunctions {
 

@@ -231,6 +231,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
             @Override
             public void onClick(View view) {
                 if (CheckEmpty()) {
+                    StaticFunctions.hideKeyboard(getActivity());
                     ShowLoadingSend();
                     vm_addPerson.AddPerson(
                             EditTextName.getText().toString(),
@@ -403,6 +404,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
         dialogContact.dismiss();
         dialogContact = null;
         AP_contact = null;
+        StaticFunctions.hideKeyboard(getActivity());
         EditTextName.setText(md_contacts.get(position).getName());
         EditTextPhoneNumber.setText(md_contacts.get(position).getPhone());
     }//_____________________________________________________________________________________________ SetContactAdapter

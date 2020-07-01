@@ -6,52 +6,75 @@ import java.util.Date;
 
 import io.realm.RealmObject;
 
-public class DB_Login extends RealmObject {
+public class DB_UserInfo extends RealmObject {
 
+    @SerializedName("Id")
     Integer Id;
 
+    @SerializedName("FullName")
     String FullName;
 
+    @SerializedName("LocationStateId")
     Integer LocationStateId;
 
+    @SerializedName("PhoneNumber")
     String PhoneNumber;
 
+    @SerializedName("MobileNumber")
     String MobileNumber;
 
+    @SerializedName("MobileNumberConfirmed")
     Boolean MobileNumberConfirmed;
 
+    @SerializedName("Description")
     String Description;
 
+    @SerializedName("CDate")
     Date CDate;
 
+    @SerializedName("MDate")
     Date MDate;
 
+    @SerializedName("DDate")
     Date DDate;
 
+    @SerializedName("BrithDateJ")
     String BrithDateJ;
 
+    @SerializedName("BrithDateM")
     Date BrithDateM;
 
+    @SerializedName("Address")
     String Address;
 
+    @SerializedName("Lat")
     double Lat;
 
+    @SerializedName("Lang")
     double Lang;
 
+    @SerializedName("Image")
     String Image;
 
+    @SerializedName("UserInfoId")
     Integer UserInfoId;
 
+    @SerializedName("NationalCode")
     String NationalCode;
 
+    @SerializedName("IsDelete")
     boolean IsDelete;
 
+    @SerializedName("UserName")
     String UserName;
 
+    @SerializedName("ResourceId")
     Integer ResourceId;
 
+    @SerializedName("ColleagueId")
     Integer ColleagueId;
 
+    @SerializedName("UserId")
     String UserId;
 
     public void insert(Integer id, String fullName, Integer locationStateId, String phoneNumber, String mobileNumber, Boolean mobileNumberConfirmed, String description, Date CDate, Date MDate, Date DDate, String brithDateJ, Date brithDateM, String address, double lat, double lang, String image, Integer userInfoId, String nationalCode, boolean isDelete, String userName, Integer resourceId, Integer colleagueId, String userId) {

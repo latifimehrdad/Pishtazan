@@ -1,11 +1,11 @@
 package ir.bppir.pishtazan.viewmodels.fragments;
 
         import android.content.Context;
-        import android.os.Handler;
 
         import io.realm.Realm;
+        import io.realm.RealmResults;
         import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
-        import ir.bppir.pishtazan.database.DB_Login;
+        import ir.bppir.pishtazan.database.DB_UserInfo;
         import ir.bppir.pishtazan.models.MD_RequestGenerateCode;
         import ir.bppir.pishtazan.models.MD_RequestVerifyCode;
         import ir.bppir.pishtazan.utility.StaticValues;
@@ -44,9 +44,10 @@ public class VM_Verify extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MD_RequestGenerateCode>() {
             @Override
             public void onResponse(Call<MD_RequestGenerateCode> call, Response<MD_RequestGenerateCode> response) {
-                if (response.body() == null)
+                if (!ResponseIsOk(response)) {
+                    setResponseMessage(ResponseErrorMessage(response));
                     getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
-                else {
+                } else {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
@@ -92,9 +93,10 @@ public class VM_Verify extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MD_RequestVerifyCode>() {
             @Override
             public void onResponse(Call<MD_RequestVerifyCode> call, Response<MD_RequestVerifyCode> response) {
-                if (response.body() == null)
+                if (!ResponseIsOk(response)) {
+                    setResponseMessage(ResponseErrorMessage(response));
                     getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
-                else {
+                } else {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
@@ -115,16 +117,14 @@ public class VM_Verify extends VM_Primary {
     }//_____________________________________________________________________________________________ SendNumber
 
 
+
     private void SaveLogin(MD_RequestVerifyCode md) {//_____________________________________________ SaveLogin
         Realm realm = Realm.getDefaultInstance();
         try {
+            RealmResults<DB_UserInfo> delete = realm.where(DB_UserInfo.class).findAll();
             realm.beginTransaction();
-            realm.createObject(DB_Login.class).insert(
-                  md.getId(),
-                  md.getFullName(),
-                  md.getLocationStateId(),
-                  md.
-            );
+            delete.deleteAllFromRealm();
+            realm.copyToRealm(md.getUserInfo());
             realm.commitTransaction();
         } finally {
             if (realm != null)
