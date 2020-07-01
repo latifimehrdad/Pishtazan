@@ -68,6 +68,7 @@
     <string name="ShowDetail">جزییات بیشتر</string>
     <string name="RemindAgain">یادآوری مجدد</string>
     <string name="RequestFailure">خطای ارتباط با مرکز</string>
+    |<string name="ServiceRun">برنامه در حال اجرا است</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>

@@ -9,8 +9,12 @@ import androidx.navigation.Navigation;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.provider.Settings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +77,53 @@ public class MainActivity extends AppCompatActivity {
     public void attachBaseContext(Context newBase) {//______________________________________________ Start attachBaseContext
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }//_____________________________________________________________________________________________ End attachBaseContext
+
+
+
+    private void WhiteList(){//_____________________________________________________________________ WhiteList
+        PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
+        boolean isIgnoringBatteryOptimizations = false;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            isIgnoringBatteryOptimizations = pm.isIgnoringBatteryOptimizations(getPackageName());
+            if(!isIgnoringBatteryOptimizations){
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                intent.setData(Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, 3);
+            }
+        }
+
+    }//_____________________________________________________________________________________________ WhiteList
+
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode,
+            String permissions[],
+            int[] grantResults) {//_________________________________________________________________ Start onRequestPermissionsResult
+        switch (requestCode) {
+            case 0: {
+                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    WhiteList();
+                }
+            }
+            case 3:{
+                if (requestCode == 3) {
+                    PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
+                    boolean isIgnoringBatteryOptimizations = false;
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                        isIgnoringBatteryOptimizations = pm.isIgnoringBatteryOptimizations(getPackageName());
+                    }
+                    if(isIgnoringBatteryOptimizations){
+                        // Ignoring battery optimization
+                    }else{
+                        // Not ignoring battery optimization
+                    }
+                }
+            }
+
+        }
+    }//_____________________________________________________________________________________________ End onRequestPermissionsResult
 
 
 }

@@ -29,6 +29,8 @@ public class NotificationManagerClass {
     private NotificationManager notifManager;
     private String CHANNEL_ONE_NAME = "New Event";
     private String CHANNEL_ONE_ID = "com.ngra.trafficcontroller.Event";
+    private android.app.Notification notification;
+    private Integer ServiceId;
 
 
     public NotificationManagerClass(
@@ -48,184 +50,214 @@ public class NotificationManagerClass {
     }//_____________________________________________________________________________________________ NotificationManagerClass
 
 
+    public NotificationManagerClass(
+            Context context,
+            Boolean showAlways,
+            DB_Notification db_notification,
+            Integer ServiceId) {//____________________________________________________ NotificationManagerClass
+        this.context = context;
+        ShowAlways = showAlways;
+        this.db_notification = db_notification;
+        this.ServiceId = ServiceId;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CreateChannelsEvent();
+            ShowNotificationNew(db_notification);
+        } else {
+            ShowNotificationOld(db_notification);
+        }
+    }//_____________________________________________________________________________________________ NotificationManagerClass
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void ShowNotificationNew(DB_Notification db_notification) {//________________________________ Start ShowNotificationNew
+    public void ShowNotificationNew(DB_Notification db_notification) {//____________________________ ShowNotificationNew
 
         String Title;
         String Message;
-        int id = db_notification.getId();
+        int id;
+        Notification.Builder builder;
 
-        Intent IgnoreIntent = new Intent();
-        IgnoreIntent.setAction(context.getString(R.string.ML_Ignore));
-        IgnoreIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
-        PendingIntent IgnorePendingIntent = PendingIntent.getBroadcast(context, 7126, IgnoreIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        if (ShowAlways) {
+            id = ServiceId;
+            Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.logo_pishtazan);
+            builder = new Notification.Builder(context, CHANNEL_ONE_ID)
+                    .setSmallIcon(R.drawable.logo_pishtazan_small)
+                    .setOngoing(ShowAlways)
+                    .setSound(getSound())
+                    .setContentText(context.getResources().getString(R.string.app_name))
+                    .setStyle(new Notification.BigTextStyle()
+                            .bigText(context.getResources().getString(R.string.ServiceRun)))
+                    .setLargeIcon(icon)
+                    .setAutoCancel(true);
+        } else {
+            id = db_notification.getId();
+
+            Intent IgnoreIntent = new Intent();
+            IgnoreIntent.setAction(context.getString(R.string.ML_Ignore));
+            IgnoreIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
+            PendingIntent IgnorePendingIntent = PendingIntent.getBroadcast(context, 7126, IgnoreIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
-        Intent AgainIntent = new Intent();
-        AgainIntent.setAction(context.getString(R.string.ML_Later));
-        AgainIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
-        PendingIntent AgainPendingIntent = PendingIntent.getBroadcast(context, 7126, AgainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            Intent AgainIntent = new Intent();
+            AgainIntent.setAction(context.getString(R.string.ML_Later));
+            AgainIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
+            PendingIntent AgainPendingIntent = PendingIntent.getBroadcast(context, 7126, AgainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
-        Bitmap icon = BitmapFactory.decodeResource(context.getResources(),R.drawable.logo_pishtazan);
-        Notification.Builder builder = new Notification.Builder(context, CHANNEL_ONE_ID)
-                .addAction(R.drawable.ic_baseline_cancel, context.getResources().getString(R.string.Cancel), IgnorePendingIntent)
-                .addAction(R.drawable.ic_baseline_contact_phone, context.getResources().getString(R.string.RemindAgain), AgainPendingIntent)
-                .setSmallIcon(R.drawable.logo_pishtazan_small)
-                .setOngoing(ShowAlways)
-                .setLargeIcon(icon)
-                .setSubText(context.getResources().getString(R.string.ShowDetail))
-                .setAutoCancel(true);
+            Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.logo_pishtazan);
+            builder = new Notification.Builder(context, CHANNEL_ONE_ID)
+                    .addAction(R.drawable.ic_baseline_cancel, context.getResources().getString(R.string.Cancel), IgnorePendingIntent)
+                    .addAction(R.drawable.ic_baseline_contact_phone, context.getResources().getString(R.string.RemindAgain), AgainPendingIntent)
+                    .setSmallIcon(R.drawable.logo_pishtazan_small)
+                    .setOngoing(ShowAlways)
+                    .setSound(getSound())
+                    .setLargeIcon(icon)
+                    .setSubText(context.getResources().getString(R.string.ShowDetail))
+                    .setAutoCancel(true);
 
+            if (db_notification.getNotifyType() == StaticValues.Call) {
+                Intent CallIntent = new Intent();
+                CallIntent.setAction(context.getString(R.string.ML_Calling));
+                CallIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
+                CallIntent.putExtra(context.getResources().getString(R.string.ML_PhoneNumber), db_notification.getPhoneNumber());
+                PendingIntent CallingPendingIntent = PendingIntent.getBroadcast(context, 7127, CallIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        if (db_notification.getNotifyType() == StaticValues.Call) {
-            Intent CallIntent = new Intent();
-            CallIntent.setAction(context.getString(R.string.ML_Calling));
-            CallIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
-            CallIntent.putExtra(context.getResources().getString(R.string.ML_PhoneNumber), db_notification.getPhoneNumber());
-            PendingIntent CallingPendingIntent = PendingIntent.getBroadcast(context, 7127, CallIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                Title = context.getResources().getString(R.string.RememberCall);
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(context.getResources().getString(R.string.CallWith));
+                stringBuilder.append(" ");
+                stringBuilder.append(db_notification.getPersonName());
+                stringBuilder.append(" در ");
+                stringBuilder.append(context.getResources().getString(R.string.Clock));
+                stringBuilder.append(" ");
+                stringBuilder.append(db_notification.getStringTime());
+                Message = stringBuilder.toString();
+                builder.setContentText(Title);
+                builder.setStyle(new Notification.BigTextStyle()
+                        .bigText(Message));
+                builder.addAction(R.drawable.ic_baseline_phone_android, context.getResources().getString(R.string.Calling), CallingPendingIntent);
 
-            Title = context.getResources().getString(R.string.RememberCall);
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(context.getResources().getString(R.string.CallWith));
-            stringBuilder.append(" ");
-            stringBuilder.append(db_notification.getPersonName());
-            stringBuilder.append(" در ");
-            stringBuilder.append(context.getResources().getString(R.string.Clock));
-            stringBuilder.append(" ");
-            stringBuilder.append(db_notification.getStringTime());
-            Message = stringBuilder.toString();
-            builder.setContentText(Title);
-            builder.setStyle(new Notification.BigTextStyle()
-                    .bigText(Message));
-            builder.addAction(R.drawable.ic_baseline_phone_android, context.getResources().getString(R.string.Calling), CallingPendingIntent);
-
-        }
-        else {
-            Title = context.getResources().getString(R.string.RememberMeeting);
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(context.getResources().getString(R.string.MeetingWith));
-            stringBuilder.append(" ");
-            stringBuilder.append(db_notification.getPersonName());
-            stringBuilder.append(" در ");
-            stringBuilder.append(context.getResources().getString(R.string.Clock));
-            stringBuilder.append(" ");
-            stringBuilder.append(db_notification.getStringTime());
-            Message = stringBuilder.toString();
-            builder.setContentText(Title);
-            builder.setStyle(new Notification.BigTextStyle()
-                    .bigText(Message));
+            } else {
+                Title = context.getResources().getString(R.string.RememberMeeting);
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(context.getResources().getString(R.string.MeetingWith));
+                stringBuilder.append(" ");
+                stringBuilder.append(db_notification.getPersonName());
+                stringBuilder.append(" در ");
+                stringBuilder.append(context.getResources().getString(R.string.Clock));
+                stringBuilder.append(" ");
+                stringBuilder.append(db_notification.getStringTime());
+                Message = stringBuilder.toString();
+                builder.setContentText(Title);
+                builder.setStyle(new Notification.BigTextStyle()
+                        .bigText(Message));
+            }
         }
 
         builder.setColor(context.getResources().getColor(R.color.colorAccent));
         getManager().notify(id, builder.build());
-    }//_____________________________________________________________________________________________ End ShowNotificationNew
+        notification = builder.build();
+
+    }//_____________________________________________________________________________________________ ShowNotificationNew
 
 
-    private void ShowNotificationOld(DB_Notification db_notification) {//___________________________ Start ShowNotificationOld
+    private void ShowNotificationOld(DB_Notification db_notification) {//___________________________ ShowNotificationOld
 
 
         String Title;
         String Message;
-        int id = db_notification.getId();
+        int id;
+        NotificationCompat.Builder builder;
 
-        Intent IgnoreIntent = new Intent();
-        IgnoreIntent.setAction(context.getString(R.string.ML_Ignore));
-        IgnoreIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
-        PendingIntent IgnorePendingIntent = PendingIntent.getBroadcast(context, 7126, IgnoreIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-
-        Intent AgainIntent = new Intent();
-        AgainIntent.setAction(context.getString(R.string.ML_Later));
-        AgainIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
-        PendingIntent AgainPendingIntent = PendingIntent.getBroadcast(context, 7126, AgainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-        builder.setSmallIcon(R.drawable.logo_pishtazan_small)
-                .setTicker(context.getString(R.string.app_name))
-                .setWhen(0)
-                .setColor(context.getResources().getColor(R.color.ML_Dialog))
-                .setAutoCancel(true)
-                .setContentText(context.getString(R.string.app_name))
-                .setSound(getSound())
-                .addAction(R.drawable.ic_baseline_cancel, context.getResources().getString(R.string.Cancel), IgnorePendingIntent)
-                .addAction(R.drawable.ic_baseline_contact_phone, context.getResources().getString(R.string.RemindAgain), AgainPendingIntent)
-                .setPriority(NotificationCompat.PRIORITY_MAX)
-                .build();
-
-        if (db_notification.getNotifyType() == StaticValues.Call) {
-            Title = context.getResources().getString(R.string.RememberCall);
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(context.getResources().getString(R.string.CallWith));
-            stringBuilder.append(" ");
-            stringBuilder.append(db_notification.getPersonName());
-            stringBuilder.append(" در ");
-            stringBuilder.append(context.getResources().getString(R.string.Clock));
-            stringBuilder.append(" ");
-            stringBuilder.append(db_notification.getStringTime());
-            Message = stringBuilder.toString();
-            builder.setContentTitle(Title);
+        if (ShowAlways) {
+            id = ServiceId;
             NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
-            bigText.bigText(Message);
+            builder = new NotificationCompat.Builder(context);
+            bigText.bigText(context.getResources().getString(R.string.ServiceRun));
             builder.setStyle(bigText);
-            Intent CallIntent = new Intent();
-            CallIntent.setAction(context.getString(R.string.ML_Calling));
-            CallIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
-            CallIntent.putExtra(context.getResources().getString(R.string.ML_PhoneNumber), db_notification.getPhoneNumber());
-            PendingIntent CallingPendingIntent = PendingIntent.getBroadcast(context, 7127, CallIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            builder.addAction(R.drawable.ic_baseline_phone_android, context.getResources().getString(R.string.Calling), CallingPendingIntent);
+            builder.setSmallIcon(R.drawable.logo_pishtazan_small)
+                    .setTicker(context.getString(R.string.app_name))
+                    .setWhen(0)
+                    .setColor(context.getResources().getColor(R.color.ML_Dialog))
+                    .setAutoCancel(true)
+                    .setContentText(context.getString(R.string.app_name))
+                    .setSound(getSound())
+                    .setPriority(NotificationCompat.PRIORITY_MAX)
+                    .build();
+
+        } else {
+            id = db_notification.getId();
+
+            Intent IgnoreIntent = new Intent();
+            IgnoreIntent.setAction(context.getString(R.string.ML_Ignore));
+            IgnoreIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
+            PendingIntent IgnorePendingIntent = PendingIntent.getBroadcast(context, 7126, IgnoreIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+            Intent AgainIntent = new Intent();
+            AgainIntent.setAction(context.getString(R.string.ML_Later));
+            AgainIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
+            PendingIntent AgainPendingIntent = PendingIntent.getBroadcast(context, 7126, AgainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            builder = new NotificationCompat.Builder(context);
+            builder.setSmallIcon(R.drawable.logo_pishtazan_small)
+                    .setTicker(context.getString(R.string.app_name))
+                    .setWhen(0)
+                    .setColor(context.getResources().getColor(R.color.ML_Dialog))
+                    .setAutoCancel(true)
+                    .setContentText(context.getString(R.string.app_name))
+                    .setSound(getSound())
+                    .addAction(0, context.getResources().getString(R.string.Cancel), IgnorePendingIntent)
+                    .addAction(0, context.getResources().getString(R.string.RemindAgain), AgainPendingIntent)
+                    .setPriority(NotificationCompat.PRIORITY_MAX)
+                    .build();
+
+            if (db_notification.getNotifyType() == StaticValues.Call) {
+                Title = context.getResources().getString(R.string.RememberCall);
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(context.getResources().getString(R.string.CallWith));
+                stringBuilder.append(" ");
+                stringBuilder.append(db_notification.getPersonName());
+                stringBuilder.append(" در ");
+                stringBuilder.append(context.getResources().getString(R.string.Clock));
+                stringBuilder.append(" ");
+                stringBuilder.append(db_notification.getStringTime());
+                Message = stringBuilder.toString();
+                builder.setContentTitle(Title);
+                NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+                bigText.bigText(Message);
+                builder.setStyle(bigText);
+                Intent CallIntent = new Intent();
+                CallIntent.setAction(context.getString(R.string.ML_Calling));
+                CallIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
+                CallIntent.putExtra(context.getResources().getString(R.string.ML_PhoneNumber), db_notification.getPhoneNumber());
+                PendingIntent CallingPendingIntent = PendingIntent.getBroadcast(context, 7127, CallIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                builder.addAction(0, context.getResources().getString(R.string.Calling), CallingPendingIntent);
+
+            } else {
+                Title = context.getResources().getString(R.string.RememberMeeting);
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(context.getResources().getString(R.string.MeetingWith));
+                stringBuilder.append(" ");
+                stringBuilder.append(db_notification.getPersonName());
+                stringBuilder.append(" در ");
+                stringBuilder.append(context.getResources().getString(R.string.Clock));
+                stringBuilder.append(" ");
+                stringBuilder.append(db_notification.getStringTime());
+                Message = stringBuilder.toString();
+                builder.setContentTitle(Title);
+                NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+                bigText.bigText(Message);
+                builder.setStyle(bigText);
+            }
 
         }
-        else {
-            Title = context.getResources().getString(R.string.RememberMeeting);
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(context.getResources().getString(R.string.MeetingWith));
-            stringBuilder.append(" ");
-            stringBuilder.append(db_notification.getPersonName());
-            stringBuilder.append(" در ");
-            stringBuilder.append(context.getResources().getString(R.string.Clock));
-            stringBuilder.append(" ");
-            stringBuilder.append(db_notification.getStringTime());
-            Message = stringBuilder.toString();
-            builder.setContentTitle(Title);
-            NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
-            bigText.bigText(Message);
-            builder.setStyle(bigText);
-        }
 
-//        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.layout_notification);
-//        remoteViews.setTextViewText(R.id.title,Title);
-//        remoteViews.setTextViewText(R.id.text,Message);
-//        remoteViews.setOnClickPendingIntent(R.id.image,IgnorePendingIntent);
-//
-//        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-//                .setSmallIcon(R.drawable.logo_splash)
-//                .setTicker(context.getString(R.string.app_name))
-//                .setAutoCancel(true)
-//                .setContent(remoteViews);
-//
-//        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-//        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
-//        bigText.bigText(Message);
-//        builder.setSmallIcon(R.drawable.logo_splash)
-//                .setTicker(context.getString(R.string.app_name))
-//                .setWhen(0)
-//                .setColor(context.getResources().getColor(R.color.ML_Dialog))
-//                .setAutoCancel(true)
-//                .setContentTitle(Title)
-//                .setContentText(context.getString(R.string.app_name))
-//                .setSound(getSound())
-//                .setStyle(bigText)
-//                .addAction(R.drawable.ic_baseline_cancel, context.getResources().getString(R.string.Cancel), IgnorePendingIntent)
-//                .addAction(R.drawable.ic_baseline_phone_android, context.getResources().getString(R.string.Calling), CallingPendingIntent)
-//                .setPriority(NotificationCompat.PRIORITY_MAX)
-//                .build();
+
         builder.setColor(context.getResources().getColor(R.color.colorAccent));
         getManager().notify(id, builder.build());
-    }//_____________________________________________________________________________________________ End ShowNotificationOld
+        notification = builder.build();
+    }//_____________________________________________________________________________________________ ShowNotificationOld
 
 
     public Uri getSound() {//_______________________________________________________________________ getSound
@@ -242,15 +274,18 @@ public class NotificationManagerClass {
         notificationChannel.setShowBadge(true);
         notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
         getManager().createNotificationChannel(notificationChannel);
-    }//_____________________________________________________________________________________________ End CreateChannelsEvent
+    }//_____________________________________________________________________________________________ CreateChannelsEvent
 
 
-
-    private NotificationManager getManager() {//____________________________________________________ Start getManager
+    private NotificationManager getManager() {//____________________________________________________ getManager
         if (notifManager == null) {
             notifManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         }
         return notifManager;
-    }//_____________________________________________________________________________________________ End getManager
+    }//_____________________________________________________________________________________________ getManager
 
+
+    public Notification getNotification() {//_______________________________________________________ getNotification
+        return notification;
+    }//_____________________________________________________________________________________________  getNotification
 }

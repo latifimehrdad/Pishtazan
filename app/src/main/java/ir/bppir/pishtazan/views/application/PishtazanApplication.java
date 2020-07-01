@@ -1,8 +1,10 @@
 package ir.bppir.pishtazan.views.application;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 
 import androidx.multidex.MultiDexApplication;
 
@@ -13,6 +15,7 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.background.NotificationReceiver;
+import ir.bppir.pishtazan.background.ReceiverLunchAppInBackground;
 import ir.bppir.pishtazan.daggers.applicationutility.ApplicationUtilityComponent;
 import ir.bppir.pishtazan.daggers.applicationutility.ApplicationUtilityModul;
 import ir.bppir.pishtazan.daggers.applicationutility.DaggerApplicationUtilityComponent;
@@ -35,6 +38,7 @@ public class PishtazanApplication extends MultiDexApplication {
     public void onCreate() {//______________________________________________________________________ onCreate
         super.onCreate();
         this.context = getApplicationContext();
+        setComponentEnabledSetting();
         ConfigurationCalligraphy();
         ConfigurationApplicationUtility();
         ConfigurationDataPicker();
@@ -107,5 +111,16 @@ public class PishtazanApplication extends MultiDexApplication {
     public RetrofitComponent getRetrofitComponent() {//_____________________________________________ Start getRetrofitComponent
         return retrofitComponent;
     }//_____________________________________________________________________________________________ End getRetrofitComponent
+
+
+    private void setComponentEnabledSetting() {//___________________________________________________ Start setComponentEnabledSetting
+        ComponentName receiver = new ComponentName(this, ReceiverLunchAppInBackground.class);
+        PackageManager pm = this.getPackageManager();
+
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
+    }//_____________________________________________________________________________________________ End setComponentEnabledSetting
+
 
 }
