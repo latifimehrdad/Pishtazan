@@ -34,7 +34,8 @@
         </receiver>
 
 
-        <service android:name=".background.ServiceNotification"/>
+        <service android:name=".background.ServiceNotification"
+            android:stopWithTask="false"/>
 
         <receiver android:name=".background.ReceiverLunchAppInBackground"
             android:enabled="true"
@@ -46,7 +47,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".background.ReceiverJobInBackground"
+        <receiver android:name=".background.ReceiverReminder"
             android:enabled="true"
             android:process="ir.bppir.pishtazan"
             >

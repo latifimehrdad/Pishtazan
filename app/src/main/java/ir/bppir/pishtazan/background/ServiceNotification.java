@@ -10,8 +10,6 @@ import androidx.annotation.Nullable;
 
 import java.util.Calendar;
 
-import ir.bppir.pishtazan.R;
-
 public class ServiceNotification extends Service {
 
     private static android.app.Notification alarmNotify = null;
@@ -34,10 +32,10 @@ public class ServiceNotification extends Service {
 
 
         Calendar now = Calendar.getInstance();
-        Intent intent1 = new Intent(getApplicationContext(), ReceiverJobInBackground.class);
+        Intent intent1 = new Intent(getApplicationContext(), ReceiverReminder.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) getApplicationContext().getSystemService(getApplicationContext().ALARM_SERVICE);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, now.getTimeInMillis(), 300 * 1000, pendingIntent);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, now.getTimeInMillis(), 60 * 1000, pendingIntent);
 
         return Service.START_STICKY;
     }//_____________________________________________________________________________________________ End onStartCommand

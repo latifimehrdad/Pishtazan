@@ -29,7 +29,6 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/_12sdp"
             android:hint="@string/SearchContact"
-            android:maxLength="11"
             />
 
         <ImageView

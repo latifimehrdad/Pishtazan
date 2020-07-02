@@ -1,5 +1,7 @@
 package ir.bppir.pishtazan.views.fragments;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import androidx.navigation.Navigation;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
+import ir.bppir.pishtazan.background.ReceiverLunchAppInBackground;
 import ir.bppir.pishtazan.databinding.FragmentHomeBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Home;
@@ -59,6 +62,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
             setView(binding.getRoot());
             ButterKnife.bind(this, getView());
             SetClick();
+            StartService();
         }
         return getView();
     }//_____________________________________________________________________________________________ onCreateView
@@ -122,7 +126,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
 
-    private void SetClick() {//_____________________________________________________________________ Start SetClick
+    private void SetClick() {//_____________________________________________________________________  SetClick
 
         LinearLayoutPartners.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +146,25 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
             }
         });
 
-    }//_____________________________________________________________________________________________ End SetClick
+    }//_____________________________________________________________________________________________ SetClick
+
+
+
+    private void StartService() {//_________________________________________________________________ StartService
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    getContext().sendBroadcast(new Intent(getContext(), ReceiverLunchAppInBackground.class).setAction("ir.bppir.Lunch"));
+                } else {
+                    Intent i = new Intent("ir.bppir.Lunch");
+                    getContext().sendBroadcast(i);
+                }
+
+
+            }
+        }, 1000);
+    }//_____________________________________________________________________________________________ StartService
 
 }

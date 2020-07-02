@@ -27,8 +27,8 @@ public class NotificationManagerClass {
     private Boolean ShowAlways;
     private DB_Notification db_notification;
     private NotificationManager notifManager;
-    private String CHANNEL_ONE_NAME = "New Event";
-    private String CHANNEL_ONE_ID = "com.ngra.trafficcontroller.Event";
+    private String CHANNEL_ONE_NAME = "Reminder1";
+    private String CHANNEL_ONE_ID = "com.ngra.trafficcontroller.reminder1";
     private android.app.Notification notification;
     private Integer ServiceId;
 
@@ -84,7 +84,7 @@ public class NotificationManagerClass {
                     .setSmallIcon(R.drawable.logo_pishtazan_small)
                     .setOngoing(ShowAlways)
                     .setSound(getSound())
-                    .setContentText(context.getResources().getString(R.string.app_name))
+                    .setContentTitle(context.getResources().getString(R.string.app_name))
                     .setStyle(new Notification.BigTextStyle()
                             .bigText(context.getResources().getString(R.string.ServiceRun)))
                     .setLargeIcon(icon)
@@ -180,14 +180,13 @@ public class NotificationManagerClass {
                     .setWhen(0)
                     .setColor(context.getResources().getColor(R.color.ML_Dialog))
                     .setAutoCancel(true)
-                    .setContentText(context.getString(R.string.app_name))
+                    .setContentTitle(context.getResources().getString(R.string.app_name))
                     .setSound(getSound())
                     .setPriority(NotificationCompat.PRIORITY_MAX)
                     .build();
 
         } else {
             id = db_notification.getId();
-
             Intent IgnoreIntent = new Intent();
             IgnoreIntent.setAction(context.getString(R.string.ML_Ignore));
             IgnoreIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
