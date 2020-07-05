@@ -77,7 +77,10 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
     private void init() {//_________________________________________________________________________ init
         navController = Navigation.findNavController(getView());
-        setGetMessageFromObservable(Home.this, vm_home.getPublishSubject());
+        setGetMessageFromObservable(
+                Home.this,
+                vm_home.getPublishSubject(),
+                vm_home);
         LinearLayoutPartners.setVisibility(View.GONE);
         LinearLayoutCustomer.setVisibility(View.GONE);
         LinearLayoutCustomerReport.setVisibility(View.GONE);

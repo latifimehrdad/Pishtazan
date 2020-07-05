@@ -55,7 +55,10 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(Splash.this, vm_splash.getPublishSubject());
+        setGetMessageFromObservable(
+                Splash.this,
+                vm_splash.getPublishSubject(),
+                vm_splash);
         navController = Navigation.findNavController(getView());
         StartAnimationSplash();
     }//_____________________________________________________________________________________________ onStart

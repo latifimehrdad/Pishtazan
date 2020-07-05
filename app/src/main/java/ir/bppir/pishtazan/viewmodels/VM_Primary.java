@@ -12,6 +12,7 @@ import io.realm.RealmResults;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.background.NotificationManagerClass;
 import ir.bppir.pishtazan.database.DB_Notification;
+import ir.bppir.pishtazan.database.DB_UserInfo;
 import ir.bppir.pishtazan.models.MD_Notify;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
@@ -23,6 +24,7 @@ public class VM_Primary {
     private PublishSubject<Byte> publishSubject;
     private String ResponseMessage;
     private Call PrimaryCall;
+    private Context context;
 
     public VM_Primary() {//_________________________________________________________________________ VM_Primary
         publishSubject = PublishSubject.create();
@@ -45,7 +47,7 @@ public class VM_Primary {
     }//_____________________________________________________________________________________________ setPrimaryCall
 
 
-    public void SaveToNotify(MD_Notify md_notify, Context context) {//______________________________ SaveToNotify
+    public void SaveToNotify(MD_Notify md_notify) {//_______________________________________________ SaveToNotify
 
         Realm realm = Realm.getDefaultInstance();
 
@@ -75,9 +77,11 @@ public class VM_Primary {
 
 
     public boolean ResponseIsOk(Response response) {//______________________________________________ ResponseIsOk
-        if (response.body() == null)
+        if (response.body() == null) {
+            setResponseMessage(ResponseErrorMessage(response));
+            getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
             return false;
-        else
+        } else
             return true;
     }//_____________________________________________________________________________________________ ResponseIsOk
 
@@ -106,6 +110,51 @@ public class VM_Primary {
 
 
 
+    public void CallIsFailure() {//_________________________________________________________________ CallIsFailure
+
+        if (getPrimaryCall().isCanceled())
+            getPublishSubject().onNext(StaticValues.ML_RequestCancel);
+        else
+            getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
+
+    }//_____________________________________________________________________________________________ CallIsFailure
+
+
+
+    public DB_UserInfo GetUserInfo() {//____________________________________________________________ GetUserInfo
+
+        Realm realm = Realm.getDefaultInstance();
+        DB_UserInfo db_userInfo = realm.where(DB_UserInfo.class).findFirst();
+        realm.close();
+        return db_userInfo;
+    }//_____________________________________________________________________________________________ GetUserInfo
+
+
+
+    public Integer GetUserId() {//__________________________________________________________________ GetUserId
+
+        DB_UserInfo db_userInfo = GetUserInfo();
+        if (db_userInfo == null)
+            return 0;
+        else
+            return db_userInfo.getId();
+    }//_____________________________________________________________________________________________ GetUserId
+
+
+
+    public void UserIsNotAuthorization() {//________________________________________________________ GetUserId
+        setResponseMessage(getContext().getResources().getString(R.string.UserIsNotAuthorization));
+        Realm realm = Realm.getDefaultInstance();
+        try {
+            RealmResults<DB_UserInfo> userInfos = realm.where(DB_UserInfo.class).findAll();
+            realm.beginTransaction();
+            userInfos.deleteAllFromRealm();
+            realm.commitTransaction();
+        } finally {
+            realm.close();
+            getPublishSubject().onNext(StaticValues.ML_UserIsNotAuthorization);
+        }
+    }//_____________________________________________________________________________________________ GetUserId
 
 //    private void ShowNotification(Context context) {
 //
@@ -139,4 +188,13 @@ public class VM_Primary {
     public void setResponseMessage(String responseMessage) {//______________________________________ setResponseMessage
         ResponseMessage = responseMessage;
     }//_____________________________________________________________________________________________ setResponseMessage
+
+    public Context getContext() {//_________________________________________________________________ getContext
+        return context;
+    }//_____________________________________________________________________________________________ getContext
+
+    public void setContext(Context context) {//_____________________________________________________ setContext
+        this.context = context;
+    }//_____________________________________________________________________________________________ setContext
+
 }

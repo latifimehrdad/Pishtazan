@@ -17,24 +17,22 @@ package ir.bppir.pishtazan.viewmodels.fragments;
 
 public class VM_Verify extends VM_Primary {
 
-    private Context context;
-
     public VM_Verify(Context context) {//___________________________________________________________ VM_Verify
-        this.context = context;
+        setContext(context);
     }//_____________________________________________________________________________________________ VM_Verify
 
 
     public void SendNumber(String PhoneNumber) {//__________________________________________________ SendNumber
 
         PhoneNumber = PishtazanApplication
-                .getApplication(context)
+                .getApplication(getContext())
                 .getApplicationUtilityComponent()
                 .getApplicationUtility()
                 .PersianToEnglish(PhoneNumber);
 
 
         RetrofitComponent retrofitComponent = PishtazanApplication
-                .getApplication(context)
+                .getApplication(getContext())
                 .getRetrofitComponent();
 
         setPrimaryCall(retrofitComponent
@@ -44,24 +42,18 @@ public class VM_Verify extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MD_RequestGenerateCode>() {
             @Override
             public void onResponse(Call<MD_RequestGenerateCode> call, Response<MD_RequestGenerateCode> response) {
-                if (!ResponseIsOk(response)) {
-                    setResponseMessage(ResponseErrorMessage(response));
-                    getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
-                } else {
+                if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
-                    if (response.body().getStatue() == 0)
-                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
-                    else
+                    if (response.body().getStatue() == 1)
                         getPublishSubject().onNext(StaticValues.ML_GotoVerify);
+                    else
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
                 }
             }
 
             @Override
             public void onFailure(Call<MD_RequestGenerateCode> call, Throwable t) {
-                if (getPrimaryCall().isCanceled())
-                    getPublishSubject().onNext(StaticValues.ML_RequestCancel);
-                else
-                    getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
+                CallIsFailure();
             }
         });
 
@@ -70,20 +62,20 @@ public class VM_Verify extends VM_Primary {
 
     public void VerifyNumber(String PhoneNumber, String VerifyCode) {//_____________________________ SendNumber
         PhoneNumber = PishtazanApplication
-                .getApplication(context)
+                .getApplication(getContext())
                 .getApplicationUtilityComponent()
                 .getApplicationUtility()
                 .PersianToEnglish(PhoneNumber);
 
         VerifyCode = PishtazanApplication
-                .getApplication(context)
+                .getApplication(getContext())
                 .getApplicationUtilityComponent()
                 .getApplicationUtility()
                 .PersianToEnglish(VerifyCode);
 
 
         RetrofitComponent retrofitComponent = PishtazanApplication
-                .getApplication(context)
+                .getApplication(getContext())
                 .getRetrofitComponent();
 
         setPrimaryCall(retrofitComponent
@@ -93,24 +85,18 @@ public class VM_Verify extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MD_RequestVerifyCode>() {
             @Override
             public void onResponse(Call<MD_RequestVerifyCode> call, Response<MD_RequestVerifyCode> response) {
-                if (!ResponseIsOk(response)) {
-                    setResponseMessage(ResponseErrorMessage(response));
-                    getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
-                } else {
+                if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
-                    if (response.body().getStatue() == 0)
-                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
-                    else
+                    if (response.body().getStatue() == 1)
                         SaveLogin(response.body());
+                    else
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
                 }
             }
 
             @Override
             public void onFailure(Call<MD_RequestVerifyCode> call, Throwable t) {
-                if (getPrimaryCall().isCanceled())
-                    getPublishSubject().onNext(StaticValues.ML_RequestCancel);
-                else
-                    getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
+                CallIsFailure();
             }
         });
 

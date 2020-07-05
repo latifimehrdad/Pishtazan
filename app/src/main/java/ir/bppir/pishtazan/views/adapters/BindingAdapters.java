@@ -7,29 +7,26 @@ import androidx.databinding.BindingAdapter;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.bppir.pishtazan.R;
+import ir.bppir.pishtazan.utility.StaticValues;
 
 public class BindingAdapters {
 
     @BindingAdapter(value = "SetDegreePersonImage")
-    public static void SetHistoryStateImage(CircleImageView imageView, Byte degree) {
-
+    public static void SetHistoryStateImage(CircleImageView imageView, Integer degree) {
         Context context = imageView.getContext();
-        switch (degree) {
-            case 1:
-                //imageView.setColorFilter(ContextCompat.getColor(context, R.color.ML_Harmony_Yellow), android.graphics.PorterDuff.Mode.SRC_IN);
-                imageView.setImageResource(R.drawable.ic_baseline_account_circle);
-                break;
+        if (degree.byteValue() == StaticValues.DegreeNormal){
+            imageView.setImageResource(R.drawable.ic_baseline_account_circle);
+            return;
+        }
 
-            case 2:
-                //imageView.setColorFilter(ContextCompat.getColor(context, R.color.ML_HARMONY), android.graphics.PorterDuff.Mode.SRC_IN);
-                imageView.setImageResource(R.drawable.peach_icon);
-                break;
+        if (degree.byteValue() == StaticValues.DegreePeach){
+            imageView.setImageResource(R.drawable.peach_icon);
+            return;
+        }
 
-            case 3:
-                //imageView.setColorFilter(ContextCompat.getColor(context, R.color.ML_HARMONY), android.graphics.PorterDuff.Mode.SRC_IN);
-                imageView.setImageResource(R.drawable.giant_icon);
-                break;
-
+        if (degree.byteValue() == StaticValues.DegreeGiant){
+            imageView.setImageResource(R.drawable.giant_icon);
+            return;
         }
     }
 }

@@ -83,7 +83,10 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
 
 
     private void init() {//_________________________________________________________________________ init
-        setGetMessageFromObservable(SignUp.this, vm_signUp.getPublishSubject());
+        setGetMessageFromObservable(
+                SignUp.this,
+                vm_signUp.getPublishSubject(),
+                vm_signUp);
         navController = Navigation.findNavController(getView());
     }//_____________________________________________________________________________________________ init
 
@@ -93,11 +96,6 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
 
         if (action == StaticValues.ML_GotoVerify) {
             DismissLoading();
-            ShowMessage(
-                    vm_signUp.getResponseMessage(),
-                    getResources().getColor(R.color.ML_Dialog),
-                    getResources().getDrawable(R.drawable.ic_baseline_how_to_reg),
-                    getResources().getColor(R.color.ML_OK));
             Bundle bundle = new Bundle();
             bundle.putString(getContext()
                     .getString(R.string.ML_PhoneNumber),EditPhoneNumber.getText().toString());
@@ -105,23 +103,10 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
             return;
         }
 
-        if (action == StaticValues.ML_ResponseError) {
+        if ((action == StaticValues.ML_ResponseError) ||
+                (action == StaticValues.ML_ResponseFailure) ||
+                (action == StaticValues.ML_RequestCancel)) {
             DismissLoading();
-            ShowMessage(
-                    vm_signUp.getResponseMessage(),
-                    getResources().getColor(R.color.ML_Dialog),
-                    getResources().getDrawable(R.drawable.ic_baseline_warning),
-                    getResources().getColor(R.color.ML_Red));
-            return;
-        }
-
-        if (action == StaticValues.ML_ResponseFailure) {
-            DismissLoading();
-            ShowMessage(
-                    getContext().getString(R.string.RequestFailure),
-                    getResources().getColor(R.color.ML_Dialog),
-                    getResources().getDrawable(R.drawable.ic_baseline_warning),
-                    getResources().getColor(R.color.ML_Red));
             return;
         }
 

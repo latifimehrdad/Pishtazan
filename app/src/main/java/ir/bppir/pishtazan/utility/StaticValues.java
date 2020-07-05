@@ -16,9 +16,9 @@ public class StaticValues {
     public static Byte Partner = 1;
 
 
-    public static Byte DegreeNormal = 1;
-    public static Byte DegreePeach = 2;
-    public static Byte DegreeGiant = 3;
+    public static Byte DegreeNormal = 0;
+    public static Byte DegreePeach = 1;
+    public static Byte DegreeGiant = 2;
 
 
     //___________________ Numbers For Control Observable
@@ -36,6 +36,7 @@ public class StaticValues {
     public static Byte ML_RequestCancel = 11;
     public static Byte ML_ResponseFailure = 12;
     public static Byte ML_ResponseError = 13;
+    public static Byte ML_UserIsNotAuthorization = 14;
 
 
 

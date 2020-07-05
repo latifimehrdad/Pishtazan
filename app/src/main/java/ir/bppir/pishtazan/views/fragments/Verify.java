@@ -109,7 +109,10 @@ public class Verify extends FragmentPrimary implements FragmentPrimary.GetMessag
 
     private void init() {//_________________________________________________________________________ init
         navController = Navigation.findNavController(getView());
-        setGetMessageFromObservable(Verify.this, vm_verify.getPublishSubject());
+        setGetMessageFromObservable(
+                Verify.this,
+                vm_verify.getPublishSubject(),
+                vm_verify);
         PhoneNumber = getArguments().getString(getString(R.string.ML_PhoneNumber));
     }//_____________________________________________________________________________________________ init
 
@@ -120,10 +123,21 @@ public class Verify extends FragmentPrimary implements FragmentPrimary.GetMessag
         if (action == StaticValues.ML_ReTrySensSms) {
             DismissProgress();
             StartTimer(60);
-        } else if (action == StaticValues.ML_GotoHome) {
+            return;
+        }
+
+        if (action == StaticValues.ML_GotoHome) {
             DismissProgress();
             getActivity().onBackPressed();
             getActivity().onBackPressed();
+            return;
+        }
+
+        if ((action == StaticValues.ML_ResponseError) ||
+                (action == StaticValues.ML_ResponseFailure) ||
+                (action == StaticValues.ML_RequestCancel)) {
+            DismissDialogLoading();
+            return;
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
@@ -286,20 +300,19 @@ public class Verify extends FragmentPrimary implements FragmentPrimary.GetMessag
         };
         timer.postDelayed(runnable, 100);
 
-    }//_____________________________________________________________________________________________ End StartTimer
+    }//_____________________________________________________________________________________________ StartTimer
 
 
-    private void ShowProgressDialog() {//___________________________________________________________ Start ShowProgressDialog
+    private void ShowProgressDialog() {//___________________________________________________________ ShowProgressDialog
         progress = new DialogProgress(getContext(), null);
         progress.setCancelable(false);
         progress.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
-    }//_____________________________________________________________________________________________ End ShowProgressDialog
+    }//_____________________________________________________________________________________________ ShowProgressDialog
 
 
-    private void DismissProgress() {//______________________________________________________________ Start DismissProgress
-        if (progress != null)
-            progress.dismiss();
+    private void DismissProgress() {//______________________________________________________________ DismissProgress
 
+        DismissDialogLoading();
         progressBar.setProgress(0);
         StaticValues.isCancel = true;
         if (timer != null && runnable != null) {
@@ -307,6 +320,14 @@ public class Verify extends FragmentPrimary implements FragmentPrimary.GetMessag
             timer = null;
             runnable = null;
         }
-    }//_____________________________________________________________________________________________ End DismissProgress
+
+    }//_____________________________________________________________________________________________ DismissProgress
+
+
+    private void DismissDialogLoading() {//_________________________________________________________ DismissDialogLoading
+        if (progress != null)
+            progress.dismiss();
+    }//_____________________________________________________________________________________________ DismissDialogLoading
+
 
 }

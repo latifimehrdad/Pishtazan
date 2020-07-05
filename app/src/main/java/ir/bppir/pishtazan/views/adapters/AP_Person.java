@@ -16,18 +16,19 @@ import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.database.DB_Persons;
 import ir.bppir.pishtazan.databinding.AdabterPersonPanelBinding;
+import ir.bppir.pishtazan.models.MD_Customer;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.views.fragments.Panel;
 
 public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
 
-    private List<DB_Persons> db_persons;
+    private List<MD_Customer> md_customers;
     private LayoutInflater layoutInflater;
     private Context context;
     private Panel panel;
 
-    public AP_Person(List<DB_Persons> db_persons, Context context, Panel panel) {
-        this.db_persons = db_persons;
+    public AP_Person(List<MD_Customer> md_customers, Context context, Panel panel) {
+        this.md_customers = md_customers;
         this.context = context;
         this.panel = panel;
     }
@@ -40,11 +41,11 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
     }
 
     public void onBindViewHolder(AP_Person.CustomHolder holder, int position) {
-        holder.bind(db_persons.get(position), position);
+        holder.bind(md_customers.get(position), position);
     }
 
     public int getItemCount() {
-        return db_persons.size();
+        return md_customers.size();
     }
 
 
@@ -62,7 +63,7 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
             ButterKnife.bind(this, view);
         }
 
-        public void bind(DB_Persons item, final int itemPosition) {
+        public void bind(MD_Customer item, final int itemPosition) {
             binding.setPerson(item);
 
             LinearLayoutAction.setOnClickListener(new View.OnClickListener() {

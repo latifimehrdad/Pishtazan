@@ -100,6 +100,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
             PersonType = 0;
             LinearLayoutAdd.setVisibility(View.VISIBLE);
             init();
+            ProgressGifMaybe.setVisibility(View.VISIBLE);
             GetList();
         }
         return getView();
@@ -110,9 +111,14 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
         navController = Navigation.findNavController(getView());
-        setGetMessageFromObservable(Panel.this, vm_panel.getPublishSubject());
-        if (GoToAddPerson == true)
+        setGetMessageFromObservable(
+                Panel.this,
+                vm_panel.getPublishSubject(),
+                vm_panel);
+        if (GoToAddPerson == true) {
+            ProgressGifMaybe.setVisibility(View.VISIBLE);
             GetList();
+        }
         GoToAddPerson = false;
     }//_____________________________________________________________________________________________ onStart
 
@@ -278,12 +284,15 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         LinearLayout LinearLayoutCancel = (LinearLayout)
                 dialog.findViewById(R.id.LinearLayoutCancel);
 
-        if (vm_panel.getPersonList().get(Position).getPersonType() == StaticValues.ML_Maybe) {
+        if (PersonType == StaticValues.ML_Maybe) {
             LinearLayoutMoveToPossible.setVisibility(View.VISIBLE);
             LinearLayoutMoveToCertain.setVisibility(View.GONE);
-        } else if (vm_panel.getPersonList().get(Position).getPersonType() == StaticValues.ML_Possible) {
+        } else if (PersonType == StaticValues.ML_Possible) {
             LinearLayoutMoveToPossible.setVisibility(View.GONE);
             LinearLayoutMoveToCertain.setVisibility(View.VISIBLE);
+        } else if (PersonType == StaticValues.ML_Certain) {
+            LinearLayoutMoveToCertain.setVisibility(View.GONE);
+            LinearLayoutMoveToPossible.setVisibility(View.GONE);
         }
 
         LinearLayoutCallReminder.setOnClickListener(new View.OnClickListener() {
@@ -591,7 +600,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         StringBuilder sp = new StringBuilder();
         sp.append(getContext().getResources().getString(R.string.AreYouSureYouWantToDeleteIt1));
         sp.append(" ");
-        sp.append(vm_panel.getPersonList().get(Position).getName());
+        sp.append(vm_panel.getPersonList().get(Position).getFullName());
         sp.append(" ");
         sp.append(getContext().getResources().getString(R.string.AreYouSureYouWantToDeleteIt2));
 
@@ -626,12 +635,12 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
 
 
     private void SaveCallReminder(Integer Position) {//_____________________________________________ SaveCallReminder
-        vm_panel.SaveCallReminder(Position, longDate, stringDate, longTime, stringTime);
+//        vm_panel.SaveCallReminder(Position, longDate, stringDate, longTime, stringTime);
     }//_____________________________________________________________________________________________ SaveCallReminder
 
 
     private void SaveMeetingReminder(Integer Position) {//__________________________________________ SaveMeetingReminder
-        vm_panel.SaveMeetingReminder(Position, longDate, stringDate, longTime, stringTime);
+//        vm_panel.SaveMeetingReminder(Position, longDate, stringDate, longTime, stringTime);
     }//_____________________________________________________________________________________________ SaveMeetingReminder
 
 

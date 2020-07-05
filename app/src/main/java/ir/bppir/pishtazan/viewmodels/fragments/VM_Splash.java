@@ -11,11 +11,10 @@ import ir.bppir.pishtazan.viewmodels.VM_Primary;
 
 public class VM_Splash extends VM_Primary {
 
-    private Context context;
     boolean isLogin = false;
 
     public VM_Splash(Context context) {//___________________________________________________________ VM_Home
-        this.context = context;
+        setContext(context);
     }//_____________________________________________________________________________________________ VM_Home
 
 

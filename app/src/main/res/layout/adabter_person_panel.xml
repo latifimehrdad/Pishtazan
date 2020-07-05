@@ -4,7 +4,7 @@
     <data>
         <variable
             name="person"
-            type="ir.bppir.pishtazan.database.DB_Persons" />
+            type="ir.bppir.pishtazan.models.MD_Customer" />
     </data>
 
     <LinearLayout
@@ -41,7 +41,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/_11sdp"
                     fontPath="fonts/iransans_web_medium.ttf"
-                    android:text="@{person.name}"
+                    android:text="@{person.fullName}"
                     android:layout_marginRight="@dimen/_5sdp"
                     />
 
@@ -124,7 +124,7 @@
                 android:layout_alignParentRight="true"
                 app:civ_border_width="@dimen/_2sdp"
                 app:civ_border_color="@color/ML_WhiteGray"
-                app:SetDegreePersonImage="@{person.degree}"/>
+                app:SetDegreePersonImage="@{person.level}"/>
 
 
         </RelativeLayout>

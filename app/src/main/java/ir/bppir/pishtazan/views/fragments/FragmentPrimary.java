@@ -12,7 +12,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
+import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.utility.StaticValues;
+import ir.bppir.pishtazan.viewmodels.VM_Primary;
 import ir.bppir.pishtazan.views.dialogs.DialogMessage;
 
 
@@ -23,6 +25,7 @@ public class FragmentPrimary extends Fragment {
     private View view;
     private GetMessageFromObservable getMessageFromObservable;
     private boolean AccessClick;
+    private VM_Primary vm_primary;
 
 
     public interface GetMessageFromObservable {//___________________________________________________ GetMessageFromObservable
@@ -83,8 +86,10 @@ public class FragmentPrimary extends Fragment {
 
     public void setGetMessageFromObservable(
             GetMessageFromObservable getMessageFromObservable,
-            PublishSubject<Byte> publishSubject) {//________________________________________________ setGetMessageFromObservable
+            PublishSubject<Byte> publishSubject,
+            VM_Primary vm_primary) {//______________________________________________________________ setGetMessageFromObservable
         this.getMessageFromObservable = getMessageFromObservable;
+        this.vm_primary = vm_primary;
         if (disposableObserver != null)
             disposableObserver.dispose();
         disposableObserver = null;
@@ -97,13 +102,7 @@ public class FragmentPrimary extends Fragment {
         disposableObserver = new DisposableObserver<Byte>() {
             @Override
             public void onNext(Byte aByte) {
-                getActivity()
-                        .runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                getMessageFromObservable.GetMessageFromObservable(aByte);
-                            }
-                        });
+                actionHandler(aByte);
             }
 
             @Override
@@ -123,6 +122,42 @@ public class FragmentPrimary extends Fragment {
                 .subscribe(disposableObserver);
 
     }//_____________________________________________________________________________________________ SetObserverToObservable
+
+
+
+    private void actionHandler(Byte action) {//_____________________________________________________ actionHandler
+        getActivity()
+                .runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        setAccessClick(true);
+
+                        getMessageFromObservable.GetMessageFromObservable(action);
+
+                        if (vm_primary.getResponseMessage() == null)
+                            return;
+
+                        if (vm_primary.getResponseMessage().equalsIgnoreCase(""))
+                            return;
+
+                        if ((action == StaticValues.ML_RequestCancel)
+                                || (action == StaticValues.ML_ResponseError)
+                                || (action == StaticValues.ML_ResponseFailure))
+                            ShowMessage(vm_primary.getResponseMessage(),
+                                    getResources().getColor(R.color.ML_White),
+                                    getResources().getDrawable(R.drawable.ic_baseline_warning),
+                                    getResources().getColor(R.color.ML_HarmonyDark));
+                        else
+                            ShowMessage(vm_primary.getResponseMessage()
+                                    , getResources().getColor(R.color.ML_White),
+                                    getResources().getDrawable(R.drawable.ic_baseline_check_circle),
+                                    getResources().getColor(R.color.ML_OK));
+
+                    }
+                });
+    }//_____________________________________________________________________________________________ actionHandler
+
 
 
     public void ShowMessage(String message, int color, Drawable icon, int tintColor) {//___________ ShowMessage

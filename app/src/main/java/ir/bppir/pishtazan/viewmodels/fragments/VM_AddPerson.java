@@ -3,82 +3,89 @@ package ir.bppir.pishtazan.viewmodels.fragments;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
-import android.os.Handler;
 import android.provider.ContactsContract;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import io.realm.Realm;
 import ir.bppir.pishtazan.R;
-import ir.bppir.pishtazan.database.DB_Notification;
-import ir.bppir.pishtazan.database.DB_Persons;
 import ir.bppir.pishtazan.models.MD_Contact;
+import ir.bppir.pishtazan.models.MD_RequestGenerateCode;
+import ir.bppir.pishtazan.models.MD_RequestPrimary;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VM_AddPerson extends VM_Primary {
 
-    private Context context;
     private List<MD_Contact> md_contacts;
     private List<MD_Contact> md_contactsFilter;
 
     public VM_AddPerson(Context context) {//________________________________________________________ VM_AddPerson
-        this.context = context;
+        setContext(context);
     }//_____________________________________________________________________________________________ VM_AddPerson
 
 
     public void AddPerson(String Name, String Phone, Byte Degree, int panelType) {//______________ AddPerson
 
-        Phone = PishtazanApplication
-                .getApplication(context)
-                .getApplicationUtilityComponent()
-                .getApplicationUtility()
-                .PersianToEnglish(Phone);
+        if (panelType == StaticValues.Customer)
+            AddCustomer(Name, Phone, Degree);
+        else if (panelType == StaticValues.Partner)
+            AddPartner(Name, Phone, Degree);
 
-        Realm realm = Realm.getDefaultInstance();
-
-        try {
-            realm.beginTransaction();
-
-            int id;
-            Number currentIdNum = realm.where(DB_Persons.class).max("Id");
-            if (currentIdNum == null) {
-                id = 1;
-            } else {
-                id = currentIdNum.intValue() + 1;
-            }
-
-            realm
-                    .createObject(DB_Persons.class, id)
-                    .insert(Name,
-                            Phone,
-                            "",
-                            "",
-                            0.0,
-                            0.0,
-                            "",
-                            true,
-                            "",
-                            Degree,
-                            panelType,
-                            (byte) 0);
-            realm.commitTransaction();
-
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    setResponseMessage(context.getResources().getString(R.string.AddPersonOk));
-                    getPublishSubject().onNext(StaticValues.ML_AddPerson);
-                }
-            }, 2000);
-
-        } finally {
-            if (realm != null)
-                realm.close();
-        }
+//        Phone = PishtazanApplication
+//                .getApplication(context)
+//                .getApplicationUtilityComponent()
+//                .getApplicationUtility()
+//                .PersianToEnglish(Phone);
+//
+//        Realm realm = Realm.getDefaultInstance();
+//
+//        try {
+//            realm.beginTransaction();
+//
+//            int id;
+//            Number currentIdNum = realm.where(DB_Persons.class).max("Id");
+//            if (currentIdNum == null) {
+//                id = 1;
+//            } else {
+//                id = currentIdNum.intValue() + 1;
+//            }
+//
+//            realm
+//                    .createObject(DB_Persons.class, id)
+//                    .insert(Name,
+//                            Phone,
+//                            "",
+//                            "",
+//                            0.0,
+//                            0.0,
+//                            "",
+//                            true,
+//                            "",
+//                            Degree,
+//                            panelType,
+//                            (byte) 0);
+//            realm.commitTransaction();
+//
+//            Handler handler = new Handler();
+//            handler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    setResponseMessage(context.getResources().getString(R.string.AddPersonOk));
+//                    getPublishSubject().onNext(StaticValues.ML_AddPerson);
+//                }
+//            }, 2000);
+//
+//        } finally {
+//            if (realm != null)
+//                realm.close();
+//        }
 
 //        catch (Exception e) {
 //            realm.cancelTransaction();
@@ -89,10 +96,68 @@ public class VM_AddPerson extends VM_Primary {
     }//_____________________________________________________________________________________________ AddPerson
 
 
+
+
+    private void AddCustomer(String Name, String Phone, Byte Degree) {//____________________________ AddCustomer
+
+        Phone = PishtazanApplication
+                .getApplication(getContext())
+                .getApplicationUtilityComponent()
+                .getApplicationUtility()
+                .PersianToEnglish(Phone);
+
+        Integer UserInfoId = GetUserId();
+        if (UserInfoId == 0) {
+            UserIsNotAuthorization();
+            return;
+        }
+        Map<String,String> params = new HashMap<String, String>();
+        params.put("FullName" , Name);
+        params.put("UserInfoId" , UserInfoId.toString());
+        params.put("MobileNumber" , Phone);
+        params.put("Level" , Degree.toString());
+
+
+        setPrimaryCall(PishtazanApplication
+        .getApplication(getContext())
+        .getRetrofitComponent()
+        .getRetrofitApiInterface()
+        .ADD_CUSTOMER(params));
+
+        getPrimaryCall().enqueue(new Callback<MD_RequestPrimary>() {
+            @Override
+            public void onResponse(Call<MD_RequestPrimary> call, Response<MD_RequestPrimary> response) {
+                if (ResponseIsOk(response)) {
+                    setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 1)
+                        getPublishSubject().onNext(StaticValues.ML_AddPerson);
+                    else
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MD_RequestPrimary> call, Throwable t) {
+                CallIsFailure();
+            }
+        });
+
+
+    }//_____________________________________________________________________________________________ AddCustomer
+
+
+
+    private void AddPartner(String Name, String Phone, Byte Degree){//______________________________ AddPartner
+
+    }//_____________________________________________________________________________________________ AddPartner
+
+
+
+
     public void GetContact() {//____________________________________________________________________ GetContact
         if (md_contacts == null) {
             md_contacts = new ArrayList<>();
-            ContentResolver cr = context.getContentResolver();
+            ContentResolver cr = getContext().getContentResolver();
             Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
                     null, null, null, null);
             if ((cur != null ? cur.getCount() : 0) > 0) {
@@ -127,7 +192,7 @@ public class VM_AddPerson extends VM_Primary {
         if (md_contacts != null && md_contacts.size() > 0)
             getPublishSubject().onNext(StaticValues.ML_GetContact);
         else {
-            setResponseMessage(context.getResources().getString(R.string.ContactIsEmpty));
+            setResponseMessage(getContext().getResources().getString(R.string.ContactIsEmpty));
             getPublishSubject().onNext(StaticValues.ML_Error);
         }
 
@@ -141,7 +206,7 @@ public class VM_AddPerson extends VM_Primary {
         } else {
 
             text = PishtazanApplication
-                    .getApplication(context)
+                    .getApplication(getContext())
                     .getApplicationUtilityComponent()
                     .getApplicationUtility()
                     .PersianToEnglish(text);

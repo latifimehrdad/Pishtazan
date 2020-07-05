@@ -54,7 +54,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
     private CompositeDisposable disposable = new CompositeDisposable();
     private List<MD_Contact> md_contacts;
     private RecyclerView RecyclerViewContact;
-    private Byte Degree = 0;
+    private Byte Degree = -1;
 
 
     @BindView(R.id.RelativeLayoutAdd)
@@ -133,7 +133,10 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
 
     private void init() {//_________________________________________________________________________ init
         navController = Navigation.findNavController(getView());
-        setGetMessageFromObservable(AddPerson.this, vm_addPerson.getPublishSubject());
+        setGetMessageFromObservable(
+                AddPerson.this,
+                vm_addPerson.getPublishSubject(),
+                vm_addPerson);
         panelType = getArguments().getInt(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
         if (panelType == StaticValues.Customer) {
 
@@ -149,18 +152,14 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
 
         if (action == StaticValues.ML_AddPerson) {
             FinishLoadingSend();
-            ShowMessage(
-                    vm_addPerson.getResponseMessage(),
-                    getResources().getColor(R.color.ML_Dialog),
-                    getResources().getDrawable(R.drawable.ic_baseline_how_to_reg),
-                    getResources().getColor(R.color.ML_OK));
+            ShowContactDialog();
+            Degree = -1;
             EditTextName.getText().clear();
             EditTextPhoneNumber.getText().clear();
             EditTextName.requestFocus();
             LinearLayoutGiant.setBackground(null);
             LinearLayoutNormal.setBackground(null);
             LinearLayoutPeach.setBackground(null);
-            //getActivity().onBackPressed();
             return;
         }
 
@@ -185,13 +184,11 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
             return;
         }
 
-        if (action == StaticValues.ML_Error) {
+        if ((action == StaticValues.ML_ResponseError) ||
+                (action == StaticValues.ML_ResponseFailure) ||
+                (action == StaticValues.ML_RequestCancel)) {
             FinishWaiting();
-            ShowMessage(
-                    vm_addPerson.getResponseMessage(),
-                    getResources().getColor(R.color.ML_Dialog),
-                    getResources().getDrawable(R.drawable.ic_baseline_warning),
-                    getResources().getColor(R.color.ML_Red));
+            FinishLoadingSend();
             return;
         }
 
@@ -230,16 +227,24 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
         LinearLayoutSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (CheckEmpty()) {
-                    StaticFunctions.hideKeyboard(getActivity());
-                    ShowLoadingSend();
-                    vm_addPerson.AddPerson(
-                            EditTextName.getText().toString(),
-                            EditTextPhoneNumber.getText().toString(),
-                            Degree,
-                            panelType
-                    );
-                }
+
+                if (isAccessClick()) {
+                    String phone = EditTextPhoneNumber.getText().toString();
+                    phone = phone.replaceAll(" ", "");
+                    phone = phone.replaceAll("-", "");
+                    EditTextPhoneNumber.setText(phone);
+                    if (CheckEmpty()) {
+                        StaticFunctions.hideKeyboard(getActivity());
+                        ShowLoadingSend();
+                        vm_addPerson.AddPerson(
+                                EditTextName.getText().toString(),
+                                EditTextPhoneNumber.getText().toString(),
+                                Degree,
+                                panelType
+                        );
+                    }
+                } else
+                    vm_addPerson.CancelRequest();
             }
         });
 
@@ -285,7 +290,6 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
     }//_____________________________________________________________________________________________ End SetTextWatcher
 
 
-
     private void ShowLoadingSend() {//______________________________________________________________ ShowLoadingSend
 
         setAccessClick(false);
@@ -296,7 +300,6 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
     }//_____________________________________________________________________________________________ ShowLoadingSend
 
 
-
     private void FinishLoadingSend() {//____________________________________________________________ ShowLoadingSend
 
         setAccessClick(true);
@@ -305,8 +308,6 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
         TextViewSend.setText(getContext().getResources().getString(R.string.Save));
 
     }//_____________________________________________________________________________________________ ShowLoadingSend
-
-
 
 
     private void ShowWaiting() {//__________________________________________________________________ ShowWaiting
@@ -328,6 +329,9 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
 
 
     private void ShowContactDialog() {//____________________________________________________________ ShowContactDialog
+
+        if (md_contacts == null)
+            return;
 
         if (dialogContact != null)
             if (dialogContact.isShowing())
@@ -399,14 +403,17 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
     }//_____________________________________________________________________________________________ SetContactAdapter
 
 
-
     public void ClickContact(Integer position) {//__________________________________________________ SetContactAdapter
         dialogContact.dismiss();
         dialogContact = null;
         AP_contact = null;
         StaticFunctions.hideKeyboard(getActivity());
+        String phone = md_contacts.get(position).getPhone();
+        phone = phone.replaceAll(" ","");
+        phone = phone.replaceAll("-","");
+        EditTextPhoneNumber.setText(phone);
         EditTextName.setText(md_contacts.get(position).getName());
-        EditTextPhoneNumber.setText(md_contacts.get(position).getPhone());
+
     }//_____________________________________________________________________________________________ SetContactAdapter
 
 
@@ -415,7 +422,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
         boolean name = true;
         boolean mobile = true;
 
-        if (Degree == 0) {
+        if (Degree == -1) {
             ShowMessage(
                     getContext().getResources().getString(R.string.ChoosePersonDegree),
                     getResources().getColor(R.color.ML_Dialog),
@@ -438,7 +445,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
             name = false;
         }
 
-        if (mobile&&name)
+        if (mobile && name)
             return true;
         else
             return false;
