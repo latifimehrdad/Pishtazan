@@ -1,12 +1,10 @@
 package ir.bppir.pishtazan.models;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import ir.bppir.pishtazan.database.DB_UserInfo;
+public class MD_Person {
 
-public class MD_Customer {
-
-    @SerializedName("Id")
     Integer Id;
 
     @SerializedName("FullName")
@@ -23,9 +21,6 @@ public class MD_Customer {
 
     @SerializedName("Description")
     String Description;
-
-    @SerializedName("CustomerStatus")
-    Integer CustomerStatus;
 
     @SerializedName("CDate")
     String CDate;
@@ -73,14 +68,23 @@ public class MD_Customer {
     float CompletenessPercent;
 
 
-    public MD_Customer(Integer id, String fullName, Integer locationStateId, String phoneNumber, String mobileNumber, String description, Integer customerStatus, String CDate, String MDate, String DDate, String birthDateJ, String birthDateM, String address, double lat, double lang, String image, Integer userInfoId, MD_UserInfo userInfo, String nationalCode, boolean isDelete, Integer level, float completenessPercent) {
+    @SerializedName("CustomerStatus")
+    @Expose
+    Integer CustomerStatus;
+
+    @SerializedName("ColleagueStatus")
+    @Expose
+    Integer ColleagueStatus;
+
+
+    public MD_Person(Integer id, String fullName, Integer locationStateId, String phoneNumber, String mobileNumber, String description, Integer colleagueStatus, String CDate, String MDate, String DDate, String birthDateJ, String birthDateM, String address, double lat, double lang, String image, Integer userInfoId, MD_UserInfo userInfo, String nationalCode, boolean isDelete, Integer level, float completenessPercent) {
         Id = id;
         FullName = fullName;
         LocationStateId = locationStateId;
         PhoneNumber = phoneNumber;
         MobileNumber = mobileNumber;
         Description = description;
-        CustomerStatus = customerStatus;
+        ColleagueStatus = colleagueStatus;
         this.CDate = CDate;
         this.MDate = MDate;
         this.DDate = DDate;
@@ -97,7 +101,6 @@ public class MD_Customer {
         Level = level;
         CompletenessPercent = completenessPercent;
     }
-
 
     public Integer getId() {
         return Id;
@@ -147,12 +150,12 @@ public class MD_Customer {
         Description = description;
     }
 
-    public Integer getCustomerStatus() {
-        return CustomerStatus;
+    public Integer getColleagueStatus() {
+        return ColleagueStatus;
     }
 
-    public void setCustomerStatus(Integer customerStatus) {
-        CustomerStatus = customerStatus;
+    public void setColleagueStatus(Integer colleagueStatus) {
+        ColleagueStatus = colleagueStatus;
     }
 
     public String getCDate() {

@@ -150,8 +150,10 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
     @Override
     public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
+        FinishLoadingSend();
+        FinishWaiting();
+
         if (action == StaticValues.ML_AddPerson) {
-            FinishLoadingSend();
             ShowContactDialog();
             Degree = -1;
             EditTextName.getText().clear();
@@ -164,14 +166,13 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
         }
 
         if (action == StaticValues.ML_GetContact) {
+            md_contacts = vm_addPerson.getMd_contacts();
             if (AP_contact == null) {
-                FinishWaiting();
                 ShowContactDialog();
             } else {
                 if (dialogContact == null || !dialogContact.isShowing())
                     ShowContactDialog();
                 else {
-                    md_contacts = vm_addPerson.getMd_contacts();
                     SetContactAdapter();
                 }
             }
@@ -184,13 +185,13 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
             return;
         }
 
-        if ((action == StaticValues.ML_ResponseError) ||
-                (action == StaticValues.ML_ResponseFailure) ||
-                (action == StaticValues.ML_RequestCancel)) {
-            FinishWaiting();
-            FinishLoadingSend();
-            return;
-        }
+//        if ((action == StaticValues.ML_ResponseError) ||
+//                (action == StaticValues.ML_ResponseFailure) ||
+//                (action == StaticValues.ML_RequestCancel)) {
+//            FinishWaiting();
+//            FinishLoadingSend();
+//            return;
+//        }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 

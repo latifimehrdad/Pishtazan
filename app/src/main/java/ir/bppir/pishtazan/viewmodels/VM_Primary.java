@@ -65,7 +65,7 @@ public class VM_Primary {
             realm.createObject(DB_Notification.class, id).insert(md_notify);
             realm.commitTransaction();
             getPublishSubject().onNext(StaticValues.ML_ConvertPerson);
-            //ShowNotification(context);
+            ShowNotification(context);
         } finally {
             if (realm != null)
                 realm.close();
@@ -156,25 +156,25 @@ public class VM_Primary {
         }
     }//_____________________________________________________________________________________________ GetUserId
 
-//    private void ShowNotification(Context context) {
-//
-//        Realm realm = Realm.getDefaultInstance();
-//
-//        try {
-//
-//            DB_Notification results = realm.where(DB_Notification.class).findAll().last();
-//
-//            NotificationManagerClass managerClass = new NotificationManagerClass(
-//                    context,
-//                    false,
-//                    results
-//            );
-//        } finally {
-//            if (realm != null)
-//                realm.close();
-//        }
-//
-//    }
+    private void ShowNotification(Context context) {
+
+        Realm realm = Realm.getDefaultInstance();
+
+        try {
+
+            DB_Notification results = realm.where(DB_Notification.class).findAll().last();
+
+            NotificationManagerClass managerClass = new NotificationManagerClass(
+                    context,
+                    false,
+                    results
+            );
+        } finally {
+            if (realm != null)
+                realm.close();
+        }
+
+    }
 
     public PublishSubject<Byte> getPublishSubject() {//_____________________________________________ getPublishSubject
         return publishSubject;

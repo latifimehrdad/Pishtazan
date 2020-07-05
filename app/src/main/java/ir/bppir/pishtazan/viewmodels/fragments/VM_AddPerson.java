@@ -35,7 +35,7 @@ public class VM_AddPerson extends VM_Primary {
         if (panelType == StaticValues.Customer)
             AddCustomer(Name, Phone, Degree);
         else if (panelType == StaticValues.Colleague)
-            AddPartner(Name, Phone, Degree);
+            AddColleague(Name, Phone, Degree);
 
 //        Phone = PishtazanApplication
 //                .getApplication(context)
@@ -146,9 +146,51 @@ public class VM_AddPerson extends VM_Primary {
 
 
 
-    private void AddPartner(String Name, String Phone, Byte Degree){//______________________________ AddPartner
+    private void AddColleague(String Name, String Phone, Byte Degree){//____________________________ AddColleague
 
-    }//_____________________________________________________________________________________________ AddPartner
+        Phone = PishtazanApplication
+                .getApplication(getContext())
+                .getApplicationUtilityComponent()
+                .getApplicationUtility()
+                .PersianToEnglish(Phone);
+
+        Integer UserInfoId = GetUserId();
+        if (UserInfoId == 0) {
+            UserIsNotAuthorization();
+            return;
+        }
+        Map<String,String> params = new HashMap<String, String>();
+        params.put("FullName" , Name);
+        params.put("UserInfoId" , UserInfoId.toString());
+        params.put("MobileNumber" , Phone);
+        params.put("Level" , Degree.toString());
+
+
+        setPrimaryCall(PishtazanApplication
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .CREATE_COLLEAGUE(params));
+
+        getPrimaryCall().enqueue(new Callback<MD_RequestPrimary>() {
+            @Override
+            public void onResponse(Call<MD_RequestPrimary> call, Response<MD_RequestPrimary> response) {
+                if (ResponseIsOk(response)) {
+                    setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 1)
+                        getPublishSubject().onNext(StaticValues.ML_AddPerson);
+                    else
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MD_RequestPrimary> call, Throwable t) {
+                CallIsFailure();
+            }
+        });
+
+    }//_____________________________________________________________________________________________ AddColleague
 
 
 
@@ -188,9 +230,10 @@ public class VM_AddPerson extends VM_Primary {
             }
         }
 
-        if (md_contacts != null && md_contacts.size() > 0)
+        if (md_contacts != null && md_contacts.size() > 0) {
+            setResponseMessage("");
             getPublishSubject().onNext(StaticValues.ML_GetContact);
-        else {
+        } else {
             setResponseMessage(getContext().getResources().getString(R.string.ContactIsEmpty));
             getPublishSubject().onNext(StaticValues.ML_Error);
         }

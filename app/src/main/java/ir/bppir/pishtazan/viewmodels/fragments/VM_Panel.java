@@ -3,13 +3,15 @@ package ir.bppir.pishtazan.viewmodels.fragments;
 import android.content.Context;
 import android.os.Handler;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
 import io.realm.Realm;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.database.DB_Persons;
-import ir.bppir.pishtazan.models.MD_Customer;
-import ir.bppir.pishtazan.models.MD_RequestGetAllCustomers;
+import ir.bppir.pishtazan.models.MD_Person;
+import ir.bppir.pishtazan.models.MD_RequestGetAllPerson;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
@@ -19,7 +21,7 @@ import retrofit2.Response;
 
 public class VM_Panel extends VM_Primary {
 
-    private List<MD_Customer> personList;
+    private List<MD_Person> personList;
 
     public VM_Panel(Context context) {//____________________________________________________________ VM_Panel
         setContext(context);
@@ -82,9 +84,9 @@ public class VM_Panel extends VM_Primary {
                 .getRetrofitApiInterface()
                 .GET_ALL_CUSTOMERS(UserInfoId, PersonType, false));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestGetAllCustomers>() {
+        getPrimaryCall().enqueue(new Callback<MD_RequestGetAllPerson>() {
             @Override
-            public void onResponse(Call<MD_RequestGetAllCustomers> call, Response<MD_RequestGetAllCustomers> response) {
+            public void onResponse(Call<MD_RequestGetAllPerson> call, Response<MD_RequestGetAllPerson> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1) {
@@ -96,7 +98,7 @@ public class VM_Panel extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestGetAllCustomers> call, Throwable t) {
+            public void onFailure(Call<MD_RequestGetAllPerson> call, Throwable t) {
                 CallIsFailure();
             }
         });
@@ -117,15 +119,15 @@ public class VM_Panel extends VM_Primary {
                 .getApplication(getContext())
                 .getRetrofitComponent()
                 .getRetrofitApiInterface()
-                .GET_ALL_CUSTOMERS(UserInfoId, PersonType, false));
+                .GET_ALL_COLLEAGUES(UserInfoId, PersonType, false));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestGetAllCustomers>() {
+        getPrimaryCall().enqueue(new Callback<MD_RequestGetAllPerson>() {
             @Override
-            public void onResponse(Call<MD_RequestGetAllCustomers> call, Response<MD_RequestGetAllCustomers> response) {
+            public void onResponse(Call<MD_RequestGetAllPerson> call, Response<MD_RequestGetAllPerson> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1) {
-                        personList = response.body().getCustomers();
+                        personList = response.body().getColleagues();
                         getPublishSubject().onNext(StaticValues.ML_GetPerson);
                     } else
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
@@ -133,7 +135,7 @@ public class VM_Panel extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestGetAllCustomers> call, Throwable t) {
+            public void onFailure(Call<MD_RequestGetAllPerson> call, Throwable t) {
                 CallIsFailure();
             }
         });
@@ -141,9 +143,13 @@ public class VM_Panel extends VM_Primary {
     }//_____________________________________________________________________________________________ GetAllColleagues
 
 
-    public List<MD_Customer> getPersonList() {//____________________________________________________ getPersonList
+    public List<MD_Person> getPersonList() {//______________________________________________________ getPersonList
         return personList;
     }//_____________________________________________________________________________________________ getPersonList
+
+
+
+
 
 /*
     public void SaveCallReminder(

@@ -4,7 +4,7 @@ package ir.bppir.pishtazan.daggers.retrofit;
 import java.util.Map;
 
 import ir.bppir.pishtazan.models.MD_RequestGenerateCode;
-import ir.bppir.pishtazan.models.MD_RequestGetAllCustomers;
+import ir.bppir.pishtazan.models.MD_RequestGetAllPerson;
 import ir.bppir.pishtazan.models.MD_RequestPrimary;
 import ir.bppir.pishtazan.models.MD_RequestVerifyCode;
 import retrofit2.Call;
@@ -46,7 +46,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/GetAllCustomers")
-    Call<MD_RequestGetAllCustomers> GET_ALL_CUSTOMERS
+    Call<MD_RequestGetAllPerson> GET_ALL_CUSTOMERS
             (
                     @Field("UserInfoId") Integer UserInfoId,
                     @Field("CustomerStatus") Byte CustomerStatus,
@@ -56,18 +56,15 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/CreateColleague")
-    Call<MD_RequestGetAllCustomers> CREATE_COLLEAGUE
+    Call<MD_RequestPrimary> CREATE_COLLEAGUE
             (
-                    @Field(Colleague + ".FullName") String FullName,
-                    @Field(Colleague + ".MobileNumber") String MobileNumber,
-                    @Field(Colleague + ".UserInfoId") Integer UserInfoId,
-                    @Field(Colleague + ".Level") Integer Level
+                    @FieldMap Map<String,String> params
             );
 
 
     @FormUrlEncoded
     @POST(Version + "/GetAllColleagues")
-    Call<MD_RequestGetAllCustomers> GET_ALL_COLLEAGUES
+    Call<MD_RequestGetAllPerson> GET_ALL_COLLEAGUES
             (
                     @Field("UserInfoId") Integer UserInfoId,
                     @Field("ColleagueStatus") Byte ColleagueStatus,
