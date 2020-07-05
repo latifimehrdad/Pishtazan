@@ -53,8 +53,6 @@
 
             <include layout="@layout/layout_menu_type_panel"/>
 
-            <include layout="@layout/layout_show_on_google_map"/>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/RecyclerViewPanel"
                 android:layout_width="match_parent"

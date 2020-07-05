@@ -37,9 +37,9 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
 
     private NavController navController;
     private VM_Panel vm_panel;
-    private int panelType;
+    public int panelType;
     private AP_Person AP_person;
-    private Byte PersonType = 0;
+    public Byte PersonType = 0;
     private Dialog dialog;
     private Long longDate;
     private String stringDate;
@@ -245,6 +245,13 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
     }//_____________________________________________________________________________________________ SetAdapterPerson
 
 
+
+    public void AdapterMoveToPossible(Integer Position) {//_________________________________________ AdapterMoveToPossible
+
+    }//_____________________________________________________________________________________________ AdapterMoveToPossible
+
+
+
     public void ChooseActionFromList(Integer Position) {//__________________________________________ ChooseActionFromList
 
         if (dialog != null)
@@ -289,7 +296,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
             LinearLayoutMoveToCertain.setVisibility(View.GONE);
         } else if (PersonType == StaticValues.ML_Possible) {
             LinearLayoutMoveToPossible.setVisibility(View.GONE);
-            LinearLayoutMoveToCertain.setVisibility(View.VISIBLE);
+            LinearLayoutMoveToCertain.setVisibility(View.GONE);
         } else if (PersonType == StaticValues.ML_Certain) {
             LinearLayoutMoveToCertain.setVisibility(View.GONE);
             LinearLayoutMoveToPossible.setVisibility(View.GONE);
@@ -575,7 +582,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
     }//_____________________________________________________________________________________________ ShowMeetingReminder
 
 
-    private void ShowDeleteQuestion(Integer Position) {//__________________________________________ ShowMeetingReminder
+    public void ShowDeleteQuestion(Integer Position) {//____________________________________________ ShowMeetingReminder
 
         if (dialog != null)
             dialog.dismiss();

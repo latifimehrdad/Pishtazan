@@ -4,10 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -53,6 +57,12 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
 
         AdabterPersonPanelBinding binding;
 
+        @BindView(R.id.TextViewAction)
+        TextView TextViewAction;
+
+        @BindView(R.id.ImageViewDelete)
+        ImageView ImageViewDelete;
+
         @BindView(R.id.LinearLayoutAction)
         LinearLayout LinearLayoutAction;
 
@@ -66,10 +76,31 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
         public void bind(MD_Person item, final int itemPosition) {
             binding.setPerson(item);
 
-            LinearLayoutAction.setOnClickListener(new View.OnClickListener() {
+            if (panel.PersonType == StaticValues.ML_Maybe) {
+                TextViewAction.setText(context.getResources().getString(R.string.MoveToPossible));
+
+                LinearLayoutAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        panel.AdapterMoveToPossible(itemPosition);
+                    }
+                });
+            } else if (panel.PersonType == StaticValues.ML_Maybe) {
+
+                TextViewAction.setText(context.getResources().getString(R.string.ChooseAction));
+
+                LinearLayoutAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        panel.ChooseActionFromList(itemPosition);
+                    }
+                });
+            }
+
+            ImageViewDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    panel.ChooseActionFromList(itemPosition);
+                    panel.ShowDeleteQuestion(itemPosition);
                 }
             });
 
