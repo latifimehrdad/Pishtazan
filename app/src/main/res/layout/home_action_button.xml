@@ -44,7 +44,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/LinearLayoutPartnerReport"
+        android:id="@+id/LinearLayoutColleagueReport"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -62,7 +62,7 @@
             android:maxLines="2"
             fontPath="fonts/iransans_web_medium.ttf"
             android:gravity="center"
-            android:text="@string/PartnerReport"
+            android:text="@string/ColleagueReport"
             android:layout_marginLeft="@dimen/_2sdp"
             />
 

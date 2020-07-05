@@ -29,8 +29,8 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
     private NavController navController;
     private VM_Home vm_home;
 
-    @BindView(R.id.LinearLayoutPartners)
-    LinearLayout LinearLayoutPartners;
+    @BindView(R.id.LinearLayoutColleague)
+    LinearLayout LinearLayoutColleagues;
 
     @BindView(R.id.LinearLayoutCustomer)
     LinearLayout LinearLayoutCustomer;
@@ -38,8 +38,8 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
     @BindView(R.id.LinearLayoutCustomerReport)
     LinearLayout LinearLayoutCustomerReport;
 
-    @BindView(R.id.LinearLayoutPartnerReport)
-    LinearLayout LinearLayoutPartnerReport;
+    @BindView(R.id.LinearLayoutColleagueReport)
+    LinearLayout LinearLayoutColleagueReport;
 
 
 
@@ -81,10 +81,10 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
                 Home.this,
                 vm_home.getPublishSubject(),
                 vm_home);
-        LinearLayoutPartners.setVisibility(View.GONE);
+        LinearLayoutColleagues.setVisibility(View.GONE);
         LinearLayoutCustomer.setVisibility(View.GONE);
         LinearLayoutCustomerReport.setVisibility(View.GONE);
-        LinearLayoutPartnerReport.setVisibility(View.GONE);
+        LinearLayoutColleagueReport.setVisibility(View.GONE);
         SetAnimation();
 
     }//_____________________________________________________________________________________________ init
@@ -99,9 +99,9 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
             public void run() {
                 Animation inTop = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_top);
                 Animation inBottom = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_bottom);
-                LinearLayoutPartners.setAnimation(inTop);
+                LinearLayoutColleagues.setAnimation(inTop);
                 LinearLayoutCustomer.setAnimation(inBottom);
-                LinearLayoutPartners.setVisibility(View.VISIBLE);
+                LinearLayoutColleagues.setVisibility(View.VISIBLE);
                 LinearLayoutCustomer.setVisibility(View.VISIBLE);
             }
         },400);
@@ -113,9 +113,9 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
                 Animation inRight = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_right);
                 Animation inLeft = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_left);
                 LinearLayoutCustomerReport.setAnimation(inLeft);
-                LinearLayoutPartnerReport.setAnimation(inRight);
+                LinearLayoutColleagueReport.setAnimation(inRight);
                 LinearLayoutCustomerReport.setVisibility(View.VISIBLE);
-                LinearLayoutPartnerReport.setVisibility(View.VISIBLE);
+                LinearLayoutColleagueReport.setVisibility(View.VISIBLE);
             }
         },1100);
 
@@ -131,11 +131,11 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
     private void SetClick() {//_____________________________________________________________________  SetClick
 
-        LinearLayoutPartners.setOnClickListener(new View.OnClickListener() {
+        LinearLayoutColleagues.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putInt(getContext().getString(R.string.ML_PanelType), StaticValues.Partner);
+                bundle.putInt(getContext().getString(R.string.ML_PanelType), StaticValues.Colleague);
                 navController.navigate(R.id.action_home_to_panel, bundle);
             }
         });

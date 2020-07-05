@@ -16,6 +16,7 @@ import retrofit2.http.POST;
 public interface RetrofitApiInterface {
 
     String Version = "/api";
+    String Colleague = "Colleague";
 
     @FormUrlEncoded
     @POST(Version + "/GenerateCode")
@@ -52,5 +53,25 @@ public interface RetrofitApiInterface {
                     @Field("IsDeleted") boolean IsDeleted
             );
 
+
+    @FormUrlEncoded
+    @POST(Version + "/CreateColleague")
+    Call<MD_RequestGetAllCustomers> CREATE_COLLEAGUE
+            (
+                    @Field(Colleague + ".FullName") String FullName,
+                    @Field(Colleague + ".MobileNumber") String MobileNumber,
+                    @Field(Colleague + ".UserInfoId") Integer UserInfoId,
+                    @Field(Colleague + ".Level") Integer Level
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/GetAllColleagues")
+    Call<MD_RequestGetAllCustomers> GET_ALL_COLLEAGUES
+            (
+                    @Field("UserInfoId") Integer UserInfoId,
+                    @Field("ColleagueStatus") Byte ColleagueStatus,
+                    @Field("IsDeleted") boolean IsDeleted
+            );
 
 }

@@ -22,7 +22,7 @@
             <include layout="@layout/home_action_button"/>
 
             <LinearLayout
-                android:id="@+id/LinearLayoutPartners"
+                android:id="@+id/LinearLayoutColleague"
                 android:layout_width="@dimen/_200sdp"
                 android:layout_height="@dimen/_100sdp"
                 android:gravity="bottom|center_horizontal"
@@ -42,7 +42,7 @@
                     android:textColor="@color/ML_Harmony"
                     android:textSize="@dimen/_15sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
-                    android:text="@string/Partners"
+                    android:text="@string/Colleagues"
                     fontPath="fonts/iransans_web_medium.ttf"
                     />
 

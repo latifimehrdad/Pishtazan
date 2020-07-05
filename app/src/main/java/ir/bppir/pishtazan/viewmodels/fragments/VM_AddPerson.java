@@ -12,7 +12,6 @@ import java.util.Map;
 
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.models.MD_Contact;
-import ir.bppir.pishtazan.models.MD_RequestGenerateCode;
 import ir.bppir.pishtazan.models.MD_RequestPrimary;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
@@ -35,7 +34,7 @@ public class VM_AddPerson extends VM_Primary {
 
         if (panelType == StaticValues.Customer)
             AddCustomer(Name, Phone, Degree);
-        else if (panelType == StaticValues.Partner)
+        else if (panelType == StaticValues.Colleague)
             AddPartner(Name, Phone, Degree);
 
 //        Phone = PishtazanApplication

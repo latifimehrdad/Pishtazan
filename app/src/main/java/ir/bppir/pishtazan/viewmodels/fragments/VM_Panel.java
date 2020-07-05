@@ -3,17 +3,13 @@ package ir.bppir.pishtazan.viewmodels.fragments;
 import android.content.Context;
 import android.os.Handler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.database.DB_Persons;
 import ir.bppir.pishtazan.models.MD_Customer;
-import ir.bppir.pishtazan.models.MD_Notify;
 import ir.bppir.pishtazan.models.MD_RequestGetAllCustomers;
-import ir.bppir.pishtazan.models.MD_RequestPrimary;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
@@ -25,9 +21,9 @@ public class VM_Panel extends VM_Primary {
 
     private List<MD_Customer> personList;
 
-    public VM_Panel(Context context) {//____________________________________________________________ VM_Partners
+    public VM_Panel(Context context) {//____________________________________________________________ VM_Panel
         setContext(context);
-    }//_____________________________________________________________________________________________ VM_Partners
+    }//_____________________________________________________________________________________________ VM_Panel
 
 
     public void GetPerson(int panelType, Byte PersonType) {//_______________________________________ GetPerson
@@ -40,7 +36,7 @@ public class VM_Panel extends VM_Primary {
                 if (panelType == StaticValues.Customer)
                     GetAllCustomers(PersonType);
                 else
-                    GetAllPartners(PersonType);
+                    GetAllColleagues(PersonType);
             }
         }, 200);
 
@@ -109,9 +105,40 @@ public class VM_Panel extends VM_Primary {
     }//_____________________________________________________________________________________________ GetAllCustomers
 
 
-    private void GetAllPartners(Byte PersonType) {//________________________________________________ GetAllPartners
+    private void GetAllColleagues(Byte PersonType) {//______________________________________________ GetAllColleagues
 
-    }//_____________________________________________________________________________________________ GetAllPartners
+        Integer UserInfoId = GetUserId();
+        if (UserInfoId == 0) {
+            UserIsNotAuthorization();
+            return;
+        }
+
+        setPrimaryCall(PishtazanApplication
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .GET_ALL_CUSTOMERS(UserInfoId, PersonType, false));
+
+        getPrimaryCall().enqueue(new Callback<MD_RequestGetAllCustomers>() {
+            @Override
+            public void onResponse(Call<MD_RequestGetAllCustomers> call, Response<MD_RequestGetAllCustomers> response) {
+                if (ResponseIsOk(response)) {
+                    setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 1) {
+                        personList = response.body().getCustomers();
+                        getPublishSubject().onNext(StaticValues.ML_GetPerson);
+                    } else
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MD_RequestGetAllCustomers> call, Throwable t) {
+                CallIsFailure();
+            }
+        });
+
+    }//_____________________________________________________________________________________________ GetAllColleagues
 
 
     public List<MD_Customer> getPersonList() {//____________________________________________________ getPersonList

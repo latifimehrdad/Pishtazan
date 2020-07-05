@@ -93,7 +93,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
             vm_panel = new VM_Panel(getContext());
             FragmentPanelBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_panel, container, false);
-            binding.setPartners(vm_panel);
+            binding.setPanel(vm_panel);
             setView(binding.getRoot());
             ButterKnife.bind(this, getView());
             SetClick();
@@ -126,8 +126,8 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
     private void init() {//_________________________________________________________________________ init
 
         panelType = getArguments().getInt(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
-        if (panelType == StaticValues.Partner) {
-            TextViewTitle.setText(getContext().getResources().getString(R.string.PartnerPanel));
+        if (panelType == StaticValues.Colleague) {
+            TextViewTitle.setText(getContext().getResources().getString(R.string.ColleaguePanel));
         } else {
             TextViewTitle.setText(getContext().getResources().getString(R.string.CustomerPanel));
         }

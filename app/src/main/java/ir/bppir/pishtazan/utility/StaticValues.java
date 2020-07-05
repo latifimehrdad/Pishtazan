@@ -13,7 +13,7 @@ public class StaticValues {
     public static Byte Meeting = 1;
 
     public static Byte Customer = 0;
-    public static Byte Partner = 1;
+    public static Byte Colleague = 1;
 
 
     public static Byte DegreeNormal = 0;

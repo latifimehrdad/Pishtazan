@@ -11,9 +11,9 @@
     <string name="ElapsedTimeGetSMS">زمان باقی مانده\n برای دریافت پیامک</string>
     <string name="ReTryGetSMS">دریافت دوباره\n پیامک</string>
     <string name="PleaseWait">شکیبا باشید</string>
-    <string name="Partners">همکاران</string>
+    <string name="Colleagues">همکاران</string>
     <string name="Customer">مشتری</string>
-    <string name="PartnerPanel">پنل همکاران</string>
+    <string name="ColleaguePanel">پنل همکاران</string>
     <string name="CustomerPanel">پنل مشتریان</string>
     <string name="Certain">قطعی</string>
     <string name="Maybe">بالقوه</string>
@@ -52,7 +52,7 @@
     <string name="SuccessForMoveToCertain">شخص با موفقیت به لیست قطعی منتقل شد</string>
     <string name="PleaseWaitingForConnectingToServer">در حال برقراری ارتباط با مرکز</string>
     <string name="PowerBy">قدرت گرفته از قلب تپنده پیشتازان</string>
-    <string name="PartnerReport">گزارشات همکاران</string>
+    <string name="ColleagueReport">گزارشات همکاران</string>
     <string name="CustomerReport">گزارشات مشتریان</string>
     <string name="Close">بستن</string>
     <string name="DegreeNormal">عادی</string>

@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
-            name="partners"
+            name="panel"
             type="ir.bppir.pishtazan.viewmodels.fragments.VM_Panel" />
     </data>
 
@@ -32,7 +32,7 @@
                 android:gravity="center"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_5sdp"
-                android:text="@string/Partners"/>
+                android:text="@string/Colleagues"/>
 
             <ImageView
                 android:layout_width="@dimen/_25sdp"
