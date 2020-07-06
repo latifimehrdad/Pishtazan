@@ -56,6 +56,7 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
     public class CustomHolder extends RecyclerView.ViewHolder {
 
         AdabterPersonPanelBinding binding;
+        View viewParent;
 
         @BindView(R.id.TextViewAction)
         TextView TextViewAction;
@@ -69,8 +70,8 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
         public CustomHolder(AdabterPersonPanelBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-            View view = binding.getRoot();
-            ButterKnife.bind(this, view);
+            viewParent = binding.getRoot();
+            ButterKnife.bind(this, viewParent);
         }
 
         public void bind(MD_Person item, final int itemPosition) {
@@ -100,7 +101,7 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
             ImageViewDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    panel.ShowDeleteQuestion(itemPosition);
+                    panel.ShowDeleteQuestion(itemPosition, viewParent);
                 }
             });
 

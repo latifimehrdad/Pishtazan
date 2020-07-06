@@ -12,6 +12,7 @@ import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.database.DB_Persons;
 import ir.bppir.pishtazan.models.MD_Person;
 import ir.bppir.pishtazan.models.MD_RequestGetAllPerson;
+import ir.bppir.pishtazan.models.MD_RequestPrimary;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
@@ -42,31 +43,6 @@ public class VM_Panel extends VM_Primary {
                     GetAllColleagues(PersonType);
             }
         }, 200);
-
-
-//        Realm realm = Realm.getDefaultInstance();
-//        try {
-//            RealmResults<DB_Persons> db_persons = realm
-//                    .where(DB_Persons.class)
-//                    .equalTo("panelType", panelType)
-//                    .and()
-//                    .equalTo("PersonType", PersonType)
-//                    .findAll();
-//
-//            personList = new ArrayList<>();
-//            personList.addAll(realm.copyFromRealm(db_persons));
-//        } finally {
-//            if (realm != null)
-//                realm.close();
-//        }
-//
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                getPublishSubject().onNext(StaticValues.ML_GetPerson);
-//            }
-//        }, 1000);
 
     }//_____________________________________________________________________________________________ GetPerson
 
@@ -237,24 +213,48 @@ public class VM_Panel extends VM_Primary {
     }//_____________________________________________________________________________________________ SaveMeetingReminder
 */
 
-    public void DeletePerson(Integer Position) {//__________________________________________________ DeletePerson
-        setResponseMessage(getContext().getResources().getString(R.string.SuccessDeletePerson));
-        Realm realm = Realm.getDefaultInstance();
-        try {
-            realm.beginTransaction();
-            DB_Persons db_persons = realm
-                    .where(DB_Persons.class)
-                    .equalTo("Id", personList.get(Position).getId())
-                    .findAll().first();
-            if (db_persons != null)
-                db_persons.deleteFromRealm();
-            realm.commitTransaction();
-        } finally {
-            if (realm != null)
-                realm.close();
-        }
-        getPublishSubject().onNext(StaticValues.ML_DeletePerson);
+    public void DeletePerson(int panelType, Integer Position) {//__________________________________________________ DeletePerson
+        if (panelType == StaticValues.Customer)
+            DeleteCustomer(Position);
+//        else
+//            GetAllColleagues(PersonType);
     }//_____________________________________________________________________________________________ DeletePerson
+
+
+    private void DeleteCustomer(Integer Position) {//_______________________________________________ DeleteCustomer
+
+        Integer Id = GetUserId();
+        if (Id == 0) {
+            UserIsNotAuthorization();
+            return;
+        }
+
+        setPrimaryCall(PishtazanApplication
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .DELETE_CUSTOMER(Id, personList.get(Position).getId()));
+
+        getPrimaryCall().enqueue(new Callback<MD_RequestPrimary>() {
+            @Override
+            public void onResponse(Call<MD_RequestPrimary> call, Response<MD_RequestPrimary> response) {
+                if (ResponseIsOk(response)) {
+                    setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 1)
+                        getPublishSubject().onNext(StaticValues.ML_DeletePerson);
+                    else
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MD_RequestPrimary> call, Throwable t) {
+                CallIsFailure();
+            }
+        });
+
+    }//_____________________________________________________________________________________________ DeleteCustomer
+
 
 
     public void MoveToPossible(Integer Position) {//________________________________________________ MoveToPossible

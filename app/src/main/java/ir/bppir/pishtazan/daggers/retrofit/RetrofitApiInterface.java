@@ -71,4 +71,13 @@ public interface RetrofitApiInterface {
                     @Field("IsDeleted") boolean IsDeleted
             );
 
+
+    @FormUrlEncoded
+    @POST(Version + "/DeleteCustomer")
+    Call<MD_RequestPrimary> DELETE_CUSTOMER
+            (
+                    @Field("Id") Integer Id,
+                    @Field("UserInfoId") Integer UserInfoId
+            );
+
 }

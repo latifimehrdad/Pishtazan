@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="@dimen/_10sdp"
     android:background="@drawable/dw_back_bottom_connection"
     android:orientation="horizontal"
@@ -16,11 +17,12 @@
         android:gravity="center"
         android:padding="@dimen/_2sdp">
 
-        <ImageView
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:src="@drawable/ic_baseline_account_circle"
-            android:tint="@color/ML_HarmonyDark"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            app:civ_border_width="@dimen/_2sdp"
+            app:civ_border_color="@color/ML_Red"
+            android:src="@drawable/normal_icon"/>
 
         <TextView
             fontPath="fonts/iransans_web_medium.ttf"
@@ -44,11 +46,13 @@
         android:layout_marginLeft="@dimen/_5sdp"
         android:layout_marginRight="@dimen/_5sdp">
 
-        <ImageView
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:src="@drawable/peach_icon"
-            android:tint="@color/ML_HarmonyDark"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            app:civ_border_width="@dimen/_2sdp"
+            app:civ_border_color="@color/ML_Red"
+            android:src="@drawable/peach_icon"/>
 
         <TextView
             fontPath="fonts/iransans_web_medium.ttf"
@@ -71,11 +75,13 @@
         android:padding="@dimen/_2sdp"
         >
 
-        <ImageView
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:src="@drawable/giant_icon"
-            android:tint="@color/ML_HarmonyDark"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            app:civ_border_width="@dimen/_2sdp"
+            app:civ_border_color="@color/ML_Red"
+            android:src="@drawable/giant_icon"/>
 
         <TextView
             fontPath="fonts/iransans_web_medium.ttf"

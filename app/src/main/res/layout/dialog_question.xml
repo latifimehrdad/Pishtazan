@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/ML_White"
     android:padding="@dimen/_10sdp"
@@ -35,7 +36,17 @@
             android:background="@drawable/dw_back_question_left"
             >
 
+            <com.cunoraz.gifview.library.GifView
+                android:id="@+id/GifViewQuestion"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_2sdp"
+                android:visibility="gone"
+                custom:gif="@drawable/loading3" />
+
             <ImageView
+                android:id="@+id/ImageViewQuestion"
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginLeft="@dimen/_10sdp"

@@ -2,11 +2,15 @@ package ir.bppir.pishtazan.views.fragments;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -46,6 +50,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
     private Long longTime;
     private String stringTime;
     private boolean GoToAddPerson;
+    private View personPositionView;
 
     @BindView(R.id.LinearLayoutParent)
     LinearLayout LinearLayoutParent;
@@ -143,6 +148,11 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
     @Override
     public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
+        if (dialog != null) {
+            dialog.dismiss();
+            dialog = null;
+        }
+
         if (action == StaticValues.ML_GetPerson) {
             if (PersonType == StaticValues.ML_Maybe)
                 LinearLayoutAdd.setVisibility(View.VISIBLE);
@@ -152,21 +162,20 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
 
         if (action == StaticValues.ML_ConvertPerson) {
             GetList();
-            ShowMessage(
-                    vm_panel.getResponseMessage(),
-                    getResources().getColor(R.color.ML_Dialog),
-                    getResources().getDrawable(R.drawable.ic_baseline_how_to_reg),
-                    getResources().getColor(R.color.ML_OK));
             return;
         }
 
         if (action == StaticValues.ML_DeletePerson) {
-            GetList();
-            ShowMessage(
-                    vm_panel.getResponseMessage(),
-                    getResources().getColor(R.color.ML_Dialog),
-                    getResources().getDrawable(R.drawable.ic_baseline_how_to_reg),
-                    getResources().getColor(R.color.ML_OK));
+            Animation outLeft = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
+            personPositionView.setAnimation(outLeft);
+            personPositionView.setVisibility(View.INVISIBLE);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    GetList();
+                }
+            },700);
             return;
         }
 
@@ -341,7 +350,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
             @Override
             public void onClick(View view) {
 
-                ShowDeleteQuestion(Position);
+                //ShowDeleteQuestion(Position);
             }
         });
 
@@ -580,7 +589,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
     }//_____________________________________________________________________________________________ ShowMeetingReminder
 
 
-    public void ShowDeleteQuestion(Integer Position) {//____________________________________________ ShowMeetingReminder
+    public void ShowDeleteQuestion(Integer Position, View view) {//____________________________________________ ShowMeetingReminder
 
         if (dialog != null)
             dialog.dismiss();
@@ -598,9 +607,20 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         window.setAttributes(lp);
 
+        personPositionView = view;
 
         TextView TextViewQuestionTitle = (TextView)
                 dialog.findViewById(R.id.TextViewQuestionTitle);
+
+        GifView GifViewQuestion = (GifView) dialog.findViewById(R.id.GifViewQuestion);
+
+        ImageView ImageViewQuestion = (ImageView) dialog.findViewById(R.id.ImageViewQuestion);
+
+        GifViewQuestion.setVisibility(View.GONE);
+
+        ImageViewQuestion.setVisibility(View.VISIBLE);
+
+
 
         StringBuilder sp = new StringBuilder();
         sp.append(getContext().getResources().getString(R.string.AreYouSureYouWantToDeleteIt1));
@@ -628,9 +648,13 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         LinearLayoutYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
-                dialog = null;
-                vm_panel.DeletePerson(Position);
+                if (isAccessClick()) {
+                    setAccessClick(false);
+                    GifViewQuestion.setVisibility(View.VISIBLE);
+                    ImageViewQuestion.setVisibility(View.GONE);
+                    vm_panel.DeletePerson(panelType, Position);
+                } else
+                    vm_panel.CancelRequest();
             }
         });
 
