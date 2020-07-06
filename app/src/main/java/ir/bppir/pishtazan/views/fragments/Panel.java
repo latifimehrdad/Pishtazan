@@ -245,11 +245,9 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
     }//_____________________________________________________________________________________________ SetAdapterPerson
 
 
-
     public void AdapterMoveToPossible(Integer Position) {//_________________________________________ AdapterMoveToPossible
 
     }//_____________________________________________________________________________________________ AdapterMoveToPossible
-
 
 
     public void ChooseActionFromList(Integer Position) {//__________________________________________ ChooseActionFromList

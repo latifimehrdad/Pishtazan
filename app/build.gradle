@@ -82,5 +82,7 @@ dependencies {
 
     implementation 'com.github.aliab:Persian-Date-Picker-Dialog:1.5.2'
 
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+
 
 }

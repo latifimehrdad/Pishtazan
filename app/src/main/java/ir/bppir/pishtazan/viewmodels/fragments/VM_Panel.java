@@ -30,6 +30,7 @@ public class VM_Panel extends VM_Primary {
 
     public void GetPerson(int panelType, Byte PersonType) {//_______________________________________ GetPerson
 
+        CancelRequest();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

@@ -5,8 +5,18 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 
 import androidx.multidex.MultiDexApplication;
+
+import com.nostra13.universalimageloader.cache.memory.BaseMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+
+import java.lang.ref.Reference;
 
 import io.github.inflationx.calligraphy3.CalligraphyConfig;
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
@@ -22,6 +32,9 @@ import ir.bppir.pishtazan.daggers.applicationutility.DaggerApplicationUtilityCom
 import ir.bppir.pishtazan.daggers.datepicker.DaggerPersianPickerComponent;
 import ir.bppir.pishtazan.daggers.datepicker.PersianPickerComponent;
 import ir.bppir.pishtazan.daggers.datepicker.PersianPickerModule;
+import ir.bppir.pishtazan.daggers.imageloader.DaggerImageLoaderComponent;
+import ir.bppir.pishtazan.daggers.imageloader.ImageLoaderComponent;
+import ir.bppir.pishtazan.daggers.imageloader.ImageLoaderModule;
 import ir.bppir.pishtazan.daggers.retrofit.DaggerRetrofitComponent;
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitModule;
@@ -33,6 +46,7 @@ public class PishtazanApplication extends MultiDexApplication {
     private ApplicationUtilityComponent applicationUtilityComponent;
     private PersianPickerComponent persianPickerComponent;
     private RetrofitComponent retrofitComponent;
+    private ImageLoaderComponent imageLoaderComponent;
 
     @Override
     public void onCreate() {//______________________________________________________________________ onCreate
@@ -44,6 +58,7 @@ public class PishtazanApplication extends MultiDexApplication {
         ConfigurationDataPicker();
         ConfigurationRetrofitComponent();
         ConfigurationRealmComponent();
+        ConfigurationImageLoader();
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(context.getResources().getString(R.string.ML_Ignore));
@@ -61,6 +76,37 @@ public class PishtazanApplication extends MultiDexApplication {
                 .retrofitModule(new RetrofitModule(context))
                 .build();
     }//_____________________________________________________________________________________________ ConfigurationRetrofitComponent
+
+
+
+    private void ConfigurationImageLoader() {//_____________________________________________________ ConfigurationImageLoader
+
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheOnDisk(true).cacheInMemory(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .bitmapConfig(Bitmap.Config.ARGB_8888)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .resetViewBeforeLoading(true)
+                .displayer(new FadeInBitmapDisplayer(100))
+                .build();
+
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                .defaultDisplayImageOptions(defaultOptions)
+                .memoryCache(new BaseMemoryCache() {
+                    @Override
+                    protected Reference<Bitmap> createReference(Bitmap value) {
+                        return null;
+                    }
+                })
+                .threadPoolSize(3)
+                .diskCacheSize(100 * 1024 * 1024)
+                .build();
+        ImageLoader.getInstance().init(config);
+
+        imageLoaderComponent = DaggerImageLoaderComponent.builder().imageLoaderModule(new ImageLoaderModule()).build();
+    }//_____________________________________________________________________________________________ ConfigurationImageLoader()
 
 
 
@@ -108,19 +154,23 @@ public class PishtazanApplication extends MultiDexApplication {
     }//_____________________________________________________________________________________________ getPersianPickerComponent
 
 
-    public RetrofitComponent getRetrofitComponent() {//_____________________________________________ Start getRetrofitComponent
+    public RetrofitComponent getRetrofitComponent() {//_____________________________________________ getRetrofitComponent
         return retrofitComponent;
-    }//_____________________________________________________________________________________________ End getRetrofitComponent
+    }//_____________________________________________________________________________________________ getRetrofitComponent
 
 
-    private void setComponentEnabledSetting() {//___________________________________________________ Start setComponentEnabledSetting
+    private void setComponentEnabledSetting() {//___________________________________________________ setComponentEnabledSetting
         ComponentName receiver = new ComponentName(this, ReceiverLunchAppInBackground.class);
         PackageManager pm = this.getPackageManager();
 
         pm.setComponentEnabledSetting(receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP);
-    }//_____________________________________________________________________________________________ End setComponentEnabledSetting
+    }//_____________________________________________________________________________________________ setComponentEnabledSetting
 
+
+    public ImageLoaderComponent getImageLoaderComponent() {//_______________________________________ getImageLoaderComponent
+        return imageLoaderComponent;
+    }//_____________________________________________________________________________________________ getImageLoaderComponent
 
 }

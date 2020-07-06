@@ -6,7 +6,7 @@
     <color name="colorAccent">#1B51B3</color>
 
     <color name="ML_Splash">#616671</color>
-    <color name="ML_AdapterPerson">#8D919A</color>
+    <color name="ML_AdapterPerson">#9397A5</color>
     <color name="ML_Dark">#252627</color>
     <color name="ML_Harmony">#feca04</color>
     <color name="ML_HarmonyDark">#DC8C02</color>
@@ -20,6 +20,6 @@
     <color name="ML_Trans">#00000000</color>
     <color name="ML_WhiteGray">#EBEAEA</color>
     <color name="ML_OK">#058101</color>
-
+    <color name="ML_Green">#aaeeef</color>
 
 </resources>
