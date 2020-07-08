@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/ML_White"
+    android:padding="@dimen/_10sdp"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        >
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayoutCamera"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@drawable/back_circle_accent_bleft_tleft">
+
+            <ImageView
+                android:id="@+id/ImageViewCamera"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:src="@drawable/ic_baseline_camera"
+                android:tint="@color/ML_Harmony" />
+
+
+            <TextView
+                fontPath="fonts/iransans_web_medium.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginLeft="@dimen/_2sdp"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:maxLines="2"
+                android:text="@string/ChooseCamera"
+                android:textColor="@color/ML_White"
+                android:layout_toRightOf="@id/ImageViewCamera"
+                android:textSize="@dimen/_9sdp" />
+
+            <com.cunoraz.gifview.library.GifView
+                android:id="@+id/GifViewSend"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:visibility="invisible"
+                custom:gif="@drawable/loading" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutGallery"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/back_circle_accent_bright_tright"
+            >
+
+            <TextView
+                fontPath="fonts/iransans_web_medium.ttf"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="52dp"
+                android:layout_marginRight="@dimen/_2sdp"
+                android:gravity="center"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:maxLines="2"
+                android:text="@string/ChooseGallery"
+                android:textColor="@color/ML_White"
+                android:textSize="@dimen/_9sdp" />
+
+            <ImageView
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginLeft="@dimen/_2sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:src="@drawable/ic_baseline_image_search"
+                android:tint="@color/ML_Harmony"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/TextViewCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_9sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        android:paddingRight="@dimen/_15sdp"
+        android:paddingLeft="@dimen/_15sdp"
+        android:textColor="@color/ML_Black"
+        android:background="@drawable/dw_back_recycler"
+        android:text="@string/Cancel"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        fontPath="fonts/iransans_web_medium.ttf"
+        />
+
+
+</LinearLayout>

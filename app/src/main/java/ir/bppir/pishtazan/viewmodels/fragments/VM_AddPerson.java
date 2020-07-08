@@ -1,5 +1,6 @@
 package ir.bppir.pishtazan.viewmodels.fragments;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
@@ -25,7 +26,7 @@ public class VM_AddPerson extends VM_Primary {
     private List<MD_Contact> md_contacts;
     private List<MD_Contact> md_contactsFilter;
 
-    public VM_AddPerson(Context context) {//________________________________________________________ VM_AddPerson
+    public VM_AddPerson(Activity context) {//_______________________________________________________ VM_AddPerson
         setContext(context);
     }//_____________________________________________________________________________________________ VM_AddPerson
 
@@ -218,6 +219,10 @@ public class VM_AddPerson extends VM_Primary {
                             String phoneNo = pCur.getString(pCur.getColumnIndex(
                                     ContactsContract.CommonDataKinds.Phone.NUMBER));
                             phoneNo = phoneNo.replaceAll("-", "");
+                            String temp = phoneNo.substring(0,3);
+                            if (temp.equals("+98")) {
+                                phoneNo = "0" + phoneNo.substring(3,phoneNo.length());
+                            }
                             md_contacts.add(new MD_Contact(name, phoneNo));
                         }
                         pCur.close();
@@ -244,6 +249,7 @@ public class VM_AddPerson extends VM_Primary {
 
     public void FilterContact(String text) {//______________________________________________________ FilterContact
         if (text == null || text.length() == 0) {
+            setResponseMessage("");
             getPublishSubject().onNext(StaticValues.ML_GetContact);
         } else {
 
@@ -266,6 +272,7 @@ public class VM_AddPerson extends VM_Primary {
                 else if (Phone.toLowerCase().contains(text.toLowerCase()))
                     md_contactsFilter.add(contact);
             }
+            setResponseMessage("");
             getPublishSubject().onNext(StaticValues.ML_GetContactFilter);
         }
 

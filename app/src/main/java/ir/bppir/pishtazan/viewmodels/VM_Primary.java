@@ -1,5 +1,6 @@
 package ir.bppir.pishtazan.viewmodels;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 
@@ -24,7 +25,7 @@ public class VM_Primary {
     private PublishSubject<Byte> publishSubject;
     private String ResponseMessage;
     private Call PrimaryCall;
-    private Context context;
+    private Activity context;
 
     public VM_Primary() {//_________________________________________________________________________ VM_Primary
         publishSubject = PublishSubject.create();
@@ -32,8 +33,10 @@ public class VM_Primary {
 
 
     public void CancelRequest() {//_________________________________________________________________ CancelRequest
-        if (PrimaryCall != null)
+        if (PrimaryCall != null) {
             PrimaryCall.cancel();
+            PrimaryCall = null;
+        }
     }//_____________________________________________________________________________________________ CancelRequest
 
 
@@ -42,7 +45,7 @@ public class VM_Primary {
     }//_____________________________________________________________________________________________ getPrimaryCall
 
     public void setPrimaryCall(Call primaryCall) {//________________________________________________ setPrimaryCall
-        PrimaryCall = null;
+        CancelRequest();
         PrimaryCall = primaryCall;
     }//_____________________________________________________________________________________________ setPrimaryCall
 
@@ -112,10 +115,19 @@ public class VM_Primary {
 
     public void CallIsFailure() {//_________________________________________________________________ CallIsFailure
 
-        if (getPrimaryCall().isCanceled())
+        if (getPrimaryCall() == null) {
+            setResponseMessage("");
             getPublishSubject().onNext(StaticValues.ML_RequestCancel);
-        else
-            getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
+            return;
+        } else {
+            if (getPrimaryCall().isCanceled()) {
+                setResponseMessage("");
+                getPublishSubject().onNext(StaticValues.ML_RequestCancel);
+            } else {
+                setResponseMessage(getContext().getResources().getString(R.string.RequestFailure));
+                getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
+            }
+        }
 
     }//_____________________________________________________________________________________________ CallIsFailure
 
@@ -127,6 +139,7 @@ public class VM_Primary {
         DB_UserInfo db_userInfo = realm.where(DB_UserInfo.class).findFirst();
         realm.close();
         return db_userInfo;
+
     }//_____________________________________________________________________________________________ GetUserInfo
 
 
@@ -189,11 +202,11 @@ public class VM_Primary {
         ResponseMessage = responseMessage;
     }//_____________________________________________________________________________________________ setResponseMessage
 
-    public Context getContext() {//_________________________________________________________________ getContext
+    public Activity getContext() {//________________________________________________________________ getContext
         return context;
     }//_____________________________________________________________________________________________ getContext
 
-    public void setContext(Context context) {//_____________________________________________________ setContext
+    public void setContext(Activity context) {//____________________________________________________ setContext
         this.context = context;
     }//_____________________________________________________________________________________________ setContext
 

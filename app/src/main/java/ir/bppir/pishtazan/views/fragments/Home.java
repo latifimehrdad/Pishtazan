@@ -55,7 +55,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
-            vm_home = new VM_Home(getContext());
+            vm_home = new VM_Home(getActivity());
             FragmentHomeBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_home, container,false);
             binding.setHome(vm_home);

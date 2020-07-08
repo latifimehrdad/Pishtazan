@@ -1,5 +1,6 @@
 package ir.bppir.pishtazan.viewmodels.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 
@@ -13,7 +14,7 @@ public class VM_Splash extends VM_Primary {
 
     boolean isLogin = false;
 
-    public VM_Splash(Context context) {//___________________________________________________________ VM_Home
+    public VM_Splash(Activity context) {//__________________________________________________________ VM_Home
         setContext(context);
     }//_____________________________________________________________________________________________ VM_Home
 

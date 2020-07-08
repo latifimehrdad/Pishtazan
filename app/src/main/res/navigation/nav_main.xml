@@ -92,6 +92,15 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"/>
 
+        <action
+            android:id="@+id/action_panel_to_editPerson"
+            app:destination="@id/editPerson"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            />
+
     </fragment>
 
     <fragment
@@ -99,5 +108,11 @@
         android:name="ir.bppir.pishtazan.views.fragments.AddPerson"
         android:label="AddPerson"
         tools:layout="@layout/fragment_add_person"/>
+
+    <fragment
+        android:id="@+id/editPerson"
+        android:name="ir.bppir.pishtazan.views.fragments.EditPerson"
+        android:label="EditPerson"
+        tools:layout="@layout/fragment_edit_person"/>
 
 </navigation>

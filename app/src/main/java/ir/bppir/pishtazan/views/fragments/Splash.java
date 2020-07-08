@@ -43,7 +43,7 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
         if (getView() == null) {
             FragmentSplashBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_splash,container,false);
-            vm_splash = new VM_Splash(getContext());
+            vm_splash = new VM_Splash(getActivity());
             binding.setSplash(vm_splash);
             setView(binding.getRoot());
             ButterKnife.bind(this, getView());

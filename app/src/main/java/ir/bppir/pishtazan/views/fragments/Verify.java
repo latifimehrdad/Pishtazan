@@ -81,7 +81,7 @@ public class Verify extends FragmentPrimary implements FragmentPrimary.GetMessag
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
-            vm_verify = new VM_Verify(getContext());
+            vm_verify = new VM_Verify(getActivity());
             FragmentVerifyBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_verify,container, false);
             binding.setVerify(vm_verify);

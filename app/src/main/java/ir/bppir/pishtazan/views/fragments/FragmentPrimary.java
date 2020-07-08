@@ -1,9 +1,11 @@
 package ir.bppir.pishtazan.views.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
@@ -21,10 +23,9 @@ import ir.bppir.pishtazan.views.dialogs.DialogMessage;
 public class FragmentPrimary extends Fragment {
 
     private DisposableObserver<Byte> disposableObserver;
-    private Context context;
+    private Activity context;
     private View view;
     private GetMessageFromObservable getMessageFromObservable;
-    private boolean AccessClick;
     private VM_Primary vm_primary;
 
 
@@ -43,7 +44,6 @@ public class FragmentPrimary extends Fragment {
     public void onCreate(Bundle savedInstanceState) {//_____________________________________________ onCreate
         super.onCreate(savedInstanceState);
         context = getActivity();
-        AccessClick = true;
 
     }//_____________________________________________________________________________________________ onCreate
 
@@ -131,8 +131,6 @@ public class FragmentPrimary extends Fragment {
                     @Override
                     public void run() {
 
-                        setAccessClick(true);
-
                         getMessageFromObservable.GetMessageFromObservable(action);
 
                         if (vm_primary.getResponseMessage() == null)
@@ -169,13 +167,15 @@ public class FragmentPrimary extends Fragment {
     }//_____________________________________________________________________________________________ ShowMessage
 
 
+    public void hideKeyboard() {//___________________________________________________________ Start hideKeyboard
+        InputMethodManager imm = (InputMethodManager) vm_primary.getContext().getSystemService(vm_primary.getContext().INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = vm_primary.getContext().getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(vm_primary.getContext());
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }//_____________________________________________________________________________________________ End hideKeyboard
 
-    public boolean isAccessClick() {//______________________________________________________________ isAccessClick
-        return AccessClick;
-    }//_____________________________________________________________________________________________ isAccessClick
-
-
-    public void setAccessClick(boolean accessClick) {//_____________________________________________ setAccessClick
-        AccessClick = accessClick;
-    }//_____________________________________________________________________________________________ setAccessClick
 }

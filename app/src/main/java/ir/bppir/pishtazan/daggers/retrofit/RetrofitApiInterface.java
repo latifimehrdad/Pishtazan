@@ -80,4 +80,30 @@ public interface RetrofitApiInterface {
                     @Field("UserInfoId") Integer UserInfoId
             );
 
+
+    @FormUrlEncoded
+    @POST(Version + "/DeleteColleague")
+    Call<MD_RequestPrimary> DELETE_COLLEAGUE
+            (
+                    @Field("Id") Integer Id,
+                    @Field("UserInfoId") Integer UserInfoId
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/ConvertToPossibleColleague")
+    Call<MD_RequestPrimary> CONVERT_TO_POSSIBLE_COLLEAGUE
+            (
+                    @Field("Id") Integer Id,
+                    @Field("UserInfoId") Integer UserInfoId
+            );
+
+    @FormUrlEncoded
+    @POST(Version + "/ConvertToPossibleCustomer")
+    Call<MD_RequestPrimary> CONVERT_TO_POSSIBLE_CUSTOMER
+            (
+                    @Field("Id") Integer Id,
+                    @Field("UserInfoId") Integer UserInfoId
+            );
+
 }

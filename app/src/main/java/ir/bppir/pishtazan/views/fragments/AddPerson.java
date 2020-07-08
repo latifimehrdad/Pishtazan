@@ -111,7 +111,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
-            vm_addPerson = new VM_AddPerson(getContext());
+            vm_addPerson = new VM_AddPerson(getActivity());
             FragmentAddPersonBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_add_person, container, false);
             binding.setAddPerson(vm_addPerson);
@@ -185,13 +185,6 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
             return;
         }
 
-//        if ((action == StaticValues.ML_ResponseError) ||
-//                (action == StaticValues.ML_ResponseFailure) ||
-//                (action == StaticValues.ML_RequestCancel)) {
-//            FinishWaiting();
-//            FinishLoadingSend();
-//            return;
-//        }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
@@ -201,25 +194,23 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
         RelativeLayoutAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isAccessClick()) {
-                    StaticFunctions.hideKeyboard(getActivity());
-                    ShowWaiting();
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            vm_addPerson.GetContact();
-                        }
-                    }, 1000);
+                hideKeyboard();
+                ShowWaiting();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        vm_addPerson.GetContact();
+                    }
+                }, 1000);
 
-                }
             }
         });
 
         LinearLayoutCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StaticFunctions.hideKeyboard(getActivity());
+                hideKeyboard();
                 getActivity().onBackPressed();
             }
         });
@@ -228,24 +219,20 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
         LinearLayoutSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (isAccessClick()) {
-                    String phone = EditTextPhoneNumber.getText().toString();
-                    phone = phone.replaceAll(" ", "");
-                    phone = phone.replaceAll("-", "");
-                    EditTextPhoneNumber.setText(phone);
-                    if (CheckEmpty()) {
-                        StaticFunctions.hideKeyboard(getActivity());
-                        ShowLoadingSend();
-                        vm_addPerson.AddPerson(
-                                EditTextName.getText().toString(),
-                                EditTextPhoneNumber.getText().toString(),
-                                Degree,
-                                panelType
-                        );
-                    }
-                } else
-                    vm_addPerson.CancelRequest();
+                String phone = EditTextPhoneNumber.getText().toString();
+                phone = phone.replaceAll(" ", "");
+                phone = phone.replaceAll("-", "");
+                EditTextPhoneNumber.setText(phone);
+                if (CheckEmpty()) {
+                    StaticFunctions.hideKeyboard(getActivity());
+                    ShowLoadingSend();
+                    vm_addPerson.AddPerson(
+                            EditTextName.getText().toString(),
+                            EditTextPhoneNumber.getText().toString(),
+                            Degree,
+                            panelType
+                    );
+                }
             }
         });
 
@@ -292,8 +279,6 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
 
 
     private void ShowLoadingSend() {//______________________________________________________________ ShowLoadingSend
-
-        setAccessClick(false);
         ImageViewSend.setVisibility(View.GONE);
         GifViewSend.setVisibility(View.VISIBLE);
         TextViewSend.setText(getContext().getResources().getString(R.string.PleaseWait));
@@ -303,7 +288,6 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
 
     private void FinishLoadingSend() {//____________________________________________________________ ShowLoadingSend
 
-        setAccessClick(true);
         ImageViewSend.setVisibility(View.VISIBLE);
         GifViewSend.setVisibility(View.GONE);
         TextViewSend.setText(getContext().getResources().getString(R.string.Save));
@@ -312,7 +296,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
 
 
     private void ShowWaiting() {//__________________________________________________________________ ShowWaiting
-        setAccessClick(false);
+
         GifViewAdd.setVisibility(View.VISIBLE);
         ImageViewAdd.setVisibility(View.GONE);
         TextViewAdd.setText(getContext().getString(R.string.PleaseWait));
@@ -321,7 +305,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
 
 
     private void FinishWaiting() {//________________________________________________________________ FinishWaiting
-        setAccessClick(true);
+
         GifViewAdd.setVisibility(View.GONE);
         ImageViewAdd.setVisibility(View.VISIBLE);
         TextViewAdd.setText(getContext().getString(R.string.AddFromContact));
@@ -410,8 +394,8 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
         AP_contact = null;
         StaticFunctions.hideKeyboard(getActivity());
         String phone = md_contacts.get(position).getPhone();
-        phone = phone.replaceAll(" ","");
-        phone = phone.replaceAll("-","");
+        phone = phone.replaceAll(" ", "");
+        phone = phone.replaceAll("-", "");
         EditTextPhoneNumber.setText(phone);
         EditTextName.setText(md_contacts.get(position).getName());
 
@@ -452,5 +436,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
             return false;
 
     }//_____________________________________________________________________________________________ CheckEmpty
+
+
 
 }

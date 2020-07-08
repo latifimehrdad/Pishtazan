@@ -1,5 +1,6 @@
 package ir.bppir.pishtazan.viewmodels.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 
@@ -14,7 +15,7 @@ import retrofit2.Response;
 
 public class VM_SignUp extends VM_Primary {
 
-    public VM_SignUp(Context context) {//___________________________________________________________ VM_SignUp
+    public VM_SignUp(Activity context) {//__________________________________________________________ VM_SignUp
         setContext(context);
     }//_____________________________________________________________________________________________ VM_SignUp
 

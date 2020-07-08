@@ -62,7 +62,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
-            vm_signUp = new VM_SignUp(getContext());
+            vm_signUp = new VM_SignUp(getActivity());
             FragmentSignupBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_signup,container, false);
             binding.setSignup(vm_signUp);
@@ -110,7 +110,6 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
             return;
         }
 
-
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
 
@@ -130,16 +129,11 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
                     return;
                 }
 
-                if (isAccessClick()) {
                     if (CheckEmpty()) {
-                        setAccessClick(false);
                         ShowLoading();
                         vm_signUp.SendNumber(
                                 EditPhoneNumber.getText().toString());
                     }
-                } else {
-                    DismissLoading();
-                }
             }
         });
 
@@ -185,7 +179,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
 
 
     private void DismissLoading() {//_______________________________________________________________ DismissLoading
-        setAccessClick(true);
+
         BtnLoginText.setText(getResources().getString(R.string.GetVerifyCode));
         ButtonSignUp.setBackground(getResources().getDrawable(R.drawable.dw_back_bottom));
         ProgressGif.setVisibility(View.GONE);

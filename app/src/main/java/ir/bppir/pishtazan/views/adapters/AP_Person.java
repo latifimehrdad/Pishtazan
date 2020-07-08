@@ -30,11 +30,22 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
     private LayoutInflater layoutInflater;
     private Context context;
     private Panel panel;
+    private ClickItemPerson clickItemPerson;
 
-    public AP_Person(List<MD_Person> md_personList, Context context, Panel panel) {
+
+    public interface ClickItemPerson {//____________________________________________________________ ClickItemPerson
+        void clickItemPerson(Integer Position, View view);
+        void clickDeleteItemPerson(Integer Position, View view);
+    }//_____________________________________________________________________________________________ ClickItemPerson
+
+
+    public AP_Person(List<MD_Person> md_personList,
+                     Context context,
+                     Panel panel) {
         this.md_personList = md_personList;
         this.context = context;
         this.panel = panel;
+        this.clickItemPerson = panel;
     }
 
     public AP_Person.CustomHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -77,33 +88,16 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
         public void bind(MD_Person item, final int itemPosition) {
             binding.setPerson(item);
 
-            if (panel.PersonType == StaticValues.ML_Maybe) {
+            if (panel.PersonType == StaticValues.ML_Maybe)
                 TextViewAction.setText(context.getResources().getString(R.string.MoveToPossible));
-
-                LinearLayoutAction.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        panel.AdapterMoveToPossible(itemPosition);
-                    }
-                });
-            } else if (panel.PersonType == StaticValues.ML_Maybe) {
-
+            else if (panel.PersonType == StaticValues.ML_Possible)
                 TextViewAction.setText(context.getResources().getString(R.string.ChooseAction));
 
-                LinearLayoutAction.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        panel.ChooseActionFromList(itemPosition);
-                    }
-                });
-            }
+            LinearLayoutAction.setOnClickListener(view ->
+                    clickItemPerson.clickItemPerson(itemPosition, viewParent));
 
-            ImageViewDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    panel.ShowDeleteQuestion(itemPosition, viewParent);
-                }
-            });
+            ImageViewDelete.setOnClickListener(view ->
+                    clickItemPerson.clickDeleteItemPerson(itemPosition, viewParent));
 
             binding.executePendingBindings();
 

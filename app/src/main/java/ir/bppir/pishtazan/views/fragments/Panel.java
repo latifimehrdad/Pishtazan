@@ -37,7 +37,9 @@ import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
-public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class Panel extends FragmentPrimary implements
+        FragmentPrimary.GetMessageFromObservable,
+AP_Person.ClickItemPerson{
 
     private NavController navController;
     private VM_Panel vm_panel;
@@ -95,7 +97,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
-            vm_panel = new VM_Panel(getContext());
+            vm_panel = new VM_Panel(getActivity());
             FragmentPanelBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_panel, container, false);
             binding.setPanel(vm_panel);
@@ -141,6 +143,8 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
 
 
     private void GetList() {//______________________________________________________________________ GetList
+        if (vm_panel.getPersonList() != null)
+            vm_panel.getPersonList().clear();
         vm_panel.GetPerson(panelType, PersonType);
     }//_____________________________________________________________________________________________ GetList
 
@@ -152,6 +156,7 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
             dialog.dismiss();
             dialog = null;
         }
+        GoneGifLoading();
 
         if (action == StaticValues.ML_GetPerson) {
             if (PersonType == StaticValues.ML_Maybe)
@@ -161,7 +166,16 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         }
 
         if (action == StaticValues.ML_ConvertPerson) {
-            GetList();
+            Animation outLeft = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
+            personPositionView.setAnimation(outLeft);
+            personPositionView.setVisibility(View.INVISIBLE);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    GetList();
+                }
+            },700);
             return;
         }
 
@@ -247,16 +261,12 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
 
 
     private void SetAdapterPerson() {//_____________________________________________________________ SetAdapterPerson
-        GoneGifLoading();
         AP_person = new AP_Person(vm_panel.getPersonList(), getContext(), Panel.this);
         RecyclerViewPanel.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewPanel.setAdapter(AP_person);
     }//_____________________________________________________________________________________________ SetAdapterPerson
 
 
-    public void AdapterMoveToPossible(Integer Position) {//_________________________________________ AdapterMoveToPossible
-
-    }//_____________________________________________________________________________________________ AdapterMoveToPossible
 
 
     public void ChooseActionFromList(Integer Position) {//__________________________________________ ChooseActionFromList
@@ -286,11 +296,11 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         LinearLayout LinearLayoutMeetingReminder = (LinearLayout)
                 dialog.findViewById(R.id.LinearLayoutMeetingReminder);
 
-        LinearLayout LinearLayoutMoveToPossible = (LinearLayout)
-                dialog.findViewById(R.id.LinearLayoutMoveToPossible);
+        LinearLayout LinearLayoutSuccessSale = (LinearLayout)
+                dialog.findViewById(R.id.LinearLayoutSuccessSale);
 
-        LinearLayout LinearLayoutMoveToCertain = (LinearLayout)
-                dialog.findViewById(R.id.LinearLayoutMoveToCertain);
+        LinearLayout LinearLayoutSuccessAbsorption = (LinearLayout)
+                dialog.findViewById(R.id.LinearLayoutSuccessAbsorption);
 
         LinearLayout LinearLayoutDeleteFromList = (LinearLayout)
                 dialog.findViewById(R.id.LinearLayoutDeleteFromList);
@@ -298,16 +308,22 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         LinearLayout LinearLayoutCancel = (LinearLayout)
                 dialog.findViewById(R.id.LinearLayoutCancel);
 
-        if (PersonType == StaticValues.ML_Maybe) {
-            LinearLayoutMoveToPossible.setVisibility(View.VISIBLE);
-            LinearLayoutMoveToCertain.setVisibility(View.GONE);
-        } else if (PersonType == StaticValues.ML_Possible) {
-            LinearLayoutMoveToPossible.setVisibility(View.GONE);
-            LinearLayoutMoveToCertain.setVisibility(View.GONE);
-        } else if (PersonType == StaticValues.ML_Certain) {
-            LinearLayoutMoveToCertain.setVisibility(View.GONE);
-            LinearLayoutMoveToPossible.setVisibility(View.GONE);
+        if (panelType == StaticValues.Customer) {
+            LinearLayoutSuccessSale.setVisibility(View.VISIBLE);
+            LinearLayoutSuccessAbsorption.setVisibility(View.GONE);
+        } else {
+            LinearLayoutSuccessSale.setVisibility(View.GONE);
+            LinearLayoutSuccessAbsorption.setVisibility(View.VISIBLE);
         }
+
+        LinearLayoutCompleteInformation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                dialog = null;
+                EditProfilePerson(Position);
+            }
+        });
 
         LinearLayoutCallReminder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -328,16 +344,16 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
             }
         });
 
-        LinearLayoutMoveToPossible.setOnClickListener(new View.OnClickListener() {
+        LinearLayoutSuccessSale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
                 dialog = null;
-                MoveToPossible(Position);
+                //MoveToPossible(Position);
             }
         });
 
-        LinearLayoutMoveToCertain.setOnClickListener(new View.OnClickListener() {
+        LinearLayoutSuccessAbsorption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
@@ -648,19 +664,86 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
         LinearLayoutYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isAccessClick()) {
-                    setAccessClick(false);
                     GifViewQuestion.setVisibility(View.VISIBLE);
                     ImageViewQuestion.setVisibility(View.GONE);
                     vm_panel.DeletePerson(panelType, Position);
-                } else
-                    vm_panel.CancelRequest();
             }
         });
 
         dialog.show();
 
     }//_____________________________________________________________________________________________ ShowMeetingReminder
+
+
+
+    public void AdapterMoveToPossible(Integer Position, View view) {//______________________________ AdapterMoveToPossible
+
+        if (dialog != null)
+            dialog.dismiss();
+        dialog = null;
+
+
+        dialog = null;
+        dialog = new Dialog(getContext());
+        dialog.setCancelable(false);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_question);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        Window window = dialog.getWindow();
+        lp.copyFrom(window.getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(lp);
+
+        personPositionView = view;
+
+        TextView TextViewQuestionTitle = (TextView)
+                dialog.findViewById(R.id.TextViewQuestionTitle);
+
+        GifView GifViewQuestion = (GifView) dialog.findViewById(R.id.GifViewQuestion);
+
+        ImageView ImageViewQuestion = (ImageView) dialog.findViewById(R.id.ImageViewQuestion);
+
+        GifViewQuestion.setVisibility(View.GONE);
+
+        ImageViewQuestion.setVisibility(View.VISIBLE);
+
+
+
+        StringBuilder sp = new StringBuilder();
+        sp.append(getContext().getResources().getString(R.string.AreYouSureYouWantToMoveIt1));
+        sp.append(" ");
+        sp.append(vm_panel.getPersonList().get(Position).getFullName());
+        sp.append(" ");
+        sp.append(getContext().getResources().getString(R.string.AreYouSureYouWantToDeleteIt2));
+
+        TextViewQuestionTitle.setText(sp.toString());
+
+        LinearLayout LinearLayoutNo = (LinearLayout)
+                dialog.findViewById(R.id.LinearLayoutNo);
+
+        LinearLayoutNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                dialog = null;
+            }
+        });
+
+        LinearLayout LinearLayoutYes = (LinearLayout)
+                dialog.findViewById(R.id.LinearLayoutYes);
+
+        LinearLayoutYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    GifViewQuestion.setVisibility(View.VISIBLE);
+                    ImageViewQuestion.setVisibility(View.GONE);
+                    vm_panel.MoveToPossible(panelType, Position);
+            }
+        });
+
+        dialog.show();
+
+    }//_____________________________________________________________________________________________ AdapterMoveToPossible
 
 
     private void SaveCallReminder(Integer Position) {//_____________________________________________ SaveCallReminder
@@ -673,14 +756,31 @@ public class Panel extends FragmentPrimary implements FragmentPrimary.GetMessage
     }//_____________________________________________________________________________________________ SaveMeetingReminder
 
 
-    private void MoveToPossible(Integer Position) {//_______________________________________________ MoveToPossible
-        vm_panel.MoveToPossible(Position);
-    }//_____________________________________________________________________________________________ MoveToPossible
-
-
     private void MoveToCertain(Integer Position) {//_______________________________________________ MoveToPossible
         vm_panel.MoveToCertain(Position);
     }//_____________________________________________________________________________________________ MoveToPossible
 
 
+    @Override
+    public void clickItemPerson(Integer Position, View view) {//____________________________________ clickItemPerson
+
+        if (PersonType == StaticValues.ML_Maybe) {
+            AdapterMoveToPossible(Position, view);
+        } else if (PersonType == StaticValues.ML_Possible) {
+            ChooseActionFromList(Position);
+        }
+
+    }//_____________________________________________________________________________________________ clickItemPerson
+
+    @Override
+    public void clickDeleteItemPerson(Integer Position, View view) {//______________________________ clickDeleteItemPerson
+        ShowDeleteQuestion(Position, view);
+    }//_____________________________________________________________________________________________ clickDeleteItemPerson
+
+
+    private void EditProfilePerson(Integer Position) {//____________________________________________ EditProfilePerson
+        Bundle bundle = new Bundle();
+        bundle.putInt(getContext().getString(R.string.ML_PanelType), panelType);
+        navController.navigate(R.id.action_panel_to_editPerson, bundle);
+    }//_____________________________________________________________________________________________ EditProfilePerson
 }

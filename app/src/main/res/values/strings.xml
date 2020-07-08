@@ -6,6 +6,8 @@
     <string name="MobileNumber">تلفن همراه</string>
     <string name="GetVerifyCode">دریافت کد</string>
     <string name="Cancel">بیخیال</string>
+    <string name="NationalCode">کد ملی</string>
+    <string name="Address">آدرس</string>
     <string name="InternetNotAvailable">اینترنت دستگاه خود را روشن کنید</string>
     <string name="VerifyCode">6 رقم کد فعال سازی را وارد نمایید</string>
     <string name="ElapsedTimeGetSMS">زمان باقی مانده\n برای دریافت پیامک</string>
@@ -45,9 +47,12 @@
     <string name="Yes">بلی</string>
     <string name="AreYouSureYouWantToDeleteIt1">آیا برای حذف</string>
     <string name="AreYouSureYouWantToDeleteIt2">مطمئن هستید؟</string>
+    <string name="AreYouSureYouWantToMoveIt1">آیا برای انتقال</string>
     <string name="SuccessDeletePerson">شخص با موفقیت از لیست حذف شد</string>
     <string name="MoveToPossible">انتقال به احتمالی</string>
     <string name="MoveToCertain">انتقال به قطعی</string>
+    <string name="SuccessToSale">فروش موفق بود</string>
+    <string name="SuccessAbsorption">جذب موفق بود</string>
     <string name="SuccessForMoveToPossible">شخص با موفقیت به لیست احتمالی منتقل شد</string>
     <string name="SuccessForMoveToCertain">شخص با موفقیت به لیست قطعی منتقل شد</string>
     <string name="PleaseWaitingForConnectingToServer">در حال برقراری ارتباط با مرکز</string>
@@ -70,6 +75,8 @@
     <string name="RequestFailure">خطای ارتباط با مرکز</string>
     |<string name="ServiceRun">برنامه در حال اجرا است</string>
     <string name="UserIsNotAuthorization">کاربری شما با خطا مواجه شده، لطفا مجدد وارد سیستم بشوید</string>
+    <string name="ChooseCamera">عکس جدید</string>
+    <string name="ChooseGallery">انتخاب از گالری</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>

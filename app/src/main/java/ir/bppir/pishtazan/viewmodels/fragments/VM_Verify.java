@@ -1,5 +1,6 @@
 package ir.bppir.pishtazan.viewmodels.fragments;
 
+        import android.app.Activity;
         import android.content.Context;
 
         import io.realm.Realm;
@@ -17,7 +18,7 @@ package ir.bppir.pishtazan.viewmodels.fragments;
 
 public class VM_Verify extends VM_Primary {
 
-    public VM_Verify(Context context) {//___________________________________________________________ VM_Verify
+    public VM_Verify(Activity context) {//__________________________________________________________ VM_Verify
         setContext(context);
     }//_____________________________________________________________________________________________ VM_Verify
 
