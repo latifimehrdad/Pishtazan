@@ -41,9 +41,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.ActivityMainBinding;
 import ir.bppir.pishtazan.utility.StaticFunctions;
+import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.activity.VM_Main;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
     private Uri mCurrentPhotoPath;
     final int MAX_WIDTH = 1024;
     final int MAX_HEIGHT = 1024;
+    public static PublishSubject<Byte> mainPublish;
+    private DisposableObserver<Byte> disposableObserver;
     public static String ImageUrl;
 
     @BindView(R.id.ImageViewMenu)
@@ -70,16 +77,53 @@ public class MainActivity extends AppCompatActivity {
         binding.setMain(vm_main);
         ButterKnife.bind(this);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        mainPublish = PublishSubject.create();
         SetPermission();
-        ImageViewMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDialogTakePhotos(MainActivity.this);
-            }
-        });
+        if (disposableObserver != null)
+            disposableObserver.dispose();
+        disposableObserver = null;
+        SetObserverToObservable();
     }//_____________________________________________________________________________________________ onCreate
 
 
+    public void SetObserverToObservable() {//_______________________________________________________ SetObserverToObservable
+
+        disposableObserver = new DisposableObserver<Byte>() {
+            @Override
+            public void onNext(Byte aByte) {
+                actionHandler(aByte);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+
+        MainActivity.mainPublish
+                .observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(disposableObserver);
+
+    }//_____________________________________________________________________________________________ SetObserverToObservable
+
+
+    private void actionHandler(Byte action) {//_____________________________________________________ actionHandler
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                if (action.equals(StaticValues.ML_PictureDialog))
+                    openDialogTakePhotos(MainActivity.this);
+
+            }
+        });
+    }//_____________________________________________________________________________________________ actionHandler
 
 
     public void SetPermission() {//_________________________________________________________________ Start SetPermission
@@ -88,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
         int permissionPhone = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
         int permissionWrite = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         int permissionContact = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS);
+        int permissionCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
 
         List<String> listPermissionsNeeded = new ArrayList<>();
 
@@ -103,6 +148,9 @@ public class MainActivity extends AppCompatActivity {
         if (permissionContact != PackageManager.PERMISSION_GRANTED)
             listPermissionsNeeded.add(Manifest.permission.READ_CONTACTS);
 
+        if (permissionCamera != PackageManager.PERMISSION_GRANTED)
+            listPermissionsNeeded.add(Manifest.permission.CAMERA);
+
         if (!listPermissionsNeeded.isEmpty()) {
             ActivityCompat.requestPermissions(this,
                     listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),
@@ -112,19 +160,17 @@ public class MainActivity extends AppCompatActivity {
     }//_____________________________________________________________________________________________ End SetPermission
 
 
-
     public void attachBaseContext(Context newBase) {//______________________________________________ Start attachBaseContext
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }//_____________________________________________________________________________________________ End attachBaseContext
 
 
-
-    private void WhiteList(){//_____________________________________________________________________ WhiteList
+    private void WhiteList() {//_____________________________________________________________________ WhiteList
         PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
         boolean isIgnoringBatteryOptimizations = false;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             isIgnoringBatteryOptimizations = pm.isIgnoringBatteryOptimizations(getPackageName());
-            if(!isIgnoringBatteryOptimizations){
+            if (!isIgnoringBatteryOptimizations) {
                 Intent intent = new Intent();
                 intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
                 intent.setData(Uri.parse("package:" + getPackageName()));
@@ -146,16 +192,16 @@ public class MainActivity extends AppCompatActivity {
                     WhiteList();
                 }
             }
-            case 3:{
+            case 3: {
                 if (requestCode == 3) {
-                    PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
+                    PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
                     boolean isIgnoringBatteryOptimizations = false;
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                         isIgnoringBatteryOptimizations = pm.isIgnoringBatteryOptimizations(getPackageName());
                     }
-                    if(isIgnoringBatteryOptimizations){
+                    if (isIgnoringBatteryOptimizations) {
                         // Ignoring battery optimization
-                    }else{
+                    } else {
                         // Not ignoring battery optimization
                     }
                 }
@@ -163,7 +209,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }//_____________________________________________________________________________________________ End onRequestPermissionsResult
-
 
 
     public void openDialogTakePhotos(Activity activity) {//__________________________________ Start openDialogTakePhotos
@@ -224,14 +269,12 @@ public class MainActivity extends AppCompatActivity {
     }//_____________________________________________________________________________________________ End openDialogTakePhotos
 
 
-
-    private  void showCamera() {//___________________________________________________________________ Strat showCamera
+    private void showCamera() {//___________________________________________________________________ Strat showCamera
 
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
         startActivityForResult(cameraIntent, REQUEST_PICK);
     }//_____________________________________________________________________________________________ End showCamera
-
 
 
     private Uri getTempUri() {//____________________________________________________________________ Start getTempUri
@@ -261,7 +304,6 @@ public class MainActivity extends AppCompatActivity {
     }//_____________________________________________________________________________________________ End getTempUri
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {//_______________ Start onActivityResult
         super.onActivityResult(requestCode, resultCode, data);
@@ -279,7 +321,8 @@ public class MainActivity extends AppCompatActivity {
 
             Uri uri = UCrop.getOutput(data);
             ImageUrl = uri.toString();
-            ImageViewMenu.setImageURI(Uri.parse(new File(MainActivity.ImageUrl).toString()));
+            mainPublish.onNext(StaticValues.ML_PictureDialogGetImage);
+//            ImageViewMenu.setImageURI(Uri.parse(new File(MainActivity.ImageUrl).toString()));
         } else if (resultCode == UCrop.RESULT_ERROR) {
             final Throwable cropError = UCrop.getError(data);
         }

@@ -3,6 +3,7 @@ package ir.bppir.pishtazan.daggers.retrofit;
 
 import java.util.Map;
 
+import ir.bppir.pishtazan.models.MD_GetAddres;
 import ir.bppir.pishtazan.models.MD_RequestGenerateCode;
 import ir.bppir.pishtazan.models.MD_RequestGetAllPerson;
 import ir.bppir.pishtazan.models.MD_RequestPrimary;
@@ -11,7 +12,9 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Url;
 
 public interface RetrofitApiInterface {
 
@@ -105,5 +108,10 @@ public interface RetrofitApiInterface {
                     @Field("Id") Integer Id,
                     @Field("UserInfoId") Integer UserInfoId
             );
+
+    @GET()
+    Call<MD_GetAddres> getAddress(
+            @Url String url
+    );
 
 }

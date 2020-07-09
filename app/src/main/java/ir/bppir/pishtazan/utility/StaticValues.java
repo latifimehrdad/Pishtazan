@@ -37,7 +37,10 @@ public class StaticValues {
     public static Byte ML_ResponseFailure = 12;
     public static Byte ML_ResponseError = 13;
     public static Byte ML_UserIsNotAuthorization = 14;
-
+    public static Byte ML_PictureDialog = 15;
+    public static Byte ML_PictureDialogGetImage = 16;
+    public static Byte ML_AddressFromMap = 17;
+    public static Byte ML_AddressFromMapOutOfIran = 18;
 
 
 }

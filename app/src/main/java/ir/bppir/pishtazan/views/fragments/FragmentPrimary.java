@@ -68,7 +68,7 @@ public class FragmentPrimary extends Fragment {
 
 
     @Override
-    public Context getContext() {//_________________________________________________________________ getContext
+    public Activity getContext() {//________________________________________________________________ getContext
         return context;
     }//_____________________________________________________________________________________________ getContext
 

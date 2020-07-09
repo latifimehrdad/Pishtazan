@@ -113,6 +113,22 @@
         android:id="@+id/editPerson"
         android:name="ir.bppir.pishtazan.views.fragments.EditPerson"
         android:label="EditPerson"
-        tools:layout="@layout/fragment_edit_person"/>
+        tools:layout="@layout/fragment_edit_person">
+
+        <action
+            android:id="@+id/action_editPerson_to_map"
+            app:destination="@id/map"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/map"
+        android:name="ir.bppir.pishtazan.views.fragments.Map"
+        android:label="Map"
+        tools:layout="@layout/fragment_map"/>
 
 </navigation>

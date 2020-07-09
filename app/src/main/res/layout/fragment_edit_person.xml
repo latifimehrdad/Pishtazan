@@ -22,7 +22,8 @@
         <ScrollView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="5">
+            android:layout_weight="5"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -40,8 +41,8 @@
                         android:id="@+id/CircleImageViewProfile"
                         android:layout_width="@dimen/_70sdp"
                         android:layout_height="@dimen/_70sdp"
-                        app:civ_border_width="@dimen/_1sdp"
-                        app:civ_border_color="@color/ML_AdapterPerson"
+                        app:civ_border_width="@dimen/_3sdp"
+                        app:civ_border_color="@color/colorAccent"
                         android:src="@drawable/ic_baseline_account_circle"/>
 
                 </LinearLayout>
@@ -88,7 +89,7 @@
 
 
                     <EditText
-                        android:id="@+id/EditTextPhoneNumber"
+                        android:id="@+id/EditTextMobileNumber"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
@@ -99,6 +100,38 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/_12sdp"
                         android:hint="@string/MobileNumber"
+                        android:maxLength="11"
+                        />
+
+                    <ImageView
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/dw_icon_background"
+                        android:src="@drawable/ic_baseline_phone_android"
+                        android:tint="@color/ML_Harmony" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal">
+
+
+                    <EditText
+                        android:id="@+id/EditTextPhoneNumber"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/_27sdp"
+                        android:background="@drawable/dw_edit_back"
+                        android:inputType="phone"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/_12sdp"
+                        android:hint="@string/PhoneNumber"
                         android:maxLength="11"
                         />
 
@@ -150,6 +183,37 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:orientation="horizontal">
 
+                    <TextView
+                        android:id="@+id/TextViewChooseBirthDay"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:minHeight="@dimen/_35sdp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:background="@drawable/dw_edit_back"
+                        android:textSize="@dimen/_12sdp"
+                        android:text="@string/ChooseBirthDay"
+                        android:padding="@dimen/_10sdp"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/dw_icon_background"
+                        android:src="@drawable/ic_baseline_cake"
+                        android:tint="@color/ML_Harmony" />
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal">
+
 
                     <EditText
                         android:id="@+id/EditTextAddress"
@@ -158,7 +222,6 @@
                         android:layout_height="wrap_content"
                         android:minHeight="@dimen/_40sdp"
                         android:background="@drawable/dw_edit_back"
-                        android:inputType="textPostalAddress"
                         android:gravity="right"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/_12sdp"
@@ -178,17 +241,29 @@
                 <include layout="@layout/layout_degree_person"/>
 
                 <LinearLayout
+                    android:id="@+id/LinearLayoutMap"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_30sdp"
                     android:gravity="center"
-                    android:layout_marginTop="@dimen/_10sdp">
+                    android:background="@drawable/dw_back_bottom_action"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:padding="@dimen/_3sdp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="@color/ML_Black"
+                        android:gravity="center"
+                        android:text="@string/ChooseLocationOnMap"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="@dimen/_70sdp"
-                        android:layout_height="@dimen/_70sdp"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
                         app:civ_border_width="@dimen/_1sdp"
-                        app:civ_border_color="@color/ML_AdapterPerson"
+                        app:civ_border_color="@color/colorAccent"
                         android:src="@drawable/google_maps_icon"/>
+
 
                 </LinearLayout>
 

@@ -1,6 +1,7 @@
 <resources>
 
     <string name="app_name">Pishtazan</string>
+    <string name="google_map_api_key">AIzaSyDEHvSeqbbcTr81zQNk3OUgo0cM25SaMLQ</string>
 
     <string name="EnterPhoneNumber">شماره تلفن همراه خود را وارد نمایید</string>
     <string name="MobileNumber">تلفن همراه</string>
@@ -27,7 +28,7 @@
     <string name="Name_LastName">نام و نام خانوادگی</string>
     <string name="Save">ذخیره</string>
     <string name="ContactIsEmpty">لیست مخاطبین شما خالی است</string>
-    <string name="PhoneNumber">تلفن</string>
+    <string name="PhoneNumber">تلفن ثابت</string>
     <string name="SearchContact">جستجوی مخاطب</string>
     <string name="EmptyContactName">لطفا نام شخص را وارد نمایید</string>
     <string name="ErrorForSave">خطا در ثبت اطلاعات</string>
@@ -77,6 +78,10 @@
     <string name="UserIsNotAuthorization">کاربری شما با خطا مواجه شده، لطفا مجدد وارد سیستم بشوید</string>
     <string name="ChooseCamera">عکس جدید</string>
     <string name="ChooseGallery">انتخاب از گالری</string>
+    <string name="ChooseLocationOnMap">انتخاب مکان روی نقشه</string>
+    <string name="Choose">انتخاب</string>
+    <string name="OutOfIran">آدرس انتخابی خارج از ایران است</string>
+    <string name="ChooseBirthDay">انتخاب تاریخ تولد</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>
