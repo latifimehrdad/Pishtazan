@@ -189,6 +189,19 @@ public class VM_Primary {
 
     }
 
+
+    public void SendMessageToObservable(Byte action) {//____________________________________________ SendMessageToObservable
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                publishSubject.onNext(action);
+            }
+        },500);
+
+    }//_____________________________________________________________________________________________ SendMessageToObservable
+
+
     public PublishSubject<Byte> getPublishSubject() {//_____________________________________________ getPublishSubject
         return publishSubject;
     }//_____________________________________________________________________________________________ getPublishSubject

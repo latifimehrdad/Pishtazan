@@ -84,6 +84,9 @@
         <argument android:name="@string/ML_PanelType"
             android:defaultValue="0"/>
 
+        <argument android:name="@string/ML_personId"
+            android:defaultValue="0"/>
+
         <action
             android:id="@+id/action_panel_to_addPerson"
             app:destination="@id/addPerson"

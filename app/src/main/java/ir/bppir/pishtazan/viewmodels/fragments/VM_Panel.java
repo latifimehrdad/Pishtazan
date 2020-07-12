@@ -12,6 +12,7 @@ import java.util.List;
 import io.realm.Realm;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.database.DB_Persons;
+import ir.bppir.pishtazan.models.MD_Notify;
 import ir.bppir.pishtazan.models.MD_Person;
 import ir.bppir.pishtazan.models.MD_RequestGetAllPerson;
 import ir.bppir.pishtazan.models.MD_RequestPrimary;
@@ -131,46 +132,42 @@ public class VM_Panel extends VM_Primary {
     }//_____________________________________________________________________________________________ getPersonList
 
 
-
-
-
-/*
     public void SaveCallReminder(
+            byte panelType,
             Integer Position,
             Long longDate,
             String stringDate,
             Long longTime,
             String stringTime) {//__________________________________________________________________ SaveCallReminder
 
-        if (personList.get(Position).getPersonType() == 0)
-            setResponseMessage(getContext().getResources().getString(R.string.SaveCallReminderAndConvert));
-        else
-            setResponseMessage(getContext().getResources().getString(R.string.SaveCallReminder));
-
-        Realm realm = Realm.getDefaultInstance();
-        try {
-            realm.beginTransaction();
-            DB_Persons db_persons = realm
-                    .where(DB_Persons.class)
-                    .equalTo("Id", personList.get(Position).getId())
-                    .findAll().first();
-            if (db_persons != null)
-                db_persons.setPersonType(StaticValues.ML_Possible);
-            realm.commitTransaction();
-        } finally {
-            if (realm != null)
-                realm.close();
-        }
+//        if (personList.get(Position).getPersonType() == 0)
+//            setResponseMessage(getContext().getResources().getString(R.string.SaveCallReminderAndConvert));
+//        else
+        setResponseMessage(getContext().getResources().getString(R.string.SaveCallReminder));
+//        Realm realm = Realm.getDefaultInstance();
+//        try {
+//            realm.beginTransaction();
+////            DB_Persons db_persons = realm
+////                    .where(DB_Persons.class)
+////                    .equalTo("Id", personList.get(Position).getId())
+////                    .findAll().first();
+////            if (db_persons != null)
+////                db_persons.setPersonType(StaticValues.ML_Possible);
+//            realm.commitTransaction();
+//        } finally {
+//            if (realm != null)
+//                realm.close();
+//        }
 
         MD_Notify md_notify = new MD_Notify(
                 StaticValues.Call,
-                personList.get(Position).getPersonType(),
+                panelType,
                 stringDate,
                 longDate,
                 stringTime,
                 longTime,
                 null,
-                personList.get(Position).getName(),
+                personList.get(Position).getFullName(),
                 personList.get(Position).getPhoneNumber());
         SaveToNotify(md_notify);
 
@@ -178,46 +175,47 @@ public class VM_Panel extends VM_Primary {
 
 
     public void SaveMeetingReminder(
+            byte panelType,
             Integer Position,
             Long longDate,
             String stringDate,
             Long longTime,
             String stringTime) {//______________________________ ____________________________________ SaveMeetingReminder
 
-        if (personList.get(Position).getPersonType() == 0)
-            setResponseMessage(getContext().getResources().getString(R.string.SaveMeetingReminderAndConvert));
-        else
+//        if (personList.get(Position).getPersonType() == 0)
+//            setResponseMessage(getContext().getResources().getString(R.string.SaveMeetingReminderAndConvert));
+//        else
             setResponseMessage(getContext().getResources().getString(R.string.SaveMeetingReminder));
-
-        Realm realm = Realm.getDefaultInstance();
-        try {
-            realm.beginTransaction();
-            DB_Persons db_persons = realm
-                    .where(DB_Persons.class)
-                    .equalTo("Id", personList.get(Position).getId())
-                    .findAll().first();
-            if (db_persons != null)
-                db_persons.setPersonType(StaticValues.ML_Possible);
-            realm.commitTransaction();
-        } finally {
-            if (realm != null)
-                realm.close();
-        }
-
+//
+//        Realm realm = Realm.getDefaultInstance();
+//        try {
+//            realm.beginTransaction();
+//            DB_Persons db_persons = realm
+//                    .where(DB_Persons.class)
+//                    .equalTo("Id", personList.get(Position).getId())
+//                    .findAll().first();
+//            if (db_persons != null)
+//                db_persons.setPersonType(StaticValues.ML_Possible);
+//            realm.commitTransaction();
+//        } finally {
+//            if (realm != null)
+//                realm.close();
+//        }
+//
 
         MD_Notify md_notify = new MD_Notify(
                 StaticValues.Meeting,
-                personList.get(Position).getPersonType(),
+                panelType,
                 stringDate,
                 longDate,
                 stringTime,
                 longTime,
                 null,
-                personList.get(Position).getName(),
+                personList.get(Position).getFullName(),
                 personList.get(Position).getPhoneNumber());
         SaveToNotify(md_notify);
     }//_____________________________________________________________________________________________ SaveMeetingReminder
-*/
+
 
     public void DeletePerson(int panelType, Integer Position) {//__________________________________________________ DeletePerson
         if (panelType == StaticValues.Customer)
@@ -260,7 +258,6 @@ public class VM_Panel extends VM_Primary {
         });
 
     }//_____________________________________________________________________________________________ DeleteCustomer
-
 
 
     private void DeleteColleague(Integer Position) {//_______________________________________________ DeleteColleague
@@ -341,7 +338,6 @@ public class VM_Panel extends VM_Primary {
     }//_____________________________________________________________________________________________ MoveToPossibleColleague
 
 
-
     public void MoveToPossibleCustomer(Integer Position) {//________________________________________ MoveToPossibleCustomer
 
         Integer Id = GetUserId();
@@ -375,7 +371,6 @@ public class VM_Panel extends VM_Primary {
         });
 
     }//_____________________________________________________________________________________________ MoveToPossibleCustomer
-
 
 
     public void MoveToCertain(Integer Position) {//________________________________________________ MoveToPossible

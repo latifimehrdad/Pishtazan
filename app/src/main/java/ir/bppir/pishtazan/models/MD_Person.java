@@ -76,6 +76,8 @@ public class MD_Person {
     @Expose
     Integer ColleagueStatus;
 
+    public MD_Person() {
+    }
 
     public MD_Person(Integer id, String fullName, Integer locationStateId, String phoneNumber, String mobileNumber, String description, Integer colleagueStatus, String CDate, String MDate, String DDate, String birthDateJ, String birthDateM, String address, double lat, double lang, String image, Integer userInfoId, MD_UserInfo userInfo, String nationalCode, boolean isDelete, Integer level, float completenessPercent) {
         Id = id;

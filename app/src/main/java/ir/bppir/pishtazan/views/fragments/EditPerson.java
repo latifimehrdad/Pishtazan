@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -38,6 +39,7 @@ import ir.bppir.pishtazan.viewmodels.fragments.VM_EditPerson;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Map;
 import ir.bppir.pishtazan.views.activity.MainActivity;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
+import ir.bppir.pishtazan.views.dialogs.DialogProgress;
 import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
@@ -48,11 +50,13 @@ public class EditPerson extends FragmentPrimary implements
         FragmentPrimary.GetMessageFromObservable {
 
     private NavController navController;
-    private int panelType;
+    private Byte panelType;
+    private Integer personId;
     private VM_EditPerson vm_editPerson;
     private Byte Degree = -1;
     private DisposableObserver<Byte> disposableObserver;
     private String stringDate;
+    private DialogProgress progress;
 
     @BindView(R.id.EditTextName)
     EditText EditTextName;
@@ -119,6 +123,7 @@ public class EditPerson extends FragmentPrimary implements
             SetTextWatcher();
             SetClick();
             stringDate = "";
+            GetPersonInfo();
         }
         return getView();
     }//_____________________________________________________________________________________________ onCreateView
@@ -131,6 +136,17 @@ public class EditPerson extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ onStart
 
 
+    private void GetPersonInfo() {//________________________________________________________________ GetPersonInfo
+        Integer panel = getArguments().getInt(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
+        panelType = panel.byteValue();
+        personId = getArguments().getInt(getContext().getString(R.string.ML_personId), 0);
+        if (panelType == StaticValues.Customer) {
+            vm_editPerson.GetCustomer(personId);
+        } else {
+            vm_editPerson.GetColleague(personId);
+        }
+    }//_____________________________________________________________________________________________ GetPersonInfo
+
 
     private void init() {//_________________________________________________________________________ init
         navController = Navigation.findNavController(getView());
@@ -138,15 +154,10 @@ public class EditPerson extends FragmentPrimary implements
                 EditPerson.this,
                 vm_editPerson.getPublishSubject(),
                 vm_editPerson);
-        panelType = getArguments().getInt(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
+
         if (VM_Map.map_Address != null) {
             vm_editPerson.setAddress(VM_Map.map_Address);
             vm_editPerson.SetAddressString();
-        }
-        if (panelType == StaticValues.Customer) {
-
-        } else {
-
         }
 
     }//_____________________________________________________________________________________________ init
@@ -154,6 +165,10 @@ public class EditPerson extends FragmentPrimary implements
 
     @Override
     public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+
+        if (progress != null)
+            progress.dismiss();
+        progress = null;
 
         FinishLoadingSend();
         if (action == StaticValues.ML_AddPerson) {
@@ -170,6 +185,17 @@ public class EditPerson extends FragmentPrimary implements
         if (action.equals(StaticValues.ML_AddressFromMap)){
             EditTextAddress.setText(vm_editPerson.getAddressString());
             return;
+        }
+
+        if (action.equals(StaticValues.ML_GetPerson)) {
+            EditTextName.setText(vm_editPerson.getPerson().getFullName());
+            EditTextMobileNumber.setText(vm_editPerson.getPerson().getMobileNumber());
+            EditTextPhoneNumber.setText(vm_editPerson.getPerson().getPhoneNumber());
+            EditTextNationalCode.setText(vm_editPerson.getPerson().getNationalCode());
+            EditTextAddress.setText(vm_editPerson.getPerson().getAddress());
+            TextViewChooseBirthDay.setText(vm_editPerson.getPerson().getBirthDateJ());
+            Byte level = vm_editPerson.getPerson().getLevel().byteValue();
+            SetPersonDegree(level);
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
@@ -217,6 +243,10 @@ public class EditPerson extends FragmentPrimary implements
                 if (disposableObserver != null)
                     disposableObserver.dispose();
                 disposableObserver = null;
+                Uri destination = Uri.fromFile(new File(getContext().getExternalCacheDir(), "cropped.jpg"));
+                File file = new File(destination.getPath());
+                if (file.exists())
+                    file.delete();
                 SetObserverToObservable();
                 MainActivity.mainPublish.onNext(StaticValues.ML_PictureDialog);
             }
@@ -241,12 +271,19 @@ public class EditPerson extends FragmentPrimary implements
                 if (CheckEmpty()) {
                     StaticFunctions.hideKeyboard(getActivity());
                     ShowLoadingSend();
-//                    vm_addPerson.AddPerson(
-//                            EditTextName.getText().toString(),
-//                            EditTextPhoneNumber.getText().toString(),
-//                            Degree,
-//                            panelType
-//                    );
+                    vm_editPerson.EditProfile(
+                            panelType,
+                            vm_editPerson.getPerson().getId(),
+                            EditTextName.getText().toString(),
+                            EditTextMobileNumber.getText().toString(),
+                            Degree,
+                            EditTextPhoneNumber.getText().toString(),
+                            TextViewChooseBirthDay.getText().toString(),
+                            EditTextAddress.getText().toString(),
+                            VM_Map.map_Address.getLat(),
+                            VM_Map.map_Address.getLon(),
+                            EditTextNationalCode.getText().toString()
+                    );
                 }
             }
         });
@@ -255,10 +292,7 @@ public class EditPerson extends FragmentPrimary implements
         LinearLayoutNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LinearLayoutPeach.setBackground(null);
-                LinearLayoutGiant.setBackground(null);
-                LinearLayoutNormal.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
-                Degree = StaticValues.DegreeNormal;
+                SetPersonDegree(StaticValues.DegreeNormal);
             }
         });
 
@@ -266,10 +300,7 @@ public class EditPerson extends FragmentPrimary implements
         LinearLayoutPeach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LinearLayoutNormal.setBackground(null);
-                LinearLayoutGiant.setBackground(null);
-                LinearLayoutPeach.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
-                Degree = StaticValues.DegreePeach;
+                SetPersonDegree(StaticValues.DegreePeach);
             }
         });
 
@@ -277,15 +308,25 @@ public class EditPerson extends FragmentPrimary implements
         LinearLayoutGiant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LinearLayoutNormal.setBackground(null);
-                LinearLayoutPeach.setBackground(null);
-                LinearLayoutGiant.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
-                Degree = StaticValues.DegreeGiant;
+                SetPersonDegree(StaticValues.DegreeGiant);
             }
         });
 
     }//_____________________________________________________________________________________________ SetClick
 
+
+    private void SetPersonDegree(Byte type) {//_____________________________________________________ SetPersonDegree
+        LinearLayoutNormal.setBackground(null);
+        LinearLayoutPeach.setBackground(null);
+        LinearLayoutGiant.setBackground(null);
+        if (type.equals(StaticValues.DegreeNormal))
+            LinearLayoutNormal.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
+        else if (type.equals(StaticValues.DegreePeach))
+            LinearLayoutPeach.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
+        else
+            LinearLayoutGiant.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
+        Degree = type;
+    }//_____________________________________________________________________________________________ SetPersonDegree
 
 
     private void SetTextWatcher() {//_______________________________________________________________ Start SetTextWatcher
@@ -303,25 +344,19 @@ public class EditPerson extends FragmentPrimary implements
         boolean birthday = true;
 
 
-        if (Degree == -1) {
-            ShowMessage(
-                    getContext().getResources().getString(R.string.ChoosePersonDegree),
-                    getResources().getColor(R.color.ML_Dialog),
-                    getResources().getDrawable(R.drawable.ic_baseline_warning),
-                    getResources().getColor(R.color.ML_Red));
-            return false;
-        }
-
-        if (stringDate.length() == 0) {
-            TextViewChooseBirthDay.setBackgroundResource(R.drawable.dw_edit_empty_background);
-            birthday = false;
-        }
-
-        if (EditTextPhoneNumber.getText().length() < 11) {
-            EditTextPhoneNumber.setBackgroundResource(R.drawable.dw_edit_empty_background);
-            EditTextPhoneNumber.setError(getResources().getString(R.string.EnterPhoneNumber));
-            EditTextPhoneNumber.requestFocus();
+        if (EditTextMobileNumber.getText().length() != 11) {
+            EditTextMobileNumber.setBackgroundResource(R.drawable.dw_edit_empty_background);
+            EditTextMobileNumber.setError(getResources().getString(R.string.EnterPhoneNumber));
+            EditTextMobileNumber.requestFocus();
             mobile = false;
+        } else {
+            String ZeroNine = EditTextMobileNumber.getText().subSequence(0, 2).toString();
+            if(!ZeroNine.equalsIgnoreCase("09")) {
+                EditTextMobileNumber.setBackgroundResource(R.drawable.dw_edit_empty_background);
+                EditTextMobileNumber.setError(getResources().getString(R.string.EnterPhoneNumber));
+                EditTextMobileNumber.requestFocus();
+                mobile = false;
+            }
         }
 
         if (EditTextName.getText().length() == 0) {
@@ -330,6 +365,21 @@ public class EditPerson extends FragmentPrimary implements
             EditTextName.requestFocus();
             name = false;
         }
+
+        if (stringDate.length() == 0) {
+            TextViewChooseBirthDay.setBackgroundResource(R.drawable.dw_edit_empty_background);
+            birthday = false;
+        }
+
+        if (Degree == -1) {
+            ShowMessage(
+                    getContext().getResources().getString(R.string.ChoosePersonDegree),
+                    getResources().getColor(R.color.ML_Dialog),
+                    getResources().getDrawable(R.drawable.ic_baseline_warning),
+                    getResources().getColor(R.color.ML_Red));
+        }
+
+
 
         if (mobile && name && birthday)
             return true;
@@ -398,5 +448,15 @@ public class EditPerson extends FragmentPrimary implements
             }
         });
     }//_____________________________________________________________________________________________ actionHandler
+
+
+
+    private void ShowProgressDialog() {//___________________________________________________________ ShowProgressDialog
+        progress = new DialogProgress(getContext(), null);
+        progress.setCancelable(false);
+        progress.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+    }//_____________________________________________________________________________________________ ShowProgressDialog
+
+
 
 }

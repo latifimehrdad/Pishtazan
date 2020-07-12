@@ -8,12 +8,16 @@ import ir.bppir.pishtazan.models.MD_RequestGenerateCode;
 import ir.bppir.pishtazan.models.MD_RequestGetAllPerson;
 import ir.bppir.pishtazan.models.MD_RequestPrimary;
 import ir.bppir.pishtazan.models.MD_RequestVerifyCode;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Url;
 
 public interface RetrofitApiInterface {
@@ -113,5 +117,62 @@ public interface RetrofitApiInterface {
     Call<MD_GetAddres> getAddress(
             @Url String url
     );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/GetCustomerById")
+    Call<MD_RequestGetAllPerson> GET_CUSTOMERS_ID
+            (
+                    @Field("UserInfoId") Integer UserInfoId,
+                    @Field("Id") Integer Id
+            );
+
+    @FormUrlEncoded
+    @POST(Version + "/GetColleagueById")
+    Call<MD_RequestGetAllPerson> GET_COLLEAGUE_ID
+            (
+                    @Field("UserInfoId") Integer UserInfoId,
+                    @Field("Id") Integer Id
+            );
+
+
+
+    @Multipart
+    @POST(Version + "/EditCustomer")
+    Call<MD_RequestPrimary> EDIT_CUSTOMER
+            (
+                    @Part MultipartBody.Part Image,
+                    @Part("Id") RequestBody Id,
+                    @Part("FullName") RequestBody FullName,
+                    @Part("PhoneNumber") RequestBody PhoneNumber,
+                    @Part("MobileNumber") RequestBody MobileNumber,
+                    @Part("BirthDateJ") RequestBody BirthDateJ,
+                    @Part("Address") RequestBody Address,
+                    @Part("Lat") RequestBody Lat,
+                    @Part("Lang") RequestBody Lang,
+                    @Part("UserInfoId") RequestBody UserInfoId,
+                    @Part("NationalCode") RequestBody NationalCode,
+                    @Part("Level") RequestBody Level
+            );
+
+
+    @Multipart
+    @POST(Version + "/EditColleague")
+    Call<MD_RequestPrimary> EDIT_COLLEAGUE
+            (
+                    @Part MultipartBody.Part Image,
+                    @Part("Id") RequestBody Id,
+                    @Part("FullName") RequestBody FullName,
+                    @Part("PhoneNumber") RequestBody PhoneNumber,
+                    @Part("MobileNumber") RequestBody MobileNumber,
+                    @Part("BirthDateJ") RequestBody BirthDateJ,
+                    @Part("Address") RequestBody Address,
+                    @Part("Lat") RequestBody Lat,
+                    @Part("Lang") RequestBody Lang,
+                    @Part("UserInfoId") RequestBody UserInfoId,
+                    @Part("NationalCode") RequestBody NationalCode,
+                    @Part("Level") RequestBody Level
+            );
+
 
 }

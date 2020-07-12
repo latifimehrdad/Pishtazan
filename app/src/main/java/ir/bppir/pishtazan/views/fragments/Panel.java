@@ -43,7 +43,7 @@ AP_Person.ClickItemPerson{
 
     private NavController navController;
     private VM_Panel vm_panel;
-    public int panelType;
+    public Byte panelType;
     private AP_Person AP_person;
     public Byte PersonType = 0;
     private Dialog dialog;
@@ -132,7 +132,8 @@ AP_Person.ClickItemPerson{
 
     private void init() {//_________________________________________________________________________ init
 
-        panelType = getArguments().getInt(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
+        Integer temp = getArguments().getInt(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
+        panelType = temp.byteValue();
         if (panelType == StaticValues.Colleague) {
             TextViewTitle.setText(getContext().getResources().getString(R.string.ColleaguePanel));
         } else {
@@ -747,12 +748,12 @@ AP_Person.ClickItemPerson{
 
 
     private void SaveCallReminder(Integer Position) {//_____________________________________________ SaveCallReminder
-//        vm_panel.SaveCallReminder(Position, longDate, stringDate, longTime, stringTime);
+        vm_panel.SaveCallReminder(panelType, Position, longDate, stringDate, longTime, stringTime);
     }//_____________________________________________________________________________________________ SaveCallReminder
 
 
     private void SaveMeetingReminder(Integer Position) {//__________________________________________ SaveMeetingReminder
-//        vm_panel.SaveMeetingReminder(Position, longDate, stringDate, longTime, stringTime);
+        vm_panel.SaveMeetingReminder(panelType, Position, longDate, stringDate, longTime, stringTime);
     }//_____________________________________________________________________________________________ SaveMeetingReminder
 
 
@@ -781,6 +782,7 @@ AP_Person.ClickItemPerson{
     private void EditProfilePerson(Integer Position) {//____________________________________________ EditProfilePerson
         Bundle bundle = new Bundle();
         bundle.putInt(getContext().getString(R.string.ML_PanelType), panelType);
+        bundle.putInt(getContext().getString(R.string.ML_personId), vm_panel.getPersonList().get(Position).getId());
         navController.navigate(R.id.action_panel_to_editPerson, bundle);
     }//_____________________________________________________________________________________________ EditProfilePerson
 }
