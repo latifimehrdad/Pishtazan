@@ -1,5 +1,6 @@
 package ir.bppir.pishtazan.views.fragments;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +20,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.cunoraz.gifview.library.GifView;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.io.File;
 
@@ -196,6 +200,7 @@ public class EditPerson extends FragmentPrimary implements
             TextViewChooseBirthDay.setText(vm_editPerson.getPerson().getBirthDateJ());
             Byte level = vm_editPerson.getPerson().getLevel().byteValue();
             SetPersonDegree(level);
+            SetPersonImage(CircleImageViewProfile, vm_editPerson.getPerson().getImage());
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
@@ -457,6 +462,41 @@ public class EditPerson extends FragmentPrimary implements
         progress.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
     }//_____________________________________________________________________________________________ ShowProgressDialog
 
+
+
+
+    public void SetPersonImage(CircleImageView imageView, String url) {//____________________ SetPersonImage
+
+        ImageLoader imageLoader = PishtazanApplication
+                .getApplication(imageView.getContext())
+                .getImageLoaderComponent()
+                .getImageLoader();
+
+
+        imageLoader.displayImage(url, imageView, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+                imageView.setImageResource(R.drawable.image_before_load);
+            }
+
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                imageView.setImageResource(R.drawable.image_before_load);
+            }
+
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                if (loadedImage == null)
+                    imageView.setImageResource(R.drawable.image_before_load);
+            }
+
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
+                imageView.setImageResource(R.drawable.image_before_load);
+            }
+        });
+
+    }//_____________________________________________________________________________________________ SetPersonImage
 
 
 }

@@ -95,13 +95,13 @@ public class NotificationManagerClass {
             Intent IgnoreIntent = new Intent();
             IgnoreIntent.setAction(context.getString(R.string.ML_Ignore));
             IgnoreIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
-            PendingIntent IgnorePendingIntent = PendingIntent.getBroadcast(context, id, IgnoreIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent IgnorePendingIntent = PendingIntent.getBroadcast(context, id + 10, IgnoreIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
             Intent AgainIntent = new Intent();
             AgainIntent.setAction(context.getString(R.string.ML_Later));
             AgainIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
-            PendingIntent AgainPendingIntent = PendingIntent.getBroadcast(context, id, AgainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent AgainPendingIntent = PendingIntent.getBroadcast(context, id + 20, AgainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
             Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.logo_pishtazan);
@@ -120,7 +120,7 @@ public class NotificationManagerClass {
                 CallIntent.setAction(context.getString(R.string.ML_Calling));
                 CallIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
                 CallIntent.putExtra(context.getResources().getString(R.string.ML_PhoneNumber), db_notification.getPhoneNumber());
-                PendingIntent CallingPendingIntent = PendingIntent.getBroadcast(context, id, CallIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent CallingPendingIntent = PendingIntent.getBroadcast(context, id + 30, CallIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 Title = context.getResources().getString(R.string.RememberCall);
                 StringBuilder stringBuilder = new StringBuilder();
@@ -190,13 +190,13 @@ public class NotificationManagerClass {
             Intent IgnoreIntent = new Intent();
             IgnoreIntent.setAction(context.getString(R.string.ML_Ignore));
             IgnoreIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
-            PendingIntent IgnorePendingIntent = PendingIntent.getBroadcast(context, id, IgnoreIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent IgnorePendingIntent = PendingIntent.getBroadcast(context, id + 10, IgnoreIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
             Intent AgainIntent = new Intent();
             AgainIntent.setAction(context.getString(R.string.ML_Later));
             AgainIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
-            PendingIntent AgainPendingIntent = PendingIntent.getBroadcast(context, id, AgainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent AgainPendingIntent = PendingIntent.getBroadcast(context, id + 20, AgainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             builder = new NotificationCompat.Builder(context);
             builder.setSmallIcon(R.drawable.logo_pishtazan_small)
@@ -230,7 +230,7 @@ public class NotificationManagerClass {
                 CallIntent.setAction(context.getString(R.string.ML_Calling));
                 CallIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
                 CallIntent.putExtra(context.getResources().getString(R.string.ML_PhoneNumber), db_notification.getPhoneNumber());
-                PendingIntent CallingPendingIntent = PendingIntent.getBroadcast(context, id, CallIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent CallingPendingIntent = PendingIntent.getBroadcast(context, id + 30, CallIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 builder.addAction(0, context.getResources().getString(R.string.Calling), CallingPendingIntent);
 
             } else {

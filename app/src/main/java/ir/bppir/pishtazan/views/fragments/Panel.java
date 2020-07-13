@@ -166,19 +166,20 @@ AP_Person.ClickItemPerson{
             return;
         }
 
-        if (action == StaticValues.ML_ConvertPerson) {
-            Animation outLeft = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
-            personPositionView.setAnimation(outLeft);
-            personPositionView.setVisibility(View.INVISIBLE);
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    GetList();
-                }
-            },700);
-            return;
-        }
+//        if (action == StaticValues.ML_ConvertPerson) {
+//            Animation outLeft = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
+//            personPositionView.setAnimation(outLeft);
+//            personPositionView.setVisibility(View.INVISIBLE);
+//            Handler handler = new Handler();
+//            handler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    GetList();
+//                }
+//            },700);
+//            return;
+//        }
+
 
         if (action == StaticValues.ML_DeletePerson) {
             Animation outLeft = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
