@@ -90,6 +90,7 @@
     <string name="ML_personId">personId</string>
     <string name="ML_Ignore">ML_Ignore</string>
     <string name="ML_Calling">ML_Calling</string>
-    <string name="ML_Later">ML_Later</string>
+    <string name="ML_LaterCall">ML_LaterCall</string>
+    <string name="ML_LaterMeeting">ML_LaterMeeting</string>
 
 </resources>

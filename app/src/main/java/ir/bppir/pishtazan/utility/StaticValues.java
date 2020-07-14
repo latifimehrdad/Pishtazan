@@ -11,6 +11,8 @@ public class StaticValues {
 
     public static Byte Call = 0;
     public static Byte Meeting = 1;
+    public static Byte ResponseCall = 2;
+    public static Byte ResponseMeeting = 3;
 
     public static Byte Customer = 0;
     public static Byte Colleague = 1;

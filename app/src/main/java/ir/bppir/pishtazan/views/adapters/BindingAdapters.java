@@ -17,6 +17,8 @@ import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
 
+import static ir.bppir.pishtazan.daggers.retrofit.RetrofitApis.Host;
+
 public class BindingAdapters {
 
     @BindingAdapter(value = "SetDegreePersonImage")
@@ -49,6 +51,7 @@ public class BindingAdapters {
                 .getImageLoaderComponent()
                 .getImageLoader();
 
+        url = Host + url;
 
         imageLoader.displayImage(url, imageView, new ImageLoadingListener() {
             @Override

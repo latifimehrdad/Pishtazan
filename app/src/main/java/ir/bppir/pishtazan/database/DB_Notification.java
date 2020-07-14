@@ -27,6 +27,8 @@ public class DB_Notification extends RealmObject {
 
     private String PhoneNumber;
 
+    private boolean showAlarm = false;
+
     public void insert(MD_Notify md_notify) {
         setNotifyType(md_notify.getNotifyType());
         setPersonType(md_notify.getPersonType());
@@ -114,5 +116,13 @@ public class DB_Notification extends RealmObject {
 
     public void setPhoneNumber(String phoneNumber) {
         PhoneNumber = phoneNumber;
+    }
+
+    public boolean isShowAlarm() {
+        return showAlarm;
+    }
+
+    public void setShowAlarm(boolean showAlarm) {
+        this.showAlarm = showAlarm;
     }
 }

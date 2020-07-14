@@ -63,7 +63,7 @@ public class PishtazanApplication extends MultiDexApplication {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(context.getResources().getString(R.string.ML_Ignore));
         intentFilter.addAction(context.getResources().getString(R.string.ML_Calling));
-        intentFilter.addAction(context.getResources().getString(R.string.ML_Later));
+        intentFilter.addAction(context.getResources().getString(R.string.ML_LaterCall));
         BroadcastReceiver noti = new NotificationReceiver();
         registerReceiver(noti, intentFilter);
 

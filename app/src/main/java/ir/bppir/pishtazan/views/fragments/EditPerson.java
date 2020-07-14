@@ -48,6 +48,7 @@ import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
+import static ir.bppir.pishtazan.daggers.retrofit.RetrofitApis.Host;
 import static ir.bppir.pishtazan.utility.StaticFunctions.TextChangeForChangeBack;
 
 public class EditPerson extends FragmentPrimary implements
@@ -61,6 +62,9 @@ public class EditPerson extends FragmentPrimary implements
     private DisposableObserver<Byte> disposableObserver;
     private String stringDate;
     private DialogProgress progress;
+    private String Lat;
+    private String Lng;
+    private String Address;
 
     @BindView(R.id.EditTextName)
     EditText EditTextName;
@@ -162,6 +166,12 @@ public class EditPerson extends FragmentPrimary implements
         if (VM_Map.map_Address != null) {
             vm_editPerson.setAddress(VM_Map.map_Address);
             vm_editPerson.SetAddressString();
+
+            double slat = vm_editPerson.getPerson().getLat();
+            double slng = vm_editPerson.getPerson().getLang();
+            Lat = String.valueOf(slat);
+            Lng = String.valueOf(slng);
+            Address = vm_editPerson.getPerson().getAddress();
         }
 
     }//_____________________________________________________________________________________________ init
@@ -201,6 +211,12 @@ public class EditPerson extends FragmentPrimary implements
             Byte level = vm_editPerson.getPerson().getLevel().byteValue();
             SetPersonDegree(level);
             SetPersonImage(CircleImageViewProfile, vm_editPerson.getPerson().getImage());
+            stringDate = vm_editPerson.getPerson().getBirthDateJ();
+            double slat = vm_editPerson.getPerson().getLat();
+            double slng = vm_editPerson.getPerson().getLang();
+            Lat = String.valueOf(slat);
+            Lng = String.valueOf(slng);
+            Address = vm_editPerson.getPerson().getAddress();
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
@@ -285,8 +301,8 @@ public class EditPerson extends FragmentPrimary implements
                             EditTextPhoneNumber.getText().toString(),
                             TextViewChooseBirthDay.getText().toString(),
                             EditTextAddress.getText().toString(),
-                            VM_Map.map_Address.getLat(),
-                            VM_Map.map_Address.getLon(),
+                            Lat,
+                            Lng,
                             EditTextNationalCode.getText().toString()
                     );
                 }
@@ -472,6 +488,7 @@ public class EditPerson extends FragmentPrimary implements
                 .getImageLoaderComponent()
                 .getImageLoader();
 
+        url = Host + url;
 
         imageLoader.displayImage(url, imageView, new ImageLoadingListener() {
             @Override

@@ -52,6 +52,8 @@ public class ReceiverReminder extends BroadcastReceiver {
                         .equalTo("longDate", CurrentDate)
                         .and()
                         .between("longTime", TimeBefore, TimeNext)
+                        .and()
+                        .equalTo("showAlarm", false)
                         .findAll();
 
 
@@ -61,11 +63,14 @@ public class ReceiverReminder extends BroadcastReceiver {
             Log.i("meri", "notifications Size : " + notifications.size() + " Name : " + notifications.first().getPersonName());
 
             for(DB_Notification notification : notifications) {
+                realm.beginTransaction();
                 NotificationManagerClass managerClass = new NotificationManagerClass(
                         context,
                         false,
                         notification
                 );
+                notification.setShowAlarm(true);
+                realm.commitTransaction();
             }
         }
         else
