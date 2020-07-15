@@ -21,7 +21,6 @@ import java.util.List;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.database.DB_Notification;
 import ir.bppir.pishtazan.utility.StaticValues;
-import ir.bppir.pishtazan.views.activity.RememberAgain;
 
 public class NotificationManagerClass {
 
@@ -116,17 +115,27 @@ public class NotificationManagerClass {
 
             } else if (db_notification.getNotifyType() == StaticValues.Meeting) {
 
-                Intent AgainIntent = new Intent(context, RememberAgain.class);
+                Intent GoMeetingIntent = new Intent();
+                GoMeetingIntent.setAction(context.getString(R.string.ML_GoToMeeting));
+                GoMeetingIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
+                PendingIntent GoMeetingPendingIntent = PendingIntent.getBroadcast(context, id + 40, GoMeetingIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                actions.add(new Notification.Action(0,context.getResources().getString(R.string.GotoMeeting),GoMeetingPendingIntent));
+
+
+                Intent AgainIntent = new Intent();
                 AgainIntent.setAction(context.getString(R.string.ML_LaterMeeting));
                 AgainIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
                 PendingIntent AgainPendingIntent = PendingIntent.getBroadcast(context, id + 20, AgainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 actions.add(new Notification.Action(0,context.getResources().getString(R.string.RemindAgain),AgainPendingIntent));
+
 
                 Intent IgnoreIntent = new Intent();
                 IgnoreIntent.setAction(context.getString(R.string.ML_Ignore));
                 IgnoreIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
                 PendingIntent IgnorePendingIntent = PendingIntent.getBroadcast(context, id + 30, IgnoreIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 actions.add(new Notification.Action(0,context.getResources().getString(R.string.Cancel),IgnorePendingIntent));
+
+
 
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append(context.getResources().getString(R.string.MeetingWith));
@@ -145,8 +154,70 @@ public class NotificationManagerClass {
 
             } else if (db_notification.getNotifyType() == StaticValues.ResponseCall) {
 
+                Intent AgainIntent = new Intent();
+                AgainIntent.setAction(context.getString(R.string.ML_LaterCall));
+                AgainIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
+                PendingIntent AgainPendingIntent = PendingIntent.getBroadcast(context, id + 20, AgainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                actions.add(new Notification.Action(0,context.getResources().getString(R.string.RemindAgain),AgainPendingIntent));
+
+                Intent IgnoreIntent = new Intent();
+                IgnoreIntent.setAction(context.getString(R.string.ML_Ignore));
+                IgnoreIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
+                PendingIntent IgnorePendingIntent = PendingIntent.getBroadcast(context, id + 30, IgnoreIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                actions.add(new Notification.Action(0,context.getResources().getString(R.string.Cancel),IgnorePendingIntent));
+
+                Intent CertainIntent = new Intent();
+                CertainIntent.setAction(context.getString(R.string.ML_Certain));
+                CertainIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
+                PendingIntent CertainPendingIntent = PendingIntent.getBroadcast(context, id + 100, CertainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                actions.add(new Notification.Action(0,context.getResources().getString(R.string.Certain),CertainPendingIntent));
+
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(context.getResources().getString(R.string.ResponseCall));
+                stringBuilder.append(" با ");
+                stringBuilder.append(db_notification.getPersonName());
+                stringBuilder.append(" ");
+                stringBuilder.append(context.getResources().getString(R.string.HowWasIt));
+
+                ShowNotificationNew(
+                        id,
+                        context.getResources().getString(R.string.ResponseCall),
+                        stringBuilder.toString(),
+                        actions);
+
+
             } else if (db_notification.getNotifyType() == StaticValues.ResponseMeeting) {
 
+                Intent FailedIntent = new Intent();
+                FailedIntent.setAction(context.getString(R.string.ML_Failed));
+                FailedIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
+                PendingIntent FailedPendingIntent = PendingIntent.getBroadcast(context, id + 50, FailedIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                actions.add(new Notification.Action(0,context.getResources().getString(R.string.Failed),FailedPendingIntent));
+
+                Intent AgainIntent = new Intent();
+                AgainIntent.setAction(context.getString(R.string.ML_LaterMeeting));
+                AgainIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
+                PendingIntent AgainPendingIntent = PendingIntent.getBroadcast(context, id + 20, AgainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                actions.add(new Notification.Action(0,context.getResources().getString(R.string.RemindAgain),AgainPendingIntent));
+
+                Intent CertainIntent = new Intent();
+                CertainIntent.setAction(context.getString(R.string.ML_Certain));
+                CertainIntent.putExtra(context.getResources().getString(R.string.ML_Id), id);
+                PendingIntent CertainPendingIntent = PendingIntent.getBroadcast(context, id + 100, CertainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                actions.add(new Notification.Action(0,context.getResources().getString(R.string.Certain),CertainPendingIntent));
+
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(context.getResources().getString(R.string.ResponseMeeting));
+                stringBuilder.append(" با ");
+                stringBuilder.append(db_notification.getPersonName());
+                stringBuilder.append(" ");
+                stringBuilder.append(context.getResources().getString(R.string.HowWasIt));
+
+                ShowNotificationNew(
+                        id,
+                        context.getResources().getString(R.string.ResponseMeeting),
+                        stringBuilder.toString(),
+                        actions);
             }
 
         }

@@ -73,6 +73,7 @@
     <string name="Calling">گرفتن تماس</string>
     <string name="ShowDetail">جزییات بیشتر</string>
     <string name="RemindAgain">یادآوری مجدد</string>
+    <string name="GotoMeeting">بزن بریم</string>
     <string name="RequestFailure">خطای ارتباط با مرکز</string>
     |<string name="ServiceRun">برنامه در حال اجرا است</string>
     <string name="UserIsNotAuthorization">کاربری شما با خطا مواجه شده، لطفا مجدد وارد سیستم بشوید</string>
@@ -82,15 +83,23 @@
     <string name="Choose">انتخاب</string>
     <string name="OutOfIran">آدرس انتخابی خارج از ایران است</string>
     <string name="ChooseBirthDay">انتخاب تاریخ تولد</string>
+    <string name="ResponseCall">نتیجه تماس</string>
+    <string name="HowWasIt">چگونه بود؟</string>
+    <string name="Failed">ناموفق</string>
+    <string name="ResponseMeeting">نتیجه جلسه</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>
     <string name="ML_PanelType">PanelType</string>
     <string name="ML_Id">Id</string>
+    <string name="ML_Type">Type</string>
     <string name="ML_personId">personId</string>
     <string name="ML_Ignore">ML_Ignore</string>
     <string name="ML_Calling">ML_Calling</string>
     <string name="ML_LaterCall">ML_LaterCall</string>
     <string name="ML_LaterMeeting">ML_LaterMeeting</string>
+    <string name="ML_GoToMeeting">ML_GoToMeeting</string>
+    <string name="ML_Certain">ML_Certain</string>
+    <string name="ML_Failed">ML_Failed</string>
 
 </resources>

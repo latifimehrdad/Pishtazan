@@ -23,6 +23,7 @@ import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 public class RememberAgain extends AppCompatActivity {
 
     private Integer Id;
+    private Byte NotifyType;
     private Long longDate;
     private String stringDate;
     private Long longTime;
@@ -31,9 +32,9 @@ public class RememberAgain extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_reminder);
+        setContentView(R.layout.activity_remember);
         Id = getIntent().getExtras().getInt(getString(R.string.ML_Id), 0);
-
+        NotifyType = getIntent().getByteExtra(getString(R.string.ML_Type),(byte)0);
         TimePicker TimePickerReminder = (TimePicker)
                 findViewById(R.id.TimePickerReminder);
 
@@ -141,7 +142,7 @@ public class RememberAgain extends AppCompatActivity {
         if (notification != null) {
 
             MD_Notify md_notify = new MD_Notify(
-                    StaticValues.Call,
+                    NotifyType,
                     notification.getPersonType(),
                     stringDate,
                     longDate,
@@ -174,6 +175,7 @@ public class RememberAgain extends AppCompatActivity {
             if (realm != null)
                 realm.close();
         }
+        finish();
 
     }//_____________________________________________________________________________________________ SaveToNotify
 
