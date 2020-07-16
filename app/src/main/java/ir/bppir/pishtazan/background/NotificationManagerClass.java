@@ -40,6 +40,9 @@ public class NotificationManagerClass {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationNew aNew = new NotificationNew(context, serviceId);
             notification = aNew.getNotification();
+        } else {
+            NotificationOld old = new NotificationOld(context, serviceId);
+            notification = old.getNotification();
         }
 
     }//_____________________________________________________________________________________________ NotificationManagerClass
@@ -54,6 +57,9 @@ public class NotificationManagerClass {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationNew aNew = new NotificationNew(db_notification, context);
             notification = aNew.getNotification();
+        } else {
+            NotificationOld old = new NotificationOld(db_notification, context);
+            notification = old.getNotification();
         }
     }//_____________________________________________________________________________________________ NotificationManagerClass
 

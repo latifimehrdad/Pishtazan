@@ -7,12 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.TimePicker;
+
 
 import androidx.core.app.NotificationManagerCompat;
 
@@ -21,20 +16,16 @@ import java.util.Calendar;
 
 import io.realm.Realm;
 import ir.bppir.pishtazan.R;
-import ir.bppir.pishtazan.daggers.datepicker.PersianPickerModule;
 import ir.bppir.pishtazan.database.DB_Notification;
 import ir.bppir.pishtazan.models.MD_Notify;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.views.activity.RememberAgain;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
-import ir.hamsaa.persiandatepicker.Listener;
-import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
-import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
 public class NotificationReceiver extends BroadcastReceiver {
 
     public Context context;
-    private Dialog dialog;
+    private boolean first = false;
 
 
     @Override
@@ -46,6 +37,7 @@ public class NotificationReceiver extends BroadcastReceiver {
             int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
             CancelNotification(id);
         } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_Calling))) {
+            first = true;
             String PhoneNumber = intent.getStringExtra(context.getResources().getString(R.string.ML_PhoneNumber));
             int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
             SetResponseCall(id);
@@ -55,16 +47,16 @@ public class NotificationReceiver extends BroadcastReceiver {
             CancelNotification(id);
             Intent intent1 = new Intent(context.getApplicationContext(), RememberAgain.class);
             intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent1.putExtra(context.getResources().getString(R.string.ML_Id),id);
-            intent1.putExtra(context.getResources().getString(R.string.ML_Type),StaticValues.Call);
+            intent1.putExtra(context.getResources().getString(R.string.ML_Id), id);
+            intent1.putExtra(context.getResources().getString(R.string.ML_Type), StaticValues.Call);
             context.getApplicationContext().startActivity(intent1);
-        }  else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_LaterMeeting))) {
+        } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_LaterMeeting))) {
             int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
             CancelNotification(id);
             Intent intent1 = new Intent(context.getApplicationContext(), RememberAgain.class);
             intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent1.putExtra(context.getResources().getString(R.string.ML_Id),id);
-            intent1.putExtra(context.getResources().getString(R.string.ML_Type),StaticValues.Meeting);
+            intent1.putExtra(context.getResources().getString(R.string.ML_Id), id);
+            intent1.putExtra(context.getResources().getString(R.string.ML_Type), StaticValues.Meeting);
             context.getApplicationContext().startActivity(intent1);
         } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_GoToMeeting))) {
             int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
@@ -73,18 +65,18 @@ public class NotificationReceiver extends BroadcastReceiver {
             int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
             CancelNotification(id);
             /*
-            *
-            *
-            *
-            * */
+             *
+             *
+             *
+             * */
         } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_Failed))) {
             int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
             CancelNotification(id);
             /*
-            *
-            *
-            *
-            * */
+             *
+             *
+             *
+             * */
         }
     }//_____________________________________________________________________________________________ onReceive
 
@@ -111,10 +103,10 @@ public class NotificationReceiver extends BroadcastReceiver {
     }//_____________________________________________________________________________________________ CallPerson
 
 
-
     private void SetResponseCall(int id) {//________________________________________________________ SetResponseCall
 
         Realm realm = Realm.getDefaultInstance();
+
         DB_Notification notification = realm
                 .where(DB_Notification.class)
                 .equalTo("Id", id)
@@ -122,46 +114,49 @@ public class NotificationReceiver extends BroadcastReceiver {
 
         if (notification != null) {
 
-            Calendar TimeCheck = Calendar.getInstance();
-            TimeCheck.add(Calendar.MINUTE, 5);
+            try {
+                Calendar TimeCheck = Calendar.getInstance();
+                TimeCheck.add(Calendar.MINUTE, 5);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("HHmm");
-            Long longTime = Long.valueOf(sdf.format(TimeCheck.getTime()));
+                SimpleDateFormat sdf = new SimpleDateFormat("HHmm");
+                Long longTime = Long.valueOf(sdf.format(TimeCheck.getTime()));
 
-            sdf = new SimpleDateFormat("HH:mm");
-            String stringTime = sdf.format(TimeCheck.getTime());
+                sdf = new SimpleDateFormat("HH:mm");
+                String stringTime = sdf.format(TimeCheck.getTime());
 
-            String stringDate = PishtazanApplication
-                    .getApplication(context)
-                    .getApplicationUtilityComponent()
-                    .getApplicationUtility()
-                    .MiladiToJalali(TimeCheck.getTime(), "FullJalaliNumber");
+                String stringDate = PishtazanApplication
+                        .getApplication(context)
+                        .getApplicationUtilityComponent()
+                        .getApplicationUtility()
+                        .MiladiToJalali(TimeCheck.getTime(), "FullJalaliNumber");
 
-            String tempDate = stringDate;
-            if (tempDate != null)
-                tempDate = tempDate.replaceAll("/", "");
-            else
-                return;
+                String tempDate = stringDate;
+                if (tempDate != null)
+                    tempDate = tempDate.replaceAll("/", "");
+                else
+                    return;
 
-            Long longDate = Long.valueOf(tempDate);
+                Long longDate = Long.valueOf(tempDate);
 
-            MD_Notify md_notify = new MD_Notify(
-                    StaticValues.ResponseCall,
-                    notification.getPersonType(),
-                    stringDate,
-                    longDate,
-                    stringTime,
-                    longTime,
-                    null,
-                    notification.getPersonName(),
-                    notification.getPhoneNumber());
-            SaveToNotify(md_notify);
-            realm.close();
-            CancelNotification(id);
+                MD_Notify md_notify = new MD_Notify(
+                        StaticValues.ResponseCall,
+                        notification.getPersonType(),
+                        stringDate,
+                        longDate,
+                        stringTime,
+                        longTime,
+                        null,
+                        notification.getPersonName(),
+                        notification.getPhoneNumber());
+                SaveToNotify(md_notify);
+            } finally {
+                if (realm != null && !realm.isClosed())
+                    realm.close();
+                CancelNotification(id);
+            }
+
         }
     }//_____________________________________________________________________________________________ SetResponseCall
-
-
 
 
     private void SetResponseMeeting(int id) {//_____________________________________________________ SetResponseMeeting
@@ -174,46 +169,48 @@ public class NotificationReceiver extends BroadcastReceiver {
 
         if (notification != null) {
 
-            Calendar TimeCheck = Calendar.getInstance();
-            TimeCheck.add(Calendar.MINUTE, 5);
+            try {
+                Calendar TimeCheck = Calendar.getInstance();
+                TimeCheck.add(Calendar.MINUTE, 5);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("HHmm");
-            Long longTime = Long.valueOf(sdf.format(TimeCheck.getTime()));
+                SimpleDateFormat sdf = new SimpleDateFormat("HHmm");
+                Long longTime = Long.valueOf(sdf.format(TimeCheck.getTime()));
 
-            sdf = new SimpleDateFormat("HH:mm");
-            String stringTime = sdf.format(TimeCheck.getTime());
+                sdf = new SimpleDateFormat("HH:mm");
+                String stringTime = sdf.format(TimeCheck.getTime());
 
-            String stringDate = PishtazanApplication
-                    .getApplication(context)
-                    .getApplicationUtilityComponent()
-                    .getApplicationUtility()
-                    .MiladiToJalali(TimeCheck.getTime(), "FullJalaliNumber");
+                String stringDate = PishtazanApplication
+                        .getApplication(context)
+                        .getApplicationUtilityComponent()
+                        .getApplicationUtility()
+                        .MiladiToJalali(TimeCheck.getTime(), "FullJalaliNumber");
 
-            String tempDate = stringDate;
-            if (tempDate != null)
-                tempDate = tempDate.replaceAll("/", "");
-            else
-                return;
+                String tempDate = stringDate;
+                if (tempDate != null)
+                    tempDate = tempDate.replaceAll("/", "");
+                else
+                    return;
 
-            Long longDate = Long.valueOf(tempDate);
+                Long longDate = Long.valueOf(tempDate);
 
-            MD_Notify md_notify = new MD_Notify(
-                    StaticValues.ResponseMeeting,
-                    notification.getPersonType(),
-                    stringDate,
-                    longDate,
-                    stringTime,
-                    longTime,
-                    null,
-                    notification.getPersonName(),
-                    notification.getPhoneNumber());
-            SaveToNotify(md_notify);
-            realm.close();
-            CancelNotification(id);
+                MD_Notify md_notify = new MD_Notify(
+                        StaticValues.ResponseMeeting,
+                        notification.getPersonType(),
+                        stringDate,
+                        longDate,
+                        stringTime,
+                        longTime,
+                        null,
+                        notification.getPersonName(),
+                        notification.getPhoneNumber());
+                SaveToNotify(md_notify);
+            } finally {
+                if (realm != null && !realm.isClosed())
+                    realm.close();
+                CancelNotification(id);
+            }
         }
     }//_____________________________________________________________________________________________ SetResponseMeeting
-
-
 
 
     private void SaveToNotify(MD_Notify md_notify) {//______________________________________________ SaveToNotify
@@ -230,7 +227,7 @@ public class NotificationReceiver extends BroadcastReceiver {
             realm.createObject(DB_Notification.class, id).insert(md_notify);
             realm.commitTransaction();
         } finally {
-            if (realm != null)
+            if (realm != null && !realm.isClosed())
                 realm.close();
         }
 
