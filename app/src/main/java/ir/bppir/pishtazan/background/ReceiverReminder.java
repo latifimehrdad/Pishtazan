@@ -7,10 +7,12 @@ import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 import ir.bppir.pishtazan.database.DB_Notification;
+import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
 
 public class ReceiverReminder extends BroadcastReceiver {
@@ -46,6 +48,9 @@ public class ReceiverReminder extends BroadcastReceiver {
 
         Long TimeNext = Long.valueOf(sdf.format(TimeCheck.getTime()));
 
+        Byte[] type = new Byte[2];
+        type[0] = StaticValues.Call;
+        type[1] = StaticValues.ResponseCall;
         Realm realm = Realm.getDefaultInstance();
         RealmResults<DB_Notification> notifications =
                 realm.where(DB_Notification.class)
@@ -54,14 +59,16 @@ public class ReceiverReminder extends BroadcastReceiver {
                         .between("longTime", TimeBefore, TimeNext)
                         .and()
                         .equalTo("showAlarm", false)
+                        .and()
+                        .in("notifyType", type)
                         .findAll();
 
 
         Log.i("meri", "**************** onReceive **************** ");
         Log.i("meri", "Date : " + CurrentDateString + " TimeBefore : " + TimeBefore + " TimeNext : " + TimeNext);
+        Log.i("meri", "notifications Size : " + notifications.size() + " Call");
         if (notifications.size() > 0) {
             Log.i("meri", "notifications Size : " + notifications.size() + " Name : " + notifications.first().getPersonName());
-
             for(DB_Notification notification : notifications) {
                 realm.beginTransaction();
                 NotificationManagerClass managerClass = new NotificationManagerClass(context, notification);
@@ -69,8 +76,40 @@ public class ReceiverReminder extends BroadcastReceiver {
                 realm.commitTransaction();
             }
         }
-        else
-            Log.i("meri", "notifications Size : " + notifications.size());
+
+        TimeCheck = Calendar.getInstance();
+        TimeCheck.add(Calendar.MINUTE, 15);
+        TimeNext = Long.valueOf(sdf.format(TimeCheck.getTime()));
+
+
+        type[0] = StaticValues.Meeting;
+        type[1] = StaticValues.ResponseMeeting;
+
+        RealmResults<DB_Notification> notificationsMeeting =
+                realm.where(DB_Notification.class)
+                        .equalTo("longDate", CurrentDate)
+                        .and()
+                        .between("longTime", TimeBefore, TimeNext)
+                        .and()
+                        .equalTo("showAlarm", false)
+                        .and()
+                        .in("notifyType", type)
+                        .findAll();
+
+
+        Log.i("meri", "notifications Size : " + notificationsMeeting.size() + " Meeting");
+        Log.i("meri", "Date : " + CurrentDateString + " TimeBefore : " + TimeBefore + " TimeNext : " + TimeNext);
+        if (notificationsMeeting.size() > 0) {
+            Log.i("meri", "notifications Size : " + notificationsMeeting.size() + " Name : " + notificationsMeeting.first().getPersonName());
+            for(DB_Notification notification : notificationsMeeting) {
+                realm.beginTransaction();
+                NotificationManagerClass managerClass = new NotificationManagerClass(context, notification);
+                notification.setShowAlarm(true);
+                realm.commitTransaction();
+            }
+        }
+
+        realm.close();
 
 
     }//_____________________________________________________________________________________________ GetCurrentLocation

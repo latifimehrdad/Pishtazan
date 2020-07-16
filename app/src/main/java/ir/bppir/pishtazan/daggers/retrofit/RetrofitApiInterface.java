@@ -6,6 +6,7 @@ import java.util.Map;
 import ir.bppir.pishtazan.models.MD_GetAddres;
 import ir.bppir.pishtazan.models.MD_RequestGenerateCode;
 import ir.bppir.pishtazan.models.MD_RequestGetAllPerson;
+import ir.bppir.pishtazan.models.MD_RequestPolicyType;
 import ir.bppir.pishtazan.models.MD_RequestPrimary;
 import ir.bppir.pishtazan.models.MD_RequestVerifyCode;
 import okhttp3.MultipartBody;
@@ -173,6 +174,15 @@ public interface RetrofitApiInterface {
                     @Part("NationalCode") RequestBody NationalCode,
                     @Part("Level") RequestBody Level
             );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/GetAllPolicyTypes")
+    Call<MD_RequestPolicyType> GET_ALL_POLICY_TYPES
+            (
+                    @Field("Id") Integer id
+            );
+
 
 
 }

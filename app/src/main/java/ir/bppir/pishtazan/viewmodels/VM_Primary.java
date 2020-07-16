@@ -121,10 +121,10 @@ public class VM_Primary {
         } else {
             if (getPrimaryCall().isCanceled()) {
                 setResponseMessage("");
-                getPublishSubject().onNext(StaticValues.ML_RequestCancel);
+                SendMessageToObservable(StaticValues.ML_RequestCancel);
             } else {
                 setResponseMessage(getContext().getResources().getString(R.string.RequestFailure));
-                getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
+                SendMessageToObservable(StaticValues.ML_ResponseFailure);
             }
         }
 
@@ -188,19 +188,6 @@ public class VM_Primary {
 //
 //    }
 
-
-    public void SendMessageToObservable(Byte action) {//____________________________________________ SendMessageToObservable
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                publishSubject.onNext(action);
-            }
-        },500);
-
-    }//_____________________________________________________________________________________________ SendMessageToObservable
-
-
     public PublishSubject<Byte> getPublishSubject() {//_____________________________________________ getPublishSubject
         return publishSubject;
     }//_____________________________________________________________________________________________ getPublishSubject
@@ -221,5 +208,12 @@ public class VM_Primary {
     public void setContext(Activity context) {//____________________________________________________ setContext
         this.context = context;
     }//_____________________________________________________________________________________________ setContext
+
+
+    public void SendMessageToObservable(Byte action) {//____________________________________________ SendMessageToObservable
+        Handler handler = new Handler();
+        handler.postDelayed(() -> publishSubject.onNext(action),200);
+
+    }//_____________________________________________________________________________________________ SendMessageToObservable
 
 }

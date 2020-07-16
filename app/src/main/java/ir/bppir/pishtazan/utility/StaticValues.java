@@ -43,6 +43,7 @@ public class StaticValues {
     public static Byte ML_PictureDialogGetImage = 16;
     public static Byte ML_AddressFromMap = 17;
     public static Byte ML_AddressFromMapOutOfIran = 18;
+    public static Byte ML_GetAllPolicyTypes = 19;
 
 
 }

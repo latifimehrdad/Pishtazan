@@ -62,6 +62,7 @@ public class NotificationNewAction {
         Intent CertainIntent = new Intent();
         CertainIntent.setAction(context.getString(R.string.ML_Certain));
         CertainIntent.putExtra(context.getResources().getString(R.string.ML_Id), notifyId);
+        CertainIntent.putExtra(context.getResources().getString(R.string.ML_Type), type);
         PendingIntent CertainPendingIntent = PendingIntent.getBroadcast(context, notifyId + 50, CertainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         return new Notification.Action(0, context.getResources().getString(R.string.Certain), CertainPendingIntent);
     }//_____________________________________________________________________________________________ GetCertainAction

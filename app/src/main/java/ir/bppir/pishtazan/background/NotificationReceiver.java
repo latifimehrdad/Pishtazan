@@ -19,6 +19,7 @@ import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.database.DB_Notification;
 import ir.bppir.pishtazan.models.MD_Notify;
 import ir.bppir.pishtazan.utility.StaticValues;
+import ir.bppir.pishtazan.views.activity.MainActivity;
 import ir.bppir.pishtazan.views.activity.RememberAgain;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
 
@@ -63,12 +64,12 @@ public class NotificationReceiver extends BroadcastReceiver {
             SetResponseMeeting(id);
         } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_Certain))) {
             int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
+            Byte type = intent.getByteExtra(context.getResources().getString(R.string.ML_Type),(byte) 0);
             CancelNotification(id);
-            /*
-             *
-             *
-             *
-             * */
+            Intent intent1 = new Intent(context.getApplicationContext(), MainActivity.class);
+            intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent1.putExtra(context.getResources().getString(R.string.ML_Type), type);
+            context.getApplicationContext().startActivity(intent1);
         } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_Failed))) {
             int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
             CancelNotification(id);

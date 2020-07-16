@@ -27,6 +27,14 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"/>
 
+        <action
+            android:id="@+id/action_splash_to_policyType"
+            app:destination="@id/policyType"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
     </fragment>
 
     <fragment
@@ -133,5 +141,11 @@
         android:name="ir.bppir.pishtazan.views.fragments.Map"
         android:label="Map"
         tools:layout="@layout/fragment_map"/>
+
+    <fragment
+        android:id="@+id/policyType"
+        android:name="ir.bppir.pishtazan.views.fragments.PolicyType"
+        android:label="PolicyType"
+        tools:layout="@layout/fragment_policy_type"/>
 
 </navigation>

@@ -19,6 +19,7 @@ import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.FragmentSplashBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Splash;
+import ir.bppir.pishtazan.views.activity.MainActivity;
 
 public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
@@ -42,7 +43,7 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
             FragmentSplashBinding binding = DataBindingUtil.inflate(
-                    inflater, R.layout.fragment_splash,container,false);
+                    inflater, R.layout.fragment_splash, container, false);
             vm_splash = new VM_Splash(getActivity());
             binding.setSplash(vm_splash);
             setView(binding.getRoot());
@@ -76,7 +77,10 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
         if (action == StaticValues.ML_GotoSignUp) {
             navController.navigate(R.id.action_splash_to_signUp);
         } else if (action == StaticValues.ML_GotoHome) {
-            navController.navigate(R.id.action_splash_to_home);
+            if (MainActivity.startFromNotify == -1)
+                navController.navigate(R.id.action_splash_to_policyType);
+            else
+                navController.navigate(R.id.action_splash_to_policyType);
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
