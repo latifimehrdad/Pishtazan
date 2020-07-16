@@ -48,7 +48,6 @@ public class NotificationReceiver extends BroadcastReceiver {
         } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_Calling))) {
             String PhoneNumber = intent.getStringExtra(context.getResources().getString(R.string.ML_PhoneNumber));
             int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
-
             SetResponseCall(id);
             CallPerson(PhoneNumber);
         } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_LaterCall))) {
@@ -70,6 +69,22 @@ public class NotificationReceiver extends BroadcastReceiver {
         } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_GoToMeeting))) {
             int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
             SetResponseMeeting(id);
+        } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_Certain))) {
+            int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
+            CancelNotification(id);
+            /*
+            *
+            *
+            *
+            * */
+        } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_Failed))) {
+            int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
+            CancelNotification(id);
+            /*
+            *
+            *
+            *
+            * */
         }
     }//_____________________________________________________________________________________________ onReceive
 

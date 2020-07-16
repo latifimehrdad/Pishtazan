@@ -64,11 +64,7 @@ public class ReceiverReminder extends BroadcastReceiver {
 
             for(DB_Notification notification : notifications) {
                 realm.beginTransaction();
-                NotificationManagerClass managerClass = new NotificationManagerClass(
-                        context,
-                        false,
-                        notification
-                );
+                NotificationManagerClass managerClass = new NotificationManagerClass(context, notification);
                 notification.setShowAlarm(true);
                 realm.commitTransaction();
             }

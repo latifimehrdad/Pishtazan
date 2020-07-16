@@ -34,40 +34,40 @@ public class NotificationManagerClass {
     private Integer ServiceId;
 
 
+    public NotificationManagerClass(Context context, Integer serviceId) {//_________________________ NotificationManagerClass
+        this.context = context;
+        ServiceId = serviceId;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationNew aNew = new NotificationNew(context, serviceId);
+            notification = aNew.getNotification();
+        }
+
+    }//_____________________________________________________________________________________________ NotificationManagerClass
+
+
     public NotificationManagerClass(
             Context context,
-            Boolean showAlways,
             DB_Notification db_notification) {//____________________________________________________ NotificationManagerClass
         this.context = context;
-        ShowAlways = showAlways;
         this.db_notification = db_notification;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CreateChannelsEvent();
-            SetNotificationNew(db_notification);
-        } else {
-            ShowNotificationOld(db_notification);
+            NotificationNew aNew = new NotificationNew(db_notification, context);
+            notification = aNew.getNotification();
         }
     }//_____________________________________________________________________________________________ NotificationManagerClass
 
 
-    public NotificationManagerClass(
-            Context context,
-            Boolean showAlways,
-            DB_Notification db_notification,
-            Integer ServiceId) {//____________________________________________________ NotificationManagerClass
-        this.context = context;
-        ShowAlways = showAlways;
-        this.db_notification = db_notification;
-        this.ServiceId = ServiceId;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CreateChannelsEvent();
-            SetNotificationNew(db_notification);
-        } else {
-            ShowNotificationOld(db_notification);
-        }
-    }//_____________________________________________________________________________________________ NotificationManagerClass
+    public Notification getNotification() {//_______________________________________________________ getNotification
+        return notification;
+    }//_____________________________________________________________________________________________  getNotification
+
+
+}
+
+
+/*
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -225,6 +225,7 @@ public class NotificationManagerClass {
     }//_____________________________________________________________________________________________ SetNotificationNew
 
 
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void ShowNotificationNew(
             Integer notifyId,
@@ -259,8 +260,6 @@ public class NotificationManagerClass {
 
 
 
-
-
     private void ShowNotificationOld(DB_Notification db_notification) {//___________________________ ShowNotificationOld
 
 
@@ -268,6 +267,7 @@ public class NotificationManagerClass {
         String Message;
         int id;
         NotificationCompat.Builder builder;
+        List<Notification.Action> actions = new ArrayList<>();
 
         if (ShowAlways) {
             id = ServiceId;
@@ -352,13 +352,69 @@ public class NotificationManagerClass {
 
         }
 
-
         builder.setColor(context.getResources().getColor(R.color.colorAccent));
         getManager().notify(id, builder.build());
         notification = builder.build();
     }//_____________________________________________________________________________________________ ShowNotificationOld
 
 
+
+
+
+//*************************************** Actions PendingIntent ************************************
+
+
+
+
+
+
+//*************************************** Actions PendingIntent ************************************
+
+
+
+
+//****************************************** Show Always *******************************************
+/*
+    public NotificationManagerClass(
+            Context context,
+            Integer ServiceId) {//____________________________________________________ NotificationManagerClass
+        this.context = context;
+        this.ServiceId = ServiceId;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CreateChannelsEvent();
+            ShowAlwaysNotificationNew();
+        } else {
+            ShowAlwaysNotificationOld();
+        }
+    }//_____________________________________________________________________________________________ NotificationManagerClass
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void ShowAlwaysNotificationNew() {//____________________________________________________ ShowAlwaysNotificationNew
+
+        ShowNotificationNew(
+                ServiceId,
+                context.getResources().getString(R.string.app_name),
+                context.getResources().getString(R.string.ServiceRun),
+                null);
+    }//_____________________________________________________________________________________________ ShowAlwaysNotificationNew
+
+
+
+    private void ShowAlwaysNotificationOld() {//____________________________________________________ ShowAlwaysNotificationOld
+
+
+    }//_____________________________________________________________________________________________ ShowAlwaysNotificationOld
+
+
+ */
+
+//****************************************** Show Always *******************************************
+
+
+/*
     public Uri getSound() {//_______________________________________________________________________ getSound
         return RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
     }//_____________________________________________________________________________________________ getSound
@@ -384,7 +440,6 @@ public class NotificationManagerClass {
     }//_____________________________________________________________________________________________ getManager
 
 
-    public Notification getNotification() {//_______________________________________________________ getNotification
-        return notification;
-    }//_____________________________________________________________________________________________  getNotification
+
 }
+*/

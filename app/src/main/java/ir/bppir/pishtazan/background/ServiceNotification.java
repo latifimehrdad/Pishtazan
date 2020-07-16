@@ -20,12 +20,7 @@ public class ServiceNotification extends Service {
         if (alarmNotify == null) {
             Integer id = 6780;
             NotificationManagerClass managerClass =
-                    new NotificationManagerClass(
-                            getApplicationContext(),
-                            true
-                            , null,
-                            id
-                    );
+                    new NotificationManagerClass(getApplicationContext(), id);
             alarmNotify = managerClass.getNotification();
             startForeground(id, alarmNotify);
         }
