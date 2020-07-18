@@ -78,7 +78,7 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
             navController.navigate(R.id.action_splash_to_signUp);
         } else if (action == StaticValues.ML_GotoHome) {
             if (MainActivity.startFromNotify == -1)
-                navController.navigate(R.id.action_splash_to_policyType);
+                navController.navigate(R.id.action_splash_to_home);
             else
                 navController.navigate(R.id.action_splash_to_policyType);
         }
