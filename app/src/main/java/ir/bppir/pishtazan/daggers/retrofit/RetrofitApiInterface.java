@@ -6,6 +6,7 @@ import java.util.Map;
 import ir.bppir.pishtazan.models.MD_GetAddres;
 import ir.bppir.pishtazan.models.MD_RequestGenerateCode;
 import ir.bppir.pishtazan.models.MD_RequestGetAllPerson;
+import ir.bppir.pishtazan.models.MD_RequestPolicy;
 import ir.bppir.pishtazan.models.MD_RequestPolicyType;
 import ir.bppir.pishtazan.models.MD_RequestPrimary;
 import ir.bppir.pishtazan.models.MD_RequestVerifyCode;
@@ -25,6 +26,7 @@ public interface RetrofitApiInterface {
 
     String Version = "/api";
     String Colleague = "Colleague";
+    String Policy = "Policy.";
 
     @FormUrlEncoded
     @POST(Version + "/GenerateCode")
@@ -184,5 +186,26 @@ public interface RetrofitApiInterface {
             );
 
 
+    @FormUrlEncoded
+    @POST(Version + "/CreatePolicy")
+    Call<MD_RequestPrimary> CREATE_POLICY
+            (
+                    @Field(Policy + "PolicyTypeId") String PolicyTypeId,
+                    @Field(Policy + "CustomerId") String CustomerId,
+                    @Field(Policy + "PolicyAmont") String PolicyAmont,
+                    @Field(Policy + "UserInfoId") String UserInfoId,
+                    @Field(Policy + "Description") String Description
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/GetAllPolicies")
+    Call<MD_RequestPolicy> GET_ALL_POLICIES
+            (
+                    @Field("UserInfoId") Integer UserInfoId,
+                    @Field("CustomerId") Integer CustomerId,
+                    @Field("PolicyStatus") Byte PolicyStatus,
+                    @Field("IsDeleted") boolean IsDeleted
+            );
 
 }

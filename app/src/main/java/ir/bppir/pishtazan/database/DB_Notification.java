@@ -9,6 +9,8 @@ public class DB_Notification extends RealmObject {
     @PrimaryKey
     private Integer Id;
 
+    private Integer PersonId;
+
     private Byte notifyType;
 
     private Byte personType;
@@ -39,6 +41,7 @@ public class DB_Notification extends RealmObject {
         setDescription(getDescription());
         setPersonName(md_notify.getPersonName());
         setPhoneNumber(md_notify.getPhoneNumber());
+        setPersonId(md_notify.getPersonId());
     }
 
 
@@ -124,5 +127,13 @@ public class DB_Notification extends RealmObject {
 
     public void setShowAlarm(boolean showAlarm) {
         this.showAlarm = showAlarm;
+    }
+
+    public Integer getPersonId() {
+        return PersonId;
+    }
+
+    public void setPersonId(Integer personId) {
+        PersonId = personId;
     }
 }

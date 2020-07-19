@@ -168,7 +168,8 @@ public class VM_Panel extends VM_Primary {
                 longTime,
                 null,
                 personList.get(Position).getFullName(),
-                personList.get(Position).getMobileNumber());
+                personList.get(Position).getMobileNumber(),
+                personList.get(Position).getId());
         SaveToNotify(md_notify);
 
     }//_____________________________________________________________________________________________ SaveCallReminder
@@ -212,7 +213,8 @@ public class VM_Panel extends VM_Primary {
                 longTime,
                 null,
                 personList.get(Position).getFullName(),
-                personList.get(Position).getMobileNumber());
+                personList.get(Position).getMobileNumber(),
+                personList.get(Position).getId());
         SaveToNotify(md_notify);
     }//_____________________________________________________________________________________________ SaveMeetingReminder
 

@@ -150,7 +150,8 @@ public class RememberAgain extends AppCompatActivity {
                     longTime,
                     null,
                     notification.getPersonName(),
-                    notification.getPhoneNumber());
+                    notification.getPhoneNumber(),
+                    notification.getPersonId());
             SaveToNotify(md_notify);
         }
 

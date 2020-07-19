@@ -64,11 +64,13 @@ public class NotificationReceiver extends BroadcastReceiver {
             SetResponseMeeting(id);
         } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_Certain))) {
             int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
+            Integer UserId = intent.getIntExtra(context.getResources().getString(R.string.ML_personId), 0);
             Byte type = intent.getByteExtra(context.getResources().getString(R.string.ML_Type),(byte) 0);
             CancelNotification(id);
             Intent intent1 = new Intent(context.getApplicationContext(), MainActivity.class);
             intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent1.putExtra(context.getResources().getString(R.string.ML_Type), type);
+            intent1.putExtra(context.getResources().getString(R.string.ML_personId), UserId);
             context.getApplicationContext().startActivity(intent1);
         } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_Failed))) {
             int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
@@ -148,7 +150,8 @@ public class NotificationReceiver extends BroadcastReceiver {
                         longTime,
                         null,
                         notification.getPersonName(),
-                        notification.getPhoneNumber());
+                        notification.getPhoneNumber(),
+                        notification.getPersonId());
                 SaveToNotify(md_notify);
             } finally {
                 if (realm != null && !realm.isClosed())
@@ -203,7 +206,8 @@ public class NotificationReceiver extends BroadcastReceiver {
                         longTime,
                         null,
                         notification.getPersonName(),
-                        notification.getPhoneNumber());
+                        notification.getPhoneNumber(),
+                        notification.getPersonId());
                 SaveToNotify(md_notify);
             } finally {
                 if (realm != null && !realm.isClosed())

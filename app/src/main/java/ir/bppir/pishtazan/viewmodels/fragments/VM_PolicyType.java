@@ -8,7 +8,9 @@ import java.util.List;
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
 import ir.bppir.pishtazan.models.MD_PolicyType;
 import ir.bppir.pishtazan.models.MD_RequestGenerateCode;
+import ir.bppir.pishtazan.models.MD_RequestGetAllPerson;
 import ir.bppir.pishtazan.models.MD_RequestPolicyType;
+import ir.bppir.pishtazan.models.MD_RequestPrimary;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
@@ -57,6 +59,55 @@ public class VM_PolicyType extends VM_Primary {
         });
 
     }//_____________________________________________________________________________________________ GetAllPolicyTypes
+
+
+
+
+    public void CreatePolicy(
+            String PolicyTypeId,
+            String CustomerId,
+            String PolicyAmont,
+            String Description) {//_________________________________________________________________ CreatePolicy
+
+        Integer UserInfoId = GetUserId();
+        if (UserInfoId == 0) {
+            UserIsNotAuthorization();
+            return;
+        }
+
+        setPrimaryCall(PishtazanApplication
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .CREATE_POLICY(
+                        PolicyTypeId,
+                        CustomerId,
+                        PolicyAmont,
+                        UserInfoId.toString(),
+                        Description));
+
+
+        getPrimaryCall().enqueue(new Callback<MD_RequestPrimary>() {
+            @Override
+            public void onResponse(Call<MD_RequestPrimary> call, Response<MD_RequestPrimary> response) {
+                if (ResponseIsOk(response)) {
+                    setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 0)
+                        SendMessageToObservable(StaticValues.ML_ResponseError);
+                    else {
+                        SendMessageToObservable(StaticValues.ML_Success);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MD_RequestPrimary> call, Throwable t) {
+                CallIsFailure();
+            }
+        });
+
+    }//_____________________________________________________________________________________________ CreatePolicy
+
 
 
     public List<MD_PolicyType> getMd_policyTypes() {//______________________________________________ getMd_policyTypes

@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     public static PublishSubject<Byte> mainPublish;
     private DisposableObserver<Byte> disposableObserver;
     public static String ImageUrl;
-    public static Byte startFromNotify = -1;
+    public static Integer startFromNotify = -1;
 
     @BindView(R.id.ImageViewMenu)
     ImageView ImageViewMenu;
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {//__________________________________________ onCreate
         super.onCreate(savedInstanceState);
-        startFromNotify = getIntent().getByteExtra(getResources().getString(R.string.ML_Type), (byte) -1);
+        startFromNotify = getIntent().getIntExtra(getResources().getString(R.string.ML_personId),  -1);
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         vm_main = new VM_Main(this);
         binding.setMain(vm_main);

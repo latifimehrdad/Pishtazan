@@ -39,7 +39,7 @@ import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
 public class Panel extends FragmentPrimary implements
         FragmentPrimary.GetMessageFromObservable,
-AP_Person.ClickItemPerson{
+        AP_Person.ClickItemPerson {
 
     private NavController navController;
     private VM_Panel vm_panel;
@@ -191,7 +191,7 @@ AP_Person.ClickItemPerson{
                 public void run() {
                     GetList();
                 }
-            },700);
+            }, 700);
             return;
         }
 
@@ -269,8 +269,6 @@ AP_Person.ClickItemPerson{
     }//_____________________________________________________________________________________________ SetAdapterPerson
 
 
-
-
     public void ChooseActionFromList(Integer Position) {//__________________________________________ ChooseActionFromList
 
         if (dialog != null)
@@ -310,13 +308,24 @@ AP_Person.ClickItemPerson{
         LinearLayout LinearLayoutCancel = (LinearLayout)
                 dialog.findViewById(R.id.LinearLayoutCancel);
 
+        LinearLayout LinearLayoutPolicyType = (LinearLayout)
+                dialog.findViewById(R.id.LinearLayoutPolicyType);
+
+
         if (panelType == StaticValues.Customer) {
             LinearLayoutSuccessSale.setVisibility(View.VISIBLE);
             LinearLayoutSuccessAbsorption.setVisibility(View.GONE);
         } else {
             LinearLayoutSuccessSale.setVisibility(View.GONE);
             LinearLayoutSuccessAbsorption.setVisibility(View.VISIBLE);
+            LinearLayoutPolicyType.setVisibility(View.GONE);
         }
+
+        LinearLayoutPolicyType.setOnClickListener(v -> {
+            dialog.dismiss();
+            dialog = null;
+            ShowSavePolicyType(Position);
+        });
 
         LinearLayoutCompleteInformation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -393,6 +402,14 @@ AP_Person.ClickItemPerson{
 //        }
 
     }//_____________________________________________________________________________________________ ChooseActionFromList
+
+
+    private void ShowSavePolicyType(Integer Position) {//___________________________________________ ShowSavePolicyType
+        Bundle bundle = new Bundle();
+        bundle.putInt(getContext().getResources().getString(R.string.ML_personId), vm_panel.getPersonList().get(Position).getId());
+        navController.navigate(R.id.action_panel_to_policies, bundle);
+    }//_____________________________________________________________________________________________ ShowSavePolicyType
+
 
 
     private void ShowCallReminder(Integer Position) {//_____________________________________________ ShowCallReminder
@@ -639,7 +656,6 @@ AP_Person.ClickItemPerson{
         ImageViewQuestion.setVisibility(View.VISIBLE);
 
 
-
         StringBuilder sp = new StringBuilder();
         sp.append(getContext().getResources().getString(R.string.AreYouSureYouWantToDeleteIt1));
         sp.append(" ");
@@ -666,16 +682,15 @@ AP_Person.ClickItemPerson{
         LinearLayoutYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    GifViewQuestion.setVisibility(View.VISIBLE);
-                    ImageViewQuestion.setVisibility(View.GONE);
-                    vm_panel.DeletePerson(panelType, Position);
+                GifViewQuestion.setVisibility(View.VISIBLE);
+                ImageViewQuestion.setVisibility(View.GONE);
+                vm_panel.DeletePerson(panelType, Position);
             }
         });
 
         dialog.show();
 
     }//_____________________________________________________________________________________________ ShowMeetingReminder
-
 
 
     public void AdapterMoveToPossible(Integer Position, View view) {//______________________________ AdapterMoveToPossible
@@ -710,7 +725,6 @@ AP_Person.ClickItemPerson{
         ImageViewQuestion.setVisibility(View.VISIBLE);
 
 
-
         StringBuilder sp = new StringBuilder();
         sp.append(getContext().getResources().getString(R.string.AreYouSureYouWantToMoveIt1));
         sp.append(" ");
@@ -737,9 +751,9 @@ AP_Person.ClickItemPerson{
         LinearLayoutYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    GifViewQuestion.setVisibility(View.VISIBLE);
-                    ImageViewQuestion.setVisibility(View.GONE);
-                    vm_panel.MoveToPossible(panelType, Position);
+                GifViewQuestion.setVisibility(View.VISIBLE);
+                ImageViewQuestion.setVisibility(View.GONE);
+                vm_panel.MoveToPossible(panelType, Position);
             }
         });
 

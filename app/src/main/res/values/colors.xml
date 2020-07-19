@@ -21,5 +21,6 @@
     <color name="ML_WhiteGray">#EBEAEA</color>
     <color name="ML_OK">#058101</color>
     <color name="ML_Green">#6ADADC</color>
+    <color name="mlEditEmpty">#FFF4CC</color>
 
 </resources>

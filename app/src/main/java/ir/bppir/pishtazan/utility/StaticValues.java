@@ -22,6 +22,9 @@ public class StaticValues {
     public static Byte DegreePeach = 1;
     public static Byte DegreeGiant = 2;
 
+    public static Byte PolicyStatusQuestionnaire = 0;
+    public static Byte PolicyStatusPolicy = 1;
+
 
     //___________________ Numbers For Control Observable
     public static Byte ML_GotoHome = 0;
@@ -44,6 +47,8 @@ public class StaticValues {
     public static Byte ML_AddressFromMap = 17;
     public static Byte ML_AddressFromMapOutOfIran = 18;
     public static Byte ML_GetAllPolicyTypes = 19;
+    public static Byte ML_Success = 20;
+    public static Byte ML_GetAllPolicy = 21;
 
 
 }

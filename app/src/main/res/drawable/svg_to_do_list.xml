@@ -1,0 +1,13 @@
+<vector android:height="100dp" android:viewportHeight="512"
+    android:viewportWidth="512" android:width="100dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#FF000000" android:pathData="M166,226m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0"/>
+    <path android:fillColor="#FF000000" android:pathData="M166,286m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0"/>
+    <path android:fillColor="#FF000000" android:pathData="M166,346m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0"/>
+    <path android:fillColor="#FF000000" android:pathData="M166,406m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0"/>
+    <path android:fillColor="#FF000000" android:pathData="m226,236h120c5.522,0 10,-4.478 10,-10s-4.478,-10 -10,-10h-120c-5.522,0 -10,4.478 -10,10s4.478,10 10,10z"/>
+    <path android:fillColor="#FF000000" android:pathData="m226,296h120c5.522,0 10,-4.478 10,-10s-4.478,-10 -10,-10h-120c-5.522,0 -10,4.478 -10,10s4.478,10 10,10z"/>
+    <path android:fillColor="#FF000000" android:pathData="m226,356h120c5.522,0 10,-4.478 10,-10s-4.478,-10 -10,-10h-120c-5.522,0 -10,4.478 -10,10s4.478,10 10,10z"/>
+    <path android:fillColor="#FF000000" android:pathData="m226,416h120c5.522,0 10,-4.478 10,-10s-4.478,-10 -10,-10h-120c-5.522,0 -10,4.478 -10,10s4.478,10 10,10z"/>
+    <path android:fillColor="#FF000000" android:pathData="m406,90h-81.266c-3.626,-14.035 -14.698,-25.108 -28.734,-28.734v-21.266c0,-22.056 -17.944,-40 -40,-40s-40,17.944 -40,40v21.266c-14.035,3.626 -25.108,14.699 -28.734,28.734h-81.266c-5.522,0 -10,4.478 -10,10v402c0,5.522 4.478,10 10,10h105c5.522,0 10,-4.478 10,-10s-4.478,-10 -10,-10h-95v-382h70v20c0,5.522 4.478,10 10,10h120c5.522,0 10,-4.478 10,-10v-20h70v382h-95c-5.522,0 -10,4.478 -10,10s4.478,10 10,10h105c5.522,0 10,-4.478 10,-10v-402c0,-5.522 -4.477,-10 -10,-10zM236,40c0,-11.028 8.972,-20 20,-20s20,8.972 20,20v20h-40zM306,120h-100v-20c0,-11.028 8.972,-20 20,-20h60c11.028,0 20,8.972 20,20z"/>
+    <path android:fillColor="#FF000000" android:pathData="M256,502m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0"/>
+</vector>

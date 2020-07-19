@@ -13,15 +13,16 @@ import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.AdabterContactBinding;
 import ir.bppir.pishtazan.databinding.AdapterItemPolicyBinding;
 import ir.bppir.pishtazan.models.MD_Contact;
+import ir.bppir.pishtazan.models.MD_Policy;
 import ir.bppir.pishtazan.models.MD_PolicyType;
 
 public class AP_Policy extends RecyclerView.Adapter<AP_Policy.CustomHolder>  {
 
     private LayoutInflater layoutInflater;
-    private List<MD_PolicyType> md_policyTypes;
+    private List<MD_Policy> md_policies;
 
-    public AP_Policy(List<MD_PolicyType> md_policyTypes) {
-        this.md_policyTypes = md_policyTypes;
+    public AP_Policy(List<MD_Policy> md_policies) {
+        this.md_policies = md_policies;
     }
 
 
@@ -33,12 +34,12 @@ public class AP_Policy extends RecyclerView.Adapter<AP_Policy.CustomHolder>  {
 
 
     public void onBindViewHolder(AP_Policy.CustomHolder holder, int position) {
-        holder.bind(md_policyTypes.get(position), position);
+        holder.bind(md_policies.get(position), position);
     }
 
 
     public int getItemCount() {
-        return md_policyTypes.size();
+        return md_policies.size();
     }
 
 
@@ -50,7 +51,7 @@ public class AP_Policy extends RecyclerView.Adapter<AP_Policy.CustomHolder>  {
             this.binding = binding;
         }
 
-        public void bind(MD_PolicyType item, final int position) {
+        public void bind(MD_Policy item, final int position) {
             binding.setPolicy(item);
             binding.executePendingBindings();
         }

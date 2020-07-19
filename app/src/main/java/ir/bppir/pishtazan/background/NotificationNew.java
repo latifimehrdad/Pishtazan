@@ -86,7 +86,7 @@ public class NotificationNew {
         } else if (notifyType.equals(StaticValues.ResponseCall)) {
             actions.add(NotificationNewAction.GetIgnoreAction(id, context, StaticValues.ResponseCall));
             actions.add(NotificationNewAction.GetAgainAction(id, context, StaticValues.Call));
-            actions.add(NotificationNewAction.GetCertainAction(id, context, StaticValues.Call));
+            actions.add(NotificationNewAction.GetCertainAction(id, context, StaticValues.Call,db_notification.getPersonId()));
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(context.getResources().getString(R.string.ResponseCall));
             stringBuilder.append(" با ");
@@ -101,7 +101,7 @@ public class NotificationNew {
         } else if (notifyType.equals(StaticValues.ResponseMeeting)) {
             actions.add(NotificationNewAction.GetFailedAction(id, context, StaticValues.Meeting));
             actions.add(NotificationNewAction.GetAgainAction(id, context, StaticValues.Meeting));
-            actions.add(NotificationNewAction.GetCertainAction(id, context, StaticValues.Meeting));
+            actions.add(NotificationNewAction.GetCertainAction(id, context, StaticValues.Meeting, db_notification.getPersonId()));
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(context.getResources().getString(R.string.ResponseMeeting));
             stringBuilder.append(" با ");

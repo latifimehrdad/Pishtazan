@@ -11,6 +11,9 @@
         android:label="Splash"
         tools:layout="@layout/fragment_splash">
 
+        <argument android:name="@string/ML_personId"
+            android:defaultValue="0"/>
+
         <action
             android:id="@+id/action_splash_to_signUp"
             app:destination="@id/signUp"
@@ -112,6 +115,14 @@
             app:popExitAnim="@anim/slide_out_left"
             />
 
+        <action
+            android:id="@+id/action_panel_to_policies"
+            app:destination="@id/policies"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
     </fragment>
 
     <fragment
@@ -147,5 +158,21 @@
         android:name="ir.bppir.pishtazan.views.fragments.PolicyType"
         android:label="PolicyType"
         tools:layout="@layout/fragment_policy_type"/>
+
+    <fragment
+        android:id="@+id/policies"
+        android:name="ir.bppir.pishtazan.views.fragments.Policies"
+        android:label="Policies"
+        tools:layout="@layout/fragment_policy_list">
+
+        <action
+            android:id="@+id/action_policies_to_policyType"
+            app:destination="@id/policyType"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+    </fragment>
 
 </navigation>

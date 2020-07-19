@@ -26,16 +26,11 @@ public class VM_Splash extends VM_Primary {
         if (userInfos.size() > 0)
             isLogin = true;
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (!isLogin)
-                    getPublishSubject().onNext(StaticValues.ML_GotoSignUp);
-                else
-                    getPublishSubject().onNext(StaticValues.ML_GotoHome);
-            }
-        }, 3000);
+        if (!isLogin)
+            SendMessageToObservable(StaticValues.ML_GotoSignUp);
+        else
+            SendMessageToObservable(StaticValues.ML_GotoHome);
+
 
     }//_____________________________________________________________________________________________ CheckLogin
 

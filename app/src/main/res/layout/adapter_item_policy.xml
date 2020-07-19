@@ -3,7 +3,7 @@
     <data>
         <variable
             name="policy"
-            type="ir.bppir.pishtazan.models.MD_PolicyType" />
+            type="ir.bppir.pishtazan.models.MD_Policy" />
     </data>
 
     <LinearLayout
@@ -18,7 +18,7 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginRight="@dimen/_5sdp"
             android:paddingLeft="@dimen/_10sdp"
@@ -29,21 +29,65 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="right|center_vertical"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/_11sdp"
-                fontPath="fonts/iransans_web_medium.ttf"
-                android:text="@{policy.title}"
+                android:textSize="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:tag="date"
+                app:SetTextViewText="@{policy.SuggestionDateJ}"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right|center_vertical"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/_10sdp"
+                android:text="@{policy.policyType.title}"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:tag="title"
+                app:SetTextViewText="@{policy.policyType.title}"
+                />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right|center_vertical"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/_10sdp"
+                android:text="@{policy.policyType.title}"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:tag="amount"
+                app:SetTextViewInteger="@{policy.policyAmont}"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right|center_vertical"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/_10sdp"
+                android:text="@{policy.description}"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:tag="description"
+                app:SetTextViewText="@{policy.description}"
                 />
 
         </LinearLayout>
 
         <RelativeLayout
             android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_height="match_parent"
             android:background="@drawable/dw_adabter_peroson_right"
             android:layout_marginBottom="5px">
 
@@ -52,12 +96,11 @@
                 android:id="@+id/profile_image"
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_60sdp"
-                android:src="@drawable/ic_baseline_account_circle"
+                android:src="@drawable/logo_pishtazan_small"
                 app:civ_border_width="@dimen/_2sdp"
                 app:civ_border_color="@color/ML_Harmony"
                 android:layout_marginLeft="@dimen/_8sdp"
                 android:layout_centerVertical="true"
-                app:SetPersonImage="@{policy.image}"
                 />
 
         </RelativeLayout>

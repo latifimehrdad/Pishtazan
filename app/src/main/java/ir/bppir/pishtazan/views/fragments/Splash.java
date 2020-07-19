@@ -79,8 +79,11 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
         } else if (action == StaticValues.ML_GotoHome) {
             if (MainActivity.startFromNotify == -1)
                 navController.navigate(R.id.action_splash_to_home);
-            else
-                navController.navigate(R.id.action_splash_to_policyType);
+            else {
+                Bundle bundle = new Bundle();
+                bundle.putInt(getContext().getResources().getString(R.string.ML_personId), MainActivity.startFromNotify);
+                navController.navigate(R.id.action_splash_to_policyType, bundle);
+            }
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable

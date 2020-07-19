@@ -58,11 +58,16 @@ public class NotificationNewAction {
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public static Notification.Action GetCertainAction(Integer notifyId, Context context, Byte type) {// GetCertainAction
+    public static Notification.Action GetCertainAction(
+            Integer notifyId,
+            Context context,
+            Byte type,
+            Integer UserId) {//_____________________________________________________________________ GetCertainAction
         Intent CertainIntent = new Intent();
         CertainIntent.setAction(context.getString(R.string.ML_Certain));
         CertainIntent.putExtra(context.getResources().getString(R.string.ML_Id), notifyId);
         CertainIntent.putExtra(context.getResources().getString(R.string.ML_Type), type);
+        CertainIntent.putExtra(context.getResources().getString(R.string.ML_personId), UserId);
         PendingIntent CertainPendingIntent = PendingIntent.getBroadcast(context, notifyId + 50, CertainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         return new Notification.Action(0, context.getResources().getString(R.string.Certain), CertainPendingIntent);
     }//_____________________________________________________________________________________________ GetCertainAction

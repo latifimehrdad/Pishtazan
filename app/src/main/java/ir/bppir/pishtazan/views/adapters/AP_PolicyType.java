@@ -22,17 +22,18 @@ import ir.bppir.pishtazan.database.DB_Persons;
 import ir.bppir.pishtazan.databinding.AdabterPersonPanelBinding;
 import ir.bppir.pishtazan.databinding.AdapterItemPolicyBinding;
 import ir.bppir.pishtazan.models.MD_Person;
+import ir.bppir.pishtazan.models.MD_Policy;
 import ir.bppir.pishtazan.models.MD_PolicyType;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.views.fragments.Panel;
 
 public class AP_PolicyType extends RecyclerView.Adapter<AP_PolicyType.CustomHolder> {
 
-    private List<MD_PolicyType> md_policyTypes;
+    private List<MD_Policy> md_policies;
     private LayoutInflater layoutInflater;
 
-    public AP_PolicyType(List<MD_PolicyType> md_policyTypes) {
-        this.md_policyTypes = md_policyTypes;
+    public AP_PolicyType(List<MD_Policy> md_policies) {
+        this.md_policies = md_policies;
     }
 
     public AP_PolicyType.CustomHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,11 +44,11 @@ public class AP_PolicyType extends RecyclerView.Adapter<AP_PolicyType.CustomHold
     }
 
     public void onBindViewHolder(AP_PolicyType.CustomHolder holder, int position) {
-        holder.bind(md_policyTypes.get(position), position);
+        holder.bind(md_policies.get(position), position);
     }
 
     public int getItemCount() {
-        return md_policyTypes.size();
+        return md_policies.size();
     }
 
 
@@ -60,7 +61,7 @@ public class AP_PolicyType extends RecyclerView.Adapter<AP_PolicyType.CustomHold
             this.binding = binding;
         }
 
-        public void bind(MD_PolicyType item, final int itemPosition) {
+        public void bind(MD_Policy item, final int itemPosition) {
             binding.setPolicy(item);
             binding.executePendingBindings();
 

@@ -87,6 +87,16 @@
     <string name="HowWasIt">چگونه بود؟</string>
     <string name="Failed">ناموفق</string>
     <string name="ResponseMeeting">نتیجه جلسه</string>
+    <string name="ChoosePolicyType">انتخاب نوع پرسشنامه</string>
+    <string name="SearchPolicyType">جستجوی نوع پرسشنامه</string>
+    <string name="Amount">مبلغ</string>
+    <string name="Description">توضیحات</string>
+    <string name="SavePolicy">ثبت پرسشنامه</string>
+    <string name="EmptyAmount">مبلغ را وارد نمایید</string>
+    <string name="PoliciesList">لیست پرسشنامه ها</string>
+    <string name="AddNewPolicy">اضافه کردن پرسشنامه جدید</string>
+    <string name="Date">تاریخ</string>
+    <string name="Title">عنوان</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>
