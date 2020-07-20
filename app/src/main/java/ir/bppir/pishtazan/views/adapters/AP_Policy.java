@@ -20,10 +20,19 @@ public class AP_Policy extends RecyclerView.Adapter<AP_Policy.CustomHolder>  {
 
     private LayoutInflater layoutInflater;
     private List<MD_Policy> md_policies;
+    private ClickItemPolicy clickItemPolicy;
 
-    public AP_Policy(List<MD_Policy> md_policies) {
+    public AP_Policy(List<MD_Policy> md_policies, ClickItemPolicy clickItemPolicy) {
         this.md_policies = md_policies;
+        this.clickItemPolicy = clickItemPolicy;
     }
+
+
+
+    public interface ClickItemPolicy {//____________________________________________________________ ClickItemPolicy
+        void clickItemPolicy(Integer Position);
+    }//_____________________________________________________________________________________________ ClickItemPolicy
+
 
 
     public AP_Policy.CustomHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -53,6 +62,7 @@ public class AP_Policy extends RecyclerView.Adapter<AP_Policy.CustomHolder>  {
 
         public void bind(MD_Policy item, final int position) {
             binding.setPolicy(item);
+            binding.getRoot().setOnClickListener(v -> {clickItemPolicy.clickItemPolicy(position);});
             binding.executePendingBindings();
         }
     }

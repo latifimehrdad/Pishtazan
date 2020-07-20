@@ -21,7 +21,9 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_PolicyList;
 import ir.bppir.pishtazan.views.adapters.AP_Policy;
 
-public class Policies extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class Policies extends FragmentPrimary implements
+        FragmentPrimary.GetMessageFromObservable,
+        AP_Policy.ClickItemPolicy {
 
 
     private VM_PolicyList vm_policyList;
@@ -49,8 +51,8 @@ public class Policies extends FragmentPrimary implements FragmentPrimary.GetMess
             setView(binding.getRoot());
             ButterKnife.bind(this, getView());
             SetOnClick();
-            PersonId = getArguments().getInt(getContext().getResources().getString(R.string.ML_personId), 0);
-            vm_policyList.GetAllPolicies(PersonId, StaticValues.PolicyStatusQuestionnaire);
+
+            //vm_policyList.GetAllPolicies(PersonId, StaticValues.PolicyStatusQuestionnaire);
         }
         return getView();
     }//_____________________________________________________________________________________________ onCreateView
@@ -65,6 +67,15 @@ public class Policies extends FragmentPrimary implements FragmentPrimary.GetMess
                 vm_policyList);
 
         navController = Navigation.findNavController(getView());
+        PersonId = getArguments().getInt(getContext().getResources().getString(R.string.ML_personId), 0);
+        Integer temp = getArguments().getInt(getContext().getResources().getString(R.string.ML_Type), StaticValues.PolicyStatusQuestionnaire);
+        Byte type = temp.byteValue();
+        if (type.equals(StaticValues.PolicyStatusQuestionnaire))
+            vm_policyList.GetAllPolicies(PersonId, StaticValues.PolicyStatusQuestionnaire);
+        else {
+            ButtonNew.setVisibility(View.GONE);
+            vm_policyList.GetAllPolicies(PersonId, StaticValues.PolicyStatusInsurance);
+        }
 
     }//_____________________________________________________________________________________________ onStart
 
@@ -80,26 +91,49 @@ public class Policies extends FragmentPrimary implements FragmentPrimary.GetMess
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
 
-
     private void SetOnClick() {//___________________________________________________________________ SetOnClick
 
         ButtonNew.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putInt(getContext().getResources().getString(R.string.ML_personId), PersonId);
+            bundle.putBoolean(getContext().getResources().getString(R.string.ML_Type), false);
             navController.navigate(R.id.action_policies_to_policyType, bundle);
         });
 
     }//_____________________________________________________________________________________________ SetOnClick
 
 
-
     private void SetAdapterPolicies() {//___________________________________________________________ SetAdapterPolicies
 
-        AP_Policy ap_policy = new AP_Policy(vm_policyList.getMd_policies());
-        RecyclerViewList.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
+        AP_Policy ap_policy = new AP_Policy(vm_policyList.getMd_policies(), Policies.this);
+        RecyclerViewList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewList.setAdapter(ap_policy);
 
     }//_____________________________________________________________________________________________ SetAdapterPolicies
+
+
+    @Override
+    public void clickItemPolicy(Integer Position) {//_______________________________________________ clickItemPolicy
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(getContext().getResources().getString(R.string.ML_personId), PersonId);
+        bundle.putBoolean(getContext().getResources().getString(R.string.ML_Type), true);
+
+        bundle.putInt(getContext().getResources().getString(R.string.ML_Id),
+                vm_policyList.getMd_policies().get(Position).getId());
+
+        bundle.putInt(getContext().getResources().getString(R.string.ML_PolicyTypeId),
+                vm_policyList.getMd_policies().get(Position).getPolicyTypeId());
+
+        bundle.putLong(getContext().getResources().getString(R.string.ML_Amount),
+                vm_policyList.getMd_policies().get(Position).getPolicyAmont());
+
+        bundle.putString(getContext().getResources().getString(R.string.ML_Description),
+                vm_policyList.getMd_policies().get(Position).getDescription());
+
+        navController.navigate(R.id.action_policies_to_policyType, bundle);
+
+    }//_____________________________________________________________________________________________ clickItemPolicy
 
 
 }

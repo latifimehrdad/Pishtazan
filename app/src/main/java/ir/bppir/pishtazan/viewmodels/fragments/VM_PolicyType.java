@@ -110,6 +110,57 @@ public class VM_PolicyType extends VM_Primary {
 
 
 
+
+    public void EditPolicy(
+            Integer Id,
+            Integer PolicyTypeId,
+            Integer CustomerId,
+            Long PolicyAmont,
+            String Description) {//_________________________________________________________________ CreatePolicy
+
+        Integer UserInfoId = GetUserId();
+        if (UserInfoId == 0) {
+            UserIsNotAuthorization();
+            return;
+        }
+
+        setPrimaryCall(PishtazanApplication
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .EDIT_POLICY(
+                        Id,
+                        PolicyTypeId,
+                        CustomerId,
+                        PolicyAmont,
+                        UserInfoId,
+                        Description));
+
+
+        getPrimaryCall().enqueue(new Callback<MD_RequestPrimary>() {
+            @Override
+            public void onResponse(Call<MD_RequestPrimary> call, Response<MD_RequestPrimary> response) {
+                if (ResponseIsOk(response)) {
+                    setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 0)
+                        SendMessageToObservable(StaticValues.ML_ResponseError);
+                    else {
+                        SendMessageToObservable(StaticValues.ML_EditSuccess);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MD_RequestPrimary> call, Throwable t) {
+                CallIsFailure();
+            }
+        });
+
+    }//_____________________________________________________________________________________________ CreatePolicy
+
+
+
+
     public List<MD_PolicyType> getMd_policyTypes() {//______________________________________________ getMd_policyTypes
         return md_policyTypes;
     }//_____________________________________________________________________________________________ getMd_policyTypes

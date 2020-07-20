@@ -308,8 +308,11 @@ public class Panel extends FragmentPrimary implements
         LinearLayout LinearLayoutCancel = (LinearLayout)
                 dialog.findViewById(R.id.LinearLayoutCancel);
 
-        LinearLayout LinearLayoutPolicyType = (LinearLayout)
-                dialog.findViewById(R.id.LinearLayoutPolicyType);
+        LinearLayout LinearLayoutQuestionnaire = (LinearLayout)
+                dialog.findViewById(R.id.LinearLayoutQuestionnaire);
+
+        LinearLayout LinearLayoutInsurance = (LinearLayout)
+                dialog.findViewById(R.id.LinearLayoutInsurance);
 
 
         if (panelType == StaticValues.Customer) {
@@ -318,13 +321,20 @@ public class Panel extends FragmentPrimary implements
         } else {
             LinearLayoutSuccessSale.setVisibility(View.GONE);
             LinearLayoutSuccessAbsorption.setVisibility(View.VISIBLE);
-            LinearLayoutPolicyType.setVisibility(View.GONE);
+            LinearLayoutQuestionnaire.setVisibility(View.GONE);
+            LinearLayoutInsurance.setVisibility(View.GONE);
         }
 
-        LinearLayoutPolicyType.setOnClickListener(v -> {
+        LinearLayoutQuestionnaire.setOnClickListener(v -> {
             dialog.dismiss();
             dialog = null;
-            ShowSavePolicyType(Position);
+            ShowSavePolicyType(Position, StaticValues.PolicyStatusQuestionnaire);
+        });
+
+        LinearLayoutInsurance.setOnClickListener(v -> {
+            dialog.dismiss();
+            dialog = null;
+            ShowSavePolicyType(Position, StaticValues.PolicyStatusInsurance);
         });
 
         LinearLayoutCompleteInformation.setOnClickListener(new View.OnClickListener() {
@@ -404,12 +414,12 @@ public class Panel extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ ChooseActionFromList
 
 
-    private void ShowSavePolicyType(Integer Position) {//___________________________________________ ShowSavePolicyType
+    private void ShowSavePolicyType(Integer Position, Byte type) {//________________________________ ShowSavePolicyType
         Bundle bundle = new Bundle();
         bundle.putInt(getContext().getResources().getString(R.string.ML_personId), vm_panel.getPersonList().get(Position).getId());
+        bundle.putInt(getContext().getResources().getString(R.string.ML_Type), type);
         navController.navigate(R.id.action_panel_to_policies, bundle);
     }//_____________________________________________________________________________________________ ShowSavePolicyType
-
 
 
     private void ShowCallReminder(Integer Position) {//_____________________________________________ ShowCallReminder

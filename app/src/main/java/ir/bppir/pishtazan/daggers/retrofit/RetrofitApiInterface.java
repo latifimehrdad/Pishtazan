@@ -208,4 +208,17 @@ public interface RetrofitApiInterface {
                     @Field("IsDeleted") boolean IsDeleted
             );
 
+
+    @FormUrlEncoded
+    @POST(Version + "/EditPolicy")
+    Call<MD_RequestPrimary> EDIT_POLICY
+            (
+                    @Field(Policy + "Id") Integer Id,
+                    @Field(Policy + "PolicyTypeId") Integer PolicyTypeId,
+                    @Field(Policy + "CustomerId") Integer CustomerId,
+                    @Field(Policy + "PolicyAmont") Long PolicyAmont,
+                    @Field(Policy + "UserInfoId") Integer UserInfoId,
+                    @Field(Policy + "Description") String Description
+            );
+
 }

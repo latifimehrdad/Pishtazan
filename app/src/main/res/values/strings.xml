@@ -92,8 +92,10 @@
     <string name="Amount">مبلغ</string>
     <string name="Description">توضیحات</string>
     <string name="SavePolicy">ثبت پرسشنامه</string>
+    <string name="EditPolicy">ویرایش پرسشنامه</string>
     <string name="EmptyAmount">مبلغ را وارد نمایید</string>
     <string name="PoliciesList">لیست پرسشنامه ها</string>
+    <string name="InsuranceList">لیست بیمه نامه ها</string>
     <string name="AddNewPolicy">اضافه کردن پرسشنامه جدید</string>
     <string name="Date">تاریخ</string>
     <string name="Title">عنوان</string>
@@ -111,5 +113,8 @@
     <string name="ML_GoToMeeting">ML_GoToMeeting</string>
     <string name="ML_Certain">ML_Certain</string>
     <string name="ML_Failed">ML_Failed</string>
+    <string name="ML_Amount">ML_Amount</string>
+    <string name="ML_Description">ML_Description</string>
+    <string name="ML_PolicyTypeId">ML_PolicyTypeId</string>
 
 </resources>

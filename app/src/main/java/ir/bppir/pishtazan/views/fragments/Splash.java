@@ -82,6 +82,7 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
             else {
                 Bundle bundle = new Bundle();
                 bundle.putInt(getContext().getResources().getString(R.string.ML_personId), MainActivity.startFromNotify);
+                bundle.putBoolean(getContext().getResources().getString(R.string.ML_Type), false);
                 navController.navigate(R.id.action_splash_to_policyType, bundle);
             }
         }

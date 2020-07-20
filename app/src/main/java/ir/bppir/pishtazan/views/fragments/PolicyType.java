@@ -38,6 +38,9 @@ public class PolicyType extends FragmentPrimary implements
     private Integer PolicyTypeId = -1;
     private boolean ClickPolicyType = false;
     private Integer PersonId;
+    private boolean editMode = false;
+    private String textLoading;
+    private Integer Id;
 
     @BindView(R.id.LayoutPolicyType)
     LinearLayout LayoutPolicyType;
@@ -60,14 +63,17 @@ public class PolicyType extends FragmentPrimary implements
     @BindView(R.id.RelativeLayoutSend)
     RelativeLayout RelativeLayoutSend;
 
-    @BindView(R.id.txtLoading)
-    TextView txtLoading;
+    @BindView(R.id.TextViewLoading)
+    TextView TextViewLoading;
 
     @BindView(R.id.gifLoading)
     GifView gifLoading;
 
     @BindView(R.id.imgLoading)
     ImageView imgLoading;
+
+    @BindView(R.id.LinearLayoutPolicyTypePrimary)
+    LinearLayout LinearLayoutPolicyTypePrimary;
 
 
     public PolicyType() {//_________________________________________________________________________ PolicyType
@@ -96,8 +102,25 @@ public class PolicyType extends FragmentPrimary implements
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        init();
         PersonId = getArguments().getInt(getContext().getResources().getString(R.string.ML_personId), 0);
+        editMode = getArguments().getBoolean(getContext().getResources().getString(R.string.ML_Type), false);
+        textLoading = getResources().getString(R.string.SavePolicy);
+        if (editMode) {
+            textLoading = getResources().getString(R.string.EditPolicy);
+            LinearLayoutPolicyTypePrimary.setVisibility(View.GONE);
+            Id = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
+            PolicyTypeId = getArguments().getInt(getContext().getResources().getString(R.string.ML_PolicyTypeId), 0);
+            Long amount = getArguments().getLong(getContext().getResources().getString(R.string.ML_Amount), 0);
+            String description = getArguments().getString(getContext().getResources().getString(R.string.ML_Description), "0");
+            if (amount > 0)
+                EditTextAmount.setText(amount.toString());
+
+            if (!description.equalsIgnoreCase("null"))
+                EditTextDescription.setText(description);
+        }
+        init();
+        TextViewLoading.setText(textLoading);
+
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -106,7 +129,8 @@ public class PolicyType extends FragmentPrimary implements
                 PolicyType.this,
                 vm_policyType.getPublishSubject(),
                 vm_policyType);
-        vm_policyType.GetAllPolicyTypes();
+        if (!editMode)
+            vm_policyType.GetAllPolicyTypes();
         ClickPolicyType = false;
 //        navController = Navigation.findNavController(getView());
     }//_____________________________________________________________________________________________ init
@@ -130,6 +154,10 @@ public class PolicyType extends FragmentPrimary implements
             return;
         }
 
+        if (action.equals(StaticValues.ML_EditSuccess)) {
+            getContext().onBackPressed();
+        }
+
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
 
@@ -149,11 +177,20 @@ public class PolicyType extends FragmentPrimary implements
             if (CheckEmpty()) {
                 hideKeyboard();
                 ShowLoading();
-                vm_policyType.CreatePolicy(
-                        PolicyTypeId.toString(),
-                        PersonId.toString(),
-                        EditTextAmount.getText().toString(),
-                        EditTextDescription.getText().toString());
+                if (editMode)
+                    vm_policyType.EditPolicy(
+                            Id,
+                            PolicyTypeId,
+                            PersonId,
+                            Long.valueOf(EditTextAmount.getText().toString()),
+                            EditTextDescription.getText().toString()
+                    );
+                else
+                    vm_policyType.CreatePolicy(
+                            PolicyTypeId.toString(),
+                            PersonId.toString(),
+                            EditTextAmount.getText().toString(),
+                            EditTextDescription.getText().toString());
             }
 
         });
@@ -187,7 +224,7 @@ public class PolicyType extends FragmentPrimary implements
 
 
     private void DismissLoading() {//_______________________________________________________________ Start DismissLoading
-        txtLoading.setText(getResources().getString(R.string.SavePolicy));
+        TextViewLoading.setText(textLoading);
         RelativeLayoutSend.setBackground(getResources().getDrawable(R.drawable.dw_back_bottom));
         gifLoading.setVisibility(View.GONE);
         imgLoading.setVisibility(View.VISIBLE);
@@ -195,7 +232,7 @@ public class PolicyType extends FragmentPrimary implements
 
 
     private void ShowLoading() {//__________________________________________________________________ Start ShowLoading
-        txtLoading.setText(getResources().getString(R.string.Cancel));
+        TextViewLoading.setText(getResources().getString(R.string.Cancel));
         RelativeLayoutSend.setBackground(getResources().getDrawable(R.drawable.button_red));
         gifLoading.setVisibility(View.VISIBLE);
         imgLoading.setVisibility(View.INVISIBLE);

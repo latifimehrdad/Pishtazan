@@ -11,8 +11,8 @@ public class ReceiverLunchAppInBackground extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {//_______________________________________ Start onReceive
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Util.scheduleJob(context);
-            //context.startForegroundService(new Intent(context, ServiceNotification.class));
+            //Util.scheduleJob(context);
+            context.startForegroundService(new Intent(context, ServiceNotification.class));
         } else {
             context.startService(new Intent(context, ServiceNotification.class));
         }

@@ -26,6 +26,7 @@
 
 
             <LinearLayout
+                android:id="@+id/LinearLayoutPolicyTypePrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -192,7 +193,7 @@
                 android:background="@drawable/dw_back_bottom">
 
                 <TextView
-                    android:id="@+id/txtLoading"
+                    android:id="@+id/TextViewLoading"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/SavePolicy"

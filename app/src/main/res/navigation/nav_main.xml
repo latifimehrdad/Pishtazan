@@ -14,6 +14,9 @@
         <argument android:name="@string/ML_personId"
             android:defaultValue="0"/>
 
+        <argument android:name="@string/ML_Type"
+            android:defaultValue="0"/>
+
         <action
             android:id="@+id/action_splash_to_signUp"
             app:destination="@id/signUp"
@@ -98,6 +101,9 @@
         <argument android:name="@string/ML_personId"
             android:defaultValue="0"/>
 
+        <argument android:name="@string/ML_Type"
+            android:defaultValue="0"/>
+
         <action
             android:id="@+id/action_panel_to_addPerson"
             app:destination="@id/addPerson"
@@ -164,6 +170,21 @@
         android:name="ir.bppir.pishtazan.views.fragments.Policies"
         android:label="Policies"
         tools:layout="@layout/fragment_policy_list">
+
+        <argument android:name="@string/ML_personId"
+            android:defaultValue="0"/>
+
+        <argument android:name="@string/ML_Type"
+            android:defaultValue="0"/>
+
+        <argument android:name="ML_Id"
+            android:defaultValue="0"/>
+
+        <argument android:name="@string/ML_Amount"
+            android:defaultValue="0"/>
+
+        <argument android:name="@string/ML_Description"
+            android:defaultValue="null"/>
 
         <action
             android:id="@+id/action_policies_to_policyType"

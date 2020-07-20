@@ -23,7 +23,7 @@ public class StaticValues {
     public static Byte DegreeGiant = 2;
 
     public static Byte PolicyStatusQuestionnaire = 0;
-    public static Byte PolicyStatusPolicy = 1;
+    public static Byte PolicyStatusInsurance = 1;
 
 
     //___________________ Numbers For Control Observable
@@ -49,6 +49,7 @@ public class StaticValues {
     public static Byte ML_GetAllPolicyTypes = 19;
     public static Byte ML_Success = 20;
     public static Byte ML_GetAllPolicy = 21;
+    public static Byte ML_EditSuccess = 22;
 
 
 }
