@@ -102,7 +102,7 @@ public class VM_Primary {
                     message = message + "\n";
                 }
             } else {
-                message = message + jObjError.getString("message");
+                message = message + jObjError.getString("Message");
             }
             return message;
         } catch (Exception ex) {

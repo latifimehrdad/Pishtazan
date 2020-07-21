@@ -13,6 +13,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
@@ -97,6 +99,7 @@ public class Policies extends FragmentPrimary implements
             Bundle bundle = new Bundle();
             bundle.putInt(getContext().getResources().getString(R.string.ML_personId), PersonId);
             bundle.putBoolean(getContext().getResources().getString(R.string.ML_Type), false);
+            bundle.putString(getContext().getResources().getString(R.string.ML_Date), "");
             navController.navigate(R.id.action_policies_to_policyType, bundle);
         });
 
@@ -130,6 +133,10 @@ public class Policies extends FragmentPrimary implements
 
         bundle.putString(getContext().getResources().getString(R.string.ML_Description),
                 vm_policyList.getMd_policies().get(Position).getDescription());
+
+        String date = vm_policyList.getMd_policies().get(Position).getSuggestionDateM();
+        bundle.putString(getContext().getResources().getString(R.string.ML_Date),
+                date);
 
         navController.navigate(R.id.action_policies_to_policyType, bundle);
 

@@ -37,14 +37,11 @@ public class VM_Panel extends VM_Primary {
         CancelRequest();
 
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (panelType == StaticValues.Customer)
-                    GetAllCustomers(PersonType);
-                else
-                    GetAllColleagues(PersonType);
-            }
+        handler.postDelayed(() -> {
+            if (panelType == StaticValues.Customer)
+                GetAllCustomers(PersonType);
+            else
+                GetAllColleagues(PersonType);
         }, 200);
 
     }//_____________________________________________________________________________________________ GetPerson

@@ -122,6 +122,7 @@ public class EditPerson extends FragmentPrimary implements
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
+            VM_Map.map_Address = null;
             vm_editPerson = new VM_EditPerson(getActivity());
             FragmentEditPersonBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_edit_person, container, false);
@@ -185,7 +186,7 @@ public class EditPerson extends FragmentPrimary implements
         progress = null;
 
         FinishLoadingSend();
-        if (action == StaticValues.ML_AddPerson) {
+        if (action == StaticValues.ML_EditSuccess) {
             Degree = -1;
             EditTextName.getText().clear();
             EditTextPhoneNumber.getText().clear();
@@ -193,6 +194,7 @@ public class EditPerson extends FragmentPrimary implements
             LinearLayoutGiant.setBackground(null);
             LinearLayoutNormal.setBackground(null);
             LinearLayoutPeach.setBackground(null);
+            getContext().onBackPressed();
             return;
         }
 

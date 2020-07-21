@@ -1,6 +1,7 @@
 package ir.bppir.pishtazan.daggers.retrofit;
 
 
+import java.util.Date;
 import java.util.Map;
 
 import ir.bppir.pishtazan.models.MD_GetAddres;
@@ -218,7 +219,8 @@ public interface RetrofitApiInterface {
                     @Field(Policy + "CustomerId") Integer CustomerId,
                     @Field(Policy + "PolicyAmont") Long PolicyAmont,
                     @Field(Policy + "UserInfoId") Integer UserInfoId,
-                    @Field(Policy + "Description") String Description
+                    @Field(Policy + "Description") String Description,
+                    @Field(Policy + "SuggestionDateM") String SuggestionDateM
             );
 
 }

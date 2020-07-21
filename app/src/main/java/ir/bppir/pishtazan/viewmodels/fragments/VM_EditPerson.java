@@ -127,7 +127,7 @@ public class VM_EditPerson extends VM_Primary {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
-                        getPublishSubject().onNext(StaticValues.ML_AddPerson);
+                        getPublishSubject().onNext(StaticValues.ML_EditSuccess);
                     else
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
                 }
@@ -212,7 +212,7 @@ public class VM_EditPerson extends VM_Primary {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
-                        getPublishSubject().onNext(StaticValues.ML_AddPerson);
+                        getPublishSubject().onNext(StaticValues.ML_EditSuccess);
                     else
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
                 }

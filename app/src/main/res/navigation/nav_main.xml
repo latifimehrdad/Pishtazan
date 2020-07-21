@@ -186,6 +186,9 @@
         <argument android:name="@string/ML_Description"
             android:defaultValue="null"/>
 
+        <argument android:name="@string/ML_Date"
+            android:defaultValue="null"/>
+
         <action
             android:id="@+id/action_policies_to_policyType"
             app:destination="@id/policyType"

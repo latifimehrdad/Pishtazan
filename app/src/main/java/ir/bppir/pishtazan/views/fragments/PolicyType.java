@@ -18,6 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cunoraz.gifview.library.GifView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
@@ -40,6 +46,7 @@ public class PolicyType extends FragmentPrimary implements
     private Integer PersonId;
     private boolean editMode = false;
     private String textLoading;
+    private String SuggestionDateM;
     private Integer Id;
 
     @BindView(R.id.LayoutPolicyType)
@@ -104,6 +111,14 @@ public class PolicyType extends FragmentPrimary implements
         super.onStart();
         PersonId = getArguments().getInt(getContext().getResources().getString(R.string.ML_personId), 0);
         editMode = getArguments().getBoolean(getContext().getResources().getString(R.string.ML_Type), false);
+        SuggestionDateM = getArguments().getString(getContext().getResources().getString(R.string.ML_Date), "");
+//        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+//        try {
+//            SuggestionDateM = df.parse(themp);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+
         textLoading = getResources().getString(R.string.SavePolicy);
         if (editMode) {
             textLoading = getResources().getString(R.string.EditPolicy);
@@ -183,7 +198,8 @@ public class PolicyType extends FragmentPrimary implements
                             PolicyTypeId,
                             PersonId,
                             Long.valueOf(EditTextAmount.getText().toString()),
-                            EditTextDescription.getText().toString()
+                            EditTextDescription.getText().toString(),
+                            SuggestionDateM
                     );
                 else
                     vm_policyType.CreatePolicy(

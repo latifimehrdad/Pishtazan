@@ -2,6 +2,8 @@ package ir.bppir.pishtazan.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 public class MD_Policy {
 
     @SerializedName("Id")
@@ -19,6 +21,9 @@ public class MD_Policy {
     @SerializedName("SuggestionDateJ")
     String SuggestionDateJ;
 
+    @SerializedName("SuggestionDateM")
+    String SuggestionDateM;
+
     @SerializedName("Description")
     String Description;
 
@@ -26,12 +31,13 @@ public class MD_Policy {
     Long PolicyAmont;
 
 
-    public MD_Policy(Integer id, Integer policyTypeId, MD_PolicyType policyType, Integer customerId, String suggestionDateJ, String description, Long policyAmont) {
+    public MD_Policy(Integer id, Integer policyTypeId, MD_PolicyType policyType, Integer customerId, String suggestionDateJ, String suggestionDateM, String description, Long policyAmont) {
         Id = id;
         PolicyTypeId = policyTypeId;
         PolicyType = policyType;
         CustomerId = customerId;
         SuggestionDateJ = suggestionDateJ;
+        SuggestionDateM = suggestionDateM;
         Description = description;
         PolicyAmont = policyAmont;
     }
@@ -91,5 +97,14 @@ public class MD_Policy {
 
     public void setPolicyAmont(Long policyAmont) {
         PolicyAmont = policyAmont;
+    }
+
+
+    public String getSuggestionDateM() {
+        return SuggestionDateM;
+    }
+
+    public void setSuggestionDateM(String suggestionDateM) {
+        SuggestionDateM = suggestionDateM;
     }
 }

@@ -3,6 +3,8 @@ package ir.bppir.pishtazan.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class MD_Person {
 
     Integer Id;
@@ -67,6 +69,12 @@ public class MD_Person {
     @SerializedName("CompletenessPercent")
     float CompletenessPercent;
 
+    @SerializedName("Policies")
+    List<MD_Policy> Policies;
+
+
+    @SerializedName("ApiRecieved")
+    boolean ApiRecieved;
 
     @SerializedName("CustomerStatus")
     @Expose
@@ -79,14 +87,13 @@ public class MD_Person {
     public MD_Person() {
     }
 
-    public MD_Person(Integer id, String fullName, Integer locationStateId, String phoneNumber, String mobileNumber, String description, Integer colleagueStatus, String CDate, String MDate, String DDate, String birthDateJ, String birthDateM, String address, double lat, double lang, String image, Integer userInfoId, MD_UserInfo userInfo, String nationalCode, boolean isDelete, Integer level, float completenessPercent) {
+    public MD_Person(Integer id, String fullName, Integer locationStateId, String phoneNumber, String mobileNumber, String description, String CDate, String MDate, String DDate, String birthDateJ, String birthDateM, String address, double lat, double lang, String image, Integer userInfoId, MD_UserInfo userInfo, String nationalCode, boolean isDelete, Integer level, float completenessPercent, List<MD_Policy> policies, boolean apiRecieved, Integer customerStatus, Integer colleagueStatus) {
         Id = id;
         FullName = fullName;
         LocationStateId = locationStateId;
         PhoneNumber = phoneNumber;
         MobileNumber = mobileNumber;
         Description = description;
-        ColleagueStatus = colleagueStatus;
         this.CDate = CDate;
         this.MDate = MDate;
         this.DDate = DDate;
@@ -102,6 +109,10 @@ public class MD_Person {
         IsDelete = isDelete;
         Level = level;
         CompletenessPercent = completenessPercent;
+        Policies = policies;
+        ApiRecieved = apiRecieved;
+        CustomerStatus = customerStatus;
+        ColleagueStatus = colleagueStatus;
     }
 
     public Integer getId() {
@@ -278,5 +289,29 @@ public class MD_Person {
 
     public void setCompletenessPercent(float completenessPercent) {
         CompletenessPercent = completenessPercent;
+    }
+
+    public List<MD_Policy> getPolicies() {
+        return Policies;
+    }
+
+    public void setPolicies(List<MD_Policy> policies) {
+        Policies = policies;
+    }
+
+    public boolean isApiRecieved() {
+        return ApiRecieved;
+    }
+
+    public void setApiRecieved(boolean apiRecieved) {
+        ApiRecieved = apiRecieved;
+    }
+
+    public Integer getCustomerStatus() {
+        return CustomerStatus;
+    }
+
+    public void setCustomerStatus(Integer customerStatus) {
+        CustomerStatus = customerStatus;
     }
 }

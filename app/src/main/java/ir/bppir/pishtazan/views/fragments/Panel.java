@@ -166,19 +166,14 @@ public class Panel extends FragmentPrimary implements
             return;
         }
 
-//        if (action == StaticValues.ML_ConvertPerson) {
-//            Animation outLeft = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
-//            personPositionView.setAnimation(outLeft);
-//            personPositionView.setVisibility(View.INVISIBLE);
-//            Handler handler = new Handler();
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    GetList();
-//                }
-//            },700);
-//            return;
-//        }
+        if (action == StaticValues.ML_ConvertPerson) {
+            Animation outLeft = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
+            personPositionView.setAnimation(outLeft);
+            personPositionView.setVisibility(View.INVISIBLE);
+            Handler handler = new Handler();
+            handler.postDelayed(() -> GetList(),700);
+            return;
+        }
 
 
         if (action == StaticValues.ML_DeletePerson) {
@@ -186,12 +181,7 @@ public class Panel extends FragmentPrimary implements
             personPositionView.setAnimation(outLeft);
             personPositionView.setVisibility(View.INVISIBLE);
             Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    GetList();
-                }
-            }, 700);
+            handler.postDelayed(() -> GetList(), 700);
             return;
         }
 
@@ -269,7 +259,7 @@ public class Panel extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ SetAdapterPerson
 
 
-    public void ChooseActionFromList(Integer Position) {//__________________________________________ ChooseActionFromList
+    public void ChooseActionFromList(Integer Position, View view) {//_______________________________ ChooseActionFromList
 
         if (dialog != null)
             dialog.dismiss();
@@ -387,7 +377,7 @@ public class Panel extends FragmentPrimary implements
             @Override
             public void onClick(View view) {
 
-                //ShowDeleteQuestion(Position);
+                ShowDeleteQuestion(Position, view);
             }
         });
 
@@ -793,7 +783,7 @@ public class Panel extends FragmentPrimary implements
         if (PersonType == StaticValues.ML_Maybe) {
             AdapterMoveToPossible(Position, view);
         } else if (PersonType == StaticValues.ML_Possible) {
-            ChooseActionFromList(Position);
+            ChooseActionFromList(Position, view);
         }
 
     }//_____________________________________________________________________________________________ clickItemPerson

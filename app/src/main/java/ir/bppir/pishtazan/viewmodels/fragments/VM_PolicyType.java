@@ -3,6 +3,7 @@ package ir.bppir.pishtazan.viewmodels.fragments;
 import android.app.Activity;
 import android.content.Context;
 
+import java.util.Date;
 import java.util.List;
 
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
@@ -116,7 +117,8 @@ public class VM_PolicyType extends VM_Primary {
             Integer PolicyTypeId,
             Integer CustomerId,
             Long PolicyAmont,
-            String Description) {//_________________________________________________________________ CreatePolicy
+            String Description,
+            String SuggestionDateM) {//_________________________________________________________________ CreatePolicy
 
         Integer UserInfoId = GetUserId();
         if (UserInfoId == 0) {
@@ -134,7 +136,8 @@ public class VM_PolicyType extends VM_Primary {
                         CustomerId,
                         PolicyAmont,
                         UserInfoId,
-                        Description));
+                        Description,
+                        SuggestionDateM));
 
 
         getPrimaryCall().enqueue(new Callback<MD_RequestPrimary>() {

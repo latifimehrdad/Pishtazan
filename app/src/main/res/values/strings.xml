@@ -116,5 +116,6 @@
     <string name="ML_Amount">ML_Amount</string>
     <string name="ML_Description">ML_Description</string>
     <string name="ML_PolicyTypeId">ML_PolicyTypeId</string>
+    <string name="ML_Date">ML_Date</string>
 
 </resources>
