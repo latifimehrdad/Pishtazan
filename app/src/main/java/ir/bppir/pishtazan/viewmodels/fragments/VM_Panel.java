@@ -1,10 +1,7 @@
 package ir.bppir.pishtazan.viewmodels.fragments;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Handler;
-
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +11,8 @@ import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.database.DB_Persons;
 import ir.bppir.pishtazan.models.MD_Notify;
 import ir.bppir.pishtazan.models.MD_Person;
-import ir.bppir.pishtazan.models.MD_RequestGetAllPerson;
-import ir.bppir.pishtazan.models.MD_RequestPrimary;
+import ir.bppir.pishtazan.models.MR_GetAllPerson;
+import ir.bppir.pishtazan.models.MR_Primary;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
@@ -61,9 +58,9 @@ public class VM_Panel extends VM_Primary {
                 .getRetrofitApiInterface()
                 .GET_ALL_CUSTOMERS(UserInfoId, PersonType, false));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestGetAllPerson>() {
+        getPrimaryCall().enqueue(new Callback<MR_GetAllPerson>() {
             @Override
-            public void onResponse(Call<MD_RequestGetAllPerson> call, Response<MD_RequestGetAllPerson> response) {
+            public void onResponse(Call<MR_GetAllPerson> call, Response<MR_GetAllPerson> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
@@ -76,7 +73,7 @@ public class VM_Panel extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestGetAllPerson> call, Throwable t) {
+            public void onFailure(Call<MR_GetAllPerson> call, Throwable t) {
                 CallIsFailure();
             }
         });
@@ -99,9 +96,9 @@ public class VM_Panel extends VM_Primary {
                 .getRetrofitApiInterface()
                 .GET_ALL_COLLEAGUES(UserInfoId, PersonType, false));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestGetAllPerson>() {
+        getPrimaryCall().enqueue(new Callback<MR_GetAllPerson>() {
             @Override
-            public void onResponse(Call<MD_RequestGetAllPerson> call, Response<MD_RequestGetAllPerson> response) {
+            public void onResponse(Call<MR_GetAllPerson> call, Response<MR_GetAllPerson> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
@@ -114,7 +111,7 @@ public class VM_Panel extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestGetAllPerson> call, Throwable t) {
+            public void onFailure(Call<MR_GetAllPerson> call, Throwable t) {
                 CallIsFailure();
             }
         });
@@ -238,9 +235,9 @@ public class VM_Panel extends VM_Primary {
                 .getRetrofitApiInterface()
                 .DELETE_CUSTOMER(personList.get(Position).getId(), Id));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestPrimary>() {
+        getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
-            public void onResponse(Call<MD_RequestPrimary> call, Response<MD_RequestPrimary> response) {
+            public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
@@ -251,7 +248,7 @@ public class VM_Panel extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestPrimary> call, Throwable t) {
+            public void onFailure(Call<MR_Primary> call, Throwable t) {
                 CallIsFailure();
             }
         });
@@ -273,9 +270,9 @@ public class VM_Panel extends VM_Primary {
                 .getRetrofitApiInterface()
                 .DELETE_COLLEAGUE(personList.get(Position).getId(), Id));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestPrimary>() {
+        getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
-            public void onResponse(Call<MD_RequestPrimary> call, Response<MD_RequestPrimary> response) {
+            public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
@@ -286,7 +283,7 @@ public class VM_Panel extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestPrimary> call, Throwable t) {
+            public void onFailure(Call<MR_Primary> call, Throwable t) {
                 CallIsFailure();
             }
         });
@@ -316,9 +313,9 @@ public class VM_Panel extends VM_Primary {
                 .getRetrofitApiInterface()
                 .CONVERT_TO_POSSIBLE_COLLEAGUE(personList.get(Position).getId(), Id));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestPrimary>() {
+        getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
-            public void onResponse(Call<MD_RequestPrimary> call, Response<MD_RequestPrimary> response) {
+            public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
@@ -329,7 +326,7 @@ public class VM_Panel extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestPrimary> call, Throwable t) {
+            public void onFailure(Call<MR_Primary> call, Throwable t) {
                 CallIsFailure();
             }
         });
@@ -351,9 +348,9 @@ public class VM_Panel extends VM_Primary {
                 .getRetrofitApiInterface()
                 .CONVERT_TO_POSSIBLE_CUSTOMER(personList.get(Position).getId(), Id));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestPrimary>() {
+        getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
-            public void onResponse(Call<MD_RequestPrimary> call, Response<MD_RequestPrimary> response) {
+            public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
@@ -364,7 +361,7 @@ public class VM_Panel extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestPrimary> call, Throwable t) {
+            public void onFailure(Call<MR_Primary> call, Throwable t) {
                 CallIsFailure();
             }
         });

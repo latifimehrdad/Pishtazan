@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class MD_RequestPolicyType extends MD_RequestPrimary {
+public class MR_PolicyType extends MR_Primary {
 
     @SerializedName("PolicyTypes")
     List<MD_PolicyType> PolicyTypes;
 
 
-    public MD_RequestPolicyType(Integer statue, String message, List<String> messages) {
+    public MR_PolicyType(Integer statue, String message, List<String> messages) {
         super(statue, message, messages);
     }
 

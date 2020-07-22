@@ -9,7 +9,7 @@
     >
 
     <LinearLayout
-        android:id="@+id/LinearLayoutCustomerReport"
+        android:id="@+id/LinearLayoutStatisticalReport"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -23,7 +23,7 @@
             android:layout_height="@dimen/_30sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_2sdp"
-            android:src="@drawable/ic_baseline_multiline_chart"
+            android:src="@drawable/svg_goal"
             android:tint="@color/ML_Harmony"
             />
 
@@ -35,7 +35,7 @@
             android:maxLines="2"
             fontPath="fonts/iransans_web_medium.ttf"
             android:gravity="center"
-            android:text="@string/CustomerReport"
+            android:text="@string/StatisticalReport"
             android:layout_marginRight="@dimen/_2sdp"
             />
 
@@ -44,7 +44,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/LinearLayoutColleagueReport"
+        android:id="@+id/LinearLayoutAnalyticalReport"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -62,7 +62,7 @@
             android:maxLines="2"
             fontPath="fonts/iransans_web_medium.ttf"
             android:gravity="center"
-            android:text="@string/ColleagueReport"
+            android:text="@string/AnalyticalReport"
             android:layout_marginLeft="@dimen/_2sdp"
             />
 
@@ -72,7 +72,7 @@
             android:layout_marginLeft="@dimen/_2sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:tint="@color/ML_Harmony"
-            android:src="@drawable/ic_baseline_bar_chart"
+            android:src="@drawable/svg_files_and_folders"
             />
 
     </LinearLayout>

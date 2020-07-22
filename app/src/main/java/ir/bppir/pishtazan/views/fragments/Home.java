@@ -35,11 +35,11 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
     @BindView(R.id.LinearLayoutCustomer)
     LinearLayout LinearLayoutCustomer;
 
-    @BindView(R.id.LinearLayoutCustomerReport)
-    LinearLayout LinearLayoutCustomerReport;
+    @BindView(R.id.LinearLayoutStatisticalReport)
+    LinearLayout LinearLayoutStatisticalReport;
 
-    @BindView(R.id.LinearLayoutColleagueReport)
-    LinearLayout LinearLayoutColleagueReport;
+    @BindView(R.id.LinearLayoutAnalyticalReport)
+    LinearLayout LinearLayoutAnalyticalReport;
 
 
 
@@ -83,8 +83,8 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
                 vm_home);
         LinearLayoutColleagues.setVisibility(View.GONE);
         LinearLayoutCustomer.setVisibility(View.GONE);
-        LinearLayoutCustomerReport.setVisibility(View.GONE);
-        LinearLayoutColleagueReport.setVisibility(View.GONE);
+        LinearLayoutStatisticalReport.setVisibility(View.GONE);
+        LinearLayoutAnalyticalReport.setVisibility(View.GONE);
         SetAnimation();
 
     }//_____________________________________________________________________________________________ init
@@ -112,10 +112,10 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
             public void run() {
                 Animation inRight = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_right);
                 Animation inLeft = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_left);
-                LinearLayoutCustomerReport.setAnimation(inLeft);
-                LinearLayoutColleagueReport.setAnimation(inRight);
-                LinearLayoutCustomerReport.setVisibility(View.VISIBLE);
-                LinearLayoutColleagueReport.setVisibility(View.VISIBLE);
+                LinearLayoutStatisticalReport.setAnimation(inLeft);
+                LinearLayoutAnalyticalReport.setAnimation(inRight);
+                LinearLayoutStatisticalReport.setVisibility(View.VISIBLE);
+                LinearLayoutAnalyticalReport.setVisibility(View.VISIBLE);
             }
         },1100);
 
@@ -131,22 +131,28 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
     private void SetClick() {//_____________________________________________________________________  SetClick
 
-        LinearLayoutColleagues.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putInt(getContext().getString(R.string.ML_PanelType), StaticValues.Colleague);
-                navController.navigate(R.id.action_home_to_panel, bundle);
-            }
+        LinearLayoutColleagues.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getString(R.string.ML_PanelType), StaticValues.Colleague);
+            navController.navigate(R.id.action_home_to_panel, bundle);
         });
 
-        LinearLayoutCustomer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putInt(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
-                navController.navigate(R.id.action_home_to_panel, bundle);
-            }
+        LinearLayoutCustomer.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
+            navController.navigate(R.id.action_home_to_panel, bundle);
+        });
+
+        LinearLayoutStatisticalReport.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getResources().getString(R.string.ML_Type), StaticValues.StatisticalReport);
+            navController.navigate(R.id.action_home_to_report, bundle);
+        });
+
+        LinearLayoutAnalyticalReport.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getResources().getString(R.string.ML_Type), StaticValues.AnalyticalReport);
+            navController.navigate(R.id.action_home_to_report, bundle);
         });
 
     }//_____________________________________________________________________________________________ SetClick

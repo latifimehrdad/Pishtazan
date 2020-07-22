@@ -78,9 +78,20 @@
         <argument android:name="@string/ML_PanelType"
             android:defaultValue="0"/>
 
+        <argument android:name="@string/ML_Type"
+            android:defaultValue="0"/>
+
         <action
             android:id="@+id/action_home_to_panel"
             app:destination="@id/panel"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+        <action
+            android:id="@+id/action_home_to_report"
+            app:destination="@id/report"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
@@ -198,5 +209,11 @@
             app:popExitAnim="@anim/slide_out_left"/>
 
     </fragment>
+
+    <fragment
+        android:id="@+id/report"
+        android:name="ir.bppir.pishtazan.views.fragments.Report"
+        android:label="Report"
+        tools:layout="@layout/fragment_report"/>
 
 </navigation>

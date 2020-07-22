@@ -25,6 +25,9 @@ public class StaticValues {
     public static Byte PolicyStatusQuestionnaire = 0;
     public static Byte PolicyStatusInsurance = 1;
 
+    public static Byte StatisticalReport = 0;
+    public static Byte AnalyticalReport = 1;
+
 
     //___________________ Numbers For Control Observable
     public static Byte ML_GotoHome = 0;
@@ -50,6 +53,7 @@ public class StaticValues {
     public static Byte ML_Success = 20;
     public static Byte ML_GetAllPolicy = 21;
     public static Byte ML_EditSuccess = 22;
+    public static Byte ML_GetReport = 23;
 
 
 }

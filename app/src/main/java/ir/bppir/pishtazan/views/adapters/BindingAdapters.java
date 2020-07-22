@@ -120,6 +120,38 @@ public class BindingAdapters {
     }//_____________________________________________________________________________________________ SetPersonImage
 
 
+    @BindingAdapter(value = "SetPersonImageReport")
+    public static void SetPersonImageReport(CircleImageView imageView, String url) {//____________________ SetPersonImage
+
+        ImageLoader imageLoader = PishtazanApplication
+                .getApplication(imageView.getContext())
+                .getImageLoaderComponent()
+                .getImageLoader();
+
+        imageLoader.displayImage(url, imageView, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+                imageView.setImageResource(R.drawable.image_before_load);
+            }
+
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                imageView.setImageResource(R.drawable.image_before_load);
+            }
+
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                if (loadedImage == null)
+                    imageView.setImageResource(R.drawable.image_before_load);
+            }
+
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
+                imageView.setImageResource(R.drawable.image_before_load);
+            }
+        });
+
+    }//_____________________________________________________________________________________________ SetPersonImage
 
 
 

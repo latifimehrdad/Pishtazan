@@ -5,14 +5,12 @@ import android.net.Uri;
 import android.os.Handler;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.models.MD_GetAddres;
 import ir.bppir.pishtazan.models.MD_Person;
-import ir.bppir.pishtazan.models.MD_RequestGetAllPerson;
-import ir.bppir.pishtazan.models.MD_RequestPrimary;
+import ir.bppir.pishtazan.models.MR_GetAllPerson;
+import ir.bppir.pishtazan.models.MR_Primary;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
@@ -22,7 +20,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Part;
 
 public class VM_EditPerson extends VM_Primary {
 
@@ -121,9 +118,9 @@ public class VM_EditPerson extends VM_Primary {
                         NationalCode,
                         Level));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestPrimary>() {
+        getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
-            public void onResponse(Call<MD_RequestPrimary> call, Response<MD_RequestPrimary> response) {
+            public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
@@ -134,7 +131,7 @@ public class VM_EditPerson extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestPrimary> call, Throwable t) {
+            public void onFailure(Call<MR_Primary> call, Throwable t) {
                 CallIsFailure();
             }
         });
@@ -206,9 +203,9 @@ public class VM_EditPerson extends VM_Primary {
                         NationalCode,
                         Level));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestPrimary>() {
+        getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
-            public void onResponse(Call<MD_RequestPrimary> call, Response<MD_RequestPrimary> response) {
+            public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
@@ -219,7 +216,7 @@ public class VM_EditPerson extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestPrimary> call, Throwable t) {
+            public void onFailure(Call<MR_Primary> call, Throwable t) {
                 CallIsFailure();
             }
         });
@@ -243,9 +240,9 @@ public class VM_EditPerson extends VM_Primary {
                 .getRetrofitApiInterface()
                 .GET_CUSTOMERS_ID(UserInfoId, personId));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestGetAllPerson>() {
+        getPrimaryCall().enqueue(new Callback<MR_GetAllPerson>() {
             @Override
-            public void onResponse(Call<MD_RequestGetAllPerson> call, Response<MD_RequestGetAllPerson> response) {
+            public void onResponse(Call<MR_GetAllPerson> call, Response<MR_GetAllPerson> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
@@ -259,7 +256,7 @@ public class VM_EditPerson extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestGetAllPerson> call, Throwable t) {
+            public void onFailure(Call<MR_GetAllPerson> call, Throwable t) {
                 CallIsFailure();
             }
         });
@@ -281,9 +278,9 @@ public class VM_EditPerson extends VM_Primary {
                 .getRetrofitApiInterface()
                 .GET_COLLEAGUE_ID(UserInfoId, personId));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestGetAllPerson>() {
+        getPrimaryCall().enqueue(new Callback<MR_GetAllPerson>() {
             @Override
-            public void onResponse(Call<MD_RequestGetAllPerson> call, Response<MD_RequestGetAllPerson> response) {
+            public void onResponse(Call<MR_GetAllPerson> call, Response<MR_GetAllPerson> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
@@ -297,7 +294,7 @@ public class VM_EditPerson extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestGetAllPerson> call, Throwable t) {
+            public void onFailure(Call<MR_GetAllPerson> call, Throwable t) {
                 CallIsFailure();
             }
         });

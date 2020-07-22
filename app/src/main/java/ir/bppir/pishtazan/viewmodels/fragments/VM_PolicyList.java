@@ -5,8 +5,7 @@ import android.app.Activity;
 import java.util.List;
 
 import ir.bppir.pishtazan.models.MD_Policy;
-import ir.bppir.pishtazan.models.MD_RequestPolicy;
-import ir.bppir.pishtazan.models.MD_RequestPrimary;
+import ir.bppir.pishtazan.models.MR_Policy;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
@@ -43,9 +42,9 @@ public class VM_PolicyList extends VM_Primary {
                         false));
 
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestPolicy>() {
+        getPrimaryCall().enqueue(new Callback<MR_Policy>() {
             @Override
-            public void onResponse(Call<MD_RequestPolicy> call, Response<MD_RequestPolicy> response) {
+            public void onResponse(Call<MR_Policy> call, Response<MR_Policy> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
@@ -58,7 +57,7 @@ public class VM_PolicyList extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestPolicy> call, Throwable t) {
+            public void onFailure(Call<MR_Policy> call, Throwable t) {
                 CallIsFailure();
             }
         });

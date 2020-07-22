@@ -1,14 +1,13 @@
 package ir.bppir.pishtazan.viewmodels.fragments;
 
         import android.app.Activity;
-        import android.content.Context;
 
         import io.realm.Realm;
         import io.realm.RealmResults;
         import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
         import ir.bppir.pishtazan.database.DB_UserInfo;
-        import ir.bppir.pishtazan.models.MD_RequestGenerateCode;
-        import ir.bppir.pishtazan.models.MD_RequestVerifyCode;
+        import ir.bppir.pishtazan.models.MR_GenerateCode;
+        import ir.bppir.pishtazan.models.MRVerifyCode;
         import ir.bppir.pishtazan.utility.StaticValues;
         import ir.bppir.pishtazan.viewmodels.VM_Primary;
         import ir.bppir.pishtazan.views.application.PishtazanApplication;
@@ -40,9 +39,9 @@ public class VM_Verify extends VM_Primary {
                 .getRetrofitApiInterface()
                 .REQUEST_GENERATE_CODE_CALL(PhoneNumber));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestGenerateCode>() {
+        getPrimaryCall().enqueue(new Callback<MR_GenerateCode>() {
             @Override
-            public void onResponse(Call<MD_RequestGenerateCode> call, Response<MD_RequestGenerateCode> response) {
+            public void onResponse(Call<MR_GenerateCode> call, Response<MR_GenerateCode> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
@@ -53,7 +52,7 @@ public class VM_Verify extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestGenerateCode> call, Throwable t) {
+            public void onFailure(Call<MR_GenerateCode> call, Throwable t) {
                 CallIsFailure();
             }
         });
@@ -83,9 +82,9 @@ public class VM_Verify extends VM_Primary {
                 .getRetrofitApiInterface()
                 .REQUEST_VERIFY_CODE_CALL(PhoneNumber, VerifyCode));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestVerifyCode>() {
+        getPrimaryCall().enqueue(new Callback<MRVerifyCode>() {
             @Override
-            public void onResponse(Call<MD_RequestVerifyCode> call, Response<MD_RequestVerifyCode> response) {
+            public void onResponse(Call<MRVerifyCode> call, Response<MRVerifyCode> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
@@ -96,7 +95,7 @@ public class VM_Verify extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestVerifyCode> call, Throwable t) {
+            public void onFailure(Call<MRVerifyCode> call, Throwable t) {
                 CallIsFailure();
             }
         });
@@ -105,7 +104,7 @@ public class VM_Verify extends VM_Primary {
 
 
 
-    private void SaveLogin(MD_RequestVerifyCode md) {//_____________________________________________ SaveLogin
+    private void SaveLogin(MRVerifyCode md) {//_____________________________________________ SaveLogin
         Realm realm = Realm.getDefaultInstance();
         try {
             RealmResults<DB_UserInfo> delete = realm.where(DB_UserInfo.class).findAll();

@@ -2,7 +2,6 @@ package ir.bppir.pishtazan.viewmodels.fragments;
 
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 
@@ -13,7 +12,7 @@ import java.util.Map;
 
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.models.MD_Contact;
-import ir.bppir.pishtazan.models.MD_RequestPrimary;
+import ir.bppir.pishtazan.models.MR_Primary;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
@@ -124,9 +123,9 @@ public class VM_AddPerson extends VM_Primary {
         .getRetrofitApiInterface()
         .ADD_CUSTOMER(params));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestPrimary>() {
+        getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
-            public void onResponse(Call<MD_RequestPrimary> call, Response<MD_RequestPrimary> response) {
+            public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
@@ -137,7 +136,7 @@ public class VM_AddPerson extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestPrimary> call, Throwable t) {
+            public void onFailure(Call<MR_Primary> call, Throwable t) {
                 CallIsFailure();
             }
         });
@@ -172,9 +171,9 @@ public class VM_AddPerson extends VM_Primary {
                 .getRetrofitApiInterface()
                 .CREATE_COLLEAGUE(params));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestPrimary>() {
+        getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
-            public void onResponse(Call<MD_RequestPrimary> call, Response<MD_RequestPrimary> response) {
+            public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
@@ -185,7 +184,7 @@ public class VM_AddPerson extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestPrimary> call, Throwable t) {
+            public void onFailure(Call<MR_Primary> call, Throwable t) {
                 CallIsFailure();
             }
         });

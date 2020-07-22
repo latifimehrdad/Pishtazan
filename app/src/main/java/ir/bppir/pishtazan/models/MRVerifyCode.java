@@ -6,13 +6,13 @@ import java.util.List;
 
 import ir.bppir.pishtazan.database.DB_UserInfo;
 
-public class MD_RequestVerifyCode extends MD_RequestPrimary {
+public class MRVerifyCode extends MR_Primary {
 
     @SerializedName("UserInfo")
     DB_UserInfo UserInfo;
 
 
-    public MD_RequestVerifyCode(Integer statue, String message, List<String> messages) {
+    public MRVerifyCode(Integer statue, String message, List<String> messages) {
         super(statue, message, messages);
     }
 

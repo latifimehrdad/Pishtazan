@@ -1,16 +1,15 @@
 package ir.bppir.pishtazan.daggers.retrofit;
 
 
-import java.util.Date;
 import java.util.Map;
 
 import ir.bppir.pishtazan.models.MD_GetAddres;
-import ir.bppir.pishtazan.models.MD_RequestGenerateCode;
-import ir.bppir.pishtazan.models.MD_RequestGetAllPerson;
-import ir.bppir.pishtazan.models.MD_RequestPolicy;
-import ir.bppir.pishtazan.models.MD_RequestPolicyType;
-import ir.bppir.pishtazan.models.MD_RequestPrimary;
-import ir.bppir.pishtazan.models.MD_RequestVerifyCode;
+import ir.bppir.pishtazan.models.MR_GenerateCode;
+import ir.bppir.pishtazan.models.MR_GetAllPerson;
+import ir.bppir.pishtazan.models.MR_Policy;
+import ir.bppir.pishtazan.models.MR_PolicyType;
+import ir.bppir.pishtazan.models.MR_Primary;
+import ir.bppir.pishtazan.models.MRVerifyCode;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -31,7 +30,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/GenerateCode")
-    Call<MD_RequestGenerateCode> REQUEST_GENERATE_CODE_CALL
+    Call<MR_GenerateCode> REQUEST_GENERATE_CODE_CALL
             (
                     @Field("MobileNumber") String MobileNumber
             );
@@ -39,7 +38,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/VerifyCode")
-    Call<MD_RequestVerifyCode> REQUEST_VERIFY_CODE_CALL
+    Call<MRVerifyCode> REQUEST_VERIFY_CODE_CALL
             (
                     @Field("MobileNumber") String MobileNumber,
                     @Field("Code") String Code
@@ -48,7 +47,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/CreateCustomer")
-    Call<MD_RequestPrimary> ADD_CUSTOMER
+    Call<MR_Primary> ADD_CUSTOMER
             (
                     @FieldMap Map<String,String> params
 
@@ -57,7 +56,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/GetAllCustomers")
-    Call<MD_RequestGetAllPerson> GET_ALL_CUSTOMERS
+    Call<MR_GetAllPerson> GET_ALL_CUSTOMERS
             (
                     @Field("UserInfoId") Integer UserInfoId,
                     @Field("CustomerStatus") Byte CustomerStatus,
@@ -67,7 +66,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/CreateColleague")
-    Call<MD_RequestPrimary> CREATE_COLLEAGUE
+    Call<MR_Primary> CREATE_COLLEAGUE
             (
                     @FieldMap Map<String,String> params
             );
@@ -75,7 +74,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/GetAllColleagues")
-    Call<MD_RequestGetAllPerson> GET_ALL_COLLEAGUES
+    Call<MR_GetAllPerson> GET_ALL_COLLEAGUES
             (
                     @Field("UserInfoId") Integer UserInfoId,
                     @Field("ColleagueStatus") Byte ColleagueStatus,
@@ -85,7 +84,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/DeleteCustomer")
-    Call<MD_RequestPrimary> DELETE_CUSTOMER
+    Call<MR_Primary> DELETE_CUSTOMER
             (
                     @Field("Id") Integer Id,
                     @Field("UserInfoId") Integer UserInfoId
@@ -94,7 +93,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/DeleteColleague")
-    Call<MD_RequestPrimary> DELETE_COLLEAGUE
+    Call<MR_Primary> DELETE_COLLEAGUE
             (
                     @Field("Id") Integer Id,
                     @Field("UserInfoId") Integer UserInfoId
@@ -103,7 +102,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/ConvertToPossibleColleague")
-    Call<MD_RequestPrimary> CONVERT_TO_POSSIBLE_COLLEAGUE
+    Call<MR_Primary> CONVERT_TO_POSSIBLE_COLLEAGUE
             (
                     @Field("Id") Integer Id,
                     @Field("UserInfoId") Integer UserInfoId
@@ -111,7 +110,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/ConvertToPossibleCustomer")
-    Call<MD_RequestPrimary> CONVERT_TO_POSSIBLE_CUSTOMER
+    Call<MR_Primary> CONVERT_TO_POSSIBLE_CUSTOMER
             (
                     @Field("Id") Integer Id,
                     @Field("UserInfoId") Integer UserInfoId
@@ -125,7 +124,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/GetCustomerById")
-    Call<MD_RequestGetAllPerson> GET_CUSTOMERS_ID
+    Call<MR_GetAllPerson> GET_CUSTOMERS_ID
             (
                     @Field("UserInfoId") Integer UserInfoId,
                     @Field("Id") Integer Id
@@ -133,7 +132,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/GetColleagueById")
-    Call<MD_RequestGetAllPerson> GET_COLLEAGUE_ID
+    Call<MR_GetAllPerson> GET_COLLEAGUE_ID
             (
                     @Field("UserInfoId") Integer UserInfoId,
                     @Field("Id") Integer Id
@@ -143,7 +142,7 @@ public interface RetrofitApiInterface {
 
     @Multipart
     @POST(Version + "/EditCustomer")
-    Call<MD_RequestPrimary> EDIT_CUSTOMER
+    Call<MR_Primary> EDIT_CUSTOMER
             (
                     @Part MultipartBody.Part Image,
                     @Part("Id") RequestBody Id,
@@ -162,7 +161,7 @@ public interface RetrofitApiInterface {
 
     @Multipart
     @POST(Version + "/EditColleague")
-    Call<MD_RequestPrimary> EDIT_COLLEAGUE
+    Call<MR_Primary> EDIT_COLLEAGUE
             (
                     @Part MultipartBody.Part Image,
                     @Part("Id") RequestBody Id,
@@ -181,7 +180,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/GetAllPolicyTypes")
-    Call<MD_RequestPolicyType> GET_ALL_POLICY_TYPES
+    Call<MR_PolicyType> GET_ALL_POLICY_TYPES
             (
                     @Field("Id") Integer id
             );
@@ -189,7 +188,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/CreatePolicy")
-    Call<MD_RequestPrimary> CREATE_POLICY
+    Call<MR_Primary> CREATE_POLICY
             (
                     @Field(Policy + "PolicyTypeId") String PolicyTypeId,
                     @Field(Policy + "CustomerId") String CustomerId,
@@ -201,7 +200,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/GetAllPolicies")
-    Call<MD_RequestPolicy> GET_ALL_POLICIES
+    Call<MR_Policy> GET_ALL_POLICIES
             (
                     @Field("UserInfoId") Integer UserInfoId,
                     @Field("CustomerId") Integer CustomerId,
@@ -212,7 +211,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/EditPolicy")
-    Call<MD_RequestPrimary> EDIT_POLICY
+    Call<MR_Primary> EDIT_POLICY
             (
                     @Field(Policy + "Id") Integer Id,
                     @Field(Policy + "PolicyTypeId") Integer PolicyTypeId,

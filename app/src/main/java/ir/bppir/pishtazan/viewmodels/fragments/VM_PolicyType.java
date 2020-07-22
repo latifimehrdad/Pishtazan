@@ -1,17 +1,13 @@
 package ir.bppir.pishtazan.viewmodels.fragments;
 
 import android.app.Activity;
-import android.content.Context;
 
-import java.util.Date;
 import java.util.List;
 
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
 import ir.bppir.pishtazan.models.MD_PolicyType;
-import ir.bppir.pishtazan.models.MD_RequestGenerateCode;
-import ir.bppir.pishtazan.models.MD_RequestGetAllPerson;
-import ir.bppir.pishtazan.models.MD_RequestPolicyType;
-import ir.bppir.pishtazan.models.MD_RequestPrimary;
+import ir.bppir.pishtazan.models.MR_PolicyType;
+import ir.bppir.pishtazan.models.MR_Primary;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
@@ -40,9 +36,9 @@ public class VM_PolicyType extends VM_Primary {
                 .GET_ALL_POLICY_TYPES(0));
 
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestPolicyType>() {
+        getPrimaryCall().enqueue(new Callback<MR_PolicyType>() {
             @Override
-            public void onResponse(Call<MD_RequestPolicyType> call, Response<MD_RequestPolicyType> response) {
+            public void onResponse(Call<MR_PolicyType> call, Response<MR_PolicyType> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1) {
@@ -54,7 +50,7 @@ public class VM_PolicyType extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestPolicyType> call, Throwable t) {
+            public void onFailure(Call<MR_PolicyType> call, Throwable t) {
                 CallIsFailure();
             }
         });
@@ -88,9 +84,9 @@ public class VM_PolicyType extends VM_Primary {
                         Description));
 
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestPrimary>() {
+        getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
-            public void onResponse(Call<MD_RequestPrimary> call, Response<MD_RequestPrimary> response) {
+            public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
@@ -102,7 +98,7 @@ public class VM_PolicyType extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestPrimary> call, Throwable t) {
+            public void onFailure(Call<MR_Primary> call, Throwable t) {
                 CallIsFailure();
             }
         });
@@ -140,9 +136,9 @@ public class VM_PolicyType extends VM_Primary {
                         SuggestionDateM));
 
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestPrimary>() {
+        getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
-            public void onResponse(Call<MD_RequestPrimary> call, Response<MD_RequestPrimary> response) {
+            public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
@@ -154,7 +150,7 @@ public class VM_PolicyType extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestPrimary> call, Throwable t) {
+            public void onFailure(Call<MR_Primary> call, Throwable t) {
                 CallIsFailure();
             }
         });

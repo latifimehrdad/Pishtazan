@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class MD_RequestGetAllPerson extends MD_RequestPrimary {
+public class MR_GetAllPerson extends MR_Primary {
 
     @SerializedName("Customer")
     @Expose
@@ -24,7 +24,7 @@ public class MD_RequestGetAllPerson extends MD_RequestPrimary {
     List<MD_Person> Colleagues;
 
 
-    public MD_RequestGetAllPerson(Integer statue, String message, List<String> messages) {
+    public MR_GetAllPerson(Integer statue, String message, List<String> messages) {
         super(statue, message, messages);
     }
 

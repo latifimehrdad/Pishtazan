@@ -58,8 +58,8 @@
     <string name="SuccessForMoveToCertain">شخص با موفقیت به لیست قطعی منتقل شد</string>
     <string name="PleaseWaitingForConnectingToServer">در حال برقراری ارتباط با مرکز</string>
     <string name="PowerBy">قدرت گرفته از قلب تپنده پیشتازان</string>
-    <string name="ColleagueReport">گزارشات همکاران</string>
-    <string name="CustomerReport">گزارشات مشتریان</string>
+    <string name="AnalyticalReport">گزارش تحلیلی</string>
+    <string name="StatisticalReport">گزارش آماری</string>
     <string name="Close">بستن</string>
     <string name="DegreeNormal">عادی</string>
     <string name="DegreePeach">هلو</string>

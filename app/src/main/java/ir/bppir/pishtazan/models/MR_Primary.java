@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class MD_RequestPrimary {
+public class MR_Primary {
 
     @SerializedName("Statue")
     Integer Statue;
@@ -15,7 +15,7 @@ public class MD_RequestPrimary {
     @SerializedName("Messages")
     List<String> Messages;
 
-    public MD_RequestPrimary(Integer statue, String message, List<String> messages) {
+    public MR_Primary(Integer statue, String message, List<String> messages) {
         Statue = statue;
         Message = message;
         Messages = messages;

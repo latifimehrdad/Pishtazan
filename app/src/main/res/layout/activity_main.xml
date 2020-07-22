@@ -23,8 +23,8 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@drawable/dw_login"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:layout_marginBottom="@dimen/_2sdp"
+
+                android:paddingTop="@dimen/_35sdp"
                 android:orientation="horizontal"
                 >
 

@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 
+import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -81,6 +82,7 @@ public class FragmentPrimary extends Fragment {
 
     public void setView(View view) {//______________________________________________________________ setView
         this.view = view;
+        ButterKnife.bind(this, getView());
     }//_____________________________________________________________________________________________ setView
 
 
