@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+            <item
+                android:left="1px"
+                >
+                <shape android:shape="rectangle">
+                    <solid android:color="#03B32104"/>
+                    <corners android:topLeftRadius="@dimen/_500sdp" android:bottomLeftRadius="@dimen/_500sdp"/>
+                </shape>
+            </item>
+
+            <item
+                android:left="2px"
+                >
+                <shape android:shape="rectangle">
+                    <solid android:color="#05B32104"/>
+                    <corners android:topLeftRadius="@dimen/_500sdp" android:bottomLeftRadius="@dimen/_500sdp"/>
+                </shape>
+            </item>
+
+            <item
+                android:left="3px"
+                >
+                <shape android:shape="rectangle">
+                    <solid android:color="#08B32104"/>
+                    <corners android:topLeftRadius="@dimen/_500sdp" android:bottomLeftRadius="@dimen/_500sdp"/>
+                </shape>
+            </item>
+
+
+            <item
+                android:left="4px"
+                >
+                <shape android:shape="rectangle">
+                    <solid android:color="#14B32104"/>
+                    <corners android:topLeftRadius="@dimen/_500sdp" android:bottomLeftRadius="@dimen/_500sdp"/>
+                </shape>
+            </item>
+
+            <item
+                android:left="5px"
+                >
+                <shape android:shape="rectangle">
+                    <solid android:color="#1FB32104"/>
+                    <corners android:topLeftRadius="@dimen/_500sdp" android:bottomLeftRadius="@dimen/_500sdp"/>
+                </shape>
+            </item>
+
+
+            <item
+                android:left="6px"
+                >
+                <shape android:shape="rectangle">
+                    <solid android:color="#26B32104"/>
+                    <corners android:topLeftRadius="@dimen/_500sdp" android:bottomLeftRadius="@dimen/_500sdp"/>
+                </shape>
+            </item>
+
+
+            <item
+                android:left="7px">
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/colorPrimaryDark"/>
+                    <corners android:topLeftRadius="@dimen/_500sdp" android:bottomLeftRadius="@dimen/_500sdp"/>
+                </shape>
+            </item>
+
+        </layer-list>
+    </item>
+
+</selector>

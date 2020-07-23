@@ -22,6 +22,15 @@ import static ir.bppir.pishtazan.daggers.retrofit.RetrofitApis.Host;
 
 public class BindingAdapters {
 
+    @BindingAdapter(value = "SetTextViewLevel")
+    public static void SetTextViewLevel(TextView textView, Integer level) {//_______________________ SetTextViewLevel
+
+        Context context = textView.getContext();
+        textView.setText(context.getResources().getString(R.string.Level) + " " + level.toString());
+
+    }//_____________________________________________________________________________________________ SetTextViewLevel
+
+
 
     @BindingAdapter(value = "SetTextViewText")
     public static void SetTextViewText(TextView textView, String text) {//__________________________ SetTextViewText
@@ -38,6 +47,9 @@ public class BindingAdapters {
 
             case "description":
                 textView.setText(context.getResources().getString(R.string.Description) + " : " + text);
+                break;
+            case "movieTime" :
+                textView.setText(context.getResources().getString(R.string.MovieTime) + " : " + text);
                 break;
         }
 

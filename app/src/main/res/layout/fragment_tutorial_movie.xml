@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="movie"
+            type="ir.bppir.pishtazan.viewmodels.fragments.VM_TutorialMovie" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RecyclerViewMovie"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/adapter_tutorial_movie"
+            android:padding="@dimen/_10sdp"/>
+
+        <com.cunoraz.gifview.library.GifView
+            android:id="@+id/GifViewLoading"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dw_choose_current_map"
+            android:visibility="gone"
+            android:padding="@dimen/_5sdp"
+            custom:gif="@drawable/loading3" />
+
+    </RelativeLayout>
+
+</layout>

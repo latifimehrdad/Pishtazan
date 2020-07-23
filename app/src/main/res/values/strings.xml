@@ -99,6 +99,9 @@
     <string name="AddNewPolicy">اضافه کردن پرسشنامه جدید</string>
     <string name="Date">تاریخ</string>
     <string name="Title">عنوان</string>
+    <string name="Tutorial">آموزش</string>
+    <string name="Level">سطح</string>
+    <string name="MovieTime">مدت زمان</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>

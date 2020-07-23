@@ -97,6 +97,14 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"/>
 
+        <action
+            android:id="@+id/action_home_to_tutorial"
+            app:destination="@id/tutorial"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
     </fragment>
 
     <fragment
@@ -215,5 +223,49 @@
         android:name="ir.bppir.pishtazan.views.fragments.Report"
         android:label="Report"
         tools:layout="@layout/fragment_report"/>
+
+    <fragment
+        android:id="@+id/tutorial"
+        android:name="ir.bppir.pishtazan.views.fragments.Tutorial"
+        android:label="Tutorial"
+        tools:layout="@layout/fragment_tutorial">
+
+        <argument android:name="ML_Id"
+            android:defaultValue="0"/>
+
+        <action
+            android:id="@+id/action_tutorial_to_tutorialMovie"
+            app:destination="@id/tutorialMovie"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/tutorialMovie"
+        android:name="ir.bppir.pishtazan.views.fragments.TutorialMovie"
+        android:label="TutorialMovie"
+        tools:layout="@layout/fragment_tutorial_movie">
+
+        <argument android:name="ML_Id"
+            android:defaultValue="0"/>
+
+        <action
+            android:id="@+id/action_tutorialMovie_to_quiz"
+            app:destination="@id/quiz"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/quiz"
+        android:name="ir.bppir.pishtazan.views.fragments.Quiz"
+        android:label="Quiz"
+        tools:layout="@layout/fragment_quiz"/>
 
 </navigation>

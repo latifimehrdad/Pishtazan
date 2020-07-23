@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="policy"
@@ -30,6 +31,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerViewList"
             android:layout_width="match_parent"
+            tools:listitem="@layout/adapter_item_policy"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_5sdp"

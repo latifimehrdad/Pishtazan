@@ -5,6 +5,7 @@
     android:layout_marginRight="@dimen/_20sdp"
     android:layout_marginLeft="@dimen/_20sdp"
     android:layout_marginBottom="@dimen/_15sdp"
+    android:layout_marginTop="@dimen/_15sdp"
     android:orientation="horizontal"
     >
 

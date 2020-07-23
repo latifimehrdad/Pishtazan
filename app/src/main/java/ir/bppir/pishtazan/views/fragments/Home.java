@@ -41,6 +41,8 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
     @BindView(R.id.LinearLayoutAnalyticalReport)
     LinearLayout LinearLayoutAnalyticalReport;
 
+    @BindView(R.id.LinearLayoutTutorial)
+    LinearLayout LinearLayoutTutorial;
 
 
     public Home() {//_______________________________________________________________________________ Home
@@ -93,6 +95,10 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
     private void SetAnimation() {//_________________________________________________________________ SetAnimation
 
+
+        Animation bounce = AnimationUtils.loadAnimation(getContext(), R.anim.bounce);
+        LinearLayoutTutorial.setAnimation(bounce);
+
         Handler handler1 = new Handler();
         handler1.postDelayed(new Runnable() {
             @Override
@@ -130,6 +136,9 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
 
     private void SetClick() {//_____________________________________________________________________  SetClick
+
+        LinearLayoutTutorial.setOnClickListener(v -> navController.navigate(R.id.action_home_to_tutorial));
+
 
         LinearLayoutColleagues.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
