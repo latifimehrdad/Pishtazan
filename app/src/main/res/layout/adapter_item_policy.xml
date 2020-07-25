@@ -66,7 +66,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:tag="amount"
-                app:SetTextViewInteger="@{policy.policyAmont}"
+                app:SetTextViewLong="@{policy.policyAmont}"
                 />
 
             <TextView

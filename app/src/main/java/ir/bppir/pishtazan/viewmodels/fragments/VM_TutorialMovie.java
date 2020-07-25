@@ -30,7 +30,7 @@ public class VM_TutorialMovie extends VM_Primary {
 
         md_tutorialMovies = new ArrayList<>();
         for (int i = 0; i < 5; i++)
-            md_tutorialMovies.add(new MD_TutorialMovie(i, "ویدیو " + tutorialId + " - " + i, "http://uupload.ir/files/f17r_1e374385f1c390f86bdc865111ca1285.jpg", "", "01:20"));
+            md_tutorialMovies.add(new MD_TutorialMovie(i, "ویدیو " + tutorialId + " - " + i, "http://uupload.ir/files/f17r_1e374385f1c390f86bdc865111ca1285.jpg", "", "00:35", 15 * i));
         Handler handler = new Handler();
         handler.postDelayed(() -> SendMessageToObservable(StaticValues.ML_GetTutorialMovie), 1500);
 

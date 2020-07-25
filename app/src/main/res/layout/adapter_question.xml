@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="question"
+            type="ir.bppir.pishtazan.models.MD_Question" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/_10sdp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_5sdp"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/dw_back_bottom_action">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/ML_Black"
+                android:textSize="@dimen/_12sdp"
+                android:gravity="right"
+                android:text="@{question.question}"/>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="vertical"
+                android:padding="@dimen/_5sdp"
+                android:layoutDirection="rtl">
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/ML_Black"
+                    android:textSize="@dimen/_11sdp"
+                    android:theme="@style/mlCheck"
+                    android:text="@{question.answerA}"
+                    />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/ML_Black"
+                    android:textSize="@dimen/_11sdp"
+                    android:theme="@style/mlCheck"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:text="@{question.answerB}"
+                    />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/ML_Black"
+                    android:textSize="@dimen/_11sdp"
+                    android:theme="@style/mlCheck"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:text="@{question.answerC}"
+                    />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/ML_Black"
+                    android:textSize="@dimen/_11sdp"
+                    android:theme="@style/mlCheck"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:text="@{question.answerD}"
+                    />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+</layout>

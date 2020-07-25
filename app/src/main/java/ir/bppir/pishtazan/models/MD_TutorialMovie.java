@@ -10,15 +10,18 @@ public class MD_TutorialMovie {
 
     private String MovieUrl;
 
-    private String Time;
+    private String movieTime;
+
+    private Integer questionTime;
 
 
-    public MD_TutorialMovie(Integer id, String title, String image, String movieUrl, String time) {
+    public MD_TutorialMovie(Integer id, String title, String image, String movieUrl, String movieTime, Integer questionTime) {
         Id = id;
         Title = title;
         Image = image;
         MovieUrl = movieUrl;
-        Time = time;
+        this.movieTime = movieTime;
+        this.questionTime = questionTime;
     }
 
     public Integer getId() {
@@ -53,11 +56,19 @@ public class MD_TutorialMovie {
         MovieUrl = movieUrl;
     }
 
-    public String getTime() {
-        return Time;
+    public Integer getQuestionTime() {
+        return questionTime;
     }
 
-    public void setTime(String time) {
-        Time = time;
+    public void setQuestionTime(Integer questiontime) {
+        questionTime = questiontime;
+    }
+
+    public String getMovieTime() {
+        return movieTime;
+    }
+
+    public void setMovieTime(String movieTime) {
+        this.movieTime = movieTime;
     }
 }

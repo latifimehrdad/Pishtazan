@@ -102,6 +102,9 @@
     <string name="Tutorial">آموزش</string>
     <string name="Level">سطح</string>
     <string name="MovieTime">مدت زمان</string>
+    <string name="StartQuiz">شروع آزمون</string>
+    <string name="PreviousQuestion">سوال قبلی</string>
+    <string name="NextQuestion">سوال بعدی</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>
@@ -120,5 +123,6 @@
     <string name="ML_Description">ML_Description</string>
     <string name="ML_PolicyTypeId">ML_PolicyTypeId</string>
     <string name="ML_Date">ML_Date</string>
+    <string name="ML_questionTime">questionTime</string>
 
 </resources>

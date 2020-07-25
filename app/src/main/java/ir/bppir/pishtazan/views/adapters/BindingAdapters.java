@@ -58,6 +58,23 @@ public class BindingAdapters {
 
 
     @BindingAdapter(value = "SetTextViewInteger")
+    public static void SetTextViewTextInteger(TextView textView, Integer value) {//_________________ SetTextViewText
+
+        String tag = textView.getTag().toString();
+        Context context = textView.getContext();
+        switch (tag){
+            case "movieTime" :
+                Integer h = value % 60;
+                Integer min = value / 60;
+                textView.setText(context.getResources().getString(R.string.MovieTime) + "  " + String.format("%02d", min) + ":" + String.format("%02d", h));
+                break;
+        }
+
+    }//_____________________________________________________________________________________________ SetTextViewText
+
+
+
+    @BindingAdapter(value = "SetTextViewLong")
     public static void SetTextViewText(TextView textView, Long value) {//___________________________ SetTextViewText
 
         String tag = textView.getTag().toString();

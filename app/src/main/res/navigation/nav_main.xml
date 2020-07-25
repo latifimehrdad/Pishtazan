@@ -252,6 +252,10 @@
         <argument android:name="ML_Id"
             android:defaultValue="0"/>
 
+        <argument android:name="ML_questionTime"
+            android:defaultValue="0"/>
+
+
         <action
             android:id="@+id/action_tutorialMovie_to_quiz"
             app:destination="@id/quiz"

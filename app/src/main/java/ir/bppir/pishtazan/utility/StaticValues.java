@@ -56,6 +56,7 @@ public class StaticValues {
     public static Byte ML_GetReport = 23;
     public static Byte ML_GetTutorial = 24;
     public static Byte ML_GetTutorialMovie = 25;
+    public static Byte ML_GetQuestions = 26;
 
 
 }
