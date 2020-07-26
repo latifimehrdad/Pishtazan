@@ -22,11 +22,11 @@ public class VM_TutorialMovie extends VM_Primary {
 
     public void GetTutorialMovie(Integer tutorialId) {//____________________________________________ GetTutorialMovie
 
-        Integer UserInfoId = GetUserId();
-        if (UserInfoId == 0) {
-            UserIsNotAuthorization();
-            return;
-        }
+//        Integer UserInfoId = GetUserId();
+//        if (UserInfoId == 0) {
+//            UserIsNotAuthorization();
+//            return;
+//        }
 
         md_tutorialMovies = new ArrayList<>();
         for (int i = 0; i < 5; i++)

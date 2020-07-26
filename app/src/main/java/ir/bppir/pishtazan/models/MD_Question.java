@@ -16,6 +16,8 @@ public class MD_Question {
 
     private String answerD;
 
+    private Byte userAnswer;
+
 
     public MD_Question(Integer movieId, Integer id, String question, String answerA, String answerB, String answerC, String answerD) {
         this.movieId = movieId;
@@ -82,5 +84,13 @@ public class MD_Question {
 
     public void setAnswerD(String answerD) {
         this.answerD = answerD;
+    }
+
+    public Byte getUserAnswer() {
+        return userAnswer;
+    }
+
+    public void setUserAnswer(Byte userAnswer) {
+        this.userAnswer = userAnswer;
     }
 }

@@ -23,12 +23,15 @@ import com.cunoraz.gifview.library.GifView;
 import butterknife.BindView;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.FragmentQuizBinding;
+import ir.bppir.pishtazan.models.MD_Question;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Quiz;
 import ir.bppir.pishtazan.views.adapters.AP_Question;
 
 
-public class Quiz extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class Quiz extends FragmentPrimary implements
+        FragmentPrimary.GetMessageFromObservable,
+        AP_Question.ClickItemAnswer {
 
 
     private VM_Quiz vm_quiz;
@@ -37,6 +40,8 @@ public class Quiz extends FragmentPrimary implements FragmentPrimary.GetMessageF
     private Handler timer;
     private Runnable runnable;
     private int questionPosition;
+    private AP_Question ap_question;
+    private MD_Question md_question;
 
     @BindView(R.id.LinearLayoutStart)
     LinearLayout LinearLayoutStart;
@@ -117,17 +122,13 @@ public class Quiz extends FragmentPrimary implements FragmentPrimary.GetMessageF
         LinearLayoutPreviousQuestion.setOnClickListener(v -> {
             questionPosition--;
             if (questionPosition > -1)
-                SetAdapterQuestion(false);
+                AnimationChangeQuestion(false);
             else
                 questionPosition++;
         });
 
         LinearLayoutNextQuestion.setOnClickListener(v -> {
-            questionPosition++;
-            if (questionPosition < vm_quiz.getMd_questions().size())
-                SetAdapterQuestion(true);
-            else
-                questionPosition--;
+            NextQuestion();
         });
 
     }//_____________________________________________________________________________________________ SetOnClick
@@ -140,32 +141,54 @@ public class Quiz extends FragmentPrimary implements FragmentPrimary.GetMessageF
             LinearLayoutStart.setVisibility(View.GONE);
             RelativeLayoutPlay.setVisibility(View.GONE);
             LinearLayoutQuestion.setVisibility(View.VISIBLE);
-            SetAdapterQuestion(true);
+            SetAdapterQuestion();
             StartTimer(questionTime);
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
 
-    private void
+    private void AnimationChangeQuestion(boolean next) {//__________________________________________ AnimationChangeQuestion
 
-    private void SetAdapterQuestion(boolean next) {//___________________________________________________________ SetAdapterQuestion
-        AP_Question ap_question = new AP_Question(vm_quiz.getMd_questions().get(questionPosition));
+        Animation animationExit;
+        Animation animationEnter;
+        if (next) {
+            animationExit = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
+            animationEnter = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_left);
+        } else {
+            animationExit = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
+            animationEnter = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_right);
+        }
+        RecyclerViewQuestion.setAnimation(animationExit);
+        RecyclerViewQuestion.setVisibility(View.INVISIBLE);
+
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            SetAdapterQuestion();
+            RecyclerViewQuestion.setAnimation(null);
+            RecyclerViewQuestion.setAnimation(animationEnter);
+            RecyclerViewQuestion.setVisibility(View.VISIBLE);
+
+        }, 500);
+
+//        Handler handler = new Handler();
+//        handler.postDelayed(() -> {
+//            md_question = vm_quiz.getMd_questions().get(questionPosition);
+//            ap_question.notifyDataSetChanged();
+//        },600);
+
+    }//_____________________________________________________________________________________________ AnimationChangeQuestion
+
+
+    private void SetAdapterQuestion() {//___________________________________________________________ SetAdapterQuestion
+        md_question = vm_quiz.getMd_questions().get(questionPosition);
+        ap_question = new AP_Question(md_question, Quiz.this);
         RecyclerViewQuestion.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         RecyclerViewQuestion.setAdapter(ap_question);
-
-        Animation animation;
-        if (next)
-            animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
-        else
-            animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
-
-        RecyclerViewQuestion.setAnimation(animation);
-
     }//_____________________________________________________________________________________________ SetAdapterQuestion
 
 
-    private void StartTimer(int Elapse) {//_________________________________________________________ Start StartTimer
+    private void StartTimer(int Elapse) {//_________________________________________________________ StartTimer
 
         Elapse = Elapse * 10;
         Elapse = Elapse * 60;
@@ -191,6 +214,28 @@ public class Quiz extends FragmentPrimary implements FragmentPrimary.GetMessageF
         timer.postDelayed(runnable, 100);
 
     }//_____________________________________________________________________________________________ StartTimer
+
+
+
+    private void NextQuestion() {//_________________________________________________________________ NextQuestion
+
+
+        questionPosition++;
+        if (questionPosition < vm_quiz.getMd_questions().size())
+            AnimationChangeQuestion(true);
+        else
+            questionPosition--;
+    }//_____________________________________________________________________________________________ NextQuestion
+
+
+
+    @Override
+    public void clickItemAnswer(Integer Answer) {//_________________________________________________ clickItemAnswer
+
+        vm_quiz.getMd_questions().get(questionPosition).setUserAnswer(Answer.byteValue());
+        NextQuestion();
+
+    }//_____________________________________________________________________________________________ clickItemAnswer
 
 
 }

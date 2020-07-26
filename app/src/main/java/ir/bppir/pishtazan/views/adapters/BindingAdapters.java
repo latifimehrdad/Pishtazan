@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -22,6 +23,22 @@ import static ir.bppir.pishtazan.daggers.retrofit.RetrofitApis.Host;
 
 public class BindingAdapters {
 
+
+    @BindingAdapter(value = {"TextRadioButton","userAnswerRadioButton","radioButtonTag"})
+    public static void SetValueForRadioButton(RadioButton radioButton, String title, Byte userAnswer, Integer radioTag) {
+        radioButton.setText(title);
+        if (userAnswer == null){
+            radioButton.setChecked(false);
+            return;
+        }
+
+        if (userAnswer == radioTag.byteValue())
+            radioButton.setChecked(true);
+        else
+            radioButton.setChecked(false);
+    }
+
+
     @BindingAdapter(value = "SetTextViewLevel")
     public static void SetTextViewLevel(TextView textView, Integer level) {//_______________________ SetTextViewLevel
 
@@ -29,7 +46,6 @@ public class BindingAdapters {
         textView.setText(context.getResources().getString(R.string.Level) + " " + level.toString());
 
     }//_____________________________________________________________________________________________ SetTextViewLevel
-
 
 
     @BindingAdapter(value = "SetTextViewText")

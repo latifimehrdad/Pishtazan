@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="question"
@@ -38,42 +39,54 @@
                 android:layoutDirection="rtl">
 
                 <RadioButton
+                    android:id="@+id/RadioButtonA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/ML_Black"
                     android:textSize="@dimen/_11sdp"
                     android:theme="@style/mlCheck"
-                    android:text="@{question.answerA}"
+                    app:TextRadioButton="@{question.answerA}"
+                    app:userAnswerRadioButton="@{question.userAnswer}"
+                    app:radioButtonTag="@{1}"
                     />
 
                 <RadioButton
+                    android:id="@+id/RadioButtonB"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/ML_Black"
                     android:textSize="@dimen/_11sdp"
                     android:theme="@style/mlCheck"
                     android:layout_marginTop="@dimen/_7sdp"
-                    android:text="@{question.answerB}"
+                    app:TextRadioButton="@{question.answerB}"
+                    app:userAnswerRadioButton="@{question.userAnswer}"
+                    app:radioButtonTag="@{2}"
                     />
 
                 <RadioButton
+                    android:id="@+id/RadioButtonC"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/ML_Black"
                     android:textSize="@dimen/_11sdp"
                     android:theme="@style/mlCheck"
                     android:layout_marginTop="@dimen/_7sdp"
-                    android:text="@{question.answerC}"
+                    app:TextRadioButton="@{question.answerC}"
+                    app:userAnswerRadioButton="@{question.userAnswer}"
+                    app:radioButtonTag="@{3}"
                     />
 
                 <RadioButton
+                    android:id="@+id/RadioButtonD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/ML_Black"
                     android:textSize="@dimen/_11sdp"
                     android:theme="@style/mlCheck"
                     android:layout_marginTop="@dimen/_7sdp"
-                    android:text="@{question.answerD}"
+                    app:TextRadioButton="@{question.answerD}"
+                    app:userAnswerRadioButton="@{question.userAnswer}"
+                    app:radioButtonTag="@{4}"
                     />
 
             </RadioGroup>
