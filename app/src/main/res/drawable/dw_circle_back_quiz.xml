@@ -6,7 +6,7 @@
     android:thickness="@dimen/_3sdp"
     android:useLevel="false">
 
-    <solid android:color="@color/ML_Trans" />
+    <solid android:color="@color/ML_WhiteGray" />
 
 
 </shape>

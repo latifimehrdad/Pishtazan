@@ -97,6 +97,7 @@ public class TutorialMovie extends FragmentPrimary implements
         Bundle bundle = new Bundle();
         bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_tutorialMovie.getMd_tutorialMovies().get(Position).getId());
         bundle.putInt(getContext().getResources().getString(R.string.ML_questionTime), vm_tutorialMovie.getMd_tutorialMovies().get(Position).getQuestionTime());
+        bundle.putString(getContext().getResources().getString(R.string.ML_MovieUrl), vm_tutorialMovie.getMd_tutorialMovies().get(Position).getMovieUrl());
         navController.navigate(R.id.action_tutorialMovie_to_quiz, bundle);
     }//_____________________________________________________________________________________________ clickItemTutorialMovie
 

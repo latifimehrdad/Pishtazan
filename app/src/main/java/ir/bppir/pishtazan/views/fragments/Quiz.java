@@ -1,5 +1,8 @@
 package ir.bppir.pishtazan.views.fragments;
 
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -12,9 +15,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,6 +48,8 @@ public class Quiz extends FragmentPrimary implements
     private int questionPosition;
     private AP_Question ap_question;
     private MD_Question md_question;
+    private String movieUrl;
+    private NavController navController;
 
     @BindView(R.id.LinearLayoutStart)
     LinearLayout LinearLayoutStart;
@@ -88,6 +96,7 @@ public class Quiz extends FragmentPrimary implements
             setView(binding.getRoot());
             movieId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
             questionTime = getArguments().getInt(getContext().getResources().getString(R.string.ML_questionTime), 0);
+            movieUrl = getArguments().getString(getContext().getResources().getString(R.string.ML_MovieUrl), "");
             init();
         }
         return getView();
@@ -101,6 +110,8 @@ public class Quiz extends FragmentPrimary implements
                 Quiz.this,
                 vm_quiz.getPublishSubject(),
                 vm_quiz);
+        navController = Navigation.findNavController(getView());
+        getContext().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -129,6 +140,16 @@ public class Quiz extends FragmentPrimary implements
 
         LinearLayoutNextQuestion.setOnClickListener(v -> {
             NextQuestion();
+        });
+
+        RelativeLayoutPlay.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString(getContext().getResources().getString(R.string.ML_MovieUrl), movieUrl);
+            navController.navigate(R.id.action_quiz_to_moviePlayer, bundle);
+
+//            Intent i = new Intent(Intent.ACTION_VIEW);
+//            i.setDataAndType(Uri.parse(movieUrl),"video/mp4");
+//            getActivity().startActivity(i);
         });
 
     }//_____________________________________________________________________________________________ SetOnClick

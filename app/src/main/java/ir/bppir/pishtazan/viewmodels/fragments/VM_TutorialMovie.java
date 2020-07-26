@@ -22,15 +22,15 @@ public class VM_TutorialMovie extends VM_Primary {
 
     public void GetTutorialMovie(Integer tutorialId) {//____________________________________________ GetTutorialMovie
 
-//        Integer UserInfoId = GetUserId();
-//        if (UserInfoId == 0) {
-//            UserIsNotAuthorization();
-//            return;
-//        }
+        Integer UserInfoId = GetUserId();
+        if (UserInfoId == 0) {
+            UserIsNotAuthorization();
+            return;
+        }
 
         md_tutorialMovies = new ArrayList<>();
         for (int i = 0; i < 5; i++)
-            md_tutorialMovies.add(new MD_TutorialMovie(i, "ویدیو " + tutorialId + " - " + i, "http://uupload.ir/files/f17r_1e374385f1c390f86bdc865111ca1285.jpg", "", "00:35", 15 * i));
+            md_tutorialMovies.add(new MD_TutorialMovie(i, "ویدیو " + tutorialId + " - " + i, "http://uupload.ir/files/f17r_1e374385f1c390f86bdc865111ca1285.jpg", "http://8upload.ir/uploads/f798030714.mp4", "00:35", 15 * i));
         Handler handler = new Handler();
         handler.postDelayed(() -> SendMessageToObservable(StaticValues.ML_GetTutorialMovie), 1500);
 

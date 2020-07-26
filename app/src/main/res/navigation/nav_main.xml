@@ -255,6 +255,9 @@
         <argument android:name="ML_questionTime"
             android:defaultValue="0"/>
 
+        <argument android:name="@string/ML_MovieUrl"
+            android:defaultValue="null"/>
+
 
         <action
             android:id="@+id/action_tutorialMovie_to_quiz"
@@ -270,6 +273,25 @@
         android:id="@+id/quiz"
         android:name="ir.bppir.pishtazan.views.fragments.Quiz"
         android:label="Quiz"
-        tools:layout="@layout/fragment_quiz"/>
+        tools:layout="@layout/fragment_quiz">
+
+        <argument android:name="@string/ML_MovieUrl"
+            android:defaultValue="null"/>
+
+        <action
+            android:id="@+id/action_quiz_to_moviePlayer"
+            app:destination="@id/moviePlayer"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/moviePlayer"
+        android:name="ir.bppir.pishtazan.views.fragments.MoviePlayer"
+        android:label="MoviePlayer"
+        tools:layout="@layout/fragment_movie_player"/>
 
 </navigation>

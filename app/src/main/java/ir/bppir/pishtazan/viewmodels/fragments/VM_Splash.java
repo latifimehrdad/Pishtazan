@@ -26,9 +26,9 @@ public class VM_Splash extends VM_Primary {
         if (userInfos.size() > 0)
             isLogin = true;
 
-//        if (!isLogin)
-//            SendMessageToObservable(StaticValues.ML_GotoSignUp);
-//        else
+        if (!isLogin)
+            SendMessageToObservable(StaticValues.ML_GotoSignUp);
+        else
             SendMessageToObservable(StaticValues.ML_GotoHome);
 
 

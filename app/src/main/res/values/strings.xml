@@ -124,5 +124,6 @@
     <string name="ML_PolicyTypeId">ML_PolicyTypeId</string>
     <string name="ML_Date">ML_Date</string>
     <string name="ML_questionTime">questionTime</string>
+    <string name="ML_MovieUrl">MovieUrl</string>
 
 </resources>

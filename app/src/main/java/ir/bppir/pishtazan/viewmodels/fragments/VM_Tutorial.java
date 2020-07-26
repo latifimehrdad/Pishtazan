@@ -24,11 +24,11 @@ public class VM_Tutorial extends VM_Primary {
 
     public void GetTutorial() {//___________________________________________________________________ GetTutorial
 
-//        Integer UserInfoId = GetUserId();
-//        if (UserInfoId == 0) {
-//            UserIsNotAuthorization();
-//            return;
-//        }
+        Integer UserInfoId = GetUserId();
+        if (UserInfoId == 0) {
+            UserIsNotAuthorization();
+            return;
+        }
 
         md_tutorials = new ArrayList<>();
         for (int i = 0; i < 10; i++)

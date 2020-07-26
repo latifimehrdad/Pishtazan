@@ -23,7 +23,7 @@
             android:progress="80"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/dw_half_circle_progress_back"
+            android:background="@drawable/dw_circle_back_quiz"
             android:progressDrawable="@drawable/dw_half_circle_progress" />
 
 
