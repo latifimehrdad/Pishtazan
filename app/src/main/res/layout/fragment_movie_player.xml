@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="movie"
@@ -10,11 +11,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <FrameLayout
+            android:id="@+id/video_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="200dp"
+            android:background="@android:color/black">
+
+            <com.universalvideoview.UniversalVideoView
+                android:id="@+id/universalVideoViewMovie"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                app:uvv_autoRotation="true"
+                app:uvv_fitXY="false" />
+
+            <com.universalvideoview.UniversalMediaController
+                android:id="@+id/universalMediaController"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                app:uvv_scalable="true" />
+
+        </FrameLayout>
+
 
         <VideoView
             android:id="@+id/VideoViewMovie"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 

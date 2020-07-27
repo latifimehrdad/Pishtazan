@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "ir.bppir.pishtazan"
-        minSdkVersion 17
+        minSdkVersion 18
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -86,5 +86,7 @@ dependencies {
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 
     implementation 'com.github.yalantis:ucrop:2.2.2'
+
+    implementation 'com.linsea:universalvideoview:1.1.0@aar'
 
 }
