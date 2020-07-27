@@ -25,7 +25,7 @@
                 android:textSize="@dimen/_10sdp"
                 android:textColor="@color/colorPrimaryDark"
                 android:gravity="right|center_vertical"
-                android:text="@{detail.title}"/>
+                android:text="@{detail.value}"/>
 
             <LinearLayout
                 android:layout_width="1dp"
@@ -41,7 +41,7 @@
                 android:textSize="@dimen/_10sdp"
                 android:textColor="@color/colorPrimaryDark"
                 android:gravity="right|center_vertical"
-                android:text="@{detail.value}"/>
+                android:text="@{detail.title}"/>
 
 
         </LinearLayout>

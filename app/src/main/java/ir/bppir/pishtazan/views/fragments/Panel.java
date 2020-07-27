@@ -773,7 +773,7 @@ public class Panel extends FragmentPrimary implements
 
 
     private void MoveToCertain(Integer Position) {//_______________________________________________ MoveToPossible
-        vm_panel.MoveToCertain(Position);
+        //vm_panel.MoveToCertain(Position);
     }//_____________________________________________________________________________________________ MoveToPossible
 
 

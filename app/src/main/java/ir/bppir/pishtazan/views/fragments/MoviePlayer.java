@@ -133,6 +133,7 @@ public class MoviePlayer extends FragmentPrimary implements FragmentPrimary.GetM
                 Log.i("meri", "onBufferingEnd UniversalVideoView callback");
             }
 
+
         });
 
 
