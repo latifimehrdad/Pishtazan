@@ -134,24 +134,7 @@ public class VM_Panel extends VM_Primary {
             Long longTime,
             String stringTime) {//__________________________________________________________________ SaveCallReminder
 
-//        if (personList.get(Position).getPersonType() == 0)
-//            setResponseMessage(getContext().getResources().getString(R.string.SaveCallReminderAndConvert));
-//        else
         setResponseMessage(getContext().getResources().getString(R.string.SaveCallReminder));
-//        Realm realm = Realm.getDefaultInstance();
-//        try {
-//            realm.beginTransaction();
-////            DB_Persons db_persons = realm
-////                    .where(DB_Persons.class)
-////                    .equalTo("Id", personList.get(Position).getId())
-////                    .findAll().first();
-////            if (db_persons != null)
-////                db_persons.setPersonType(StaticValues.ML_Possible);
-//            realm.commitTransaction();
-//        } finally {
-//            if (realm != null)
-//                realm.close();
-//        }
 
         MD_Notify md_notify = new MD_Notify(
                 StaticValues.Call,
@@ -213,7 +196,48 @@ public class VM_Panel extends VM_Primary {
     }//_____________________________________________________________________________________________ SaveMeetingReminder
 
 
-    public void DeletePerson(int panelType, Integer Position) {//__________________________________________________ DeletePerson
+
+    private void SendReminderToServer() {//_________________________________________________________ SendReminderToServer
+
+        Integer UserInfoId = GetUserId();
+        if (UserInfoId == 0) {
+            UserIsNotAuthorization();
+            return;
+        }
+
+        setPrimaryCall(PishtazanApplication
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .CREATE_REMINDER(
+
+                ));
+
+        getPrimaryCall().enqueue(new Callback<MR_GetAllPerson>() {
+            @Override
+            public void onResponse(Call<MR_GetAllPerson> call, Response<MR_GetAllPerson> response) {
+                if (ResponseIsOk(response)) {
+                    setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 0)
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    else {
+                        personList = response.body().getCustomers();
+                        getPublishSubject().onNext(StaticValues.ML_GetPerson);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MR_GetAllPerson> call, Throwable t) {
+                CallIsFailure();
+            }
+        });
+
+    }//_____________________________________________________________________________________________ SendReminderToServer
+
+
+
+    public void DeletePerson(int panelType, Integer Position) {//___________________________________ DeletePerson
         if (panelType == StaticValues.Customer)
             DeleteCustomer(Position);
         else

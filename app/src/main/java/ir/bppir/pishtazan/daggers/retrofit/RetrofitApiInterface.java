@@ -27,6 +27,8 @@ public interface RetrofitApiInterface {
     String Version = "/api";
     String Colleague = "Colleague";
     String Policy = "Policy.";
+    String Reminder = "Reminder.";
+    String Customer = "Customer.";
 
     @FormUrlEncoded
     @POST(Version + "/GenerateCode")
@@ -221,5 +223,37 @@ public interface RetrofitApiInterface {
                     @Field(Policy + "Description") String Description,
                     @Field(Policy + "SuggestionDateM") String SuggestionDateM
             );
+
+    
+    @FormUrlEncoded
+    @POST(Version + "/CreateReminder")
+    Call<MR_Primary> CREATE_REMINDER_CUSTOMER
+            (
+                    @Field(Reminder + "NotificationDateTimeJ") String NotificationDateTimeJ,
+                    @Field(Reminder + "Notification.Time") String Time,
+                    @Field(Reminder + "Title") String Title,
+                    @Field(Reminder + "RelationType") Integer RelationType,
+                    @Field(Reminder + "ReminderType") Integer ReminderType,
+                    @Field(Reminder + "ReminderResult") Integer ReminderResult,
+                    @Field(Reminder + Customer + "UserInfoId") Integer UserInfoId,
+                    @Field(Reminder + "CustomerId") Integer CustomerId
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/CreateReminder")
+    Call<MR_Primary> CREATE_REMINDER_COLLEAGUE
+            (
+                    @Field(Reminder + "NotificationDateTimeJ") String NotificationDateTimeJ,
+                    @Field(Reminder + "Notification.Time") String Time,
+                    @Field(Reminder + "Title") String Title,
+                    @Field(Reminder + "RelationType") Integer RelationType,
+                    @Field(Reminder + "ReminderType") Integer ReminderType,
+                    @Field(Reminder + "ReminderResult") Integer ReminderResult,
+                    @Field(Reminder + Customer + "UserInfoId") Integer UserInfoId,
+                    @Field(Reminder + "ColleagueId") Integer ColleagueId
+            );
+
+
 
 }
