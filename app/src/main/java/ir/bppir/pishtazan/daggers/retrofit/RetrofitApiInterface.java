@@ -232,11 +232,11 @@ public interface RetrofitApiInterface {
                     @Field(Reminder + "NotificationDateTimeJ") String NotificationDateTimeJ,
                     @Field(Reminder + "Notification.Time") String Time,
                     @Field(Reminder + "Title") String Title,
-                    @Field(Reminder + "RelationType") Integer RelationType,
-                    @Field(Reminder + "ReminderType") Integer ReminderType,
+                    @Field(Reminder + "RelationType") Byte RelationType,
+                    @Field(Reminder + "ReminderType") Byte ReminderType,
                     @Field(Reminder + "ReminderResult") Integer ReminderResult,
-                    @Field(Reminder + Customer + "UserInfoId") Integer UserInfoId,
-                    @Field(Reminder + "CustomerId") Integer CustomerId
+                    @Field(Reminder + "CustomerId") Integer CustomerId,
+                    @Field(Reminder + "RelationDateTimeJ") String RelationDateTime
             );
 
 
@@ -247,13 +247,22 @@ public interface RetrofitApiInterface {
                     @Field(Reminder + "NotificationDateTimeJ") String NotificationDateTimeJ,
                     @Field(Reminder + "Notification.Time") String Time,
                     @Field(Reminder + "Title") String Title,
-                    @Field(Reminder + "RelationType") Integer RelationType,
-                    @Field(Reminder + "ReminderType") Integer ReminderType,
+                    @Field(Reminder + "RelationType") Byte RelationType,
+                    @Field(Reminder + "ReminderType") Byte ReminderType,
                     @Field(Reminder + "ReminderResult") Integer ReminderResult,
-                    @Field(Reminder + Customer + "UserInfoId") Integer UserInfoId,
-                    @Field(Reminder + "ColleagueId") Integer ColleagueId
+                    @Field(Reminder + "ColleagueId") Integer ColleagueId,
+                    @Field(Reminder + "RelationDateTimeJ") String RelationDateTime
             );
 
+
+    @FormUrlEncoded
+    @POST(Version + "/ChangeReminderResult")
+    Call<MR_Primary> CHANGE_REMINDER_RESULT
+            (
+                    @Field("Id") Integer Id,
+                    @Field("UserInfoId") Integer UserInfoId,
+                    @Field("ReminderResult") Integer ReminderResult
+            );
 
 
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:background="@color/ML_White"
     android:padding="@dimen/_15sdp"
     android:orientation="vertical"
@@ -59,6 +59,7 @@
             >
 
             <ImageView
+                android:id="@+id/ImageViewSave"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
                 android:layout_marginLeft="@dimen/_7sdp"
@@ -66,6 +67,15 @@
                 android:src="@drawable/ic_baseline_how_to_reg"
                 android:tint="@color/ML_White"
                 />
+
+            <com.cunoraz.gifview.library.GifView
+                android:id="@+id/ProgressGif"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginLeft="@dimen/_7sdp"
+                android:layout_marginRight="@dimen/_2sdp"
+                android:visibility="gone"
+                custom:gif="@drawable/loading3" />
 
             <TextView
                 fontPath="fonts/iransans_web_medium.ttf"

@@ -47,9 +47,7 @@ public class Panel extends FragmentPrimary implements
     private AP_Person AP_person;
     public Byte PersonType = 0;
     private Dialog dialog;
-    private Long longDate;
     private String stringDate;
-    private Long longTime;
     private String stringTime;
     private boolean GoToAddPerson;
     private View personPositionView;
@@ -171,7 +169,7 @@ public class Panel extends FragmentPrimary implements
             personPositionView.setAnimation(outLeft);
             personPositionView.setVisibility(View.INVISIBLE);
             Handler handler = new Handler();
-            handler.postDelayed(() -> GetList(),700);
+            handler.postDelayed(() -> GetList(), 700);
             return;
         }
 
@@ -265,7 +263,7 @@ public class Panel extends FragmentPrimary implements
             dialog.dismiss();
         dialog = null;
 
-        longDate = Long.valueOf(0);
+        stringDate = "";
         dialog = null;
         dialog = new Dialog(getContext());
         dialog.setCancelable(true);
@@ -418,8 +416,7 @@ public class Panel extends FragmentPrimary implements
             dialog.dismiss();
         dialog = null;
 
-
-        longDate = Long.valueOf(0);
+        stringDate = "";
         dialog = null;
         dialog = new Dialog(getContext());
         dialog.setCancelable(false);
@@ -430,6 +427,15 @@ public class Panel extends FragmentPrimary implements
         lp.copyFrom(window.getAttributes());
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         window.setAttributes(lp);
+
+        ImageView ImageViewSave = (ImageView)
+                dialog.findViewById(R.id.ImageViewSave);
+
+        GifView ProgressGif = (GifView)
+                dialog.findViewById(R.id.ProgressGif);
+
+        ProgressGif.setVisibility(View.GONE);
+        ImageViewSave.setVisibility(View.VISIBLE);
 
         TimePicker TimePickerReminder = (TimePicker)
                 dialog.findViewById(R.id.TimePickerReminder);
@@ -450,19 +456,13 @@ public class Panel extends FragmentPrimary implements
                 persianCalendar.setListener(new Listener() {
                     @Override
                     public void onDateSelected(PersianCalendar persianCalendar) {
-                        StringBuilder sb1 = new StringBuilder();
-                        sb1.append(persianCalendar.getPersianYear());
-                        sb1.append(String.format("%02d", persianCalendar.getPersianMonth()));
-                        sb1.append(String.format("%02d", persianCalendar.getPersianDay()));
-                        longDate = Long.valueOf(sb1.toString());
-
-                        StringBuilder sb2 = new StringBuilder();
-                        sb2.append(persianCalendar.getPersianYear());
-                        sb2.append("/");
-                        sb2.append(String.format("%02d", persianCalendar.getPersianMonth()));
-                        sb2.append("/");
-                        sb2.append(String.format("%02d", persianCalendar.getPersianDay()));
-                        stringDate = sb2.toString();
+                        StringBuilder sb = new StringBuilder();
+                        sb.append(persianCalendar.getPersianYear());
+                        sb.append("/");
+                        sb.append(String.format("%02d", persianCalendar.getPersianMonth()));
+                        sb.append("/");
+                        sb.append(String.format("%02d", persianCalendar.getPersianDay()));
+                        stringDate = sb.toString();
                         TextViewChooseDate.setText(stringDate);
                         TextViewChooseDate.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_back));
                     }
@@ -493,23 +493,17 @@ public class Panel extends FragmentPrimary implements
         LinearLayoutSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (longDate == 0) {
+                if (stringDate.length() < 8) {
                     TextViewChooseDate.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_empty_background));
                     return;
                 }
-                dialog.dismiss();
-                dialog = null;
-                StringBuilder sb1 = new StringBuilder();
-                sb1.append(String.format("%02d", TimePickerReminder.getCurrentHour()));
-                sb1.append(String.format("%02d", TimePickerReminder.getCurrentMinute()));
-                longTime = Long.valueOf(sb1.toString());
-
-                StringBuilder sb2 = new StringBuilder();
-                sb2.append(String.format("%02d", TimePickerReminder.getCurrentHour()));
-                sb2.append(":");
-                sb2.append(String.format("%02d", TimePickerReminder.getCurrentMinute()));
-                stringTime = sb2.toString();
-
+                StringBuilder sb = new StringBuilder();
+                sb.append(String.format("%02d", TimePickerReminder.getCurrentHour()));
+                sb.append(":");
+                sb.append(String.format("%02d", TimePickerReminder.getCurrentMinute()));
+                stringTime = sb.toString();
+                ProgressGif.setVisibility(View.VISIBLE);
+                ImageViewSave.setVisibility(View.GONE);
                 SaveCallReminder(Position);
             }
         });
@@ -525,7 +519,7 @@ public class Panel extends FragmentPrimary implements
             dialog.dismiss();
         dialog = null;
 
-        longDate = Long.valueOf(0);
+        stringDate = "";
         dialog = null;
         dialog = new Dialog(getContext());
         dialog.setCancelable(false);
@@ -543,6 +537,15 @@ public class Panel extends FragmentPrimary implements
         TextView TextViewChooseDate = (TextView)
                 dialog.findViewById(R.id.TextViewChooseDate);
 
+        ImageView ImageViewSave = (ImageView)
+                dialog.findViewById(R.id.ImageViewSave);
+
+        GifView ProgressGif = (GifView)
+                dialog.findViewById(R.id.ProgressGif);
+
+        ProgressGif.setVisibility(View.GONE);
+        ImageViewSave.setVisibility(View.VISIBLE);
+
         TextViewChooseDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -556,19 +559,13 @@ public class Panel extends FragmentPrimary implements
                 persianCalendar.setListener(new Listener() {
                     @Override
                     public void onDateSelected(PersianCalendar persianCalendar) {
-                        StringBuilder sb1 = new StringBuilder();
-                        sb1.append(persianCalendar.getPersianYear());
-                        sb1.append(String.format("%02d", persianCalendar.getPersianMonth()));
-                        sb1.append(String.format("%02d", persianCalendar.getPersianDay()));
-                        longDate = Long.valueOf(sb1.toString());
-
-                        StringBuilder sb2 = new StringBuilder();
-                        sb2.append(persianCalendar.getPersianYear());
-                        sb2.append("/");
-                        sb2.append(String.format("%02d", persianCalendar.getPersianMonth()));
-                        sb2.append("/");
-                        sb2.append(String.format("%02d", persianCalendar.getPersianDay()));
-                        stringDate = sb2.toString();
+                        StringBuilder sb = new StringBuilder();
+                        sb.append(persianCalendar.getPersianYear());
+                        sb.append("/");
+                        sb.append(String.format("%02d", persianCalendar.getPersianMonth()));
+                        sb.append("/");
+                        sb.append(String.format("%02d", persianCalendar.getPersianDay()));
+                        stringDate = sb.toString();
                         TextViewChooseDate.setText(stringDate);
                         TextViewChooseDate.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_back));
                     }
@@ -599,22 +596,17 @@ public class Panel extends FragmentPrimary implements
         LinearLayoutSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (longDate == 0) {
+                if (stringDate.length() < 8) {
                     TextViewChooseDate.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_empty_background));
                     return;
                 }
-                dialog.dismiss();
-                dialog = null;
-                StringBuilder sb1 = new StringBuilder();
-                sb1.append(String.format("%02d", TimePickerReminder.getCurrentHour()));
-                sb1.append(String.format("%02d", TimePickerReminder.getCurrentMinute()));
-                longTime = Long.valueOf(sb1.toString());
-
-                StringBuilder sb2 = new StringBuilder();
-                sb2.append(String.format("%02d", TimePickerReminder.getCurrentHour()));
-                sb2.append(":");
-                sb2.append(String.format("%02d", TimePickerReminder.getCurrentMinute()));
-                stringTime = sb2.toString();
+                StringBuilder sb = new StringBuilder();
+                sb.append(String.format("%02d", TimePickerReminder.getCurrentHour()));
+                sb.append(":");
+                sb.append(String.format("%02d", TimePickerReminder.getCurrentMinute()));
+                stringTime = sb.toString();
+                ProgressGif.setVisibility(View.VISIBLE);
+                ImageViewSave.setVisibility(View.GONE);
                 SaveMeetingReminder(Position);
             }
         });
@@ -763,12 +755,18 @@ public class Panel extends FragmentPrimary implements
 
 
     private void SaveCallReminder(Integer Position) {//_____________________________________________ SaveCallReminder
-        vm_panel.SaveCallReminder(panelType, Position, longDate, stringDate, longTime, stringTime);
+        if (panelType.equals(StaticValues.Customer))
+            vm_panel.SaveCustomerReminder(StaticValues.Call, Position, stringDate, stringTime);
+        else
+            vm_panel.SaveColleagueReminder(StaticValues.Call, Position, stringDate, stringTime);
     }//_____________________________________________________________________________________________ SaveCallReminder
 
 
     private void SaveMeetingReminder(Integer Position) {//__________________________________________ SaveMeetingReminder
-        vm_panel.SaveMeetingReminder(panelType, Position, longDate, stringDate, longTime, stringTime);
+        if (panelType.equals(StaticValues.Customer))
+            vm_panel.SaveCustomerReminder(StaticValues.Meeting, Position, stringDate, stringTime);
+        else
+            vm_panel.SaveColleagueReminder(StaticValues.Meeting, Position, stringDate, stringTime);
     }//_____________________________________________________________________________________________ SaveMeetingReminder
 
 

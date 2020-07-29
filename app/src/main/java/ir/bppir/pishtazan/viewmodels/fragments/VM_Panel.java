@@ -6,10 +6,7 @@ import android.os.Handler;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.realm.Realm;
 import ir.bppir.pishtazan.R;
-import ir.bppir.pishtazan.database.DB_Persons;
-import ir.bppir.pishtazan.models.MD_Notify;
 import ir.bppir.pishtazan.models.MD_Person;
 import ir.bppir.pishtazan.models.MR_GetAllPerson;
 import ir.bppir.pishtazan.models.MR_Primary;
@@ -126,115 +123,114 @@ public class VM_Panel extends VM_Primary {
     }//_____________________________________________________________________________________________ getPersonList
 
 
-    public void SaveCallReminder(
-            byte panelType,
+    public void SaveCustomerReminder(
+            Byte ReminderTypes,
             Integer Position,
-            Long longDate,
             String stringDate,
-            Long longTime,
-            String stringTime) {//__________________________________________________________________ SaveCallReminder
+            String stringTime) {//__________________________________________________________________ SaveCustomerReminder
 
-        setResponseMessage(getContext().getResources().getString(R.string.SaveCallReminder));
-
-        MD_Notify md_notify = new MD_Notify(
-                StaticValues.Call,
-                panelType,
-                stringDate,
-                longDate,
-                stringTime,
-                longTime,
-                null,
-                personList.get(Position).getFullName(),
-                personList.get(Position).getMobileNumber(),
-                personList.get(Position).getId());
-        SaveToNotify(md_notify);
-
-    }//_____________________________________________________________________________________________ SaveCallReminder
-
-
-    public void SaveMeetingReminder(
-            byte panelType,
-            Integer Position,
-            Long longDate,
-            String stringDate,
-            Long longTime,
-            String stringTime) {//______________________________ ____________________________________ SaveMeetingReminder
-
-//        if (personList.get(Position).getPersonType() == 0)
-//            setResponseMessage(getContext().getResources().getString(R.string.SaveMeetingReminderAndConvert));
-//        else
-            setResponseMessage(getContext().getResources().getString(R.string.SaveMeetingReminder));
-//
-//        Realm realm = Realm.getDefaultInstance();
-//        try {
-//            realm.beginTransaction();
-//            DB_Persons db_persons = realm
-//                    .where(DB_Persons.class)
-//                    .equalTo("Id", personList.get(Position).getId())
-//                    .findAll().first();
-//            if (db_persons != null)
-//                db_persons.setPersonType(StaticValues.ML_Possible);
-//            realm.commitTransaction();
-//        } finally {
-//            if (realm != null)
-//                realm.close();
-//        }
-//
-
-        MD_Notify md_notify = new MD_Notify(
-                StaticValues.Meeting,
-                panelType,
-                stringDate,
-                longDate,
-                stringTime,
-                longTime,
-                null,
-                personList.get(Position).getFullName(),
-                personList.get(Position).getMobileNumber(),
-                personList.get(Position).getId());
-        SaveToNotify(md_notify);
-    }//_____________________________________________________________________________________________ SaveMeetingReminder
-
-
-
-    private void SendReminderToServer() {//_________________________________________________________ SendReminderToServer
-
-        Integer UserInfoId = GetUserId();
-        if (UserInfoId == 0) {
-            UserIsNotAuthorization();
-            return;
-        }
+        StringBuilder title = new StringBuilder();
+        if (ReminderTypes.equals(StaticValues.Call))
+            title.append(getContext().getResources().getString(R.string.CallWith));
+        else
+            title.append(getContext().getResources().getString(R.string.MeetingWith));
+        title.append(" ");
+        title.append(personList.get(Position).getFullName());
+        title.append(" در ");
+        title.append(getContext().getResources().getString(R.string.Clock));
+        title.append(" ");
+        title.append(stringTime);
 
         setPrimaryCall(PishtazanApplication
                 .getApplication(getContext())
                 .getRetrofitComponent()
                 .getRetrofitApiInterface()
-                .CREATE_REMINDER(
-
+                .CREATE_REMINDER_CUSTOMER(
+                        stringDate,
+                        stringTime,
+                        title.toString(),
+                        StaticValues.Customer,
+                        ReminderTypes,
+                        0,
+                        personList.get(Position).getId(),
+                        stringDate
                 ));
 
-        getPrimaryCall().enqueue(new Callback<MR_GetAllPerson>() {
+        getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
-            public void onResponse(Call<MR_GetAllPerson> call, Response<MR_GetAllPerson> response) {
+            public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
                     else {
-                        personList = response.body().getCustomers();
-                        getPublishSubject().onNext(StaticValues.ML_GetPerson);
+                        getPublishSubject().onNext(StaticValues.ML_SaveReminder);
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<MR_GetAllPerson> call, Throwable t) {
+            public void onFailure(Call<MR_Primary> call, Throwable t) {
                 CallIsFailure();
             }
         });
 
-    }//_____________________________________________________________________________________________ SendReminderToServer
+    }//_____________________________________________________________________________________________ SaveCustomerReminder
 
+
+    public void SaveColleagueReminder(
+            Byte ReminderTypes,
+            Integer Position,
+            String stringDate,
+            String stringTime) {//__________________________________________________________________ SaveColleagueReminder
+
+        StringBuilder title = new StringBuilder();
+        if (ReminderTypes.equals(StaticValues.Call))
+            title.append(getContext().getResources().getString(R.string.CallWith));
+        else
+            title.append(getContext().getResources().getString(R.string.MeetingWith));
+        title.append(" ");
+        title.append(personList.get(Position).getFullName());
+        title.append(" در ");
+        title.append(getContext().getResources().getString(R.string.Clock));
+        title.append(" ");
+        title.append(stringTime);
+
+        setPrimaryCall(PishtazanApplication
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .CREATE_REMINDER_COLLEAGUE(
+                        stringDate,
+                        stringTime,
+                        title.toString(),
+                        StaticValues.Colleague,
+                        ReminderTypes,
+                        0,
+                        personList.get(Position).getId(),
+                        stringDate
+                ));
+
+        getPrimaryCall().enqueue(new Callback<MR_Primary>() {
+            @Override
+            public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
+                if (ResponseIsOk(response)) {
+                    setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 0)
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    else {
+                        getPublishSubject().onNext(StaticValues.ML_SaveReminder);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MR_Primary> call, Throwable t) {
+                CallIsFailure();
+            }
+        });
+
+    }//_____________________________________________________________________________________________ SaveColleagueReminder
 
 
     public void DeletePerson(int panelType, Integer Position) {//___________________________________ DeletePerson
@@ -391,26 +387,5 @@ public class VM_Panel extends VM_Primary {
         });
 
     }//_____________________________________________________________________________________________ MoveToPossibleCustomer
-
-
-    public void MoveToCertain(Integer Position) {//________________________________________________ MoveToPossible
-        setResponseMessage(getContext().getResources().getString(R.string.SuccessForMoveToCertain));
-        Realm realm = Realm.getDefaultInstance();
-        try {
-            realm.beginTransaction();
-            DB_Persons db_persons = realm
-                    .where(DB_Persons.class)
-                    .equalTo("Id", personList.get(Position).getId())
-                    .findAll().first();
-            if (db_persons != null)
-                db_persons.setPersonType(StaticValues.ML_Certain);
-            realm.commitTransaction();
-        } finally {
-            if (realm != null)
-                realm.close();
-        }
-        getPublishSubject().onNext(StaticValues.ML_ConvertPerson);
-    }//_____________________________________________________________________________________________ MoveToPossible
-
 
 }
