@@ -26,7 +26,7 @@ public class NotificationManagerClass {
 
     private Context context;
     private Boolean ShowAlways;
-    private DB_Notification db_notification;
+   /* private DB_Notification db_notification;*/
     private NotificationManager notifManager;
     private String CHANNEL_ONE_NAME = "Reminder1";
     private String CHANNEL_ONE_ID = "com.ngra.trafficcontroller.reminder1";
@@ -50,15 +50,16 @@ public class NotificationManagerClass {
 
     public NotificationManagerClass(
             Context context,
-            DB_Notification db_notification) {//____________________________________________________ NotificationManagerClass
+            String Text
+            /*DB_Notification db_notification*/) {//____________________________________________________ NotificationManagerClass
         this.context = context;
-        this.db_notification = db_notification;
+        /*this.db_notification = db_notification;*/
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationNew aNew = new NotificationNew(db_notification, context);
+            NotificationNew aNew = new NotificationNew(context, Text);
             notification = aNew.getNotification();
         } else {
-            NotificationOld old = new NotificationOld(db_notification, context);
+            NotificationOld old = new NotificationOld(context, Text);
             notification = old.getNotification();
         }
     }//_____________________________________________________________________________________________ NotificationManagerClass

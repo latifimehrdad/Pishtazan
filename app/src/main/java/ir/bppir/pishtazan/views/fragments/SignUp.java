@@ -16,6 +16,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.cunoraz.gifview.library.GifView;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,6 +79,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
+        FirebaseMessaging.getInstance().subscribeToTopic("all_user");
         init();
     }//_____________________________________________________________________________________________ onStart
 

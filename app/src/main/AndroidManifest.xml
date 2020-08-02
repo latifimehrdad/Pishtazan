@@ -31,6 +31,16 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
 
+
+        <service
+            android:name=".firebase.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+
         <activity android:name=".views.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,7 +65,6 @@
                 <action android:name="ML_Later"/>
             </intent-filter>
         </receiver>
-
 
         <service android:name=".background.ServiceNotification"
             android:stopWithTask="false"/>

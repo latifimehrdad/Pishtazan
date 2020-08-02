@@ -71,7 +71,7 @@ public class ReceiverReminder extends BroadcastReceiver {
             Log.i("meri", "notifications Size : " + notifications.size() + " Name : " + notifications.first().getPersonName());
             for(DB_Notification notification : notifications) {
                 realm.beginTransaction();
-                NotificationManagerClass managerClass = new NotificationManagerClass(context, notification);
+//                NotificationManagerClass managerClass = new NotificationManagerClass(context, notification);
                 notification.setShowAlarm(true);
                 realm.commitTransaction();
             }
@@ -103,7 +103,7 @@ public class ReceiverReminder extends BroadcastReceiver {
             Log.i("meri", "notifications Size : " + notificationsMeeting.size() + " Name : " + notificationsMeeting.first().getPersonName());
             for(DB_Notification notification : notificationsMeeting) {
                 realm.beginTransaction();
-                NotificationManagerClass managerClass = new NotificationManagerClass(context, notification);
+//                NotificationManagerClass managerClass = new NotificationManagerClass(context, notification);
                 notification.setShowAlarm(true);
                 realm.commitTransaction();
             }

@@ -8,6 +8,7 @@ package ir.bppir.pishtazan.viewmodels.fragments;
         import ir.bppir.pishtazan.database.DB_UserInfo;
         import ir.bppir.pishtazan.models.MR_GenerateCode;
         import ir.bppir.pishtazan.models.MRVerifyCode;
+        import ir.bppir.pishtazan.utility.StaticFunctions;
         import ir.bppir.pishtazan.utility.StaticValues;
         import ir.bppir.pishtazan.viewmodels.VM_Primary;
         import ir.bppir.pishtazan.views.application.PishtazanApplication;
@@ -73,6 +74,7 @@ public class VM_Verify extends VM_Primary {
                 .getApplicationUtility()
                 .PersianToEnglish(VerifyCode);
 
+        String FireBaseToken = StaticFunctions.getFirebaseToken();
 
         RetrofitComponent retrofitComponent = PishtazanApplication
                 .getApplication(getContext())
@@ -80,7 +82,7 @@ public class VM_Verify extends VM_Primary {
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .REQUEST_VERIFY_CODE_CALL(PhoneNumber, VerifyCode));
+                .REQUEST_VERIFY_CODE_CALL(PhoneNumber, FireBaseToken, VerifyCode));
 
         getPrimaryCall().enqueue(new Callback<MRVerifyCode>() {
             @Override

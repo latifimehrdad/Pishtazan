@@ -11,10 +11,22 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import ir.bppir.pishtazan.R;
 import retrofit2.Response;
 
 public class StaticFunctions {
+
+    public static String getFirebaseToken() {
+        String token  = FirebaseInstanceId.getInstance().getToken();
+        return token;
+    }
+
+    public static String getFirebaseId() {
+        String token = FirebaseInstanceId.getInstance().getId();
+        return token;
+    }
 
 
     public static void hideKeyboard(Activity activity) {//__________________________________________ Start hideKeyboard

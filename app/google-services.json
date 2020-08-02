@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "114753450646",
+    "firebase_url": "https://pishtazan-d6b37.firebaseio.com",
+    "project_id": "pishtazan-d6b37",
+    "storage_bucket": "pishtazan-d6b37.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:114753450646:android:eecc1fef8447b0973008b7",
+        "android_client_info": {
+          "package_name": "ir.bppir.pishtazan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "114753450646-eo9jjvvc9qi42mr84em7s7tb2neog2o5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ir.bppir.pishtazan",
+            "certificate_hash": "f24cdd1d604e41e498d2d835fbddbabfce947c71"
+          }
+        },
+        {
+          "client_id": "114753450646-9br4vmhef58pk3kunb1660gsonuu261j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCizc1RgA6h_xC7O9nphejBaJwDeU5l8IQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "114753450646-9br4vmhef58pk3kunb1660gsonuu261j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
