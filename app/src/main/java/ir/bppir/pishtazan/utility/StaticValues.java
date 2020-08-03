@@ -58,6 +58,8 @@ public class StaticValues {
     public static Byte ML_GetTutorialMovie = 25;
     public static Byte ML_GetQuestions = 26;
     public static Byte ML_SaveReminder = 27;
+    public static Byte ML_GetPost = 28;
+    public static Byte ML_GetNewQuiz = 29;
 
 
 }

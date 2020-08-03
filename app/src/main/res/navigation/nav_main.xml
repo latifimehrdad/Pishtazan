@@ -98,8 +98,8 @@
             app:popExitAnim="@anim/slide_out_left"/>
 
         <action
-            android:id="@+id/action_home_to_tutorial"
-            app:destination="@id/tutorial"
+            android:id="@+id/action_home_to_post"
+            app:destination="@id/post"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
@@ -293,5 +293,39 @@
         android:name="ir.bppir.pishtazan.views.fragments.MoviePlayer"
         android:label="MoviePlayer"
         tools:layout="@layout/fragment_movie_player"/>
+
+    <fragment
+        android:id="@+id/post"
+        android:name="ir.bppir.pishtazan.views.fragments.Post"
+        android:label="Post"
+        tools:layout="@layout/fragment_post">
+
+        <argument android:name="ML_Id"
+            android:defaultValue="0"/>
+
+        <argument android:name="ML_questionTime"
+            android:defaultValue="0"/>
+
+        <argument android:name="@string/ML_MovieUrl"
+            android:defaultValue="null"/>
+
+
+        <action
+            android:id="@+id/action_post_to_tutorial"
+            app:destination="@id/tutorial"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+        <action
+            android:id="@+id/action_post_to_quiz"
+            app:destination="@id/quiz"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+    </fragment>
 
 </navigation>

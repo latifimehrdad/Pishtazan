@@ -22,7 +22,7 @@ public class VM_Tutorial extends VM_Primary {
     }//_____________________________________________________________________________________________ VM_Learn
 
 
-    public void GetTutorial() {//___________________________________________________________________ GetTutorial
+    public void GetTutorial(Integer postId) {//_____________________________________________________ GetTutorial
 
         Integer UserInfoId = GetUserId();
         if (UserInfoId == 0) {

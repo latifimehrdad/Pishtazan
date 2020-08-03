@@ -137,7 +137,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
     private void SetClick() {//_____________________________________________________________________  SetClick
 
-        LinearLayoutTutorial.setOnClickListener(v -> navController.navigate(R.id.action_home_to_tutorial));
+        LinearLayoutTutorial.setOnClickListener(v -> navController.navigate(R.id.action_home_to_post));
 
 
         LinearLayoutColleagues.setOnClickListener(view -> {

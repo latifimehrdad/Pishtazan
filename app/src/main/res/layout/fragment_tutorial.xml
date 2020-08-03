@@ -13,6 +13,17 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/ML_Black"
+            android:gravity="center"
+            android:text="@string/ChooseLocationOnMap"/>
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerViewTutorial"
             android:layout_width="match_parent"

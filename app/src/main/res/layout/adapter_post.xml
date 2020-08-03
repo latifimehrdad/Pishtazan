@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="post"
+            type="ir.bppir.pishtazan.models.MD_Post" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@drawable/dw_back_recycler_person"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_marginBottom="@dimen/_7sdp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:padding="@dimen/_5sdp"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textSize="@dimen/_9sdp"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="@{post.title}"/>
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="match_parent"
+            android:minHeight="@dimen/_50sdp"
+            android:background="@drawable/dw_back_tutorial_right"
+            android:layout_marginBottom="5px">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:src="@drawable/logo_pishtazan_small"
+                app:civ_border_width="@dimen/_2sdp"
+                app:civ_border_color="@color/ML_Harmony"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_centerVertical="true"
+                />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</layout>

@@ -27,6 +27,7 @@ public class Tutorial extends FragmentPrimary implements
 
     private VM_Tutorial vm_tutorial;
     private NavController navController;
+    private Integer postId;
 
     @BindView(R.id.RecyclerViewTutorial)
     RecyclerView RecyclerViewTutorial;
@@ -46,6 +47,7 @@ public class Tutorial extends FragmentPrimary implements
             vm_tutorial = new VM_Tutorial(getActivity());
             binding.setTutorial(vm_tutorial);
             setView(binding.getRoot());
+            postId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
             init();
         }
         return getView();
@@ -65,7 +67,7 @@ public class Tutorial extends FragmentPrimary implements
 
     private void init() {//_________________________________________________________________________ init
         GifViewLoading.setVisibility(View.VISIBLE);
-        vm_tutorial.GetTutorial();
+        vm_tutorial.GetTutorial(postId);
     }//_____________________________________________________________________________________________ init
 
 
