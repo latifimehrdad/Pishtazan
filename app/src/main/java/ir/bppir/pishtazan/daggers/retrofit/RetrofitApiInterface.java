@@ -6,6 +6,7 @@ import java.util.Map;
 import ir.bppir.pishtazan.models.MD_GetAddres;
 import ir.bppir.pishtazan.models.MR_GenerateCode;
 import ir.bppir.pishtazan.models.MR_GetAllPerson;
+import ir.bppir.pishtazan.models.MR_PersonNumber;
 import ir.bppir.pishtazan.models.MR_Policy;
 import ir.bppir.pishtazan.models.MR_PolicyType;
 import ir.bppir.pishtazan.models.MR_Primary;
@@ -231,7 +232,7 @@ public interface RetrofitApiInterface {
     Call<MR_Primary> CREATE_REMINDER_CUSTOMER
             (
                     @Field(Reminder + "NotificationDateTimeJ") String NotificationDateTimeJ,
-                    @Field(Reminder + "Notification.Time") String Time,
+                    @Field(Reminder + "NotificationTime") String Time,
                     @Field(Reminder + "Title") String Title,
                     @Field(Reminder + "RelationType") Byte RelationType,
                     @Field(Reminder + "ReminderType") Byte ReminderType,
@@ -246,7 +247,7 @@ public interface RetrofitApiInterface {
     Call<MR_Primary> CREATE_REMINDER_COLLEAGUE
             (
                     @Field(Reminder + "NotificationDateTimeJ") String NotificationDateTimeJ,
-                    @Field(Reminder + "Notification.Time") String Time,
+                    @Field(Reminder + "NotificationTime") String Time,
                     @Field(Reminder + "Title") String Title,
                     @Field(Reminder + "RelationType") Byte RelationType,
                     @Field(Reminder + "ReminderType") Byte ReminderType,
@@ -263,6 +264,15 @@ public interface RetrofitApiInterface {
                     @Field("Id") Integer Id,
                     @Field("UserInfoId") Integer UserInfoId,
                     @Field("ReminderResult") Integer ReminderResult
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/GetMobileNumberByReminderId")
+    Call<MR_PersonNumber> GET_MOBILE_NUMBER
+            (
+                    @Field("Id") Integer Id,
+                    @Field("UserInfoId") Integer UserInfoId
             );
 
 

@@ -24,7 +24,7 @@ import io.github.inflationx.viewpump.ViewPump;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import ir.bppir.pishtazan.R;
-import ir.bppir.pishtazan.background.NotificationReceiver;
+import ir.bppir.pishtazan.firebase.NotificationReceiver;
 import ir.bppir.pishtazan.background.ReceiverLunchAppInBackground;
 import ir.bppir.pishtazan.daggers.applicationutility.ApplicationUtilityComponent;
 import ir.bppir.pishtazan.daggers.applicationutility.ApplicationUtilityModul;
@@ -52,7 +52,7 @@ public class PishtazanApplication extends MultiDexApplication {
     public void onCreate() {//______________________________________________________________________ onCreate
         super.onCreate();
         this.context = getApplicationContext();
-        setComponentEnabledSetting();
+/*        setComponentEnabledSetting();*/
         ConfigurationCalligraphy();
         ConfigurationApplicationUtility();
         ConfigurationDataPicker();
@@ -164,12 +164,12 @@ public class PishtazanApplication extends MultiDexApplication {
 
 
     private void setComponentEnabledSetting() {//___________________________________________________ setComponentEnabledSetting
-        ComponentName receiver = new ComponentName(this, ReceiverLunchAppInBackground.class);
+/*        ComponentName receiver = new ComponentName(this, ReceiverLunchAppInBackground.class);
         PackageManager pm = this.getPackageManager();
 
         pm.setComponentEnabledSetting(receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP);
+                PackageManager.DONT_KILL_APP);*/
     }//_____________________________________________________________________________________________ setComponentEnabledSetting
 
 

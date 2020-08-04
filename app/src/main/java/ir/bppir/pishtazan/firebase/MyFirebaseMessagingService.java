@@ -22,12 +22,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {//_________________________ Start onMessageReceived
         super.onMessageReceived(remoteMessage);
+
         context = getApplicationContext();
-
         Map<String, String> params = remoteMessage.getData();
-        String json = params.get("Request");
-        String message = params.get("NotifiMsg");
-
         NotificationManagerClass managerClass = new NotificationManagerClass(context, params.toString());
 
     }//_____________________________________________________________________________________________ End onMessageReceived

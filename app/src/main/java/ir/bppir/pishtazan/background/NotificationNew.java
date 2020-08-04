@@ -13,32 +13,35 @@ import android.net.Uri;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.database.DB_Notification;
+import ir.bppir.pishtazan.models.MD_Notification;
 import ir.bppir.pishtazan.utility.StaticValues;
 
 public class NotificationNew {
 
-//    private DB_Notification db_notification;
     private boolean ShowAlways;
     private Context context;
     private String CHANNEL_ONE_NAME = "Reminder1";
     private String CHANNEL_ONE_ID = "com.ngra.trafficcontroller.reminder1";
     private NotificationManager notifyManager;
     private android.app.Notification notification;
-    private String text;
+    private MD_Notification md_notification;
 
 
 //******************************************** Show Normal *****************************************
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public NotificationNew(Context context, String text) {//____________________ NotificationNew
-//        this.db_notification = db_notification;
-        this.text = text;
+        Gson gson = new Gson();
+        this.md_notification = gson.fromJson(text, MD_Notification.class);
         this.ShowAlways = false;
         this.context = context;
         CreateChannelsEvent();
@@ -49,84 +52,53 @@ public class NotificationNew {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void ShowNormalNotificationNew() {//____________________________________________________ ShowNormalNotificationNew
-/*        Integer id = db_notification.getId();
-Byte notifyType = db_notification.getNotifyType();
-* */
-        Integer id = 7126;
-        Byte notifyType = 0;
+
+        Integer id = md_notification.getId();
+        Byte NType = md_notification.getNType().byteValue();
+        Byte RType = md_notification.getRType().byteValue();
         List<Notification.Action> actions = new ArrayList<>();
-        if (notifyType.equals(StaticValues.Call)) {
-            actions.add(NotificationNewAction.GetAgainAction(id, context, StaticValues.Call));
-            actions.add(NotificationNewAction.GetCallAction(id, context, "09367085703", StaticValues.Call));
-            /*actions.add(NotificationNewAction.GetCallAction(id, context, db_notification.getPhoneNumber(), StaticValues.Call));*/
-/*            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(context.getResources().getString(R.string.CallWith));
-            stringBuilder.append(" ");
-            stringBuilder.append("mehrdad");
-            *//*stringBuilder.append(db_notification.getPersonName());*//*
-            stringBuilder.append(" در ");
-            stringBuilder.append(context.getResources().getString(R.string.Clock));
-            stringBuilder.append(" ");
-            stringBuilder.append("03:45");*/
-            /*stringBuilder.append(db_notification.getStringTime());*/
-            BuilderNotification(
-                    id,
-                    context.getResources().getString(R.string.RememberCall),
-                    text,
-                    actions);
-        } else if (notifyType.equals(StaticValues.Meeting)) {
-            actions.add(NotificationNewAction.GetIgnoreAction(id, context, StaticValues.Meeting));
-            actions.add(NotificationNewAction.GetAgainAction(id, context, StaticValues.Meeting));
-            actions.add(NotificationNewAction.GetGoMeetingAction(id, context, StaticValues.Meeting));
-/*            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(context.getResources().getString(R.string.MeetingWith));
-            stringBuilder.append(" ");
-            stringBuilder.append("mehrdad");
-            *//*stringBuilder.append(db_notification.getPersonName());*//*
-            stringBuilder.append(" در ");
-            stringBuilder.append(context.getResources().getString(R.string.Clock));
-            stringBuilder.append(" ");
-            stringBuilder.append("03:45");*/
-            /*stringBuilder.append(db_notification.getStringTime());*/
-            BuilderNotification(
-                    id,
-                    context.getResources().getString(R.string.RememberMeeting),
-                    text,
-                    actions);
-        } else if (notifyType.equals(StaticValues.ResponseCall)) {
-            actions.add(NotificationNewAction.GetIgnoreAction(id, context, StaticValues.ResponseCall));
-            actions.add(NotificationNewAction.GetAgainAction(id, context, StaticValues.Call));
-            actions.add(NotificationNewAction.GetCertainAction(id, context, StaticValues.Call,0));
-            /*actions.add(NotificationNewAction.GetCertainAction(id, context, StaticValues.Call,db_notification.getPersonId()));*/
-/*            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(context.getResources().getString(R.string.ResponseCall));
-            stringBuilder.append(" با ");
-            stringBuilder.append("mehrdad");
-            *//*stringBuilder.append(db_notification.getPersonName());*//*
-            stringBuilder.append(" ");
-            stringBuilder.append(context.getResources().getString(R.string.HowWasIt));*/
-            BuilderNotification(
-                    id,
-                    context.getResources().getString(R.string.ResponseCall),
-                    text,
-                    actions);
-        } else if (notifyType.equals(StaticValues.ResponseMeeting)) {
-            actions.add(NotificationNewAction.GetFailedAction(id, context, StaticValues.Meeting));
-            actions.add(NotificationNewAction.GetAgainAction(id, context, StaticValues.Meeting));
-            actions.add(NotificationNewAction.GetCertainAction(id, context, StaticValues.Meeting, 0));
-            /*actions.add(NotificationNewAction.GetCertainAction(id, context, StaticValues.Meeting, db_notification.getPersonId()));*/
-/*            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(context.getResources().getString(R.string.ResponseMeeting));
-            stringBuilder.append(" با ");
-            stringBuilder.append("mehrdad");
-            *//*stringBuilder.append(db_notification.getPersonName());*//*
-            stringBuilder.append(" ");
-            stringBuilder.append(context.getResources().getString(R.string.HowWasIt));*/
-            BuilderNotification(
-                    id,
-                    context.getResources().getString(R.string.ResponseMeeting),
-                    text,
-                    actions);
+
+        if (NType.equals(StaticValues.NTypeNormal)) {
+            if (RType.equals(StaticValues.RTypeCall)) {
+                actions.add(NotificationNewAction.GetAgainAction(id, context, StaticValues.Call));
+                actions.add(NotificationNewAction.GetIgnoreAction(id, context, StaticValues.Call));
+                actions.add(NotificationNewAction.GetCallAction(id, context, StaticValues.Call));
+                BuilderNotification(
+                        id,
+                        md_notification.getTitle(),
+                        md_notification.getBody(),
+                        actions);
+            } else if (RType.equals(StaticValues.RTypeMeeting)) {
+                actions.add(NotificationNewAction.GetIgnoreAction(id, context, StaticValues.Meeting));
+                actions.add(NotificationNewAction.GetAgainAction(id, context, StaticValues.Meeting));
+                actions.add(NotificationNewAction.GetGoMeetingAction(id, context, StaticValues.Meeting));
+                BuilderNotification(
+                        id,
+                        md_notification.getTitle(),
+                        md_notification.getBody(),
+                        actions);
+            }
+        } else if (NType.equals(StaticValues.NTypeResponse)) {
+            if (RType.equals(StaticValues.RTypeCall)) {
+                actions.add(NotificationNewAction.GetFailedAction(id, context, StaticValues.ResponseCall));
+                actions.add(NotificationNewAction.GetAgainAction(id, context, StaticValues.Call));
+                actions.add(NotificationNewAction.GetCertainAction(id, context, StaticValues.Call, 0));
+                BuilderNotification(
+                        id,
+                        md_notification.getTitle(),
+                        md_notification.getBody(),
+                        actions);
+
+            } else if (RType.equals(StaticValues.RTypeMeeting)) {
+                actions.add(NotificationNewAction.GetFailedAction(id, context, StaticValues.Meeting));
+                actions.add(NotificationNewAction.GetAgainAction(id, context, StaticValues.Meeting));
+                actions.add(NotificationNewAction.GetCertainAction(id, context, StaticValues.Meeting, 0));
+                BuilderNotification(
+                        id,
+                        md_notification.getTitle(),
+                        md_notification.getBody(),
+                        actions);
+            }
         }
 
     }//_____________________________________________________________________________________________ ShowNormalNotificationNew

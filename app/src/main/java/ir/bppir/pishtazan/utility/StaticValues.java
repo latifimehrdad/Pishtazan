@@ -2,6 +2,20 @@ package ir.bppir.pishtazan.utility;
 
 public class StaticValues {
 
+
+    //****************************************
+    public static Byte NTypeNormal = 0;
+    public static Byte NTypeResponse= 1;
+
+    public static Byte RTypeCall = 0;
+    public static Byte RTypeMeeting = 1;
+
+    public static Byte Certain = 1;
+    public static Byte Failed = 2;
+
+    //****************************************
+
+
     public static boolean isCancel = false;
     public static boolean isLogin = false;
 

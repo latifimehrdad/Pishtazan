@@ -9,9 +9,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+<!--    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+<!--    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -58,7 +58,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
 
-        <receiver android:name=".background.NotificationReceiver">
+        <receiver android:name=".firebase.NotificationReceiver">
             <intent-filter>
                 <action android:name="ML_Ignore"/>
                 <action android:name="ML_Calling"/>
@@ -66,14 +66,10 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".background.ServiceNotification"
-            android:stopWithTask="false"/>
+<!--        <service android:name=".background.ServiceNotification"
+            android:stopWithTask="false"/>-->
 
-        <service android:name=".background.TestJobService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="true"/>
-
-        <receiver android:name=".background.ReceiverLunchAppInBackground"
+<!--        <receiver android:name=".background.ReceiverLunchAppInBackground"
             android:enabled="true"
             android:process="ir.bppir.pishtazan"
             >
@@ -81,9 +77,9 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="ir.bppir.Lunch" />
             </intent-filter>
-        </receiver>
+        </receiver>-->
 
-        <receiver android:name=".background.ReceiverReminder"
+<!--        <receiver android:name=".background.ReceiverReminder"
             android:enabled="true"
             android:process="ir.bppir.pishtazan"
             >
@@ -91,7 +87,7 @@
                 <action android:name="accept"/>
                 <action android:name="disapprove"/>
             </intent-filter>
-        </receiver>
+        </receiver>-->
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

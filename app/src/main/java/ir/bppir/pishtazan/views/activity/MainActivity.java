@@ -190,9 +190,9 @@ public class MainActivity extends AppCompatActivity {
             int[] grantResults) {//_________________________________________________________________ Start onRequestPermissionsResult
         switch (requestCode) {
             case 0: {
-                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+/*                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     WhiteList();
-                }
+                }*/
             }
             case 3: {
                 if (requestCode == 3) {

@@ -23,11 +23,10 @@ public class NotificationOldAction {
     }//_____________________________________________________________________________________________ GetAgainAction
 
 
-    public static NotificationCompat.Action GetCallAction(Integer notifyId, Context context, String Phone, Byte type) {// GetCallAction
+    public static NotificationCompat.Action GetCallAction(Integer notifyId, Context context, Byte type) {// GetCallAction
         Intent CallIntent = new Intent();
         CallIntent.setAction(context.getString(R.string.ML_Calling));
         CallIntent.putExtra(context.getResources().getString(R.string.ML_Id), notifyId);
-        CallIntent.putExtra(context.getResources().getString(R.string.ML_PhoneNumber), Phone);
         PendingIntent CallingPendingIntent = PendingIntent.getBroadcast(context, notifyId + 20, CallIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         return new NotificationCompat.Action(0, context.getResources().getString(R.string.Calling), CallingPendingIntent);
     }//_____________________________________________________________________________________________ GetCallAction
