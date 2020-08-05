@@ -2,6 +2,8 @@ package ir.bppir.pishtazan.models;
 
 public class MD_Notification {
 
+
+
     private Integer id;
 
     private String body;
