@@ -12,15 +12,20 @@ public class MD_Notification {
 
     private String title;
 
+    private Integer PersonId;
 
-    public MD_Notification(Integer id, String body, Integer NType, Integer RType, String title) {
+    private Byte PersonType;
+
+
+    public MD_Notification(Integer id, String body, Integer NType, Integer RType, String title, Integer personId, Byte personType) {
         this.id = id;
         this.body = body;
         this.NType = NType;
         this.RType = RType;
         this.title = title;
+        PersonId = personId;
+        PersonType = personType;
     }
-
 
     public Integer getId() {
         return id;
@@ -60,5 +65,21 @@ public class MD_Notification {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Integer getPersonId() {
+        return PersonId;
+    }
+
+    public void setPersonId(Integer personId) {
+        PersonId = personId;
+    }
+
+    public Byte getPersonType() {
+        return PersonType;
+    }
+
+    public void setPersonType(Byte personType) {
+        PersonType = personType;
     }
 }

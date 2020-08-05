@@ -443,69 +443,60 @@ public class Panel extends FragmentPrimary implements
         TextView TextViewChooseDate = (TextView)
                 dialog.findViewById(R.id.TextViewChooseDate);
 
-        TextViewChooseDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        TextViewChooseDate.setOnClickListener(view -> {
 
-                PersianPickerModule.context = getContext();
-                PersianDatePickerDialog persianCalendar = PishtazanApplication
-                        .getApplication(getContext())
-                        .getPersianPickerComponent()
-                        .getPersianDatePickerDialog();
+            PersianPickerModule.context = getContext();
+            PersianDatePickerDialog persianCalendar = PishtazanApplication
+                    .getApplication(getContext())
+                    .getPersianPickerComponent()
+                    .getPersianDatePickerDialog();
 
-                persianCalendar.setListener(new Listener() {
-                    @Override
-                    public void onDateSelected(PersianCalendar persianCalendar) {
-                        StringBuilder sb = new StringBuilder();
-                        sb.append(persianCalendar.getPersianYear());
-                        sb.append("/");
-                        sb.append(String.format("%02d", persianCalendar.getPersianMonth()));
-                        sb.append("/");
-                        sb.append(String.format("%02d", persianCalendar.getPersianDay()));
-                        stringDate = sb.toString();
-                        TextViewChooseDate.setText(stringDate);
-                        TextViewChooseDate.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_back));
-                    }
+            persianCalendar.setListener(new Listener() {
+                @Override
+                public void onDateSelected(PersianCalendar persianCalendar) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(persianCalendar.getPersianYear());
+                    sb.append("/");
+                    sb.append(String.format("%02d", persianCalendar.getPersianMonth()));
+                    sb.append("/");
+                    sb.append(String.format("%02d", persianCalendar.getPersianDay()));
+                    stringDate = sb.toString();
+                    TextViewChooseDate.setText(stringDate);
+                    TextViewChooseDate.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_back));
+                }
 
-                    @Override
-                    public void onDismissed() {
+                @Override
+                public void onDismissed() {
 
-                    }
-                });
-                persianCalendar.show();
-            }
+                }
+            });
+            persianCalendar.show();
         });
 
         LinearLayout LinearLayoutCancel = (LinearLayout)
                 dialog.findViewById(R.id.LinearLayoutCancel);
 
-        LinearLayoutCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                dialog = null;
-            }
+        LinearLayoutCancel.setOnClickListener(view -> {
+            dialog.dismiss();
+            dialog = null;
         });
 
         LinearLayout LinearLayoutSave = (LinearLayout)
                 dialog.findViewById(R.id.LinearLayoutSave);
 
-        LinearLayoutSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (stringDate.length() < 8) {
-                    TextViewChooseDate.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_empty_background));
-                    return;
-                }
-                StringBuilder sb = new StringBuilder();
-                sb.append(String.format("%02d", TimePickerReminder.getCurrentHour()));
-                sb.append(":");
-                sb.append(String.format("%02d", TimePickerReminder.getCurrentMinute()));
-                stringTime = sb.toString();
-                ProgressGif.setVisibility(View.VISIBLE);
-                ImageViewSave.setVisibility(View.GONE);
-                SaveCallReminder(Position);
+        LinearLayoutSave.setOnClickListener(view -> {
+            if (stringDate.length() < 8) {
+                TextViewChooseDate.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_empty_background));
+                return;
             }
+            StringBuilder sb = new StringBuilder();
+            sb.append(String.format("%02d", TimePickerReminder.getCurrentHour()));
+            sb.append(":");
+            sb.append(String.format("%02d", TimePickerReminder.getCurrentMinute()));
+            stringTime = sb.toString();
+            ProgressGif.setVisibility(View.VISIBLE);
+            ImageViewSave.setVisibility(View.GONE);
+            SaveCallReminder(Position);
         });
 
         dialog.show();
@@ -756,17 +747,17 @@ public class Panel extends FragmentPrimary implements
 
     private void SaveCallReminder(Integer Position) {//_____________________________________________ SaveCallReminder
         if (panelType.equals(StaticValues.Customer))
-            vm_panel.SaveCustomerReminder(StaticValues.Call, Position, stringDate, stringTime);
+            vm_panel.SaveCustomerReminder(StaticValues.Call, Position, stringDate, stringTime, "", 0);
         else
-            vm_panel.SaveColleagueReminder(StaticValues.Call, Position, stringDate, stringTime);
+            vm_panel.SaveColleagueReminder(StaticValues.Call, Position, stringDate, stringTime, "", 0);
     }//_____________________________________________________________________________________________ SaveCallReminder
 
 
     private void SaveMeetingReminder(Integer Position) {//__________________________________________ SaveMeetingReminder
         if (panelType.equals(StaticValues.Customer))
-            vm_panel.SaveCustomerReminder(StaticValues.Meeting, Position, stringDate, stringTime);
+            vm_panel.SaveCustomerReminder(StaticValues.Meeting, Position, stringDate, stringTime, "", 0);
         else
-            vm_panel.SaveColleagueReminder(StaticValues.Meeting, Position, stringDate, stringTime);
+            vm_panel.SaveColleagueReminder(StaticValues.Meeting, Position, stringDate, stringTime, "", 0);
     }//_____________________________________________________________________________________________ SaveMeetingReminder
 
 

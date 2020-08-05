@@ -127,7 +127,9 @@ public class VM_Panel extends VM_Primary {
             Byte ReminderTypes,
             Integer Position,
             String stringDate,
-            String stringTime) {//__________________________________________________________________ SaveCustomerReminder
+            String stringTime,
+            String Name,
+            Integer PersonId) {//__________________________________________________________________ SaveCustomerReminder
 
         StringBuilder title = new StringBuilder();
         if (ReminderTypes.equals(StaticValues.Call))
@@ -135,7 +137,12 @@ public class VM_Panel extends VM_Primary {
         else
             title.append(getContext().getResources().getString(R.string.MeetingWith));
         title.append(" ");
-        title.append(personList.get(Position).getFullName());
+        if (Position == null) {
+            title.append(Name);
+        } else {
+            PersonId = personList.get(Position).getId();
+            title.append(personList.get(Position).getFullName());
+        }
         title.append(" در ");
         title.append(getContext().getResources().getString(R.string.Clock));
         title.append(" ");
@@ -152,7 +159,7 @@ public class VM_Panel extends VM_Primary {
                         StaticValues.Customer,
                         ReminderTypes,
                         0,
-                        personList.get(Position).getId(),
+                        PersonId,
                         stringDate
                 ));
 
@@ -182,7 +189,9 @@ public class VM_Panel extends VM_Primary {
             Byte ReminderTypes,
             Integer Position,
             String stringDate,
-            String stringTime) {//__________________________________________________________________ SaveColleagueReminder
+            String stringTime,
+            String Name,
+            Integer PersonId) {//__________________________________________________________________ SaveColleagueReminder
 
         StringBuilder title = new StringBuilder();
         if (ReminderTypes.equals(StaticValues.Call))
@@ -190,7 +199,12 @@ public class VM_Panel extends VM_Primary {
         else
             title.append(getContext().getResources().getString(R.string.MeetingWith));
         title.append(" ");
-        title.append(personList.get(Position).getFullName());
+        if (Position == null) {
+            title.append(Name);
+        } else {
+            PersonId = personList.get(Position).getId();
+            title.append(personList.get(Position).getFullName());
+        }
         title.append(" در ");
         title.append(getContext().getResources().getString(R.string.Clock));
         title.append(" ");
@@ -207,7 +221,7 @@ public class VM_Panel extends VM_Primary {
                         StaticValues.Colleague,
                         ReminderTypes,
                         0,
-                        personList.get(Position).getId(),
+                        PersonId,
                         stringDate
                 ));
 

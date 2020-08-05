@@ -56,11 +56,13 @@ public class NotificationNew {
         Integer id = md_notification.getId();
         Byte NType = md_notification.getNType().byteValue();
         Byte RType = md_notification.getRType().byteValue();
+        Integer PersonId = md_notification.getPersonId();
+        Byte PersonType = md_notification.getPersonType();
         List<Notification.Action> actions = new ArrayList<>();
 
         if (NType.equals(StaticValues.NTypeNormal)) {
             if (RType.equals(StaticValues.RTypeCall)) {
-                actions.add(NotificationNewAction.GetAgainAction(id, context, StaticValues.Call));
+                actions.add(NotificationNewAction.GetAgainAction(id, context, StaticValues.Call, PersonId, PersonType));
                 actions.add(NotificationNewAction.GetIgnoreAction(id, context, StaticValues.Call));
                 actions.add(NotificationNewAction.GetCallAction(id, context, StaticValues.Call));
                 BuilderNotification(
@@ -70,7 +72,7 @@ public class NotificationNew {
                         actions);
             } else if (RType.equals(StaticValues.RTypeMeeting)) {
                 actions.add(NotificationNewAction.GetIgnoreAction(id, context, StaticValues.Meeting));
-                actions.add(NotificationNewAction.GetAgainAction(id, context, StaticValues.Meeting));
+                actions.add(NotificationNewAction.GetAgainAction(id, context, StaticValues.Meeting, PersonId, PersonType));
                 actions.add(NotificationNewAction.GetGoMeetingAction(id, context, StaticValues.Meeting));
                 BuilderNotification(
                         id,
@@ -81,7 +83,7 @@ public class NotificationNew {
         } else if (NType.equals(StaticValues.NTypeResponse)) {
             if (RType.equals(StaticValues.RTypeCall)) {
                 actions.add(NotificationNewAction.GetFailedAction(id, context, StaticValues.ResponseCall));
-                actions.add(NotificationNewAction.GetAgainAction(id, context, StaticValues.Call));
+                actions.add(NotificationNewAction.GetAgainAction(id, context, StaticValues.Call, PersonId, PersonType));
                 actions.add(NotificationNewAction.GetCertainAction(id, context, StaticValues.Call, 0));
                 BuilderNotification(
                         id,
@@ -91,7 +93,7 @@ public class NotificationNew {
 
             } else if (RType.equals(StaticValues.RTypeMeeting)) {
                 actions.add(NotificationNewAction.GetFailedAction(id, context, StaticValues.Meeting));
-                actions.add(NotificationNewAction.GetAgainAction(id, context, StaticValues.Meeting));
+                actions.add(NotificationNewAction.GetAgainAction(id, context, StaticValues.Meeting, PersonId, PersonType));
                 actions.add(NotificationNewAction.GetCertainAction(id, context, StaticValues.Meeting, 0));
                 BuilderNotification(
                         id,

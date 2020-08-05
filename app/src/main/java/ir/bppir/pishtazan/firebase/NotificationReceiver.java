@@ -7,8 +7,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import androidx.core.app.NotificationManagerCompat;
+
+import io.realm.Realm;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
+import ir.bppir.pishtazan.database.DB_UserInfo;
 import ir.bppir.pishtazan.models.MR_PersonNumber;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.views.activity.RememberAgain;
@@ -34,22 +37,27 @@ public class NotificationReceiver extends BroadcastReceiver {
         } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_Calling))) {
             first = true;
             int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
-            Integer UserId = intent.getIntExtra(context.getResources().getString(R.string.ML_personId), 0);
-            GetPersonNumber(id, UserId);
+            GetPersonNumber(id);
         } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_LaterCall))) {
             int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
+            int PersonId = intent.getIntExtra(context.getResources().getString(R.string.ML_personId), 0);
+            byte PersonType = intent.getByteExtra(context.getResources().getString(R.string.ML_PanelType) , (byte) 0);
             CancelNotification(id);
             Intent intent1 = new Intent(context.getApplicationContext(), RememberAgain.class);
             intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent1.putExtra(context.getResources().getString(R.string.ML_Id), id);
+            intent1.putExtra(context.getResources().getString(R.string.ML_personId), PersonId);
             intent1.putExtra(context.getResources().getString(R.string.ML_Type), StaticValues.Call);
+            intent1.putExtra(context.getResources().getString(R.string.ML_PanelType), PersonType);
             context.getApplicationContext().startActivity(intent1);
         } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_LaterMeeting))) {
             int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
+            int PersonId = intent.getIntExtra(context.getResources().getString(R.string.ML_personId), 0);
+            byte PersonType = intent.getByteExtra(context.getResources().getString(R.string.ML_PanelType) , (byte) 0);
             CancelNotification(id);
             Intent intent1 = new Intent(context.getApplicationContext(), RememberAgain.class);
             intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent1.putExtra(context.getResources().getString(R.string.ML_Id), id);
+            intent1.putExtra(context.getResources().getString(R.string.ML_personId), PersonId);
+            intent1.putExtra(context.getResources().getString(R.string.ML_PanelType), PersonType);
             intent1.putExtra(context.getResources().getString(R.string.ML_Type), StaticValues.Meeting);
             context.getApplicationContext().startActivity(intent1);
         } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_GoToMeeting))) {
@@ -88,17 +96,18 @@ public class NotificationReceiver extends BroadcastReceiver {
 
 
 
-    private void GetPersonNumber(Integer Id, Integer UserId) {//____________________________________ GetPersonNumber
+    private void GetPersonNumber(Integer Id) {//____________________________________________________ GetPersonNumber
 
 
         RetrofitComponent retrofitComponent = PishtazanApplication
                 .getApplication(context)
                 .getRetrofitComponent();
 
+        Integer UserInfoId = GetUserId();
 
         retrofitComponent
                 .getRetrofitApiInterface()
-                .GET_MOBILE_NUMBER(Id, UserId)
+                .GET_MOBILE_NUMBER(Id, UserInfoId)
                 .enqueue(new Callback<MR_PersonNumber>() {
                     @Override
                     public void onResponse(Call<MR_PersonNumber> call, Response<MR_PersonNumber> response) {
@@ -115,6 +124,28 @@ public class NotificationReceiver extends BroadcastReceiver {
                 });
 
     }//_____________________________________________________________________________________________ GetPersonNumber
+
+
+    public Integer GetUserId() {//__________________________________________________________________ GetUserId
+
+        DB_UserInfo db_userInfo = GetUserInfo();
+        if (db_userInfo == null)
+            return 0;
+        else
+            return db_userInfo.getId();
+    }//_____________________________________________________________________________________________ GetUserId
+
+
+
+    public DB_UserInfo GetUserInfo() {//____________________________________________________________ GetUserInfo
+
+        Realm realm = Realm.getDefaultInstance();
+        DB_UserInfo db_userInfo = realm.where(DB_UserInfo.class).findFirst();
+        realm.close();
+        return db_userInfo;
+
+    }//_____________________________________________________________________________________________ GetUserInfo
+
 
 
     private void ChangeState(Integer Id, Byte state) {//____________________________________________ ChangeState

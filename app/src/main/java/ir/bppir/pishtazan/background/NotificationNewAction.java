@@ -14,13 +14,15 @@ import ir.bppir.pishtazan.utility.StaticValues;
 public class NotificationNewAction {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public static Notification.Action GetAgainAction(Integer notifyId, Context context, Byte type) {// GetAgainAction
+    public static Notification.Action GetAgainAction(Integer notifyId, Context context, Byte type, Integer PersonId, Byte PersonType) {// GetAgainAction
         Intent AgainIntent = new Intent();
         if (type.equals(StaticValues.Call))
             AgainIntent.setAction(context.getString(R.string.ML_LaterCall));
         else if (type.equals(StaticValues.Meeting))
             AgainIntent.setAction(context.getString(R.string.ML_LaterMeeting));
         AgainIntent.putExtra(context.getResources().getString(R.string.ML_Id), notifyId);
+        AgainIntent.putExtra(context.getResources().getString(R.string.ML_personId), PersonId);
+        AgainIntent.putExtra(context.getResources().getString(R.string.ML_PanelType), PersonType);
         PendingIntent AgainPendingIntent = PendingIntent.getBroadcast(context, notifyId + 10, AgainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         return new Notification.Action(0, context.getResources().getString(R.string.RemindAgain), AgainPendingIntent);
     }//_____________________________________________________________________________________________ GetAgainAction
