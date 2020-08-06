@@ -49,15 +49,21 @@ public class NotificationNew {
     }//_____________________________________________________________________________________________ NotificationNew
 
 
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void ShowNormalNotificationNew() {//____________________________________________________ ShowNormalNotificationNew
 
         Integer id = md_notification.getId();
         Byte NType = md_notification.getNType().byteValue();
         Byte RType = md_notification.getRType().byteValue();
-        Integer PersonId = md_notification.getPersonId();
-        Byte PersonType = md_notification.getPersonType();
+        Integer PersonId;
+        Byte PersonType;
+        if (md_notification.getCollegueId() != null) {
+            PersonId = md_notification.getCollegueId();
+            PersonType = StaticValues.Colleague;
+        } else {
+            PersonId = md_notification.getCustomerId();
+            PersonType = StaticValues.Customer;
+        }
         List<Notification.Action> actions = new ArrayList<>();
 
         if (NType.equals(StaticValues.NTypeNormal)) {
@@ -109,10 +115,6 @@ public class NotificationNew {
 //******************************************** Show Normal *****************************************
 
 
-
-
-
-
 //******************************************** Show Always *****************************************
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -122,7 +124,6 @@ public class NotificationNew {
         CreateChannelsEvent();
         ShowAlwaysNotificationNew(notifyId);
     }//_____________________________________________________________________________________________ NotificationNew
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -136,9 +137,6 @@ public class NotificationNew {
     }//_____________________________________________________________________________________________ ShowAlwaysNotificationNew
 
 //******************************************** Show Always *****************************************
-
-
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -171,7 +169,6 @@ public class NotificationNew {
     }//_____________________________________________________________________________________________ BuilderNotification
 
 
-
 //******************************************** Setting *********************************************
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -186,7 +183,6 @@ public class NotificationNew {
     }//_____________________________________________________________________________________________ CreateChannelsEvent
 
 
-
     private NotificationManager getManager() {//____________________________________________________ getManager
         if (notifyManager == null) {
             notifyManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -198,7 +194,6 @@ public class NotificationNew {
     public Uri getSound() {//_______________________________________________________________________ getSound
         return RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
     }//_____________________________________________________________________________________________ getSound
-
 
 
     public Notification getNotification() {//_______________________________________________________ getNotification

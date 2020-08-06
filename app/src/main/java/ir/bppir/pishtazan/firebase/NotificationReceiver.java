@@ -112,6 +112,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                     @Override
                     public void onResponse(Call<MR_PersonNumber> call, Response<MR_PersonNumber> response) {
                         if (response.body() != null) {
+                            CancelNotification(Id);
                             if (response.body().getStatue() == 1)
                                 CallPerson(response.body().getMobileNumber());
                         }

@@ -47,11 +47,19 @@ public class NotificationOld {
 
     private void ShowNormalNotificationOld() {//____________________________________________________ ShowNormalNotificationOld
         Integer id = md_notification.getId();
-        Integer PersonId = md_notification.getPersonId();
         Byte NType = md_notification.getNType().byteValue();
         Byte RType = md_notification.getRType().byteValue();
-        Byte PersonType = md_notification.getPersonType();
         List<NotificationCompat.Action> actions = new ArrayList<>();
+
+        Integer PersonId;
+        Byte PersonType;
+        if (md_notification.getCollegueId() != null) {
+            PersonId = md_notification.getCollegueId();
+            PersonType = StaticValues.Colleague;
+        } else {
+            PersonId = md_notification.getCustomerId();
+            PersonType = StaticValues.Customer;
+        }
 
         if (NType.equals(StaticValues.NTypeNormal)) {
             if (RType.equals(StaticValues.RTypeCall)) {

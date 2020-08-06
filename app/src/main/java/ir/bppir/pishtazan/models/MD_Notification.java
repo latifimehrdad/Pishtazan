@@ -3,31 +3,30 @@ package ir.bppir.pishtazan.models;
 public class MD_Notification {
 
 
-
     private Integer id;
 
     private String body;
+
+    private String title;
 
     private Integer NType;
 
     private Integer RType;
 
-    private String title;
+    private Integer CustomerId;
 
-    private Integer PersonId;
+    private Integer CollegueId;
 
-    private Byte PersonType;
-
-
-    public MD_Notification(Integer id, String body, Integer NType, Integer RType, String title, Integer personId, Byte personType) {
+    public MD_Notification(Integer id, String body, String title, Integer NType, Integer RType, Integer customerId, Integer collegueId) {
         this.id = id;
         this.body = body;
+        this.title = title;
         this.NType = NType;
         this.RType = RType;
-        this.title = title;
-        PersonId = personId;
-        PersonType = personType;
+        CustomerId = customerId;
+        CollegueId = collegueId;
     }
+
 
     public Integer getId() {
         return id;
@@ -43,6 +42,14 @@ public class MD_Notification {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Integer getNType() {
@@ -61,27 +68,19 @@ public class MD_Notification {
         this.RType = RType;
     }
 
-    public String getTitle() {
-        return title;
+    public Integer getCustomerId() {
+        return CustomerId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCustomerId(Integer customerId) {
+        CustomerId = customerId;
     }
 
-    public Integer getPersonId() {
-        return PersonId;
+    public Integer getCollegueId() {
+        return CollegueId;
     }
 
-    public void setPersonId(Integer personId) {
-        PersonId = personId;
-    }
-
-    public Byte getPersonType() {
-        return PersonType;
-    }
-
-    public void setPersonType(Byte personType) {
-        PersonType = personType;
+    public void setCollegueId(Integer collegueId) {
+        CollegueId = collegueId;
     }
 }
