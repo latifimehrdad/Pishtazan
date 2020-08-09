@@ -15,34 +15,16 @@
         android:padding="@dimen/_10sdp"
         android:gravity="center">
 
-        <RelativeLayout
-            android:id="@+id/RelativeLayoutPlay"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
-            android:background="@drawable/dw_back_home_learn"
-            android:layout_marginBottom="@dimen/_20sdp"
-            android:padding="@dimen/_4sdp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/logo_pishtazan_small"
-                app:civ_border_width="@dimen/_2sdp"
-                app:civ_border_color="@color/ML_Harmony"
-                android:layout_centerVertical="true"
-                />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/dw_back_circle_play"
-                android:padding="@dimen/_25sdp"
-                android:src="@drawable/svg_video_player2"
-                android:tint="@color/ML_White"/>
-
-
-        </RelativeLayout>
+        <com.cunoraz.gifview.library.GifView
+            android:id="@+id/GifViewLoading"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dw_choose_current_map"
+            android:visibility="gone"
+            android:padding="@dimen/_5sdp"
+            custom:gif="@drawable/loading3" />
 
         <LinearLayout
             android:id="@+id/LinearLayoutStart"
@@ -50,6 +32,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/_5sdp"
             android:gravity="center"
+            android:visibility="gone"
             android:background="@drawable/dw_back_bottom">
 
             <TextView
@@ -71,15 +54,6 @@
                 android:layout_marginRight="@dimen/_3sdp"
                 android:tint="@color/ML_White"
                 android:src="@drawable/svg_quiz" />
-
-            <com.cunoraz.gifview.library.GifView
-                android:id="@+id/GifViewLoading"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
-                android:visibility="gone"
-                android:padding="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_3sdp"
-                custom:gif="@drawable/loading3" />
 
         </LinearLayout>
 

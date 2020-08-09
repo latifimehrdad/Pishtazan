@@ -21,6 +21,7 @@ import com.universalvideoview.UniversalVideoView;
 
 import butterknife.BindView;
 import ir.bppir.pishtazan.R;
+import ir.bppir.pishtazan.daggers.retrofit.RetrofitApis;
 import ir.bppir.pishtazan.databinding.FragmentMoviePlayerBinding;
 import ir.bppir.pishtazan.databinding.FragmentQuizBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
@@ -59,6 +60,7 @@ public class MoviePlayer extends FragmentPrimary implements FragmentPrimary.GetM
             binding.setMovie(vm_moviePlayer);
             setView(binding.getRoot());
             movieUrl = getArguments().getString(getContext().getResources().getString(R.string.ML_MovieUrl), "");
+            movieUrl = RetrofitApis.Host + movieUrl;
             //getContext().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
         return getView();

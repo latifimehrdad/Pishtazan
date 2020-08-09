@@ -4,8 +4,11 @@ package ir.bppir.pishtazan.daggers.retrofit;
 import java.util.Map;
 
 import ir.bppir.pishtazan.models.MD_GetAddres;
+import ir.bppir.pishtazan.models.MR_EducationFiles;
+import ir.bppir.pishtazan.models.MR_Exam;
 import ir.bppir.pishtazan.models.MR_GenerateCode;
 import ir.bppir.pishtazan.models.MR_GetAllPerson;
+import ir.bppir.pishtazan.models.MR_LastEducation;
 import ir.bppir.pishtazan.models.MR_PersonNumber;
 import ir.bppir.pishtazan.models.MR_Policy;
 import ir.bppir.pishtazan.models.MR_PolicyType;
@@ -275,5 +278,30 @@ public interface RetrofitApiInterface {
                     @Field("UserInfoId") Integer UserInfoId
             );
 
+
+    @FormUrlEncoded
+    @POST(Version + "/GetLastEducation")
+    Call<MR_LastEducation> GET_LAST_EDUCATION
+            (
+                    @Field("UserInfoId") Integer UserInfoId
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/GetEducationFiles")
+    Call<MR_EducationFiles> GET_EDUCATION_FILES
+            (
+                    @Field("UserInfoId") Integer UserInfoId,
+                    @Field("Id") Integer Id,
+                    @Field("FileType") Byte FileType
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/GetExam")
+    Call<MR_Exam> GET_EXAM
+            (
+                    @Field("Id") Integer Id
+            );
 
 }

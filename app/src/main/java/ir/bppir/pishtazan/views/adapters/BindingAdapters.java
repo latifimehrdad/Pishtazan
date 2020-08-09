@@ -53,6 +53,8 @@ public class BindingAdapters {
 
         String tag = textView.getTag().toString();
         Context context = textView.getContext();
+        if (text == null || text.equalsIgnoreCase("null"))
+            text = "";
         switch (tag){
             case "date" :
                 textView.setText(context.getResources().getString(R.string.Date) + " : " + text);

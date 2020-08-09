@@ -4,7 +4,7 @@
     <data>
         <variable
             name="question"
-            type="ir.bppir.pishtazan.models.MD_Question" />
+            type="ir.bppir.pishtazan.models.MD_QuestionOld" />
     </data>
 
     <LinearLayout

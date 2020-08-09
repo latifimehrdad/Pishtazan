@@ -1,96 +1,117 @@
 package ir.bppir.pishtazan.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class MD_Question {
 
-    private Integer movieId;
+    @SerializedName("Id")
+    Integer Id;
 
-    private Integer id;
+    @SerializedName("QuestionText")
+    String QuestionText;
 
-    private String question;
+    @SerializedName("FirstChoose")
+    String FirstChoose;
 
-    private String answerA;
+    @SerializedName("SecondChoose")
+    String SecondChoose;
 
-    private String answerB;
+    @SerializedName("ThirdChoose")
+    String ThirdChoose;
 
-    private String answerC;
+    @SerializedName("ForthChoose")
+    String ForthChoose;
 
-    private String answerD;
+    @SerializedName("CorrectAnswer")
+    Integer CorrectAnswer;
 
-    private Byte userAnswer;
+    @SerializedName("QuestionScore")
+    Integer QuestionScore;
 
+    @SerializedName("ExamId")
+    Integer ExamId;
 
-    public MD_Question(Integer movieId, Integer id, String question, String answerA, String answerB, String answerC, String answerD) {
-        this.movieId = movieId;
-        this.id = id;
-        this.question = question;
-        this.answerA = answerA;
-        this.answerB = answerB;
-        this.answerC = answerC;
-        this.answerD = answerD;
-    }
-
-
-    public Integer getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(Integer movieId) {
-        this.movieId = movieId;
+    public MD_Question(Integer id, String questionText, String firstChoose, String secondChoose, String thirdChoose, String forthChoose, Integer correctAnswer, Integer questionScore, Integer examId) {
+        Id = id;
+        QuestionText = questionText;
+        FirstChoose = firstChoose;
+        SecondChoose = secondChoose;
+        ThirdChoose = thirdChoose;
+        ForthChoose = forthChoose;
+        CorrectAnswer = correctAnswer;
+        QuestionScore = questionScore;
+        ExamId = examId;
     }
 
     public Integer getId() {
-        return id;
+        return Id;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        Id = id;
     }
 
-    public String getQuestion() {
-        return question;
+    public String getQuestionText() {
+        return QuestionText;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setQuestionText(String questionText) {
+        QuestionText = questionText;
     }
 
-    public String getAnswerA() {
-        return answerA;
+    public String getFirstChoose() {
+        return FirstChoose;
     }
 
-    public void setAnswerA(String answerA) {
-        this.answerA = answerA;
+    public void setFirstChoose(String firstChoose) {
+        FirstChoose = firstChoose;
     }
 
-    public String getAnswerB() {
-        return answerB;
+    public String getSecondChoose() {
+        return SecondChoose;
     }
 
-    public void setAnswerB(String answerB) {
-        this.answerB = answerB;
+    public void setSecondChoose(String secondChoose) {
+        SecondChoose = secondChoose;
     }
 
-    public String getAnswerC() {
-        return answerC;
+    public String getThirdChoose() {
+        return ThirdChoose;
     }
 
-    public void setAnswerC(String answerC) {
-        this.answerC = answerC;
+    public void setThirdChoose(String thirdChoose) {
+        ThirdChoose = thirdChoose;
     }
 
-    public String getAnswerD() {
-        return answerD;
+    public String getForthChoose() {
+        return ForthChoose;
     }
 
-    public void setAnswerD(String answerD) {
-        this.answerD = answerD;
+    public void setForthChoose(String forthChoose) {
+        ForthChoose = forthChoose;
     }
 
-    public Byte getUserAnswer() {
-        return userAnswer;
+    public Integer getCorrectAnswer() {
+        return CorrectAnswer;
     }
 
-    public void setUserAnswer(Byte userAnswer) {
-        this.userAnswer = userAnswer;
+    public void setCorrectAnswer(Integer correctAnswer) {
+        CorrectAnswer = correctAnswer;
+    }
+
+    public Integer getQuestionScore() {
+        return QuestionScore;
+    }
+
+    public void setQuestionScore(Integer questionScore) {
+        QuestionScore = questionScore;
+    }
+
+    public Integer getExamId() {
+        return ExamId;
+    }
+
+    public void setExamId(Integer examId) {
+        ExamId = examId;
     }
 }

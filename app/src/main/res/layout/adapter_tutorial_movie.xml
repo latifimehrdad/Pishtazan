@@ -3,7 +3,7 @@
     <data>
         <variable
             name="movie"
-            type="ir.bppir.pishtazan.models.MD_TutorialMovie" />
+            type="ir.bppir.pishtazan.models.MD_EducationFiles" />
     </data>
 
     <LinearLayout
@@ -32,7 +32,7 @@
                 android:textSize="@dimen/_10sdp"
                 android:textColor="@color/colorPrimaryDark"
                 android:tag="movieTime"
-                app:SetTextViewText="@{movie.movieTime}"/>
+                app:SetTextViewText="@{movie.duration}"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -91,7 +91,7 @@
                 app:civ_border_color="@color/ML_Harmony"
                 android:layout_marginLeft="@dimen/_8sdp"
                 android:layout_centerVertical="true"
-                app:SetPersonImageReport="@{movie.image}"
+                app:SetPersonImageReport="@{movie.thumbnail}"
                 />
 
 

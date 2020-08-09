@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -38,6 +40,15 @@ public class TutorialMovie extends FragmentPrimary implements
     @BindView(R.id.GifViewLoading)
     GifView GifViewLoading;
 
+    @BindView(R.id.GifViewLoadingQuiz)
+    GifView GifViewLoadingQuiz;
+
+    @BindView(R.id.LinearLayoutStart)
+    LinearLayout LinearLayoutStart;
+
+    @BindView(R.id.ImageViewLoading)
+    ImageView ImageViewLoading;
+
     @Nullable
     @Override
     public View onCreateView(
@@ -70,8 +81,24 @@ public class TutorialMovie extends FragmentPrimary implements
 
     private void init() {//_________________________________________________________________________ init
         GifViewLoading.setVisibility(View.VISIBLE);
+        SetOnClick();
         vm_tutorialMovie.GetTutorialMovie(tutorialId);
     }//_____________________________________________________________________________________________ init
+
+
+
+
+    private void SetOnClick() {//___________________________________________________________________ SetOnClick
+
+        LinearLayoutStart.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getResources().getString(R.string.ML_Id), tutorialId);
+            navController.navigate(R.id.action_tutorialMovie_to_quiz, bundle);
+        });
+
+    }//_____________________________________________________________________________________________ SetOnClick
+
+
 
 
     @Override
@@ -85,7 +112,7 @@ public class TutorialMovie extends FragmentPrimary implements
 
 
     private void SetReportAdapter() {//_____________________________________________________________ SetReportAdapter
-        AP_Movie ap_movie = new AP_Movie(vm_tutorialMovie.getMd_tutorialMovies(), TutorialMovie.this);
+        AP_Movie ap_movie = new AP_Movie(vm_tutorialMovie.getMd_educationFiles(), TutorialMovie.this);
         RecyclerViewMovie.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewMovie.setAdapter(ap_movie);
     }//_____________________________________________________________________________________________ SetReportAdapter
@@ -95,10 +122,10 @@ public class TutorialMovie extends FragmentPrimary implements
     public void clickItemTutorialMovie(Integer Position, View view) {//_____________________________ clickItemTutorialMovie
 
         Bundle bundle = new Bundle();
-        bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_tutorialMovie.getMd_tutorialMovies().get(Position).getId());
-        bundle.putInt(getContext().getResources().getString(R.string.ML_questionTime), vm_tutorialMovie.getMd_tutorialMovies().get(Position).getQuestionTime());
-        bundle.putString(getContext().getResources().getString(R.string.ML_MovieUrl), vm_tutorialMovie.getMd_tutorialMovies().get(Position).getMovieUrl());
-        navController.navigate(R.id.action_tutorialMovie_to_quiz, bundle);
+        bundle.putString(getContext().getResources().getString(R.string.ML_MovieUrl),
+                vm_tutorialMovie.getMd_educationFiles().get(Position).getFilePath());
+        navController.navigate(R.id.action_tutorialMovie_to_moviePlayer, bundle);
+
     }//_____________________________________________________________________________________________ clickItemTutorialMovie
 
 }

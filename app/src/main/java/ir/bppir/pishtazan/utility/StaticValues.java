@@ -16,6 +16,16 @@ public class StaticValues {
     //****************************************
 
 
+
+    //****************************************
+
+    public static Byte FileTypeText = 0;
+    public static Byte FileTypeAudio = 1;
+    public static Byte FileTypeVideo = 2;
+    public static Byte FileTypeImage = 3;
+
+    //****************************************
+
     public static boolean isCancel = false;
     public static boolean isLogin = false;
 

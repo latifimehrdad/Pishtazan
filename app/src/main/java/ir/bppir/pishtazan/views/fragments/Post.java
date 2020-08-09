@@ -114,10 +114,8 @@ public class Post extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
         if (action.equals(StaticValues.ML_GetNewQuiz)) {
             Bundle bundle = new Bundle();
-            bundle.putInt(getContext().getResources().getString(R.string.ML_Id), 0);
-            bundle.putInt(getContext().getResources().getString(R.string.ML_questionTime), 15);
-            bundle.putString(getContext().getResources().getString(R.string.ML_MovieUrl), "http://8upload.ir/uploads/f798030714.mp4");
-            navController.navigate(R.id.action_post_to_quiz, bundle);
+            bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_post.getMd_education().getId());
+            navController.navigate(R.id.action_post_to_tutorialMovie, bundle);
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable

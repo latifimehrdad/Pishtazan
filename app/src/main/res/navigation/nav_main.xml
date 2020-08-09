@@ -258,6 +258,13 @@
         <argument android:name="@string/ML_MovieUrl"
             android:defaultValue="null"/>
 
+        <action
+            android:id="@+id/action_tutorialMovie_to_moviePlayer"
+            app:destination="@id/moviePlayer"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
 
         <action
             android:id="@+id/action_tutorialMovie_to_quiz"
@@ -266,6 +273,7 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"/>
+
 
     </fragment>
 
@@ -277,14 +285,6 @@
 
         <argument android:name="@string/ML_MovieUrl"
             android:defaultValue="null"/>
-
-        <action
-            android:id="@+id/action_quiz_to_moviePlayer"
-            app:destination="@id/moviePlayer"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"/>
 
     </fragment>
 
@@ -319,12 +319,13 @@
             app:popExitAnim="@anim/slide_out_left"/>
 
         <action
-            android:id="@+id/action_post_to_quiz"
-            app:destination="@id/quiz"
+            android:id="@+id/action_post_to_tutorialMovie"
+            app:destination="@id/tutorialMovie"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"/>
+            app:popExitAnim="@anim/slide_out_left"
+            />
 
     </fragment>
 

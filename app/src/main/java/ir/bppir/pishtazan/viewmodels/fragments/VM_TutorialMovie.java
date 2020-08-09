@@ -3,17 +3,20 @@ package ir.bppir.pishtazan.viewmodels.fragments;
 import android.app.Activity;
 import android.os.Handler;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import ir.bppir.pishtazan.models.MD_Tutorial;
-import ir.bppir.pishtazan.models.MD_TutorialMovie;
+import ir.bppir.pishtazan.models.MD_EducationFiles;
+import ir.bppir.pishtazan.models.MR_EducationFiles;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
+import ir.bppir.pishtazan.views.application.PishtazanApplication;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VM_TutorialMovie extends VM_Primary {
 
-    private List<MD_TutorialMovie> md_tutorialMovies;
+    private List<MD_EducationFiles> md_educationFiles;
 
     public VM_TutorialMovie(Activity context) {//___________________________________________________ VM_TutorialMovie
         setContext(context);
@@ -28,19 +31,38 @@ public class VM_TutorialMovie extends VM_Primary {
             return;
         }
 
-        md_tutorialMovies = new ArrayList<>();
-        for (int i = 0; i < 5; i++)
-            md_tutorialMovies.add(new MD_TutorialMovie(i, "ویدیو " + tutorialId + " - " + i, "http://uupload.ir/files/f17r_1e374385f1c390f86bdc865111ca1285.jpg", "http://8upload.ir/uploads/f798030714.mp4", "00:35", 15 * i));
-        Handler handler = new Handler();
-        handler.postDelayed(() -> SendMessageToObservable(StaticValues.ML_GetTutorialMovie), 1500);
+        setPrimaryCall(PishtazanApplication
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .GET_EDUCATION_FILES(UserInfoId,tutorialId,StaticValues.FileTypeVideo));
+
+        getPrimaryCall().enqueue(new Callback<MR_EducationFiles>() {
+            @Override
+            public void onResponse(Call<MR_EducationFiles> call, Response<MR_EducationFiles> response) {
+                if (ResponseIsOk(response)) {
+                    setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 0)
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    else {
+                        md_educationFiles = response.body().getEducationFiles();
+                        getPublishSubject().onNext(StaticValues.ML_GetTutorialMovie);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MR_EducationFiles> call, Throwable t) {
+                CallIsFailure();
+            }
+        });
 
     }//_____________________________________________________________________________________________ GetTutorialMovie
 
 
-    public List<MD_TutorialMovie> getMd_tutorialMovies() {//________________________________________ getMd_tutorialMovies
-        return md_tutorialMovies;
-    }//_____________________________________________________________________________________________ getMd_tutorialMovies
-
+    public List<MD_EducationFiles> getMd_educationFiles() {//_______________________________________ getMd_educationFiles
+        return md_educationFiles;
+    }//_____________________________________________________________________________________________ getMd_educationFiles
 
 
 }

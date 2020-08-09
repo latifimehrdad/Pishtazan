@@ -14,17 +14,18 @@ import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.AdapterTutorialBinding;
 import ir.bppir.pishtazan.databinding.AdapterTutorialMovieBinding;
+import ir.bppir.pishtazan.models.MD_EducationFiles;
 import ir.bppir.pishtazan.models.MD_Tutorial;
 import ir.bppir.pishtazan.models.MD_TutorialMovie;
 
 public class AP_Movie extends RecyclerView.Adapter<AP_Movie.CustomHolder> {
 
     private LayoutInflater layoutInflater;
-    private List<MD_TutorialMovie> md_tutorialMovies;
+    private List<MD_EducationFiles> md_educationFiles;
     private ClickItemTutorialMovie clickItemTutorialMovie;
 
-    public AP_Movie(List<MD_TutorialMovie> md_tutorialMovies, ClickItemTutorialMovie clickItemTutorialMovie) {
-        this.md_tutorialMovies = md_tutorialMovies;
+    public AP_Movie(List<MD_EducationFiles> md_educationFiles, ClickItemTutorialMovie clickItemTutorialMovie) {
+        this.md_educationFiles = md_educationFiles;
         this.clickItemTutorialMovie = clickItemTutorialMovie;
     }
 
@@ -39,12 +40,12 @@ public class AP_Movie extends RecyclerView.Adapter<AP_Movie.CustomHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CustomHolder holder, int position) {
-        holder.bind(md_tutorialMovies.get(position), position);
+        holder.bind(md_educationFiles.get(position), position);
     }
 
     @Override
     public int getItemCount() {
-        return md_tutorialMovies.size();
+        return md_educationFiles.size();
     }
 
     public interface ClickItemTutorialMovie {//_____________________________________________________ ClickItemTutorialMovie
@@ -63,7 +64,7 @@ public class AP_Movie extends RecyclerView.Adapter<AP_Movie.CustomHolder> {
             ButterKnife.bind(this, binding.getRoot());
         }
 
-        public void bind(MD_TutorialMovie item, final int itemPosition) {
+        public void bind(MD_EducationFiles item, final int itemPosition) {
             binding.setMovie(item);
             binding.getRoot().setOnClickListener(v -> clickItemTutorialMovie.clickItemTutorialMovie(itemPosition, binding.getRoot()));
             binding.executePendingBindings();

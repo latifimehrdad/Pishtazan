@@ -6,13 +6,20 @@ import android.os.Handler;
 import java.util.ArrayList;
 import java.util.List;
 
-import ir.bppir.pishtazan.models.MD_Question;
+import ir.bppir.pishtazan.models.MD_QuestionOld;
+import ir.bppir.pishtazan.models.MR_EducationFiles;
+import ir.bppir.pishtazan.models.MR_Exam;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
+import ir.bppir.pishtazan.views.application.PishtazanApplication;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VM_Quiz extends VM_Primary {
 
-    private List<MD_Question> md_questions;
+
+    private MR_Exam mr_exam;
 
     public VM_Quiz(Activity activity) {//___________________________________________________________ VM_Quiz
         setContext(activity);
@@ -21,18 +28,39 @@ public class VM_Quiz extends VM_Primary {
 
     public void GetQuestion(Integer quizId) {//_____________________________________________________ GetQuestion
 
-        md_questions = new ArrayList<>();
+        setPrimaryCall(PishtazanApplication
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .GET_EXAM(quizId));
 
-        for (int i = 0 ; i < 10; i++)
-            md_questions.add(new MD_Question(i,i,"سوال " + i , "جواب اول " + i ,"جواب دوم " + i , "جواب سوم " + i , "جواب چهارم " + i ));
-        Handler handler = new Handler();
-        handler.postDelayed(() -> SendMessageToObservable(StaticValues.ML_GetQuestions), 1500);
+        getPrimaryCall().enqueue(new Callback<MR_Exam>() {
+            @Override
+            public void onResponse(Call<MR_Exam> call, Response<MR_Exam> response) {
+                if (ResponseIsOk(response)) {
+                    setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 0)
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    else {
+                        mr_exam = response.body();
+                        getPublishSubject().onNext(StaticValues.ML_GetQuestions);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MR_Exam> call, Throwable t) {
+                CallIsFailure();
+            }
+        });
+
 
     }//_____________________________________________________________________________________________ GetQuestion
 
 
-    public List<MD_Question> getMd_questions() {//__________________________________________________ getMd_questions
-        return md_questions;
-    }//_____________________________________________________________________________________________ getMd_questions
+    public MR_Exam getMr_exam() {//_________________________________________________________________ getMr_exam
+        return mr_exam;
+    }//_____________________________________________________________________________________________ getMr_exam
+
 
 }

@@ -8,25 +8,21 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.AdapterQuestionBinding;
-import ir.bppir.pishtazan.databinding.AdapterTutorialBinding;
-import ir.bppir.pishtazan.models.MD_Question;
-import ir.bppir.pishtazan.models.MD_Tutorial;
+import ir.bppir.pishtazan.models.MD_QuestionOld;
 
 public class AP_Question extends RecyclerView.Adapter<AP_Question.CustomHolder> {
 
 
     private LayoutInflater layoutInflater;
-    private MD_Question md_question;
+    private MD_QuestionOld md_questionOld;
     private ClickItemAnswer clickItemAnswer;
 
-    public AP_Question(MD_Question md_question, ClickItemAnswer clickItemAnswer) {
-        this.md_question = md_question;
+    public AP_Question(MD_QuestionOld md_questionOld, ClickItemAnswer clickItemAnswer) {
+        this.md_questionOld = md_questionOld;
         this.clickItemAnswer = clickItemAnswer;
     }
 
@@ -47,7 +43,7 @@ public class AP_Question extends RecyclerView.Adapter<AP_Question.CustomHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull CustomHolder holder, int position) {
-        holder.bind(md_question);
+        holder.bind(md_questionOld);
     }
 
     @Override
@@ -80,7 +76,7 @@ public class AP_Question extends RecyclerView.Adapter<AP_Question.CustomHolder> 
             ButterKnife.bind(this, binding.getRoot());
         }
 
-        public void bind(MD_Question item) {
+        public void bind(MD_QuestionOld item) {
             binding.setQuestion(item);
 
             RadioButtonA.setOnClickListener(v -> {
