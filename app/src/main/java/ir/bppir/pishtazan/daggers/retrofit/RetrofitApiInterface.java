@@ -1,11 +1,14 @@
 package ir.bppir.pishtazan.daggers.retrofit;
 
 
+import java.util.List;
 import java.util.Map;
 
+import ir.bppir.pishtazan.models.MD_Answer;
 import ir.bppir.pishtazan.models.MD_GetAddres;
 import ir.bppir.pishtazan.models.MR_EducationFiles;
 import ir.bppir.pishtazan.models.MR_Exam;
+import ir.bppir.pishtazan.models.MR_ExamResult;
 import ir.bppir.pishtazan.models.MR_GenerateCode;
 import ir.bppir.pishtazan.models.MR_GetAllPerson;
 import ir.bppir.pishtazan.models.MR_LastEducation;
@@ -14,6 +17,7 @@ import ir.bppir.pishtazan.models.MR_Policy;
 import ir.bppir.pishtazan.models.MR_PolicyType;
 import ir.bppir.pishtazan.models.MR_Primary;
 import ir.bppir.pishtazan.models.MRVerifyCode;
+import ir.bppir.pishtazan.models.MR_Question;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -266,7 +270,7 @@ public interface RetrofitApiInterface {
             (
                     @Field("Id") Integer Id,
                     @Field("UserInfoId") Integer UserInfoId,
-                    @Field("ReminderResult") Integer ReminderResult
+                    @Field("ReminderResult") Byte ReminderResult
             );
 
 
@@ -303,5 +307,32 @@ public interface RetrofitApiInterface {
             (
                     @Field("Id") Integer Id
             );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/GetQuestions")
+    Call<MR_Question> GET_QUESTION
+            (
+                    @Field("Id") Integer Id,
+                    @Field("UserInfoId") Integer UserInfoId
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/SetReminderResultDatetime")
+    Call<MR_Primary> SET_REMINDER_RESULT_DATETIME
+            (
+                    @Field("Id") Integer Id,
+                    @Field("UserInfoId") Integer UserInfoId
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/GetAnswers")
+    Call<MR_ExamResult> SEND_ANSWER
+            (
+                    @Field("UserInfoId") Integer UserInfoId,
+                    @Field("Answers") List<MD_Answer> Answers
+                    );
 
 }

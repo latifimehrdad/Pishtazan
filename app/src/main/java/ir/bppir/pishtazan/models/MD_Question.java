@@ -31,6 +31,9 @@ public class MD_Question {
     @SerializedName("ExamId")
     Integer ExamId;
 
+    private Byte userAnswer = -1;
+
+
     public MD_Question(Integer id, String questionText, String firstChoose, String secondChoose, String thirdChoose, String forthChoose, Integer correctAnswer, Integer questionScore, Integer examId) {
         Id = id;
         QuestionText = questionText;
@@ -113,5 +116,13 @@ public class MD_Question {
 
     public void setExamId(Integer examId) {
         ExamId = examId;
+    }
+
+    public Byte getUserAnswer() {
+        return userAnswer;
+    }
+
+    public void setUserAnswer(Byte userAnswer) {
+        this.userAnswer = userAnswer;
     }
 }

@@ -57,8 +57,8 @@ public class NotificationNew {
         Byte RType = md_notification.getRType().byteValue();
         Integer PersonId;
         Byte PersonType;
-        if (md_notification.getCollegueId() != null) {
-            PersonId = md_notification.getCollegueId();
+        if (md_notification.getColleagueId() != null) {
+            PersonId = md_notification.getColleagueId();
             PersonType = StaticValues.Colleague;
         } else {
             PersonId = md_notification.getCustomerId();

@@ -106,6 +106,7 @@
     <string name="PreviousQuestion">سوال قبلی</string>
     <string name="NextQuestion">سوال بعدی</string>
     <string name="NewQuiz">آزمون جدید</string>
+    <string name="Minute">دقیقه</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>

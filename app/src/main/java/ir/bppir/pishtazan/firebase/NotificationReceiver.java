@@ -13,6 +13,7 @@ import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
 import ir.bppir.pishtazan.database.DB_UserInfo;
 import ir.bppir.pishtazan.models.MR_PersonNumber;
+import ir.bppir.pishtazan.models.MR_Primary;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.views.activity.RememberAgain;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
@@ -62,7 +63,7 @@ public class NotificationReceiver extends BroadcastReceiver {
             context.getApplicationContext().startActivity(intent1);
         } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_GoToMeeting))) {
             int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
-            CancelNotification(id);
+            GotoMeet(id);
         } else if (action.equalsIgnoreCase(context.getResources().getString(R.string.ML_Certain))) {
             int id = intent.getIntExtra(context.getResources().getString(R.string.ML_Id), 0);
             ChangeState(id, StaticValues.Certain);
@@ -151,5 +152,63 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     private void ChangeState(Integer Id, Byte state) {//____________________________________________ ChangeState
         CancelNotification(Id);
+
+        RetrofitComponent retrofitComponent = PishtazanApplication
+                .getApplication(context)
+                .getRetrofitComponent();
+
+        Integer UserInfoId = GetUserId();
+
+        retrofitComponent
+                .getRetrofitApiInterface()
+                .CHANGE_REMINDER_RESULT(
+                        Id, UserInfoId, state)
+                .enqueue(new Callback<MR_Primary>() {
+                    @Override
+                    public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
+                        if (response.body() != null) {
+                            CancelNotification(Id);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MR_Primary> call, Throwable t) {
+
+                    }
+                });
+
     }//_____________________________________________________________________________________________ ChangeState
+
+
+
+    private void GotoMeet(Integer Id) {//___________________________________________________________ GotoMeet
+        CancelNotification(Id);
+
+        RetrofitComponent retrofitComponent = PishtazanApplication
+                .getApplication(context)
+                .getRetrofitComponent();
+
+        Integer UserInfoId = GetUserId();
+
+        retrofitComponent
+                .getRetrofitApiInterface()
+                .SET_REMINDER_RESULT_DATETIME(
+                        Id, UserInfoId)
+                .enqueue(new Callback<MR_Primary>() {
+                    @Override
+                    public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
+                        if (response.body() != null) {
+                            CancelNotification(Id);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MR_Primary> call, Throwable t) {
+
+                    }
+                });
+
+    }//_____________________________________________________________________________________________ GotoMeet
+
+
 }

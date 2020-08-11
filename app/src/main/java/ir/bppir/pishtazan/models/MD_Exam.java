@@ -30,10 +30,10 @@ public class MD_Exam {
     @SerializedName("EducationId")
     Integer EducationId;
 
-    @SerializedName("Questions")
-    List<MD_Question> Questions;
+/*    @SerializedName("Questions")
+    List<MD_Question> Questions;*/
 
-    public MD_Exam(Integer id, String title, Integer examTime, Integer questionsCount, Integer minimumScore, Integer maximumExamScore, Integer minimumExamRate, Integer educationId, List<MD_Question> questions) {
+    public MD_Exam(Integer id, String title, Integer examTime, Integer questionsCount, Integer minimumScore, Integer maximumExamScore, Integer minimumExamRate, Integer educationId) {
         Id = id;
         Title = title;
         ExamTime = examTime;
@@ -42,7 +42,6 @@ public class MD_Exam {
         MaximumExamScore = maximumExamScore;
         MinimumExamRate = minimumExamRate;
         EducationId = educationId;
-        Questions = questions;
     }
 
     public Integer getId() {
@@ -107,13 +106,5 @@ public class MD_Exam {
 
     public void setEducationId(Integer educationId) {
         EducationId = educationId;
-    }
-
-    public List<MD_Question> getQuestions() {
-        return Questions;
-    }
-
-    public void setQuestions(List<MD_Question> questions) {
-        Questions = questions;
     }
 }

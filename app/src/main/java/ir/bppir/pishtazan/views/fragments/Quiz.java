@@ -11,7 +11,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -23,10 +22,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cunoraz.gifview.library.GifView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.FragmentQuizBinding;
-import ir.bppir.pishtazan.models.MD_QuestionOld;
+import ir.bppir.pishtazan.models.MD_Answer;
+import ir.bppir.pishtazan.models.MD_Question;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Quiz;
 import ir.bppir.pishtazan.views.adapters.AP_Question;
@@ -38,13 +41,13 @@ public class Quiz extends FragmentPrimary implements
 
 
     private VM_Quiz vm_quiz;
-    private Integer movieId;
+    private Integer examId;
     private Integer questionTime;
     private Handler timer;
     private Runnable runnable;
     private int questionPosition;
     private AP_Question ap_question;
-    private MD_QuestionOld md_questionOld;
+    private MD_Question md_question;
     private String movieUrl;
     private NavController navController;
 
@@ -75,6 +78,18 @@ public class Quiz extends FragmentPrimary implements
     @BindView(R.id.LinearLayoutNextQuestion)
     LinearLayout LinearLayoutNextQuestion;
 
+    @BindView(R.id.TextViewName)
+    TextView TextViewName;
+
+    @BindView(R.id.TextViewTime)
+    TextView TextViewTime;
+
+    @BindView(R.id.LinearLayoutExam)
+    LinearLayout LinearLayoutExam;
+
+    @BindView(R.id.GifViewLoadingNew)
+    GifView GifViewLoadingNew;
+
 
     @Nullable
     @Override
@@ -88,8 +103,7 @@ public class Quiz extends FragmentPrimary implements
             vm_quiz = new VM_Quiz(getActivity());
             binding.setQuiz(vm_quiz);
             setView(binding.getRoot());
-            movieId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
-            questionTime = getArguments().getInt(getContext().getResources().getString(R.string.ML_questionTime), 0);
+            examId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
             movieUrl = getArguments().getString(getContext().getResources().getString(R.string.ML_MovieUrl), "");
             init();
         }
@@ -115,17 +129,16 @@ public class Quiz extends FragmentPrimary implements
         LinearLayoutQuestion.setVisibility(View.GONE);
         GifViewLoading.setVisibility(View.VISIBLE);
         SetOnClick();
-        vm_quiz.GetQuestion(movieId);
+        vm_quiz.GetExam(examId);
     }//_____________________________________________________________________________________________ init
 
 
     private void SetOnClick() {//___________________________________________________________________ SetOnClick
 
         LinearLayoutStart.setOnClickListener(v -> {
-            LinearLayoutStart.setVisibility(View.GONE);
-            LinearLayoutQuestion.setVisibility(View.VISIBLE);
-            SetAdapterQuestion();
-            StartTimer(questionTime);
+            ImageViewLoading.setVisibility(View.GONE);
+            GifViewLoadingNew.setVisibility(View.VISIBLE);
+            vm_quiz.GetQuestion(examId);
         });
 
 
@@ -148,13 +161,35 @@ public class Quiz extends FragmentPrimary implements
     @Override
     public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
-        if (action.equals(StaticValues.ML_GetQuestions)) {
-            LinearLayoutStart.setVisibility(View.VISIBLE);
-            GifViewLoading.setVisibility(View.GONE);
+        GifViewLoading.setVisibility(View.GONE);
+        if (action.equals(StaticValues.ML_GetExam)) {
+            initExam();
             return;
         }
 
+        if (action.equals(StaticValues.ML_GetQuestions)) {
+            LinearLayoutStart.setVisibility(View.GONE);
+            LinearLayoutQuestion.setVisibility(View.VISIBLE);
+            SetAdapterQuestion();
+            StartTimer(questionTime);
+        }
+
     }//_____________________________________________________________________________________________ GetMessageFromObservable
+
+
+
+    private void initExam() {//_____________________________________________________________________ initExam
+        LinearLayoutStart.setVisibility(View.VISIBLE);
+        LinearLayoutExam.setVisibility(View.VISIBLE);
+        questionTime = vm_quiz.getMr_exam().getExam().getExamTime();
+        TextViewName.setText(getContext().getString(R.string.Title) + " : " + vm_quiz.getMr_exam().getExam().getTitle());
+        TextViewTime.setText(
+                getContext().getString(R.string.MovieTime) + " : " +
+                        vm_quiz.getMr_exam().getExam().getExamTime() + " " +
+                        getContext().getString(R.string.Minute)
+                );
+    }//_____________________________________________________________________________________________ initExam
+
 
 
     private void AnimationChangeQuestion(boolean next) {//__________________________________________ AnimationChangeQuestion
@@ -178,22 +213,22 @@ public class Quiz extends FragmentPrimary implements
             RecyclerViewQuestion.setAnimation(animationEnter);
             RecyclerViewQuestion.setVisibility(View.VISIBLE);
 
-        }, 500);
+        }, 400);
 
-//        Handler handler = new Handler();
-//        handler.postDelayed(() -> {
-//            md_question = vm_quiz.getMd_questions().get(questionPosition);
-//            ap_question.notifyDataSetChanged();
-//        },600);
+/*        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            md_question = vm_quiz.getMd_questions().get(questionPosition);
+            ap_question.notifyDataSetChanged();
+        },600);*/
 
     }//_____________________________________________________________________________________________ AnimationChangeQuestion
 
 
     private void SetAdapterQuestion() {//___________________________________________________________ SetAdapterQuestion
-/*        md_questionOld = vm_quiz.getMd_questionOlds().get(questionPosition);
-        ap_question = new AP_Question(md_questionOld, Quiz.this);
+        md_question = vm_quiz.getMd_questions().get(questionPosition);
+        ap_question = new AP_Question(md_question, Quiz.this);
         RecyclerViewQuestion.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        RecyclerViewQuestion.setAdapter(ap_question);*/
+        RecyclerViewQuestion.setAdapter(ap_question);
     }//_____________________________________________________________________________________________ SetAdapterQuestion
 
 
@@ -212,7 +247,8 @@ public class Quiz extends FragmentPrimary implements
                 int mili = progressBar.getProgress() + 10;
                 int seconds = (int) (mili / 10) % 60;
                 int minutes = (int) ((mili / (10 * 60)) % 60);
-                TimeElapsed.setText(String.format("%02d", minutes) + " : " + String.format("%02d", seconds));
+                int hours = (int) ((mili / (10 * 60 * 60)) % 60);
+                TimeElapsed.setText(String.format("%02d", hours) + " : " + String.format("%02d", minutes) + " : " + String.format("%02d", seconds));
 
                 if (progressBar.getProgress() > 0)
                     timer.postDelayed(this, 100);
@@ -227,11 +263,14 @@ public class Quiz extends FragmentPrimary implements
 
 
     private void NextQuestion() {//_________________________________________________________________ NextQuestion
-//        questionPosition++;
-//        if (questionPosition < vm_quiz.getMd_questionOlds().size())
-//            AnimationChangeQuestion(true);
-//        else
-//            questionPosition--;
+
+        if (vm_quiz.getMd_questions().get(questionPosition).getUserAnswer() != null) {
+            questionPosition++;
+            if (questionPosition < vm_quiz.getMd_questions().size())
+                AnimationChangeQuestion(true);
+            else
+                questionPosition--;
+        }
     }//_____________________________________________________________________________________________ NextQuestion
 
 
@@ -239,10 +278,23 @@ public class Quiz extends FragmentPrimary implements
     @Override
     public void clickItemAnswer(Integer Answer) {//_________________________________________________ clickItemAnswer
 
-/*        vm_quiz.getMd_questionOlds().get(questionPosition).setUserAnswer(Answer.byteValue());
-        NextQuestion();*/
+        vm_quiz.getMd_questions().get(questionPosition).setUserAnswer(Answer.byteValue());
+        NextQuestion();
 
     }//_____________________________________________________________________________________________ clickItemAnswer
+
+
+
+   private void SendResultExam() {//________________________________________________________________ SendResultExam
+
+       List<MD_Answer> md_answers = new ArrayList<>();
+       for (MD_Question question: vm_quiz.getMd_questions()) {
+           md_answers.add(new MD_Answer(question.getUserAnswer(), question.getId()));
+       }
+
+
+
+   }//______________________________________________________________________________________________ SendResultExam
 
 
 }

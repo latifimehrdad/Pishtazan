@@ -26,13 +26,39 @@
             android:padding="@dimen/_5sdp"
             custom:gif="@drawable/loading3" />
 
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutExam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/TextViewName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/colorPrimaryDark"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/TextViewTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/LinearLayoutStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/_5sdp"
             android:gravity="center"
-            android:visibility="gone"
+            android:layout_marginTop="@dimen/_10sdp"
             android:background="@drawable/dw_back_bottom">
 
             <TextView
@@ -55,10 +81,19 @@
                 android:tint="@color/ML_White"
                 android:src="@drawable/svg_quiz" />
 
+            <com.cunoraz.gifview.library.GifView
+                android:id="@+id/GifViewLoadingNew"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:visibility="gone"
+                android:layout_marginRight="@dimen/_3sdp"
+                android:padding="@dimen/_5sdp"
+                custom:gif="@drawable/loading3" />
+
         </LinearLayout>
 
-        <include layout="@layout/layout_question"
-            android:visibility="gone"/>
+
+        <include layout="@layout/layout_question" />
 
 
     </LinearLayout>

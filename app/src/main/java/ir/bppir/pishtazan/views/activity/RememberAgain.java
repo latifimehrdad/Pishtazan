@@ -8,6 +8,10 @@ import android.widget.TimePicker;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.daggers.datepicker.PersianPickerModule;
 import ir.bppir.pishtazan.utility.StaticValues;
@@ -26,6 +30,7 @@ public class RememberAgain extends AppCompatActivity {
     private String stringDate;
     private String stringTime;
     private VM_Panel vm_panel;
+    private DisposableObserver<Byte> disposableObserver;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +40,12 @@ public class RememberAgain extends AppCompatActivity {
         PersonId = getIntent().getExtras().getInt(getString(R.string.ML_personId), 0);
         NotifyType = getIntent().getByteExtra(getString(R.string.ML_Type),(byte)0);
         PersonType = getIntent().getByteExtra(getString(R.string.ML_PanelType),(byte)0);
+
+        if (disposableObserver != null)
+            disposableObserver.dispose();
+        disposableObserver = null;
+        SetObserverToObservable(vm_panel.getPublishSubject());
+
         TimePicker TimePickerReminder = (TimePicker)
                 findViewById(R.id.TimePickerReminder);
 
@@ -98,6 +109,7 @@ public class RememberAgain extends AppCompatActivity {
             sb1.append(":");
             sb1.append(String.format("%02d", TimePickerReminder.getCurrentMinute()));
             stringTime = sb1.toString();
+            LinearLayoutSave.setAlpha(0.5f);
             if (NotifyType.equals(StaticValues.Call))
                 SaveCallReminder();
             else
@@ -111,9 +123,9 @@ public class RememberAgain extends AppCompatActivity {
 
     private void SaveMeetingReminder() {//__________________________________________________________ SaveMeetingReminder
         if (PersonType.equals(StaticValues.Customer))
-            vm_panel.SaveCustomerReminder(StaticValues.Meeting, null, stringDate, stringTime, "", 0);
+            vm_panel.SaveCustomerReminder(StaticValues.Meeting, null, stringDate, stringTime, "", PersonId);
         else
-            vm_panel.SaveColleagueReminder(StaticValues.Meeting, null, stringDate, stringTime, "", 0);
+            vm_panel.SaveColleagueReminder(StaticValues.Meeting, null, stringDate, stringTime, "", PersonId);
     }//_____________________________________________________________________________________________ SaveMeetingReminder
 
 
@@ -124,6 +136,51 @@ public class RememberAgain extends AppCompatActivity {
         else
             vm_panel.SaveColleagueReminder(StaticValues.Call, null, stringDate, stringTime, "", PersonId);
     }//_____________________________________________________________________________________________ SaveCallReminder
+
+
+
+    public void SetObserverToObservable(PublishSubject<Byte> publishSubject) {//____________________ SetObserverToObservable
+
+        disposableObserver = new DisposableObserver<Byte>() {
+            @Override
+            public void onNext(Byte aByte) {
+                actionHandler(aByte);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+
+        publishSubject
+                .observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(disposableObserver);
+
+    }//_____________________________________________________________________________________________ SetObserverToObservable
+
+
+    private void actionHandler(Byte action) {//_____________________________________________________ actionHandler
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if (action == StaticValues.ML_SaveReminder) {
+                            if (disposableObserver != null)
+                                disposableObserver.dispose();
+                            disposableObserver = null;
+                            finish();
+                        }
+                    }
+                });
+    }//_____________________________________________________________________________________________ actionHandler
+
 
 
 }

@@ -113,9 +113,11 @@ public class Post extends FragmentPrimary implements FragmentPrimary.GetMessageF
         }
 
         if (action.equals(StaticValues.ML_GetNewQuiz)) {
-            Bundle bundle = new Bundle();
-            bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_post.getMd_education().getId());
-            navController.navigate(R.id.action_post_to_tutorialMovie, bundle);
+            if (vm_post.getMd_education() != null) {
+                Bundle bundle = new Bundle();
+                bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_post.getMd_education().getId());
+                navController.navigate(R.id.action_post_to_tutorialMovie, bundle);
+            }
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable

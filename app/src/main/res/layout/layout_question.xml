@@ -9,16 +9,16 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="@dimen/_70sdp"
-        android:layout_height="@dimen/_70sdp"
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="@dimen/_90sdp"
         android:gravity="center">
 
 
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="@dimen/_70sdp"
-            android:layout_height="@dimen/_70sdp"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_90sdp"
             android:max="100"
             android:progress="80"
             android:layout_centerVertical="true"
@@ -36,7 +36,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:textSize="@dimen/_9sdp"
-            android:text="1:56"
+            android:text="02:55:56"
             android:maxLines="2"
             />
 

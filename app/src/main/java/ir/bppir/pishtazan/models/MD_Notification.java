@@ -1,5 +1,7 @@
 package ir.bppir.pishtazan.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class MD_Notification {
 
 
@@ -15,18 +17,17 @@ public class MD_Notification {
 
     private Integer CustomerId;
 
-    private Integer CollegueId;
+    private Integer ColleagueId;
 
-    public MD_Notification(Integer id, String body, String title, Integer NType, Integer RType, Integer customerId, Integer collegueId) {
+    public MD_Notification(Integer id, String body, String title, Integer NType, Integer RType, Integer customerId, Integer colleagueId) {
         this.id = id;
         this.body = body;
         this.title = title;
         this.NType = NType;
         this.RType = RType;
         CustomerId = customerId;
-        CollegueId = collegueId;
+        ColleagueId = colleagueId;
     }
-
 
     public Integer getId() {
         return id;
@@ -76,11 +77,11 @@ public class MD_Notification {
         CustomerId = customerId;
     }
 
-    public Integer getCollegueId() {
-        return CollegueId;
+    public Integer getColleagueId() {
+        return ColleagueId;
     }
 
-    public void setCollegueId(Integer collegueId) {
-        CollegueId = collegueId;
+    public void setColleagueId(Integer colleagueId) {
+        ColleagueId = colleagueId;
     }
 }
