@@ -103,10 +103,16 @@
     <string name="Level">سطح</string>
     <string name="MovieTime">مدت زمان</string>
     <string name="StartQuiz">شروع آزمون</string>
+    <string name="ExamResult">نتایج آزمون</string>
     <string name="PreviousQuestion">سوال قبلی</string>
     <string name="NextQuestion">سوال بعدی</string>
     <string name="NewQuiz">آزمون جدید</string>
     <string name="Minute">دقیقه</string>
+    <string name="TotalQuestion">تعداد کل سوالات</string>
+    <string name="CorrectAnswerCount">تعداد پاسخ درست</string>
+    <string name="WrongAnswerCount">پاسخ اشتباه</string>
+    <string name="NotAnswer">بدون پاسخ</string>
+    <string name="AverageGrade">معدل</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>
@@ -127,5 +133,7 @@
     <string name="ML_Date">ML_Date</string>
     <string name="ML_questionTime">questionTime</string>
     <string name="ML_MovieUrl">MovieUrl</string>
+    <string name="ML_LastExam">LastExam</string>
+    <string name="ML_ExamHistory">ExamHistory</string>
 
 </resources>

@@ -32,6 +32,7 @@ public class Post extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
     private VM_Post vm_post;
     private NavController navController;
+    public static Integer ExamResultId = 0;
 
     @BindView(R.id.RecyclerViewPost)
     RecyclerView RecyclerViewPost;
@@ -77,6 +78,11 @@ public class Post extends FragmentPrimary implements FragmentPrimary.GetMessageF
                 vm_post.getPublishSubject(),
                 vm_post);
         navController = Navigation.findNavController(getView());
+        if (ExamResultId != 0){
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getResources().getString(R.string.ML_Id), ExamResultId);
+            navController.navigate(R.id.action_post_to_examResult, bundle);
+        }
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -116,6 +122,7 @@ public class Post extends FragmentPrimary implements FragmentPrimary.GetMessageF
             if (vm_post.getMd_education() != null) {
                 Bundle bundle = new Bundle();
                 bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_post.getMd_education().getId());
+                bundle.putString(getContext().getResources().getString(R.string.ML_Type), getContext().getResources().getString(R.string.ML_LastExam));
                 navController.navigate(R.id.action_post_to_tutorialMovie, bundle);
             }
         }
@@ -124,15 +131,19 @@ public class Post extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
 
     private void SetAdapter() {//___________________________________________________________________ SetAdapter
-        AP_Post ap_post = new AP_Post(vm_post.getMd_posts(), Post.this);
+        AP_Post ap_post = new AP_Post(vm_post.getMd_educationCategoryVms(), Post.this);
         RecyclerViewPost.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewPost.setAdapter(ap_post);
     }//_____________________________________________________________________________________________ SetAdapter
 
+
+
     @Override
     public void clickItemTutorial(Integer Position, View view) {//__________________________________ clickItemTutorial
         Bundle bundle = new Bundle();
-        bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_post.getMd_posts().get(Position).getId());
+        bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_post.getMd_educationCategoryVms().get(Position).getId());
+        bundle.putString(getContext().getResources().getString(R.string.ML_Type), getContext().getResources().getString(R.string.ML_ExamHistory));
+        bundle.putString(getContext().getResources().getString(R.string.ML_Description), vm_post.getMd_educationCategoryVms().get(Position).getTitle());
         navController.navigate(R.id.action_post_to_tutorial, bundle);
     }//_____________________________________________________________________________________________ clickItemTutorial
 

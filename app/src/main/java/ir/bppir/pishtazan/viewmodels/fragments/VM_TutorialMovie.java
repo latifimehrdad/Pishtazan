@@ -35,19 +35,19 @@ public class VM_TutorialMovie extends VM_Primary {
                 .getApplication(getContext())
                 .getRetrofitComponent()
                 .getRetrofitApiInterface()
-                .GET_EDUCATION_FILES(UserInfoId,tutorialId,StaticValues.FileTypeVideo));
+                .GET_EDUCATION_FILES(UserInfoId, tutorialId, StaticValues.FileTypeVideo));
 
         getPrimaryCall().enqueue(new Callback<MR_EducationFiles>() {
             @Override
             public void onResponse(Call<MR_EducationFiles> call, Response<MR_EducationFiles> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
-                    if (response.body().getStatue() == 0)
-                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
-                    else {
+                    if (response.body().getStatue() == 1){
                         md_educationFiles = response.body().getEducationFiles();
                         getPublishSubject().onNext(StaticValues.ML_GetTutorialMovie);
                     }
+                    else
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
                 }
             }
 

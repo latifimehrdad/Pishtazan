@@ -15,44 +15,90 @@
 
 
         <LinearLayout
-            android:id="@+id/LinearLayoutStart"
-            android:layout_width="wrap_content"
+            android:id="@+id/LinearLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_5sdp"
-            android:gravity="center"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/_15sdp"
+            android:paddingRight="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_5sdp"
-            android:background="@drawable/dw_back_bottom">
+            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:id="@+id/LinearLayoutExamResult"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/_8sdp"
-                android:paddingBottom="@dimen/_8sdp"
-                android:paddingRight="@dimen/_30sdp"
-                android:paddingLeft="@dimen/_30sdp"
-                android:textColor="@color/ML_White"
-                android:textSize="@dimen/_10sdp"
-                fontPath="fonts/iransans_web_medium.ttf"
-                android:text="@string/StartQuiz"/>
-
-            <ImageView
-                android:id="@+id/ImageViewLoading"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
-                android:layout_marginRight="@dimen/_3sdp"
-                android:tint="@color/ML_White"
-                android:src="@drawable/svg_quiz" />
-
-            <com.cunoraz.gifview.library.GifView
-                android:id="@+id/GifViewLoadingQuiz"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
-                android:visibility="gone"
                 android:padding="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_3sdp"
-                custom:gif="@drawable/loading3" />
+                android:gravity="center"
+                android:background="@drawable/dw_back_bottom_action">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/_8sdp"
+                    android:paddingBottom="@dimen/_8sdp"
+                    android:paddingRight="@dimen/_25sdp"
+                    android:paddingLeft="@dimen/_25sdp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/_10sdp"
+                    fontPath="fonts/iransans_web_medium.ttf"
+                    android:text="@string/ExamResult"/>
+
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_marginRight="@dimen/_3sdp"
+                    android:tint="@color/colorPrimaryDark"
+                    android:src="@drawable/svg_to_do_list" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayoutStart"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:gravity="center"
+                android:background="@drawable/dw_back_bottom">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/_8sdp"
+                    android:paddingBottom="@dimen/_8sdp"
+                    android:paddingRight="@dimen/_25sdp"
+                    android:paddingLeft="@dimen/_25sdp"
+                    android:textColor="@color/ML_White"
+                    android:textSize="@dimen/_10sdp"
+                    fontPath="fonts/iransans_web_medium.ttf"
+                    android:text="@string/StartQuiz"/>
+
+                <ImageView
+                    android:id="@+id/ImageViewLoading"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_marginRight="@dimen/_3sdp"
+                    android:tint="@color/ML_White"
+                    android:src="@drawable/svg_quiz" />
+
+                <com.cunoraz.gifview.library.GifView
+                    android:id="@+id/GifViewLoadingQuiz"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:visibility="gone"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_3sdp"
+                    custom:gif="@drawable/loading3" />
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 
@@ -61,7 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/adapter_tutorial_movie"
-            android:layout_above="@id/LinearLayoutStart"
+            android:layout_above="@id/LinearLayout"
             android:padding="@dimen/_10sdp"/>
 
         <com.cunoraz.gifview.library.GifView

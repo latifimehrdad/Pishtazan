@@ -119,7 +119,10 @@ public class MD_Question {
     }
 
     public Byte getUserAnswer() {
-        return userAnswer;
+        if (userAnswer == null)
+            return 0;
+        else
+            return userAnswer;
     }
 
     public void setUserAnswer(Byte userAnswer) {

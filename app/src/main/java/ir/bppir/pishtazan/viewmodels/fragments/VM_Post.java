@@ -7,11 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ir.bppir.pishtazan.models.MD_Education;
-import ir.bppir.pishtazan.models.MD_Post;
-import ir.bppir.pishtazan.models.MD_Tutorial;
-import ir.bppir.pishtazan.models.MR_GetAllPerson;
+import ir.bppir.pishtazan.models.MD_EducationCategoryVms;
+import ir.bppir.pishtazan.models.MR_EducationCategoryVms;
 import ir.bppir.pishtazan.models.MR_LastEducation;
-import ir.bppir.pishtazan.models.MR_PersonNumber;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
@@ -21,7 +19,7 @@ import retrofit2.Response;
 
 public class VM_Post extends VM_Primary {
 
-    private List<MD_Post> md_posts;
+    private List<MD_EducationCategoryVms> md_educationCategoryVms;
 
     private MD_Education md_education;
 
@@ -39,11 +37,33 @@ public class VM_Post extends VM_Primary {
             return;
         }
 
-        md_posts = new ArrayList<>();
-        for (int i = 0; i < 10; i++)
-            md_posts.add(new MD_Post(i, "سمت : " + i));
-        Handler handler = new Handler();
-        handler.postDelayed(() -> SendMessageToObservable(StaticValues.ML_GetPost), 1500);
+
+        setPrimaryCall(PishtazanApplication
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .GET_LevelCategory(UserInfoId));
+
+        getPrimaryCall().enqueue(new Callback<MR_EducationCategoryVms>() {
+            @Override
+            public void onResponse(Call<MR_EducationCategoryVms> call, Response<MR_EducationCategoryVms> response) {
+                if (ResponseIsOk(response)) {
+                    setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 0)
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    else {
+                        md_educationCategoryVms = response.body().getEducationCategoryVms();
+                        getPublishSubject().onNext(StaticValues.ML_GetPost);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MR_EducationCategoryVms> call, Throwable t) {
+                CallIsFailure();
+            }
+        });
+
 
     }//_____________________________________________________________________________________________ GetPost
 
@@ -87,10 +107,10 @@ public class VM_Post extends VM_Primary {
     }//_____________________________________________________________________________________________ GetNewQuiz
 
 
+    public List<MD_EducationCategoryVms> getMd_educationCategoryVms() {//___________________________ getMd_educationCategoryVms
+        return md_educationCategoryVms;
+    }//_____________________________________________________________________________________________ getMd_educationCategoryVms
 
-    public List<MD_Post> getMd_posts() {//__________________________________________________________ getMd_posts
-        return md_posts;
-    }//_____________________________________________________________________________________________ getMd_posts
 
 
     public MD_Education getMd_education() {//_______________________________________________________ getMd_education

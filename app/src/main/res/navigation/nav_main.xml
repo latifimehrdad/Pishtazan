@@ -274,6 +274,14 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"/>
 
+        <action
+            android:id="@+id/action_tutorialMovie_to_examResults"
+            app:destination="@id/examResults"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
 
     </fragment>
 
@@ -309,6 +317,9 @@
         <argument android:name="@string/ML_MovieUrl"
             android:defaultValue="null"/>
 
+        <argument android:name="@string/ML_Type"
+            android:defaultValue="null"/>
+
 
         <action
             android:id="@+id/action_post_to_tutorial"
@@ -327,6 +338,26 @@
             app:popExitAnim="@anim/slide_out_left"
             />
 
+        <action
+            android:id="@+id/action_post_to_examResult"
+            app:destination="@id/examResult"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
     </fragment>
+
+    <fragment
+        android:id="@+id/examResult"
+        android:name="ir.bppir.pishtazan.views.fragments.ExamResult"
+        android:label="ExamResult"
+        tools:layout="@layout/fragment_exam_result"/>
+
+    <fragment
+        android:id="@+id/examResults"
+        android:name="ir.bppir.pishtazan.views.fragments.ExamResults"
+        android:label="ExamResults"
+        tools:layout="@layout/fragment_exam_results"/>
 
 </navigation>

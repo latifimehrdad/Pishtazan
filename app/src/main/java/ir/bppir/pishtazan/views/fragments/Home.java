@@ -92,7 +92,6 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
     }//_____________________________________________________________________________________________ init
 
 
-
     private void SetAnimation() {//_________________________________________________________________ SetAnimation
 
 
@@ -137,7 +136,10 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
     private void SetClick() {//_____________________________________________________________________  SetClick
 
-        LinearLayoutTutorial.setOnClickListener(v -> navController.navigate(R.id.action_home_to_post));
+        LinearLayoutTutorial.setOnClickListener(v -> {
+            Post.ExamResultId = 0;
+            navController.navigate(R.id.action_home_to_post);
+        });
 
 
         LinearLayoutColleagues.setOnClickListener(view -> {

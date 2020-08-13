@@ -90,6 +90,15 @@ public class Quiz extends FragmentPrimary implements
     @BindView(R.id.GifViewLoadingNew)
     GifView GifViewLoadingNew;
 
+    @BindView(R.id.LinearLayoutSend)
+    LinearLayout LinearLayoutSend;
+
+    @BindView(R.id.ImageViewLoadingSend)
+    ImageView ImageViewLoadingSend;
+
+    @BindView(R.id.GifViewLoadingSend)
+    GifView GifViewLoadingSend;
+
 
     @Nullable
     @Override
@@ -105,7 +114,7 @@ public class Quiz extends FragmentPrimary implements
             setView(binding.getRoot());
             examId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
             movieUrl = getArguments().getString(getContext().getResources().getString(R.string.ML_MovieUrl), "");
-            init();
+            SetOnClick();
         }
         return getView();
     }//_____________________________________________________________________________________________ onCreateView
@@ -120,6 +129,7 @@ public class Quiz extends FragmentPrimary implements
                 vm_quiz);
         navController = Navigation.findNavController(getView());
         getContext().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        init();
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -128,12 +138,18 @@ public class Quiz extends FragmentPrimary implements
         LinearLayoutStart.setVisibility(View.GONE);
         LinearLayoutQuestion.setVisibility(View.GONE);
         GifViewLoading.setVisibility(View.VISIBLE);
-        SetOnClick();
         vm_quiz.GetExam(examId);
     }//_____________________________________________________________________________________________ init
 
 
     private void SetOnClick() {//___________________________________________________________________ SetOnClick
+
+
+        LinearLayoutSend.setOnClickListener(v -> {
+            ImageViewLoadingSend.setVisibility(View.GONE);
+            GifViewLoadingSend.setVisibility(View.VISIBLE);
+            SendResultExam();
+        });
 
         LinearLayoutStart.setOnClickListener(v -> {
             ImageViewLoading.setVisibility(View.GONE);
@@ -170,8 +186,17 @@ public class Quiz extends FragmentPrimary implements
         if (action.equals(StaticValues.ML_GetQuestions)) {
             LinearLayoutStart.setVisibility(View.GONE);
             LinearLayoutQuestion.setVisibility(View.VISIBLE);
+            LinearLayoutExam.setVisibility(View.GONE);
             SetAdapterQuestion();
             StartTimer(questionTime);
+            return;
+        }
+
+        if (action.equals(StaticValues.ML_SendAnswer)){
+            Post.ExamResultId = vm_quiz.getExamResult();
+            getActivity().onBackPressed();
+            getActivity().onBackPressed();
+//            getActivity().onBackPressed();
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
@@ -252,8 +277,8 @@ public class Quiz extends FragmentPrimary implements
 
                 if (progressBar.getProgress() > 0)
                     timer.postDelayed(this, 100);
-//                else
-//                    ReTryGetSMS();
+                else
+                    SendResultExam();
             }
         };
         timer.postDelayed(runnable, 100);
@@ -268,8 +293,9 @@ public class Quiz extends FragmentPrimary implements
             questionPosition++;
             if (questionPosition < vm_quiz.getMd_questions().size())
                 AnimationChangeQuestion(true);
-            else
+            else {
                 questionPosition--;
+            }
         }
     }//_____________________________________________________________________________________________ NextQuestion
 
@@ -291,7 +317,9 @@ public class Quiz extends FragmentPrimary implements
        for (MD_Question question: vm_quiz.getMd_questions()) {
            md_answers.add(new MD_Answer(question.getUserAnswer(), question.getId()));
        }
-
+       LinearLayoutQuestion.setVisibility(View.GONE);
+       GifViewLoading.setVisibility(View.VISIBLE);
+       vm_quiz.SendAnswer(md_answers, vm_quiz.getExamResult());
 
 
    }//______________________________________________________________________________________________ SendResultExam

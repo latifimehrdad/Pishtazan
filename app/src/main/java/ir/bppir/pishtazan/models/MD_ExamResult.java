@@ -25,7 +25,12 @@ public class MD_ExamResult {
     @SerializedName("EducationId")
     Integer EducationId;
 
-    public MD_ExamResult(Integer id, String examDateJ, Integer correctAnswerCount, Integer wrongAnswerCount, float averageGrade, Integer examResultStatus, Integer educationId) {
+    @SerializedName("NotAnswered")
+    Integer NotAnswered;
+
+    Integer TotalQuestion;
+
+    public MD_ExamResult(Integer id, String examDateJ, Integer correctAnswerCount, Integer wrongAnswerCount, float averageGrade, Integer examResultStatus, Integer educationId, Integer notAnswered) {
         Id = id;
         ExamDateJ = examDateJ;
         CorrectAnswerCount = correctAnswerCount;
@@ -33,7 +38,9 @@ public class MD_ExamResult {
         AverageGrade = averageGrade;
         ExamResultStatus = examResultStatus;
         EducationId = educationId;
+        NotAnswered = notAnswered;
     }
+
 
     public Integer getId() {
         return Id;
@@ -89,5 +96,13 @@ public class MD_ExamResult {
 
     public void setEducationId(Integer educationId) {
         EducationId = educationId;
+    }
+
+    public Integer getNotAnswered() {
+        return NotAnswered;
+    }
+
+    public void setNotAnswered(Integer notAnswered) {
+        NotAnswered = notAnswered;
     }
 }

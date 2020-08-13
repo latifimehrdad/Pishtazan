@@ -1,6 +1,7 @@
 package ir.bppir.pishtazan.views.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class TutorialMovie extends FragmentPrimary implements
     private VM_TutorialMovie vm_tutorialMovie;
     private Integer tutorialId;
     private NavController navController;
+    private String examType;
 
     @BindView(R.id.RecyclerViewMovie)
     RecyclerView RecyclerViewMovie;
@@ -49,6 +51,11 @@ public class TutorialMovie extends FragmentPrimary implements
     @BindView(R.id.ImageViewLoading)
     ImageView ImageViewLoading;
 
+    @BindView(R.id.LinearLayoutExamResult)
+    LinearLayout LinearLayoutExamResult;
+
+
+
     @Nullable
     @Override
     public View onCreateView(
@@ -62,6 +69,7 @@ public class TutorialMovie extends FragmentPrimary implements
             binding.setMovie(vm_tutorialMovie);
             setView(binding.getRoot());
             tutorialId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
+            examType = getArguments().getString(getContext().getResources().getString(R.string.ML_Type), "");
             init();
         }
         return getView();
@@ -93,7 +101,15 @@ public class TutorialMovie extends FragmentPrimary implements
         LinearLayoutStart.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putInt(getContext().getResources().getString(R.string.ML_Id), tutorialId);
+            bundle.putString(getContext().getResources().getString(R.string.ML_Type), examType);
             navController.navigate(R.id.action_tutorialMovie_to_quiz, bundle);
+        });
+
+
+        LinearLayoutExamResult.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getResources().getString(R.string.ML_Id), tutorialId);
+            navController.navigate(R.id.action_tutorialMovie_to_examResults, bundle);
         });
 
     }//_____________________________________________________________________________________________ SetOnClick
@@ -105,8 +121,18 @@ public class TutorialMovie extends FragmentPrimary implements
     public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         GifViewLoading.setVisibility(View.GONE);
-        if (action.equals(StaticValues.ML_GetTutorialMovie))
+        if (action.equals(StaticValues.ML_GetTutorialMovie)) {
             SetReportAdapter();
+            return;
+        }
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getContext().onBackPressed();
+            }
+        },1000);
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 

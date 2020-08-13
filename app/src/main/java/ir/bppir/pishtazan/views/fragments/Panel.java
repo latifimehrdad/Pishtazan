@@ -205,7 +205,6 @@ public class Panel extends FragmentPrimary implements
             }
         });
 
-
         LinearLayoutMaybe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

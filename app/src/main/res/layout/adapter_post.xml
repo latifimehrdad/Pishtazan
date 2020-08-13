@@ -3,7 +3,7 @@
     <data>
         <variable
             name="post"
-            type="ir.bppir.pishtazan.models.MD_Post" />
+            type="ir.bppir.pishtazan.models.MD_EducationCategoryVms" />
     </data>
 
     <LinearLayout

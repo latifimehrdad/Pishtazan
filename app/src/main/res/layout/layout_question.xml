@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:id="@+id/LinearLayoutQuestion"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -56,7 +57,6 @@
         android:layout_height="@dimen/_45sdp"
         android:layout_marginRight="@dimen/_20sdp"
         android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginBottom="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:orientation="horizontal"
         >
@@ -130,6 +130,52 @@
 
         </LinearLayout>
 
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayoutSend"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:orientation="horizontal"
+        android:background="@drawable/button_red"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_12sdp"
+            android:maxLines="2"
+            fontPath="fonts/iransans_web_medium.ttf"
+            android:gravity="center"
+            android:text="@string/PreviousQuestion"
+            android:layout_marginLeft="@dimen/_2sdp"
+            />
+
+        <ImageView
+            android:id="@+id/ImageViewLoadingSend"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_28sdp"
+            android:layout_marginLeft="@dimen/_2sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:tint="@color/colorPrimaryDark"
+            android:src="@drawable/svg_previous"
+            />
+
+        <com.cunoraz.gifview.library.GifView
+            android:id="@+id/GifViewLoadingSend"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:visibility="gone"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:padding="@dimen/_5sdp"
+            custom:gif="@drawable/loading3" />
 
     </LinearLayout>
 

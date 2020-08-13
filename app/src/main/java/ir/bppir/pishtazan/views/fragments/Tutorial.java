@@ -1,6 +1,7 @@
 package ir.bppir.pishtazan.views.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ public class Tutorial extends FragmentPrimary implements
     private VM_Tutorial vm_tutorial;
     private NavController navController;
     private Integer postId;
+    private String postName;
+    private String examType;
 
     @BindView(R.id.RecyclerViewTutorial)
     RecyclerView RecyclerViewTutorial;
@@ -48,6 +51,8 @@ public class Tutorial extends FragmentPrimary implements
             binding.setTutorial(vm_tutorial);
             setView(binding.getRoot());
             postId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
+            postName = getArguments().getString(getContext().getResources().getString(R.string.ML_Description), "");
+            examType = getArguments().getString(getContext().getResources().getString(R.string.ML_Type), "");
             init();
         }
         return getView();
@@ -75,14 +80,24 @@ public class Tutorial extends FragmentPrimary implements
     public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         GifViewLoading.setVisibility(View.GONE);
-        if (action.equals(StaticValues.ML_GetTutorial))
+        if (action.equals(StaticValues.ML_GetTutorial)) {
             SetReportAdapter();
+            return;
+        }
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getContext().onBackPressed();
+            }
+        },1000);
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
 
     private void SetReportAdapter() {//_____________________________________________________________ SetReportAdapter
-        AP_Tutorial ap_tutorial = new AP_Tutorial(vm_tutorial.getMd_tutorials(), Tutorial.this);
+        AP_Tutorial ap_tutorial = new AP_Tutorial(vm_tutorial.getMd_educations(), Tutorial.this, postName);
         RecyclerViewTutorial.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewTutorial.setAdapter(ap_tutorial);
     }//_____________________________________________________________________________________________ SetReportAdapter
@@ -90,7 +105,8 @@ public class Tutorial extends FragmentPrimary implements
     @Override
     public void clickItemTutorial(Integer Position, View view) {//__________________________________ clickItemTutorial
         Bundle bundle = new Bundle();
-        bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_tutorial.getMd_tutorials().get(Position).getId());
+        bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_tutorial.getMd_educations().get(Position).getId());
+        bundle.putString(getContext().getResources().getString(R.string.ML_Type), examType);
         navController.navigate(R.id.action_tutorial_to_tutorialMovie, bundle);
     }//_____________________________________________________________________________________________ clickItemTutorial
 

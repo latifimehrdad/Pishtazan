@@ -11,6 +11,7 @@ import ir.bppir.pishtazan.models.MD_Education;
 import ir.bppir.pishtazan.models.MD_ExamResult;
 import ir.bppir.pishtazan.models.MD_Question;
 import ir.bppir.pishtazan.models.MD_QuestionOld;
+import ir.bppir.pishtazan.models.MD_SendAnswer;
 import ir.bppir.pishtazan.models.MR_EducationFiles;
 import ir.bppir.pishtazan.models.MR_Exam;
 import ir.bppir.pishtazan.models.MR_ExamResult;
@@ -18,6 +19,8 @@ import ir.bppir.pishtazan.models.MR_Question;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,6 +30,7 @@ public class VM_Quiz extends VM_Primary {
 
     private MR_Exam mr_exam;
     private List<MD_Question> md_questions;
+    private Integer examResult;
 
     private MD_ExamResult md_examResult;
 
@@ -93,6 +97,7 @@ public class VM_Quiz extends VM_Primary {
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
                     else {
                         md_questions = response.body().getQuestions();
+                        examResult = response.body().getExamResultId();
                         getPublishSubject().onNext(StaticValues.ML_GetQuestions);
                     }
                 }
@@ -110,7 +115,7 @@ public class VM_Quiz extends VM_Primary {
 
 
 
-    public void SendAnswer(List<MD_Answer> answers) {//_____________________________________________ SendAnswer
+    public void SendAnswer(List<MD_Answer> answers, Integer examResult) {//_________________________ SendAnswer
 
         Integer UserInfoId = GetUserId();
         if (UserInfoId == 0) {
@@ -118,11 +123,12 @@ public class VM_Quiz extends VM_Primary {
             return;
         }
 
+        MD_SendAnswer md_sendAnswer = new MD_SendAnswer(UserInfoId, examResult, answers);
         setPrimaryCall(PishtazanApplication
                 .getApplication(getContext())
                 .getRetrofitComponent()
                 .getRetrofitApiInterface()
-                .SEND_ANSWER(UserInfoId, answers));
+                .SEND_ANSWER(md_sendAnswer));
 
         getPrimaryCall().enqueue(new Callback<MR_ExamResult>() {
             @Override
@@ -157,4 +163,9 @@ public class VM_Quiz extends VM_Primary {
     public List<MD_Question> getMd_questions() {//__________________________________________________ getMd_questions
         return md_questions;
     }//_____________________________________________________________________________________________ getMd_questions
+
+
+    public Integer getExamResult() {
+        return examResult;
+    }
 }

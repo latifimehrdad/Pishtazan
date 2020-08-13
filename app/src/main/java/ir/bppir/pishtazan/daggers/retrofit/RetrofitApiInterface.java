@@ -6,9 +6,13 @@ import java.util.Map;
 
 import ir.bppir.pishtazan.models.MD_Answer;
 import ir.bppir.pishtazan.models.MD_GetAddres;
+import ir.bppir.pishtazan.models.MD_SendAnswer;
+import ir.bppir.pishtazan.models.MR_Education;
+import ir.bppir.pishtazan.models.MR_EducationCategoryVms;
 import ir.bppir.pishtazan.models.MR_EducationFiles;
 import ir.bppir.pishtazan.models.MR_Exam;
 import ir.bppir.pishtazan.models.MR_ExamResult;
+import ir.bppir.pishtazan.models.MR_ExamResults;
 import ir.bppir.pishtazan.models.MR_GenerateCode;
 import ir.bppir.pishtazan.models.MR_GetAllPerson;
 import ir.bppir.pishtazan.models.MR_LastEducation;
@@ -21,6 +25,7 @@ import ir.bppir.pishtazan.models.MR_Question;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -327,12 +332,44 @@ public interface RetrofitApiInterface {
             );
 
 
-    @FormUrlEncoded
     @POST(Version + "/GetAnswers")
     Call<MR_ExamResult> SEND_ANSWER
             (
-                    @Field("UserInfoId") Integer UserInfoId,
-                    @Field("Answers") List<MD_Answer> Answers
+                    @Body MD_SendAnswer sendAnswer
                     );
+
+    @FormUrlEncoded
+    @POST(Version + "/GetExamResultById")
+    Call<MR_ExamResult> GET_EXAM_RESULT
+            (
+                    @Field("Id") Integer Id,
+                    @Field("UserInfoId") Integer UserInfoId
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/GetCategories")
+    Call<MR_EducationCategoryVms> GET_LevelCategory
+            (
+                    @Field("UserInfoId") Integer UserInfoId
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/GetEducationList")
+    Call<MR_Education> GET_EDUCATION_LIST
+            (
+                    @Field("Id") Integer Id,
+                    @Field("UserInfoId") Integer UserInfoId
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/GetExamResultList")
+    Call<MR_ExamResults> GET_EXAM_RESULTS
+            (
+                    @Field("Id") Integer Id,
+                    @Field("UserInfoId") Integer UserInfoId
+            );
 
 }

@@ -24,10 +24,37 @@ import static ir.bppir.pishtazan.daggers.retrofit.RetrofitApis.Host;
 public class BindingAdapters {
 
 
-    @BindingAdapter(value = {"TextRadioButton","userAnswerRadioButton","radioButtonTag"})
+    @BindingAdapter(value = "SetTextViewDouble")
+    public static void SetTextViewDouble(TextView textView, float value) {//___________________________ SetTextViewText
+
+        String v = String.format("%.2f", value);
+        textView.setText(v);
+
+    }//_____________________________________________________________________________________________ SetTextViewText
+
+
+    @BindingAdapter(value = {"CorrectAnswerCount", "WrongAnswerCount", "NotAnswered"})
+    public static void SetTextViewExamResultTotal(
+            TextView textView,
+            Integer CorrectAnswerCount,
+            Integer WrongAnswerCount,
+            Integer NotAnswered) {//_________________ SetTextViewText
+
+        Integer total;
+
+        if (CorrectAnswerCount != null && WrongAnswerCount != null && NotAnswered != null)
+            total = CorrectAnswerCount + WrongAnswerCount + NotAnswered;
+        else
+            total = 0;
+        textView.setText(total.toString());
+
+    }//_____________________________________________________________________________________________ SetTextViewText
+
+
+    @BindingAdapter(value = {"TextRadioButton", "userAnswerRadioButton", "radioButtonTag"})
     public static void SetValueForRadioButton(RadioButton radioButton, String title, Byte userAnswer, Integer radioTag) {
         radioButton.setText(title);
-        if (userAnswer == null){
+        if (userAnswer == null) {
             radioButton.setChecked(false);
             return;
         }
@@ -55,8 +82,8 @@ public class BindingAdapters {
         Context context = textView.getContext();
         if (text == null || text.equalsIgnoreCase("null"))
             text = "";
-        switch (tag){
-            case "date" :
+        switch (tag) {
+            case "date":
                 textView.setText(context.getResources().getString(R.string.Date) + " : " + text);
                 break;
             case "title":
@@ -66,7 +93,7 @@ public class BindingAdapters {
             case "description":
                 textView.setText(context.getResources().getString(R.string.Description) + " : " + text);
                 break;
-            case "movieTime" :
+            case "movieTime":
                 textView.setText(context.getResources().getString(R.string.MovieTime) + " : " + text);
                 break;
         }
@@ -74,22 +101,26 @@ public class BindingAdapters {
     }//_____________________________________________________________________________________________ SetTextViewText
 
 
-
     @BindingAdapter(value = "SetTextViewInteger")
     public static void SetTextViewTextInteger(TextView textView, Integer value) {//_________________ SetTextViewText
 
         String tag = textView.getTag().toString();
         Context context = textView.getContext();
-        switch (tag){
-            case "movieTime" :
+        switch (tag) {
+            case "movieTime":
                 Integer h = value % 60;
                 Integer min = value / 60;
                 textView.setText(context.getResources().getString(R.string.MovieTime) + "  " + String.format("%02d", min) + ":" + String.format("%02d", h));
                 break;
+            default:
+                if (value != null)
+                    textView.setText(value.toString());
+                else
+                    textView.setText("0");
+                break;
         }
 
     }//_____________________________________________________________________________________________ SetTextViewText
-
 
 
     @BindingAdapter(value = "SetTextViewLong")
@@ -97,8 +128,8 @@ public class BindingAdapters {
 
         String tag = textView.getTag().toString();
         Context context = textView.getContext();
-        switch (tag){
-            case "amount" :
+        switch (tag) {
+            case "amount":
                 textView.setText(context.getResources().getString(R.string.Amount) + " : " + value.toString());
                 break;
         }
@@ -106,29 +137,24 @@ public class BindingAdapters {
     }//_____________________________________________________________________________________________ SetTextViewText
 
 
-
-
-
     @BindingAdapter(value = "SetDegreePersonImage")
     public static void SetDegreePersonImage(CircleImageView imageView, Integer degree) {//__________ SetDegreePersonImage
         Context context = imageView.getContext();
-        if (degree.byteValue() == StaticValues.DegreeNormal){
+        if (degree.byteValue() == StaticValues.DegreeNormal) {
             imageView.setImageResource(R.drawable.normal_icon);
             return;
         }
 
-        if (degree.byteValue() == StaticValues.DegreePeach){
+        if (degree.byteValue() == StaticValues.DegreePeach) {
             imageView.setImageResource(R.drawable.peach_icon);
             return;
         }
 
-        if (degree.byteValue() == StaticValues.DegreeGiant){
+        if (degree.byteValue() == StaticValues.DegreeGiant) {
             imageView.setImageResource(R.drawable.giant_icon);
             return;
         }
     }//_____________________________________________________________________________________________ SetDegreePersonImage
-
-
 
 
     @BindingAdapter(value = "SetPersonImage")
@@ -199,7 +225,6 @@ public class BindingAdapters {
         });
 
     }//_____________________________________________________________________________________________ SetPersonImage
-
 
 
 }

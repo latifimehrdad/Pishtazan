@@ -19,14 +19,16 @@ import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.AdapterItemReportBinding;
 import ir.bppir.pishtazan.databinding.AdapterTutorialBinding;
+import ir.bppir.pishtazan.models.MD_Education;
 import ir.bppir.pishtazan.models.MD_Report;
 import ir.bppir.pishtazan.models.MD_Tutorial;
 
 public class AP_Tutorial extends RecyclerView.Adapter<AP_Tutorial.CustomHolder> {
 
     private LayoutInflater layoutInflater;
-    private List<MD_Tutorial> md_tutorials;
+    private List<MD_Education> md_educations;
     private ClickItemTutorial clickItemTutorial;
+    private String post;
 
     @NonNull
     @Override
@@ -39,12 +41,12 @@ public class AP_Tutorial extends RecyclerView.Adapter<AP_Tutorial.CustomHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull CustomHolder holder, int position) {
-        holder.bind(md_tutorials.get(position), position);
+        holder.bind(md_educations.get(position), position);
     }
 
     @Override
     public int getItemCount() {
-        return md_tutorials.size();
+        return md_educations.size();
     }
 
     public interface ClickItemTutorial {//__________________________________________________________ ClickItemTutorial
@@ -52,9 +54,10 @@ public class AP_Tutorial extends RecyclerView.Adapter<AP_Tutorial.CustomHolder> 
     }//_____________________________________________________________________________________________ ClickItemTutorial
 
 
-    public AP_Tutorial(List<MD_Tutorial> md_tutorials, ClickItemTutorial clickItemTutorial) {
-        this.md_tutorials = md_tutorials;
+    public AP_Tutorial(List<MD_Education> md_educations, ClickItemTutorial clickItemTutorial, String post) {
+        this.md_educations = md_educations;
         this.clickItemTutorial = clickItemTutorial;
+        this.post = post;
     }
 
 
@@ -69,8 +72,9 @@ public class AP_Tutorial extends RecyclerView.Adapter<AP_Tutorial.CustomHolder> 
             ButterKnife.bind(this, binding.getRoot());
         }
 
-        public void bind(MD_Tutorial item, final int itemPosition) {
+        public void bind(MD_Education item, final int itemPosition) {
             binding.setTutorial(item);
+            binding.setPost(post);
             binding.getRoot().setOnClickListener(v -> clickItemTutorial.clickItemTutorial(itemPosition, binding.getRoot()));
             binding.executePendingBindings();
         }

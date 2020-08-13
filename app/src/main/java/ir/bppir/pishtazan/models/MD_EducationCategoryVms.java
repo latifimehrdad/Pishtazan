@@ -1,12 +1,16 @@
 package ir.bppir.pishtazan.models;
 
-public class MD_Post {
+import com.google.gson.annotations.SerializedName;
 
-    private Integer Id;
+public class MD_EducationCategoryVms {
 
-    private String Title;
+    @SerializedName("Id")
+    Integer Id;
 
-    public MD_Post(Integer id, String title) {
+    @SerializedName("Title")
+    String Title;
+
+    public MD_EducationCategoryVms(Integer id, String title) {
         Id = id;
         Title = title;
     }
