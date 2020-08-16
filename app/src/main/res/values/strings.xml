@@ -113,6 +113,9 @@
     <string name="WrongAnswerCount">پاسخ اشتباه</string>
     <string name="NotAnswer">بدون پاسخ</string>
     <string name="AverageGrade">معدل</string>
+    <string name="CorrectAnswer">پاسخ درست</string>
+    <string name="YourAnswer">پاسخ شما</string>
+    <string name="ExamResultDetail">جزییات کارنامه</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="detail"
+            type="ir.bppir.pishtazan.models.MD_ExamResultDetail" />
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@drawable/dw_back_exam_result_wrong"
+        app:SetLayoutBackExamResult="@{detail}">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right|center_vertical"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_10sdp"
+            fontPath="fonts/iransans_web_medium.ttf"
+            android:text="@{detail.question.questionText}"
+            />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/ML_AdapterPerson"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginBottom="@dimen/_3sdp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right|center_vertical"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_10sdp"
+            android:text="@string/CorrectAnswer"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right|center_vertical"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_10sdp"
+            fontPath="fonts/iransans_web_medium.ttf"
+            android:layout_marginTop="@dimen/_3sdp"
+            app:SetCorrectAnswer="@{detail}"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/ML_AdapterPerson"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginBottom="@dimen/_3sdp"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right|center_vertical"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_10sdp"
+            android:text="@string/YourAnswer"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right|center_vertical"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_10sdp"
+            fontPath="fonts/iransans_web_medium.ttf"
+            android:layout_marginTop="@dimen/_3sdp"
+            app:SetYourAnswer="@{detail}"
+            />
+
+    </LinearLayout>
+
+</layout>

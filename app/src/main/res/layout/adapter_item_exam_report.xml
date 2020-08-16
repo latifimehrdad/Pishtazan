@@ -279,6 +279,25 @@
             android:layout_marginTop="@dimen/_3sdp"
             android:layout_marginBottom="@dimen/_3sdp"/>
 
+        <LinearLayout
+            android:id="@+id/LinearLayoutDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:background="@drawable/dw_back_bottom">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:paddingLeft="@dimen/_10sdp"
+                android:textColor="@color/ML_White"
+                android:gravity="right|center_vertical"
+                android:text="@string/ExamResultDetail"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

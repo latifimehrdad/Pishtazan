@@ -81,7 +81,9 @@ public class Post extends FragmentPrimary implements FragmentPrimary.GetMessageF
         if (ExamResultId != 0){
             Bundle bundle = new Bundle();
             bundle.putInt(getContext().getResources().getString(R.string.ML_Id), ExamResultId);
-            navController.navigate(R.id.action_post_to_examResult, bundle);
+            bundle.putString(getContext().getResources().getString(R.string.ML_Type),
+                    getContext().getResources().getString(R.string.ML_LastExam));
+            navController.navigate(R.id.action_post_to_examResults, bundle);
         }
     }//_____________________________________________________________________________________________ onStart
 

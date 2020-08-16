@@ -1,14 +1,19 @@
 package ir.bppir.pishtazan.views.adapters;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.AdapterItemExamReportBinding;
@@ -20,10 +25,17 @@ public class AP_ExamResult extends RecyclerView.Adapter<AP_ExamResult.CustomHold
 
     private LayoutInflater layoutInflater;
     private List<MD_ExamResult> md_examResults;
+    private ClickItemResult clickItemResult;
 
-    public AP_ExamResult(List<MD_ExamResult> md_examResults) {
+    public AP_ExamResult(List<MD_ExamResult> md_examResults, ClickItemResult clickItemResult) {
         this.md_examResults = md_examResults;
+        this.clickItemResult = clickItemResult;
     }
+
+    public interface ClickItemResult {//____________________________________________________________ ClickItemResult
+        void clickItemResult(Integer Position);
+    }//_____________________________________________________________________________________________ ClickItemResult
+
 
     @NonNull
     @Override
@@ -49,6 +61,9 @@ public class AP_ExamResult extends RecyclerView.Adapter<AP_ExamResult.CustomHold
 
         AdapterItemExamReportBinding binding;
 
+        @BindView(R.id.LinearLayoutDetail)
+        LinearLayout LinearLayoutDetail;
+
         public CustomHolder(AdapterItemExamReportBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
@@ -57,6 +72,7 @@ public class AP_ExamResult extends RecyclerView.Adapter<AP_ExamResult.CustomHold
 
         public void bind(MD_ExamResult item, final int itemPosition) {
             binding.setExamResult(item);
+            LinearLayoutDetail.setOnClickListener(v -> clickItemResult.clickItemResult(itemPosition));
             binding.executePendingBindings();
         }
 

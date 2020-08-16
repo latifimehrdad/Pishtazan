@@ -49,6 +49,7 @@ public class Quiz extends FragmentPrimary implements
     private AP_Question ap_question;
     private MD_Question md_question;
     private String movieUrl;
+    private String examType;
     private NavController navController;
 
     @BindView(R.id.LinearLayoutStart)
@@ -114,6 +115,7 @@ public class Quiz extends FragmentPrimary implements
             setView(binding.getRoot());
             examId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
             movieUrl = getArguments().getString(getContext().getResources().getString(R.string.ML_MovieUrl), "");
+            examType = getArguments().getString(getContext().getResources().getString(R.string.ML_Type), "");
             SetOnClick();
         }
         return getView();
@@ -193,9 +195,16 @@ public class Quiz extends FragmentPrimary implements
         }
 
         if (action.equals(StaticValues.ML_SendAnswer)){
-            Post.ExamResultId = vm_quiz.getExamResult();
-            getActivity().onBackPressed();
-            getActivity().onBackPressed();
+            if (examType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_LastExam))) {
+                Post.ExamResultId = vm_quiz.getExamResult();
+                getActivity().onBackPressed();
+                getActivity().onBackPressed();
+            } else {
+                Post.ExamResultId = vm_quiz.getExamResult();
+                getActivity().onBackPressed();
+                getActivity().onBackPressed();
+                getActivity().onBackPressed();
+            }
 //            getActivity().onBackPressed();
         }
 

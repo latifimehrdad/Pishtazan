@@ -86,6 +86,7 @@ public class StaticValues {
     public static Byte ML_GetNewQuiz = 29;
     public static Byte ML_GetExam = 30;
     public static Byte ML_SendAnswer = 31;
+    public static Byte ML_GetExamResultDetail = 32;
 
 
 }

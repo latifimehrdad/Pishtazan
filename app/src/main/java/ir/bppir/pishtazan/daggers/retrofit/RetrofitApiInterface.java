@@ -12,6 +12,7 @@ import ir.bppir.pishtazan.models.MR_EducationCategoryVms;
 import ir.bppir.pishtazan.models.MR_EducationFiles;
 import ir.bppir.pishtazan.models.MR_Exam;
 import ir.bppir.pishtazan.models.MR_ExamResult;
+import ir.bppir.pishtazan.models.MR_ExamResultDetail;
 import ir.bppir.pishtazan.models.MR_ExamResults;
 import ir.bppir.pishtazan.models.MR_GenerateCode;
 import ir.bppir.pishtazan.models.MR_GetAllPerson;
@@ -367,6 +368,14 @@ public interface RetrofitApiInterface {
     @FormUrlEncoded
     @POST(Version + "/GetExamResultList")
     Call<MR_ExamResults> GET_EXAM_RESULTS
+            (
+                    @Field("Id") Integer Id,
+                    @Field("UserInfoId") Integer UserInfoId
+            );
+
+    @FormUrlEncoded
+    @POST(Version + "/GetExamResultAnswers")
+    Call<MR_ExamResultDetail> GET_EXAM_RESULT_DETAILS
             (
                     @Field("Id") Integer Id,
                     @Field("UserInfoId") Integer UserInfoId

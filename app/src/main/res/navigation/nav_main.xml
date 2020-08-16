@@ -339,8 +339,8 @@
             />
 
         <action
-            android:id="@+id/action_post_to_examResult"
-            app:destination="@id/examResult"
+            android:id="@+id/action_post_to_examResults"
+            app:destination="@id/examResults"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
@@ -349,15 +349,25 @@
     </fragment>
 
     <fragment
-        android:id="@+id/examResult"
-        android:name="ir.bppir.pishtazan.views.fragments.ExamResult"
-        android:label="ExamResult"
-        tools:layout="@layout/fragment_exam_result"/>
-
-    <fragment
         android:id="@+id/examResults"
         android:name="ir.bppir.pishtazan.views.fragments.ExamResults"
         android:label="ExamResults"
-        tools:layout="@layout/fragment_exam_results"/>
+        tools:layout="@layout/fragment_exam_results">
+
+        <action
+            android:id="@+id/action_examResults_to_examResultDetails"
+            app:destination="@id/examResultDetails"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/examResultDetails"
+        android:name="ir.bppir.pishtazan.views.fragments.ExamResultDetails"
+        android:label="ExamResultDetails"
+        tools:layout="@layout/fragment_exam_result_details"/>
 
 </navigation>

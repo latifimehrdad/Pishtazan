@@ -109,6 +109,8 @@ public class TutorialMovie extends FragmentPrimary implements
         LinearLayoutExamResult.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putInt(getContext().getResources().getString(R.string.ML_Id), tutorialId);
+            bundle.putString(getContext().getResources().getString(R.string.ML_Type),
+                    getContext().getResources().getString(R.string.ML_ExamHistory));
             navController.navigate(R.id.action_tutorialMovie_to_examResults, bundle);
         });
 

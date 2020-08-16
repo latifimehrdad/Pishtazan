@@ -31,7 +31,6 @@ public class VM_ExamResult extends VM_Primary {
 
     public void GetExamResult(Integer examResultId) {//_____________________________________________ GetExamResult
 
-
         Integer UserInfoId = GetUserId();
         if (UserInfoId == 0) {
             UserIsNotAuthorization();

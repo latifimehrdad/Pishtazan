@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.bppir.pishtazan.R;
+import ir.bppir.pishtazan.models.MD_ExamResultDetail;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
 
@@ -23,6 +25,54 @@ import static ir.bppir.pishtazan.daggers.retrofit.RetrofitApis.Host;
 
 public class BindingAdapters {
 
+
+
+    @BindingAdapter(value = "SetLayoutBackExamResult")
+    public static void SetLayoutBackExamResult(LinearLayout linearLayout, MD_ExamResultDetail resultDetail){
+
+        if (resultDetail.getUserAnswer() == resultDetail.getQuestion().getCorrectAnswer())
+            linearLayout.setBackground(linearLayout.getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
+        else
+            linearLayout.setBackground(linearLayout.getContext().getResources().getDrawable(R.drawable.dw_back_exam_result_wrong));
+    }
+
+
+    @BindingAdapter(value = "SetYourAnswer")
+    public static void SetYourAnswer(TextView textView, MD_ExamResultDetail resultDetail){
+        switch (resultDetail.getUserAnswer()) {
+            case 1:
+                textView.setText(resultDetail.getQuestion().getFirstChoose());
+                break;
+            case 2:
+                textView.setText(resultDetail.getQuestion().getSecondChoose());
+                break;
+            case 3:
+                textView.setText(resultDetail.getQuestion().getThirdChoose());
+                break;
+            case 4:
+                textView.setText(resultDetail.getQuestion().getForthChoose());
+                break;
+        }
+    }
+
+
+    @BindingAdapter(value = "SetCorrectAnswer")
+    public static void SetCorrectAnswer(TextView textView, MD_ExamResultDetail resultDetail){
+        switch (resultDetail.getQuestion().getCorrectAnswer()) {
+            case 1:
+                textView.setText(resultDetail.getQuestion().getFirstChoose());
+                break;
+            case 2:
+                textView.setText(resultDetail.getQuestion().getSecondChoose());
+                break;
+            case 3:
+                textView.setText(resultDetail.getQuestion().getThirdChoose());
+                break;
+            case 4:
+                textView.setText(resultDetail.getQuestion().getForthChoose());
+                break;
+        }
+    }
 
     @BindingAdapter(value = "SetTextViewDouble")
     public static void SetTextViewDouble(TextView textView, float value) {//___________________________ SetTextViewText
