@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
@@ -39,12 +40,176 @@
         </LinearLayout>
 
 
+        <LinearLayout
+            android:id="@+id/LinearLayoutFiltering"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/LinearLayoutTitle"
+            android:padding="@dimen/_10sdp"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_10sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/TextViewTo"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/_27sdp"
+                        android:background="@drawable/dw_edit_back"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/_12sdp"
+                        android:hint="@string/DateTo"
+                        />
+
+                    <ImageView
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/dw_icon_background"
+                        android:src="@drawable/ic_baseline_date_range"
+                        android:tint="@color/ML_Harmony" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/TextViewFrom"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/_27sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:background="@drawable/dw_edit_back"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/_12sdp"
+                        android:hint="@string/DateFrom"
+                        />
+
+                    <ImageView
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/dw_icon_background"
+                        android:src="@drawable/ic_baseline_date_range"
+                        android:tint="@color/ML_Harmony" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/dw_edit_back">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/MaterialSpinnerType"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        app:ms_background_color="@color/ML_White"
+                        app:ms_text_color="@color/ML_Black"
+                        android:textSize="@dimen/_10sdp"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/dw_edit_back_image"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/svg_scroll"
+                    android:tint="@color/ML_Harmony"
+                    />
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutReport"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/dw_back_bottom"
+                android:paddingTop="@dimen/_3sdp"
+                android:paddingBottom="@dimen/_3sdp">
+
+                <ImageView
+                    android:id="@+id/ImageViewReport"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/svg_to_do_list"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:tint="@color/ML_Harmony" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/createReport"
+                    fontPath="fonts/iransans_web_medium.ttf"
+                    android:textColor="@color/ML_White"
+                    android:textSize="@dimen/_12sdp" />
+
+                <com.cunoraz.gifview.library.GifView
+                    android:id="@+id/GifViewReport"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:visibility="invisible"
+                    custom:gif="@drawable/loading3" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerViewReport"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/LinearLayoutTitle"
             tools:listitem="@layout/adapter_item_report"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/_5sdp"/>
 
         <com.cunoraz.gifview.library.GifView

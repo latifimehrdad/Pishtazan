@@ -87,6 +87,9 @@ public class StaticValues {
     public static Byte ML_GetExam = 30;
     public static Byte ML_SendAnswer = 31;
     public static Byte ML_GetExamResultDetail = 32;
+    public static Byte ML_GetRecourse = 33;
+    public static Byte ML_StatisticalReport = 34;
+    public static Byte ML_AnaliticalReport = 35;
 
 
 }

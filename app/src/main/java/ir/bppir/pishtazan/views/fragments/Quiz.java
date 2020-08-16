@@ -205,7 +205,6 @@ public class Quiz extends FragmentPrimary implements
                 getActivity().onBackPressed();
                 getActivity().onBackPressed();
             }
-//            getActivity().onBackPressed();
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
