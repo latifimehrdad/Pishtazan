@@ -1,42 +1,61 @@
 package ir.bppir.pishtazan.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class MD_Report {
 
-    private String personName;
+    @SerializedName("Id")
+    Integer Id;
 
-    private String image;
+    @SerializedName("FullName")
+    String FullName;
 
-    private List<MD_ReportDetail> details;
+    @SerializedName("ResourceName")
+    String ResourceName;
 
-    public MD_Report(String personName, List<MD_ReportDetail> details, String image) {
-        this.personName = personName;
-        this.details = details;
-        this.image = image;
+    @SerializedName("Reports")
+    List<MD_ReportDetail> Reports;
+
+
+    public MD_Report(Integer id, String fullName, String resourceName, List<MD_ReportDetail> reports) {
+        Id = id;
+        FullName = fullName;
+        ResourceName = resourceName;
+        Reports = reports;
     }
 
-    public String getPersonName() {
-        return personName;
+
+    public Integer getId() {
+        return Id;
     }
 
-    public void setPersonName(String personName) {
-        this.personName = personName;
+    public void setId(Integer id) {
+        Id = id;
     }
 
-    public List<MD_ReportDetail> getDetails() {
-        return details;
+    public String getFullName() {
+        return FullName;
     }
 
-    public void setDetails(List<MD_ReportDetail> details) {
-        this.details = details;
+    public void setFullName(String fullName) {
+        FullName = fullName;
     }
 
-    public String getImage() {
-        return image;
+    public String getResourceName() {
+        return ResourceName;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setResourceName(String resourceName) {
+        ResourceName = resourceName;
+    }
+
+    public List<MD_ReportDetail> getReports() {
+        return Reports;
+    }
+
+    public void setReports(List<MD_ReportDetail> reports) {
+        Reports = reports;
     }
 }

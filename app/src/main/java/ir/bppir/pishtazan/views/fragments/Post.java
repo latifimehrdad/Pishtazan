@@ -49,6 +49,8 @@ public class Post extends FragmentPrimary implements FragmentPrimary.GetMessageF
     @BindView(R.id.GifViewLoadingNew)
     GifView GifViewLoadingNew;
 
+    @BindView(R.id.LinearLayoutExamReport)
+    LinearLayout LinearLayoutExamReport;
 
     @Nullable
     @Override
@@ -97,6 +99,9 @@ public class Post extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
 
     private void SetClick() {//_____________________________________________________________________ SetClick
+
+        LinearLayoutExamReport.setOnClickListener(v ->
+                navController.navigate(R.id.action_post_to_examReport));
 
         LinearLayoutNewQuiz.setOnClickListener(v -> {
 

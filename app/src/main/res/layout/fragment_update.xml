@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="update"
+            type="ir.bppir.pishtazan.viewmodels.fragments.VM_Update" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/dw_half_circle_progress_back"
+            android:max="100"
+            android:progress="40"
+            android:progressDrawable="@drawable/dw_half_circle_progress" />
+
+        <TextView
+            android:id="@+id/TextViewProgress"
+            android:layout_width="@dimen/_95sdp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/_9sdp"
+            android:gravity="center"/>
+
+        <ImageView
+            android:id="@+id/ImageViewDownload"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/svg_arrow"
+            android:tint="@color/colorAccent"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@id/TextViewProgress"
+            android:layout_marginBottom="@dimen/_5sdp"/>
+
+
+
+        <Button
+            android:id="@+id/ButtonInstall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dw_back_bottom"
+            android:textColor="@color/ML_White"
+            android:textSize="@dimen/_10sdp"
+            android:text="@string/InstallApp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:paddingRight="@dimen/_10sdp"
+            android:paddingLeft="@dimen/_10sdp"/>
+
+
+    </RelativeLayout>
+
+</layout>

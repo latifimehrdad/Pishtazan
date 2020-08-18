@@ -74,8 +74,18 @@ public class BindingAdapters {
         }
     }
 
+
+    @BindingAdapter(value = "SetTextViewFloat")
+    public static void SetTextViewFloat(TextView textView, float value) {//___________________________ SetTextViewText
+
+        String v = String.format("%.2f", value);
+        textView.setText(v);
+
+    }//_____________________________________________________________________________________________ SetTextViewText
+
+
     @BindingAdapter(value = "SetTextViewDouble")
-    public static void SetTextViewDouble(TextView textView, float value) {//___________________________ SetTextViewText
+    public static void SetTextViewDouble(TextView textView, double value) {//___________________________ SetTextViewText
 
         String v = String.format("%.2f", value);
         textView.setText(v);
@@ -145,6 +155,9 @@ public class BindingAdapters {
                 break;
             case "movieTime":
                 textView.setText(context.getResources().getString(R.string.MovieTime) + " : " + text);
+                break;
+            case "type" :
+                textView.setText(context.getResources().getString(R.string.Type) + " : " + text);
                 break;
         }
 

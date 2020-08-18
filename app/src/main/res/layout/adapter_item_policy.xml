@@ -50,7 +50,7 @@
                 android:layout_marginRight="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:tag="title"
+                android:tag="type"
                 app:SetTextViewText="@{policy.policyType.title}"
                 />
 

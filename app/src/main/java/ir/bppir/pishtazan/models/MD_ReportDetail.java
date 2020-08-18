@@ -1,28 +1,34 @@
 package ir.bppir.pishtazan.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class MD_ReportDetail {
 
-    private String title;
-    private String value;
 
-    public MD_ReportDetail(String title, String value) {
-        this.title = title;
-        this.value = value;
+    @SerializedName("Title")
+    private String Title;
+
+    @SerializedName("Value")
+    private double Value;
+
+    public MD_ReportDetail(String title, float value) {
+        Title = title;
+        Value = value;
     }
 
     public String getTitle() {
-        return title;
+        return Title;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        Title = title;
     }
 
-    public String getValue() {
-        return value;
+    public double getValue() {
+        return Value;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setValue(double value) {
+        Value = value;
     }
 }

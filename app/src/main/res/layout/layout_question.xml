@@ -141,7 +141,7 @@
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:orientation="horizontal"
-        android:background="@drawable/button_red"
+        android:background="@drawable/dw_back_bottom_connection"
         android:gravity="center"
         >
 
@@ -149,12 +149,12 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/ML_White"
             android:textSize="@dimen/_12sdp"
             android:maxLines="2"
             fontPath="fonts/iransans_web_medium.ttf"
             android:gravity="center"
-            android:text="@string/PreviousQuestion"
+            android:text="@string/EndOfExam"
             android:layout_marginLeft="@dimen/_2sdp"
             />
 
@@ -164,8 +164,8 @@
             android:layout_height="@dimen/_28sdp"
             android:layout_marginLeft="@dimen/_2sdp"
             android:layout_marginRight="@dimen/_5sdp"
-            android:tint="@color/colorPrimaryDark"
-            android:src="@drawable/svg_previous"
+            android:tint="@color/ML_White"
+            android:src="@drawable/ic_baseline_check_circle"
             />
 
         <com.cunoraz.gifview.library.GifView

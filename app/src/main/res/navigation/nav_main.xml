@@ -17,6 +17,10 @@
         <argument android:name="@string/ML_Type"
             android:defaultValue="0"/>
 
+        <argument android:name="@string/ML_UpdateUrl"/>
+
+        <argument android:name="@string/ML_UpdateFile"/>
+
         <action
             android:id="@+id/action_splash_to_signUp"
             app:destination="@id/signUp"
@@ -36,6 +40,14 @@
         <action
             android:id="@+id/action_splash_to_policyType"
             app:destination="@id/policyType"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+        <action
+            android:id="@+id/action_splash_to_appUpdate"
+            app:destination="@id/appUpdate"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
@@ -346,6 +358,16 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"/>
 
+
+        <action
+            android:id="@+id/action_post_to_examReport"
+            app:destination="@id/examReport"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+
     </fragment>
 
     <fragment
@@ -369,5 +391,18 @@
         android:name="ir.bppir.pishtazan.views.fragments.ExamResultDetails"
         android:label="ExamResultDetails"
         tools:layout="@layout/fragment_exam_result_details"/>
+
+    <fragment
+        android:id="@+id/appUpdate"
+        android:name="ir.bppir.pishtazan.views.fragments.AppUpdate"
+        android:label="AppUpdate"
+        tools:layout="@layout/fragment_update"/>
+
+
+    <fragment
+        android:id="@+id/examReport"
+        android:name="ir.bppir.pishtazan.views.fragments.ExamReport"
+        android:label="ExamReport"
+        tools:layout="@layout/fragment_exam_report"/>
 
 </navigation>

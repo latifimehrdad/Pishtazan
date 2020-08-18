@@ -30,6 +30,7 @@
     <string name="ContactIsEmpty">لیست مخاطبین شما خالی است</string>
     <string name="PhoneNumber">تلفن ثابت</string>
     <string name="SearchContact">جستجوی مخاطب</string>
+    <string name="Search">جستجو</string>
     <string name="EmptyContactName">لطفا نام شخص را وارد نمایید</string>
     <string name="ErrorForSave">خطا در ثبت اطلاعات</string>
     <string name="AddPersonOk">شخص به لیست شما اضافه شد</string>
@@ -99,6 +100,7 @@
     <string name="AddNewPolicy">اضافه کردن پرسشنامه جدید</string>
     <string name="Date">تاریخ</string>
     <string name="Title">عنوان</string>
+    <string name="Type">نوع</string>
     <string name="Tutorial">آموزش</string>
     <string name="Level">سطح</string>
     <string name="MovieTime">مدت زمان</string>
@@ -120,6 +122,15 @@
     <string name="DateTo">تا تاریخ</string>
     <string name="createReport">تهیه گزارش</string>
     <string name="RankOfCompany">رتبه سازمانی</string>
+    <string name="InstallApp">نصب نرم افزار</string>
+    <string name="DownloadingFile">بارگیری فایل ...</string>
+    <string name="FileDownloaded">پایان بارگیری فایل</string>
+    <string name="EndOfExam">پایان آزمون</string>
+    <string name="QuizReport">گزارش آموزش</string>
+    <string name="SortingNeither">هیچ کدام</string>
+    <string name="SortingAverageGrade">نمره</string>
+    <string name="SortingTotalScore">معدل</string>
+    <string name="SortingTotalActivity">عملکرد</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>
@@ -142,5 +153,7 @@
     <string name="ML_MovieUrl">MovieUrl</string>
     <string name="ML_LastExam">LastExam</string>
     <string name="ML_ExamHistory">ExamHistory</string>
+    <string name="ML_UpdateUrl">UpdateUrl</string>
+    <string name="ML_UpdateFile">UpdateFile</string>
 
 </resources>

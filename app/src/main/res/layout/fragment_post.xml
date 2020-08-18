@@ -15,43 +15,81 @@
 
 
         <LinearLayout
-            android:id="@+id/LinearLayoutNewQuiz"
-            android:layout_width="wrap_content"
+            android:id="@+id/LinearLayoutExam"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:background="@drawable/dw_back_bottom"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_centerHorizontal="true"
-            android:padding="@dimen/_5sdp">
+            android:layout_margin="@dimen/_10sdp"
+            android:orientation="horizontal">
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/LinearLayoutNewQuiz"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textColor="@color/ML_White"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/NewQuiz"
-                android:paddingLeft="@dimen/_30sdp"
-                android:paddingRight="@dimen/_30sdp"/>
+                android:orientation="horizontal"
+                android:background="@drawable/dw_back_bottom"
+                android:padding="@dimen/_5sdp">
 
-            <ImageView
-                android:id="@+id/ImageViewNew"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
-                android:src="@drawable/svg_quiz"
-                android:tint="@color/ML_White"
-                android:layout_marginRight="@dimen/_3sdp"
-                />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/ML_White"
+                    android:gravity="center"
+                    android:textSize="@dimen/_10sdp"
+                    android:text="@string/NewQuiz"/>
 
-            <com.cunoraz.gifview.library.GifView
-                android:id="@+id/GifViewLoadingNew"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
-                android:visibility="gone"
-                android:layout_marginRight="@dimen/_3sdp"
-                android:padding="@dimen/_5sdp"
-                custom:gif="@drawable/loading3" />
+                <ImageView
+                    android:id="@+id/ImageViewNew"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/svg_quiz"
+                    android:tint="@color/ML_White"
+                    android:layout_marginRight="@dimen/_3sdp"
+                    />
+
+                <com.cunoraz.gifview.library.GifView
+                    android:id="@+id/GifViewLoadingNew"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:visibility="gone"
+                    android:layout_marginRight="@dimen/_3sdp"
+                    android:padding="@dimen/_5sdp"
+                    custom:gif="@drawable/loading3" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/LinearLayoutExamReport"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:orientation="horizontal"
+                android:background="@drawable/dw_back_bottom"
+                android:padding="@dimen/_5sdp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/ML_White"
+                    android:gravity="center"
+                    android:text="@string/QuizReport"
+                    android:textSize="@dimen/_10sdp" />
+
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/svg_quiz"
+                    android:tint="@color/ML_White"
+                    android:layout_marginRight="@dimen/_3sdp"
+                    />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -61,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/adapter_tutorial"
-            android:layout_below="@id/LinearLayoutNewQuiz"
+            android:layout_below="@id/LinearLayoutExam"
             android:padding="@dimen/_5sdp"/>
 
         <com.cunoraz.gifview.library.GifView

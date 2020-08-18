@@ -8,13 +8,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.cunoraz.gifview.library.GifView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
@@ -26,77 +22,54 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import ir.bppir.pishtazan.R;
-import ir.bppir.pishtazan.daggers.datepicker.PersianPickerModule;
-import ir.bppir.pishtazan.databinding.FragmentReportBinding;
-import ir.bppir.pishtazan.databinding.FragmentSplashBinding;
+import ir.bppir.pishtazan.databinding.FragmentExamReportBinding;
 import ir.bppir.pishtazan.models.MD_Report;
 import ir.bppir.pishtazan.models.MD_SpinnerItem;
 import ir.bppir.pishtazan.utility.StaticValues;
-import ir.bppir.pishtazan.viewmodels.fragments.VM_Report;
-import ir.bppir.pishtazan.viewmodels.fragments.VM_Splash;
-import ir.bppir.pishtazan.views.activity.MainActivity;
-import ir.bppir.pishtazan.views.adapters.AP_Report;
-import ir.bppir.pishtazan.views.application.PishtazanApplication;
-import ir.hamsaa.persiandatepicker.Listener;
-import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
-import ir.hamsaa.persiandatepicker.util.PersianCalendar;
+import ir.bppir.pishtazan.viewmodels.fragments.VM_ExamReport;
 
-public class Report extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class ExamReport extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
 
-    private VM_Report vm_report;
-    private Byte reportType;
-    private String dateFrom;
-    private String dateTo;
+    private VM_ExamReport vm_examReport;
     private Integer rankOfCompanyId;
     private List<MD_Report> md_reports;
     private CompositeDisposable disposable = new CompositeDisposable();
 
 
+    @BindView(R.id.editTextSearch)
+    EditText editTextSearch;
+
     @BindView(R.id.GifViewLoading)
     GifView GifViewLoading;
-
-    @BindView(R.id.RecyclerViewReport)
-    RecyclerView RecyclerViewReport;
-
-    @BindView(R.id.TextViewTitle)
-    TextView TextViewTitle;
-
-    @BindView(R.id.ImageViewTitle)
-    ImageView ImageViewTitle;
-
-    @BindView(R.id.TextViewFrom)
-    TextView TextViewFrom;
-
-    @BindView(R.id.TextViewTo)
-    TextView TextViewTo;
-
-    @BindView(R.id.MaterialSpinnerType)
-    MaterialSpinner MaterialSpinnerType;
 
     @BindView(R.id.LinearLayoutFiltering)
     LinearLayout LinearLayoutFiltering;
 
-    @BindView(R.id.ImageViewReport)
-    ImageView ImageViewReport;
+    @BindView(R.id.LinearLayoutReport)
+    LinearLayout LinearLayoutReport;
 
     @BindView(R.id.GifViewReport)
     GifView GifViewReport;
 
+    @BindView(R.id.ImageViewReport)
+    ImageView ImageViewReport;
+
+    @BindView(R.id.MaterialSpinnerType)
+    MaterialSpinner MaterialSpinnerType;
+
     @BindView(R.id.RelativeLayoutReport)
     RelativeLayout RelativeLayoutReport;
 
-    @BindView(R.id.LinearLayoutReport)
-    LinearLayout LinearLayoutReport;
+    @BindView(R.id.MaterialSpinnerSort)
+    MaterialSpinner MaterialSpinnerSort;
 
-    @BindView(R.id.editTextSearch)
-    EditText editTextSearch;
+
 
     @Nullable
     @Override
@@ -105,10 +78,10 @@ public class Report extends FragmentPrimary implements FragmentPrimary.GetMessag
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
-            FragmentReportBinding binding = DataBindingUtil.inflate(
-                    inflater, R.layout.fragment_report, container, false);
-            vm_report = new VM_Report(getActivity());
-            binding.setReport(vm_report);
+            FragmentExamReportBinding binding = DataBindingUtil.inflate(
+                    inflater, R.layout.fragment_exam_report, container, false);
+            vm_examReport = new VM_ExamReport(getActivity());
+            binding.setReport(vm_examReport);
             setView(binding.getRoot());
             init();
         }
@@ -120,23 +93,13 @@ public class Report extends FragmentPrimary implements FragmentPrimary.GetMessag
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
         setGetMessageFromObservable(
-                Report.this,
-                vm_report.getPublishSubject(),
-                vm_report);
+                ExamReport.this,
+                vm_examReport.getPublishSubject(),
+                vm_examReport);
     }//_____________________________________________________________________________________________ onStart
 
 
     private void init() {//_________________________________________________________________________ init
-
-        Integer temp = getArguments().getInt(getContext().getString(R.string.ML_Type), StaticValues.StatisticalReport);
-        reportType = temp.byteValue();
-        if (reportType.equals(StaticValues.StatisticalReport)) {
-            TextViewTitle.setText(getContext().getString(R.string.StatisticalReport));
-            ImageViewTitle.setImageDrawable(getContext().getResources().getDrawable(R.drawable.svg_goal));
-        } else {
-            TextViewTitle.setText(getContext().getString(R.string.AnalyticalReport));
-            ImageViewTitle.setImageDrawable(getContext().getResources().getDrawable(R.drawable.svg_files_and_folders));
-        }
 
         disposable.add(RxTextView.textChangeEvents(editTextSearch)
                 .skipInitialValue()
@@ -150,7 +113,7 @@ public class Report extends FragmentPrimary implements FragmentPrimary.GetMessag
         LinearLayoutFiltering.setVisibility(View.GONE);
         LinearLayoutReport.setVisibility(View.GONE);
         setOnClick();
-        vm_report.getRecourse();
+        vm_examReport.getRecourse();
 
     }//_____________________________________________________________________________________________ init
 
@@ -180,14 +143,14 @@ public class Report extends FragmentPrimary implements FragmentPrimary.GetMessag
     private void searchName(String name) {
 
         md_reports = new ArrayList<>();
-        for (MD_Report report : vm_report.getMd_reports()){
+/*        for (MD_Report report : vm_examReport.getMd_reports()){
             if (name == null || name.equalsIgnoreCase(""))
                 md_reports.add(report);
             else {
                 if (report.getFullName().contains(name))
                     md_reports.add(report);
             }
-        }
+        }*/
 
         SetReportAdapter();
     }
@@ -220,90 +183,27 @@ public class Report extends FragmentPrimary implements FragmentPrimary.GetMessag
     //______________________________________________________________________________________________ setOnClick
     private void setOnClick() {
 
-        TextViewFrom.setOnClickListener(v -> {
-
-            PersianPickerModule.context = getContext();
-            PersianDatePickerDialog persianCalendar = PishtazanApplication
-                    .getApplication(getContext())
-                    .getPersianPickerComponent()
-                    .getPersianDatePickerDialog();
-
-            persianCalendar.setListener(new Listener() {
-                @Override
-                public void onDateSelected(PersianCalendar persianCalendar) {
-                    StringBuilder sb2 = new StringBuilder();
-                    sb2.append(persianCalendar.getPersianYear());
-                    sb2.append("/");
-                    sb2.append(String.format("%02d", persianCalendar.getPersianMonth()));
-                    sb2.append("/");
-                    sb2.append(String.format("%02d", persianCalendar.getPersianDay()));
-                    dateFrom = sb2.toString();
-                    TextViewFrom.setText(dateFrom);
-                    TextViewFrom.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_back));
-                }
-
-                @Override
-                public void onDismissed() {
-
-                }
-            });
-            persianCalendar.show();
-
-        });
-
-        TextViewTo.setOnClickListener(v -> {
-
-            PersianPickerModule.context = getContext();
-            PersianDatePickerDialog persianCalendar = PishtazanApplication
-                    .getApplication(getContext())
-                    .getPersianPickerComponent()
-                    .getPersianDatePickerDialog();
-
-            persianCalendar.setListener(new Listener() {
-                @Override
-                public void onDateSelected(PersianCalendar persianCalendar) {
-                    StringBuilder sb2 = new StringBuilder();
-                    sb2.append(persianCalendar.getPersianYear());
-                    sb2.append("/");
-                    sb2.append(String.format("%02d", persianCalendar.getPersianMonth()));
-                    sb2.append("/");
-                    sb2.append(String.format("%02d", persianCalendar.getPersianDay()));
-                    dateTo = sb2.toString();
-                    TextViewTo.setText(dateTo);
-                    TextViewTo.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_back));
-                }
-
-                @Override
-                public void onDismissed() {
-
-                }
-            });
-            persianCalendar.show();
-
-        });
-
         MaterialSpinnerType.setOnItemSelectedListener((view, position, id, item) -> {
             if (rankOfCompanyId == -1) {
-                rankOfCompanyId = vm_report.getMd_spinnerItems().get(position - 1).getId();
+                rankOfCompanyId = vm_examReport.getMd_spinnerItems().get(position - 1).getId();
                 MaterialSpinnerType.getItems().remove(0);
                 MaterialSpinnerType.setSelectedIndex(MaterialSpinnerType.getItems().size() - 1);
                 MaterialSpinnerType.setSelectedIndex(position - 1);
             } else
-                rankOfCompanyId = vm_report.getMd_spinnerItems().get(position).getId();
+                rankOfCompanyId = vm_examReport.getMd_spinnerItems().get(position).getId();
 
             if (getContext() != null) {
                 MaterialSpinnerType.setBackgroundColor(getContext().getResources().getColor(R.color.ML_White));
             }
+
+            setMaterialSpinnerSorting();
+
         });
 
 
         RelativeLayoutReport.setOnClickListener(v -> {
             GifViewReport.setVisibility(View.VISIBLE);
             ImageViewReport.setVisibility(View.GONE);
-            if (reportType.equals(StaticValues.StatisticalReport))
-                vm_report.getReportStatical(dateFrom, dateTo, rankOfCompanyId);
-            else
-                vm_report.AnaliticalReport(dateFrom, dateTo, rankOfCompanyId);
         });
 
     }
@@ -314,7 +214,7 @@ public class Report extends FragmentPrimary implements FragmentPrimary.GetMessag
     private void setMaterialSpinnerType() {
         List<String> buildingTypes = new ArrayList<>();
         buildingTypes.add(getContext().getResources().getString(R.string.RankOfCompany));
-        for (MD_SpinnerItem item : vm_report.getMd_spinnerItems())
+        for (MD_SpinnerItem item : vm_examReport.getMd_spinnerItems())
             buildingTypes.add(item.getTitle());
         MaterialSpinnerType.setItems(buildingTypes);
         LinearLayoutFiltering.setVisibility(View.VISIBLE);
@@ -322,10 +222,23 @@ public class Report extends FragmentPrimary implements FragmentPrimary.GetMessag
     //______________________________________________________________________________________________ setMaterialSpinnerType
 
 
+    //______________________________________________________________________________________________ setMaterialSpinnerSorting
+    private void setMaterialSpinnerSorting() {
+
+        List<String> sorting = new ArrayList<>();
+        sorting.add(getContext().getResources().getString(R.string.SortingNeither));
+        sorting.add(getContext().getResources().getString(R.string.SortingAverageGrade));
+        sorting.add(getContext().getResources().getString(R.string.SortingTotalScore));
+        sorting.add(getContext().getResources().getString(R.string.SortingTotalActivity));
+        MaterialSpinnerSort.setItems(sorting);
+    }
+    //______________________________________________________________________________________________ setMaterialSpinnerSorting
+
+
     private void SetReportAdapter() {//_____________________________________________________________ SetReportAdapter
-        AP_Report ap_report = new AP_Report(md_reports, getContext());
+/*        AP_Report ap_report = new AP_Report(md_reports, getContext());
         RecyclerViewReport.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        RecyclerViewReport.setAdapter(ap_report);
+        RecyclerViewReport.setAdapter(ap_report);*/
     }//_____________________________________________________________________________________________ SetReportAdapter
 
 }

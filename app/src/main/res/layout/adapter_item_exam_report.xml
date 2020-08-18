@@ -251,7 +251,7 @@
                 android:textSize="@dimen/_10sdp"
                 android:textColor="@color/colorPrimaryDark"
                 android:gravity="right|center_vertical"
-                app:SetTextViewDouble="@{examResult.averageGrade}"/>
+                app:SetTextViewFloat="@{examResult.averageGrade}"/>
 
             <LinearLayout
                 android:layout_width="1dp"

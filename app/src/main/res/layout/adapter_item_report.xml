@@ -37,7 +37,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/_11sdp"
                     fontPath="fonts/iransans_web_medium.ttf"
-                    android:text="@{report.personName}"
+                    android:text="@{report.fullName}"
                     />
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -49,7 +49,6 @@
                     app:civ_border_color="@color/ML_Harmony"
                     android:layout_marginLeft="@dimen/_8sdp"
                     android:layout_centerVertical="true"
-                    app:SetPersonImageReport="@{report.image}"
                     />
 
 

@@ -80,7 +80,7 @@ public class AP_Report extends RecyclerView.Adapter<AP_Report.CustomHolder> {
 
         public void bind(MD_Report item, final int itemPosition) {
             binding.setReport(item);
-            AP_ReportDetail ap_reportDetail = new AP_ReportDetail(item.getDetails());
+            AP_ReportDetail ap_reportDetail = new AP_ReportDetail(item.getReports());
             RecyclerViewDetails.setLayoutManager(new LinearLayoutManager(context,RecyclerView.VERTICAL,false));
             RecyclerViewDetails.setAdapter(ap_reportDetail);
             LinearLayoutExpandClick.setOnClickListener(v -> {
