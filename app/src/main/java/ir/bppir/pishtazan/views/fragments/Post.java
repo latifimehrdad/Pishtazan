@@ -19,20 +19,19 @@ import com.cunoraz.gifview.library.GifView;
 import butterknife.BindView;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.FragmentPostBinding;
-import ir.bppir.pishtazan.databinding.FragmentTutorialBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Post;
-import ir.bppir.pishtazan.viewmodels.fragments.VM_Tutorial;
 import ir.bppir.pishtazan.views.adapters.AP_Post;
-import ir.bppir.pishtazan.views.adapters.AP_Tutorial;
 
 public class Post extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable,
-        AP_Post.ClickItemTutorial{
+        AP_Post.ClickItemTutorial {
 
 
     private VM_Post vm_post;
     private NavController navController;
     public static Integer ExamResultId = 0;
+    private String postType;
+    private Integer personId;
 
     @BindView(R.id.RecyclerViewPost)
     RecyclerView RecyclerViewPost;
@@ -52,53 +51,68 @@ public class Post extends FragmentPrimary implements FragmentPrimary.GetMessageF
     @BindView(R.id.LinearLayoutExamReport)
     LinearLayout LinearLayoutExamReport;
 
+    @BindView(R.id.LinearLayoutExam)
+    LinearLayout LinearLayoutExam;
+
+
+    //______________________________________________________________________________________________ onCreateView
     @Nullable
     @Override
     public View onCreateView(
             LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+            Bundle savedInstanceState) {
         if (getView() == null) {
             FragmentPostBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_post, container, false);
             vm_post = new VM_Post(getActivity());
             binding.setPost(vm_post);
             setView(binding.getRoot());
+            postType = getArguments().getString(getContext().getResources().getString(R.string.ML_Type),
+                    getContext().getResources().getString(R.string.ML_MyReport));
             init();
-            SetClick();
+            setClick();
         }
         return getView();
-    }//_____________________________________________________________________________________________ onCreateView
+    }
+    //______________________________________________________________________________________________ onCreateView
 
 
-
+    //______________________________________________________________________________________________ onStart
     @Override
-    public void onStart() {//_______________________________________________________________________ onStart
+    public void onStart() {
         super.onStart();
         setGetMessageFromObservable(
                 Post.this,
                 vm_post.getPublishSubject(),
                 vm_post);
         navController = Navigation.findNavController(getView());
-        if (ExamResultId != 0){
+        if (ExamResultId != 0) {
             Bundle bundle = new Bundle();
             bundle.putInt(getContext().getResources().getString(R.string.ML_Id), ExamResultId);
             bundle.putString(getContext().getResources().getString(R.string.ML_Type),
                     getContext().getResources().getString(R.string.ML_LastExam));
             navController.navigate(R.id.action_post_to_examResults, bundle);
         }
-    }//_____________________________________________________________________________________________ onStart
+    }
+    //______________________________________________________________________________________________ onStart
 
 
-    private void init() {//_________________________________________________________________________ init
+    //______________________________________________________________________________________________ init
+    private void init() {
         GifViewLoading.setVisibility(View.VISIBLE);
+        if (postType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_MyReport)))
+            LinearLayoutExam.setVisibility(View.VISIBLE);
+        else
+            LinearLayoutExam.setVisibility(View.GONE);
+
         vm_post.GetPost();
-    }//_____________________________________________________________________________________________ init
+    }
+    //______________________________________________________________________________________________ init
 
 
-
-
-    private void SetClick() {//_____________________________________________________________________ SetClick
+    //______________________________________________________________________________________________ setClick
+    private void setClick() {
 
         LinearLayoutExamReport.setOnClickListener(v ->
                 navController.navigate(R.id.action_post_to_examReport));
@@ -109,19 +123,20 @@ public class Post extends FragmentPrimary implements FragmentPrimary.GetMessageF
             GifViewLoadingNew.setVisibility(View.VISIBLE);
             vm_post.GetNewQuiz();
         });
-    }//_____________________________________________________________________________________________ SetClick
+    }
+    //______________________________________________________________________________________________ setClick
 
 
-
+    //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void GetMessageFromObservable(Byte action) {
 
         GifViewLoading.setVisibility(View.GONE);
         ImageViewNew.setVisibility(View.VISIBLE);
         GifViewLoadingNew.setVisibility(View.GONE);
 
         if (action.equals(StaticValues.ML_GetPost)) {
-            SetAdapter();
+            setAdapter();
             return;
         }
 
@@ -134,25 +149,40 @@ public class Post extends FragmentPrimary implements FragmentPrimary.GetMessageF
             }
         }
 
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
+    }
+    //______________________________________________________________________________________________ getMessageFromObservable
 
 
-    private void SetAdapter() {//___________________________________________________________________ SetAdapter
+    //______________________________________________________________________________________________ setAdapter
+    private void setAdapter() {
         AP_Post ap_post = new AP_Post(vm_post.getMd_educationCategoryVms(), Post.this);
         RecyclerViewPost.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewPost.setAdapter(ap_post);
-    }//_____________________________________________________________________________________________ SetAdapter
+    }
+    //______________________________________________________________________________________________ setAdapter
 
 
-
+    //______________________________________________________________________________________________ clickItemTutorial
     @Override
-    public void clickItemTutorial(Integer Position, View view) {//__________________________________ clickItemTutorial
-        Bundle bundle = new Bundle();
-        bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_post.getMd_educationCategoryVms().get(Position).getId());
-        bundle.putString(getContext().getResources().getString(R.string.ML_Type), getContext().getResources().getString(R.string.ML_ExamHistory));
-        bundle.putString(getContext().getResources().getString(R.string.ML_Description), vm_post.getMd_educationCategoryVms().get(Position).getTitle());
-        navController.navigate(R.id.action_post_to_tutorial, bundle);
-    }//_____________________________________________________________________________________________ clickItemTutorial
+    public void clickItemTutorial(Integer Position, View view) {
+
+        if (postType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_MyReport))) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_post.getMd_educationCategoryVms().get(Position).getId());
+            bundle.putString(getContext().getResources().getString(R.string.ML_Type), getContext().getResources().getString(R.string.ML_ExamHistory));
+            bundle.putString(getContext().getResources().getString(R.string.ML_Description), vm_post.getMd_educationCategoryVms().get(Position).getTitle());
+            navController.navigate(R.id.action_post_to_tutorial, bundle);
+        } else {
+            personId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getResources().getString(R.string.ML_personId), personId);
+            bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_post.getMd_educationCategoryVms().get(Position).getId());
+            bundle.putString(getContext().getResources().getString(R.string.ML_Type), postType);
+            bundle.putString(getContext().getResources().getString(R.string.ML_Description), vm_post.getMd_educationCategoryVms().get(Position).getTitle());
+            navController.navigate(R.id.action_post_to_tutorial, bundle);
+        }
+    }
+    //______________________________________________________________________________________________ clickItemTutorial
 
 
 }

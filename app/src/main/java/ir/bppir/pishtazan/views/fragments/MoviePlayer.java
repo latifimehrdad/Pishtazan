@@ -1,6 +1,5 @@
 package ir.bppir.pishtazan.views.fragments;
 
-import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.VideoView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
@@ -24,9 +22,7 @@ import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitApis;
 import ir.bppir.pishtazan.databinding.FragmentMoviePlayerBinding;
 import ir.bppir.pishtazan.databinding.FragmentQuizBinding;
-import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_MoviePlayer;
-import ir.bppir.pishtazan.viewmodels.fragments.VM_Quiz;
 
 public class MoviePlayer extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 

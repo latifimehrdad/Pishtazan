@@ -11,14 +11,11 @@ import android.widget.TextView;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
-import ir.bppir.pishtazan.database.DB_Persons;
 import ir.bppir.pishtazan.databinding.AdabterPersonPanelBinding;
 import ir.bppir.pishtazan.models.MD_Person;
 import ir.bppir.pishtazan.utility.StaticValues;
@@ -60,6 +57,9 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
     }
 
     public int getItemCount() {
+        if (md_personList == null)
+            return 0;
+
         return md_personList.size();
     }
 

@@ -20,13 +20,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import ir.bppir.pishtazan.R;
-import ir.bppir.pishtazan.databinding.FragmentExamResultBinding;
 import ir.bppir.pishtazan.databinding.FragmentExamResultsBinding;
 import ir.bppir.pishtazan.models.MD_ExamResult;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_ExamResult;
 import ir.bppir.pishtazan.views.adapters.AP_ExamResult;
-import ir.bppir.pishtazan.views.adapters.AP_Post;
 
 public class ExamResults extends FragmentPrimary implements
         FragmentPrimary.GetMessageFromObservable,
@@ -36,6 +34,7 @@ public class ExamResults extends FragmentPrimary implements
     private Integer examResultId;
     private String examResultType;
     private NavController navController;
+    private Integer personId;
 
     @BindView(R.id.GifViewLoading)
     GifView GifViewLoading;
@@ -73,11 +72,16 @@ public class ExamResults extends FragmentPrimary implements
                 vm_examResult.getPublishSubject(),
                 vm_examResult);
         getContext().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        personId = getArguments().getInt(getContext().getResources().getString(R.string.ML_personId), 0);
         GifViewLoading.setVisibility(View.VISIBLE);
         if (examResultType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_LastExam)))
-            vm_examResult.GetExamResult(examResultId);
-        else
-            vm_examResult.GetExamResults(examResultId);
+            vm_examResult.getExamResult(examResultId);
+        else {
+            if (personId == 0)
+                vm_examResult.getExamResults(examResultId, null);
+            else
+                vm_examResult.getExamResults(examResultId, personId);
+        }
     }//_____________________________________________________________________________________________ onStart
 
 

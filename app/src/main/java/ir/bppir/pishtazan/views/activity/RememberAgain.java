@@ -123,18 +123,18 @@ public class RememberAgain extends AppCompatActivity {
 
     private void SaveMeetingReminder() {//__________________________________________________________ SaveMeetingReminder
         if (PersonType.equals(StaticValues.Customer))
-            vm_panel.SaveCustomerReminder(StaticValues.Meeting, null, stringDate, stringTime, "", PersonId);
+            vm_panel.saveCustomerReminder(StaticValues.Meeting, null, stringDate, stringTime, "", PersonId);
         else
-            vm_panel.SaveColleagueReminder(StaticValues.Meeting, null, stringDate, stringTime, "", PersonId);
+            vm_panel.saveColleagueReminder(StaticValues.Meeting, null, stringDate, stringTime, "", PersonId);
     }//_____________________________________________________________________________________________ SaveMeetingReminder
 
 
 
     private void SaveCallReminder() {//_____________________________________________________________ SaveCallReminder
         if (PersonType.equals(StaticValues.Customer))
-            vm_panel.SaveCustomerReminder(StaticValues.Call, null, stringDate, stringTime,"", PersonId);
+            vm_panel.saveCustomerReminder(StaticValues.Call, null, stringDate, stringTime,"", PersonId);
         else
-            vm_panel.SaveColleagueReminder(StaticValues.Call, null, stringDate, stringTime, "", PersonId);
+            vm_panel.saveColleagueReminder(StaticValues.Call, null, stringDate, stringTime, "", PersonId);
     }//_____________________________________________________________________________________________ SaveCallReminder
 
 

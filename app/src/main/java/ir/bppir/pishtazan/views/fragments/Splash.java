@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
@@ -67,7 +66,7 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
 
     private void StartAnimationSplash() {//_________________________________________________________ StartAnimationSplash
         ImageViewSplash.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.bounce));
-        vm_splash.CheckLogin();
+        vm_splash.getUpdate();
     }//_____________________________________________________________________________________________ StartAnimationSplash
 
 
@@ -85,6 +84,12 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
                 bundle.putBoolean(getContext().getResources().getString(R.string.ML_Type), false);
                 navController.navigate(R.id.action_splash_to_policyType, bundle);
             }
+        } else if (action.equals(StaticValues.ML_Update)) {
+            Bundle bundle = new Bundle();
+            bundle.putString(getContext().getResources().getString(R.string.ML_UpdateUrl),
+                    vm_splash.getMd_update().getUpdateAddress());
+            bundle.putString(getContext().getResources().getString(R.string.ML_UpdateFile), "NewVersion.apk");
+            navController.navigate(R.id.action_splash_to_appUpdate, bundle);
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable

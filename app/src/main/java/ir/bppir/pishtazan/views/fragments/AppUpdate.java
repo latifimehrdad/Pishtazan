@@ -17,6 +17,7 @@ import androidx.databinding.DataBindingUtil;
 
 import butterknife.BindView;
 import ir.bppir.pishtazan.R;
+import ir.bppir.pishtazan.daggers.retrofit.RetrofitApis;
 import ir.bppir.pishtazan.databinding.FragmentUpdateBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Update;
@@ -78,6 +79,8 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.GetMes
         if (getContext() != null && getArguments() != null) {
             String url = getArguments().getString(getContext().getResources().getString(R.string.ML_UpdateUrl), "");
             fileName = getArguments().getString(getContext().getResources().getString(R.string.ML_UpdateFile), "");
+            url = RetrofitApis.Host + url;
+
 
             if (!url.equalsIgnoreCase(""))
                 if (!fileName.equalsIgnoreCase(""))

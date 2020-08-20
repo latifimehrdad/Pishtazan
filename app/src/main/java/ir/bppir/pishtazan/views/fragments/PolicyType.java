@@ -13,16 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.cunoraz.gifview.library.GifView;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,9 +23,9 @@ import ir.bppir.pishtazan.databinding.FragmentPolicyTypeBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_PolicyType;
 import ir.bppir.pishtazan.views.activity.MainActivity;
-import ir.bppir.pishtazan.views.adapters.AP_Policy;
-import ir.bppir.pishtazan.views.adapters.AP_PolicyType;
 import ir.bppir.pishtazan.views.dialogs.searchspinner.MLSpinnerDialog;
+
+import static ir.bppir.pishtazan.utility.StaticFunctions.TextChangeForChangeBack;
 
 public class PolicyType extends FragmentPrimary implements
         FragmentPrimary.GetMessageFromObservable {
@@ -82,6 +74,12 @@ public class PolicyType extends FragmentPrimary implements
     @BindView(R.id.LinearLayoutPolicyTypePrimary)
     LinearLayout LinearLayoutPolicyTypePrimary;
 
+    @BindView(R.id.EditTextName)
+    EditText EditTextName;
+
+    @BindView(R.id.EditTextNationalCode)
+    EditText EditTextNationalCode;
+
 
     public PolicyType() {//_________________________________________________________________________ PolicyType
     }//_____________________________________________________________________________________________ PolicyType
@@ -101,6 +99,7 @@ public class PolicyType extends FragmentPrimary implements
             setView(binding.getRoot());
             ButterKnife.bind(this, getView());
             SetOnClick();
+            SetTextWatcher();
         }
         return getView();
     }//_____________________________________________________________________________________________ onCreateView
@@ -112,6 +111,7 @@ public class PolicyType extends FragmentPrimary implements
         PersonId = getArguments().getInt(getContext().getResources().getString(R.string.ML_personId), 0);
         editMode = getArguments().getBoolean(getContext().getResources().getString(R.string.ML_Type), false);
         SuggestionDateM = getArguments().getString(getContext().getResources().getString(R.string.ML_Date), "");
+
 //        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 //        try {
 //            SuggestionDateM = df.parse(themp);
@@ -126,12 +126,17 @@ public class PolicyType extends FragmentPrimary implements
             Id = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
             PolicyTypeId = getArguments().getInt(getContext().getResources().getString(R.string.ML_PolicyTypeId), 0);
             Long amount = getArguments().getLong(getContext().getResources().getString(R.string.ML_Amount), 0);
+            String insured = getArguments().getString(getContext().getResources().getString(R.string.ML_Insured), "");
+            String insuredNationalCode = getArguments().getString(getContext().getResources().getString(R.string.ML_InsuredNationalCode), "");
             String description = getArguments().getString(getContext().getResources().getString(R.string.ML_Description), "0");
             if (amount > 0)
                 EditTextAmount.setText(amount.toString());
 
             if (!description.equalsIgnoreCase("null"))
                 EditTextDescription.setText(description);
+
+            EditTextName.setText(insured);
+            EditTextNationalCode.setText(insuredNationalCode);
         }
         init();
         TextViewLoading.setText(textLoading);
@@ -199,14 +204,18 @@ public class PolicyType extends FragmentPrimary implements
                             PersonId,
                             Long.valueOf(EditTextAmount.getText().toString()),
                             EditTextDescription.getText().toString(),
-                            SuggestionDateM
+                            SuggestionDateM,
+                            EditTextName.getText().toString(),
+                            EditTextNationalCode.getText().toString()
                     );
                 else
                     vm_policyType.CreatePolicy(
                             PolicyTypeId.toString(),
                             PersonId.toString(),
                             EditTextAmount.getText().toString(),
-                            EditTextDescription.getText().toString());
+                            EditTextDescription.getText().toString(),
+                            EditTextName.getText().toString(),
+                            EditTextNationalCode.getText().toString());
             }
 
         });
@@ -259,7 +268,25 @@ public class PolicyType extends FragmentPrimary implements
 
         boolean amount;
         boolean type;
+        boolean national;
+        boolean name;
 
+        if (EditTextName.getText().length() < 1) {
+            EditTextName.setBackgroundResource(R.drawable.dw_edit_back_empty);
+            EditTextName.setError(getResources().getString(R.string.EmptyContactName));
+            EditTextName.requestFocus();
+            name = false;
+        } else
+            name = true;
+
+
+        if (EditTextNationalCode.getText().length() < 1) {
+            EditTextNationalCode.setBackgroundResource(R.drawable.dw_edit_back_empty);
+            EditTextNationalCode.setError(getResources().getString(R.string.EmptyNationalCode));
+            EditTextNationalCode.requestFocus();
+            national = false;
+        } else
+            national = true;
 
         if (EditTextAmount.getText().length() < 1) {
             EditTextAmount.setBackgroundResource(R.drawable.dw_edit_back_empty);
@@ -277,9 +304,18 @@ public class PolicyType extends FragmentPrimary implements
             type = true;
 
 
-        return amount && type;
+        return amount && type && name && national;
 
     }//_____________________________________________________________________________________________ CheckEmpty
+
+
+
+    private void SetTextWatcher() {//_______________________________________________________________ Start SetTextWatcher
+        EditTextName.addTextChangedListener(TextChangeForChangeBack(EditTextName));
+        EditTextNationalCode.addTextChangedListener(TextChangeForChangeBack(EditTextNationalCode));
+        EditTextAmount.addTextChangedListener(TextChangeForChangeBack(EditTextAmount));
+    }//_____________________________________________________________________________________________ End SetTextWatcher
+
 
 
 }

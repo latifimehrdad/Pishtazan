@@ -3,17 +3,15 @@ package ir.bppir.pishtazan.background;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
-import androidx.core.app.NotificationCompat;
 
 import com.google.gson.Gson;
 
@@ -21,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ir.bppir.pishtazan.R;
-import ir.bppir.pishtazan.database.DB_Notification;
 import ir.bppir.pishtazan.models.MD_Notification;
 import ir.bppir.pishtazan.utility.StaticValues;
 
@@ -29,8 +26,8 @@ public class NotificationNew {
 
     private boolean ShowAlways;
     private Context context;
-    private String CHANNEL_ONE_NAME = "Reminder1";
-    private String CHANNEL_ONE_ID = "com.ngra.trafficcontroller.reminder1";
+    private String CHANNEL_ONE_NAME = "PishtazanNotification";
+    private String CHANNEL_ONE_ID = "ir.bppir.pishtazan.PishtazanNotification";
     private NotificationManager notifyManager;
     private android.app.Notification notification;
     private MD_Notification md_notification;
@@ -155,6 +152,12 @@ public class NotificationNew {
                 .setStyle(new Notification.BigTextStyle()
                         .bigText(Message))
                 .setLargeIcon(icon)
+                .setCategory(context.getResources().getString(R.string.app_name))
+                .setPriority(Notification.PRIORITY_HIGH)
+                .addPerson(notifyId.toString())
+                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                .setPublicVersion(notification )
                 .setAutoCancel(true);
 
         if (actions != null) {
@@ -175,9 +178,12 @@ public class NotificationNew {
     public void CreateChannelsEvent() {//___________________________________________________________ CreateChannelsEvent
         NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ONE_ID,
                 CHANNEL_ONE_NAME, notifyManager.IMPORTANCE_HIGH);
-        notificationChannel.enableLights(true);
         notificationChannel.setLightColor(context.getResources().getColor(R.color.colorPrimary));
         notificationChannel.setShowBadge(true);
+        notificationChannel.enableLights(true);
+        notificationChannel.setLightColor(Color.WHITE);
+        notificationChannel.enableVibration(true);
+        notificationChannel.setVibrationPattern(new long[]{1000, 1000, 1000, 1000, 1000});
         notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
         getManager().createNotificationChannel(notificationChannel);
     }//_____________________________________________________________________________________________ CreateChannelsEvent

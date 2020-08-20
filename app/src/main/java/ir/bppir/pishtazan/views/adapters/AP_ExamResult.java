@@ -1,15 +1,12 @@
 package ir.bppir.pishtazan.views.adapters;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -18,7 +15,6 @@ import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.AdapterItemExamReportBinding;
 import ir.bppir.pishtazan.databinding.AdapterTutorialMovieBinding;
-import ir.bppir.pishtazan.models.MD_EducationFiles;
 import ir.bppir.pishtazan.models.MD_ExamResult;
 
 public class AP_ExamResult extends RecyclerView.Adapter<AP_ExamResult.CustomHolder> {
@@ -53,6 +49,8 @@ public class AP_ExamResult extends RecyclerView.Adapter<AP_ExamResult.CustomHold
 
     @Override
     public int getItemCount() {
+        if (md_examResults == null)
+            return 0;
         return md_examResults.size();
     }
 

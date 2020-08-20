@@ -9,11 +9,13 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-<!--    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-<!--    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+    <uses-permission android:name= "android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
 
     <meta-data
@@ -22,7 +24,7 @@
 
     <application
         android:requestLegacyExternalStorage="true"
-        android:name=".views.application.PishtazanApplication"
+        android:name="ir.bppir.pishtazan.views.application.PishtazanApplication"
         android:allowBackup="true"
         android:icon="@drawable/pishtaz_logo"
         android:label="@string/app_name"
@@ -33,7 +35,7 @@
 
 
         <service
-            android:name=".firebase.MyFirebaseMessagingService"
+            android:name="ir.bppir.pishtazan.firebase.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -41,7 +43,7 @@
         </service>
 
 
-        <activity android:name=".views.activity.MainActivity">
+        <activity android:name="ir.bppir.pishtazan.views.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -54,11 +56,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
-        <activity android:name=".views.activity.RememberAgain"
+        <activity android:name="ir.bppir.pishtazan.views.activity.RememberAgain"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
 
-        <receiver android:name=".firebase.NotificationReceiver">
+        <receiver android:name="ir.bppir.pishtazan.firebase.NotificationReceiver">
             <intent-filter>
                 <action android:name="ML_Ignore"/>
                 <action android:name="ML_Calling"/>
@@ -71,17 +73,17 @@
 
 <!--        <receiver android:name=".background.ReceiverLunchAppInBackground"
             android:enabled="true"
-            android:process="ir.bppir.pishtazan"
+            android:process="bppishtazan"
             >
             <intent-filter >
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="ir.bppir.Lunch" />
+                <action android:name="bppunch" />
             </intent-filter>
         </receiver>-->
 
 <!--        <receiver android:name=".background.ReceiverReminder"
             android:enabled="true"
-            android:process="ir.bppir.pishtazan"
+            android:process="bppishtazan"
             >
             <intent-filter>
                 <action android:name="accept"/>

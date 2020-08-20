@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cunoraz.gifview.library.GifView;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +53,7 @@ public class Panel extends FragmentPrimary implements
     private boolean GoToAddPerson;
     private View personPositionView;
 
+
     @BindView(R.id.LinearLayoutParent)
     LinearLayout LinearLayoutParent;
 
@@ -73,14 +75,11 @@ public class Panel extends FragmentPrimary implements
     @BindView(R.id.LinearLayoutCertain)
     LinearLayout LinearLayoutCertain;
 
-    @BindView(R.id.ProgressGifCertain)
-    GifView ProgressGifCertain;
+    @BindView(R.id.GifViewLoading)
+    GifView GifViewLoading;
 
-    @BindView(R.id.ProgressGifPossible)
-    GifView ProgressGifPossible;
-
-    @BindView(R.id.ProgressGifMaybe)
-    GifView ProgressGifMaybe;
+    @BindView(R.id.SwitchMaterialArchived)
+    SwitchMaterial SwitchMaterialArchived;
 
 
     public Panel() {//______________________________________________________________________________ Panel
@@ -105,8 +104,7 @@ public class Panel extends FragmentPrimary implements
             PersonType = 0;
             LinearLayoutAdd.setVisibility(View.VISIBLE);
             init();
-            ProgressGifMaybe.setVisibility(View.VISIBLE);
-            GetList();
+/*            GetList();*/
         }
         return getView();
     }//_____________________________________________________________________________________________ onCreateView
@@ -120,11 +118,8 @@ public class Panel extends FragmentPrimary implements
                 Panel.this,
                 vm_panel.getPublishSubject(),
                 vm_panel);
-        if (GoToAddPerson == true) {
-            ProgressGifMaybe.setVisibility(View.VISIBLE);
-            GetList();
-        }
         GoToAddPerson = false;
+        GetList();
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -142,9 +137,10 @@ public class Panel extends FragmentPrimary implements
 
 
     private void GetList() {//______________________________________________________________________ GetList
+        GifViewLoading.setVisibility(View.VISIBLE);
         if (vm_panel.getPersonList() != null)
             vm_panel.getPersonList().clear();
-        vm_panel.GetPerson(panelType, PersonType);
+        vm_panel.GetPerson(panelType, PersonType, SwitchMaterialArchived.isChecked());
     }//_____________________________________________________________________________________________ GetList
 
 
@@ -155,7 +151,7 @@ public class Panel extends FragmentPrimary implements
             dialog.dismiss();
             dialog = null;
         }
-        GoneGifLoading();
+        GifViewLoading.setVisibility(View.GONE);
 
         if (action == StaticValues.ML_GetPerson) {
             if (PersonType == StaticValues.ML_Maybe)
@@ -183,14 +179,13 @@ public class Panel extends FragmentPrimary implements
             return;
         }
 
+        if (action.equals(StaticValues.ML_DeleteArchive)) {
+            Handler handler = new Handler();
+            handler.postDelayed(() -> GetList(), 700);
+            return;
+        }
+
     }//_____________________________________________________________________________________________ GetMessageFromObservable
-
-
-    private void GoneGifLoading() {//_______________________________________________________________ GoneGifLoading
-        ProgressGifCertain.setVisibility(View.GONE);
-        ProgressGifPossible.setVisibility(View.GONE);
-        ProgressGifMaybe.setVisibility(View.GONE);
-    }//_____________________________________________________________________________________________ GoneGifLoading
 
 
     private void SetClick() {//_____________________________________________________________________ SetClick
@@ -212,8 +207,6 @@ public class Panel extends FragmentPrimary implements
                 LinearLayoutCertain.setBackground(null);
                 LinearLayoutMaybe.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
                 PersonType = StaticValues.ML_Maybe;
-                GoneGifLoading();
-                ProgressGifMaybe.setVisibility(View.VISIBLE);
                 GetList();
             }
         });
@@ -226,8 +219,6 @@ public class Panel extends FragmentPrimary implements
                 LinearLayoutCertain.setBackground(null);
                 LinearLayoutPossible.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
                 PersonType = StaticValues.ML_Possible;
-                GoneGifLoading();
-                ProgressGifPossible.setVisibility(View.VISIBLE);
                 GetList();
             }
         });
@@ -240,11 +231,11 @@ public class Panel extends FragmentPrimary implements
                 LinearLayoutPossible.setBackground(null);
                 LinearLayoutCertain.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
                 PersonType = StaticValues.ML_Certain;
-                GoneGifLoading();
-                ProgressGifCertain.setVisibility(View.VISIBLE);
                 GetList();
             }
         });
+
+        SwitchMaterialArchived.setOnClickListener(v -> GetList());
 
     }//_____________________________________________________________________________________________ SetClick
 
@@ -301,13 +292,31 @@ public class Panel extends FragmentPrimary implements
         LinearLayout LinearLayoutInsurance = (LinearLayout)
                 dialog.findViewById(R.id.LinearLayoutInsurance);
 
+        LinearLayout LinearLayoutNoArchived = (LinearLayout)
+        dialog.findViewById(R.id.LinearLayoutNoArchived);
+
+        if (SwitchMaterialArchived.isChecked()) {
+            LinearLayoutCompleteInformation.setVisibility(View.GONE);
+            LinearLayoutCallReminder.setVisibility(View.GONE);
+            LinearLayoutMeetingReminder.setVisibility(View.GONE);
+            LinearLayoutSuccessSale.setVisibility(View.GONE);
+            LinearLayoutSuccessAbsorption.setVisibility(View.GONE);
+            LinearLayoutDeleteFromList.setVisibility(View.GONE);
+            LinearLayoutQuestionnaire.setVisibility(View.GONE);
+            LinearLayoutInsurance.setVisibility(View.GONE);
+            LinearLayoutNoArchived.setVisibility(View.VISIBLE);
+        } else
+            LinearLayoutNoArchived.setVisibility(View.GONE);
+
+
+        LinearLayoutSuccessSale.setVisibility(View.GONE);
+        LinearLayoutSuccessAbsorption.setVisibility(View.GONE);
 
         if (panelType == StaticValues.Customer) {
-            LinearLayoutSuccessSale.setVisibility(View.VISIBLE);
+
             LinearLayoutSuccessAbsorption.setVisibility(View.GONE);
         } else {
             LinearLayoutSuccessSale.setVisibility(View.GONE);
-            LinearLayoutSuccessAbsorption.setVisibility(View.VISIBLE);
             LinearLayoutQuestionnaire.setVisibility(View.GONE);
             LinearLayoutInsurance.setVisibility(View.GONE);
         }
@@ -386,6 +395,11 @@ public class Panel extends FragmentPrimary implements
             }
         });
 
+        LinearLayoutNoArchived.setOnClickListener(v -> {
+            GifViewLoading.setVisibility(View.VISIBLE);
+            vm_panel.deletePersonFromArchive(panelType, Position);
+        });
+
         dialog.show();
 
 
@@ -407,6 +421,9 @@ public class Panel extends FragmentPrimary implements
         bundle.putInt(getContext().getResources().getString(R.string.ML_Type), type);
         navController.navigate(R.id.action_panel_to_policies, bundle);
     }//_____________________________________________________________________________________________ ShowSavePolicyType
+
+
+
 
 
     private void ShowCallReminder(Integer Position) {//_____________________________________________ ShowCallReminder
@@ -666,7 +683,7 @@ public class Panel extends FragmentPrimary implements
             public void onClick(View view) {
                 GifViewQuestion.setVisibility(View.VISIBLE);
                 ImageViewQuestion.setVisibility(View.GONE);
-                vm_panel.DeletePerson(panelType, Position);
+                vm_panel.deletePerson(panelType, Position);
             }
         });
 
@@ -735,7 +752,7 @@ public class Panel extends FragmentPrimary implements
             public void onClick(View view) {
                 GifViewQuestion.setVisibility(View.VISIBLE);
                 ImageViewQuestion.setVisibility(View.GONE);
-                vm_panel.MoveToPossible(panelType, Position);
+                vm_panel.moveToPossible(panelType, Position);
             }
         });
 
@@ -746,17 +763,17 @@ public class Panel extends FragmentPrimary implements
 
     private void SaveCallReminder(Integer Position) {//_____________________________________________ SaveCallReminder
         if (panelType.equals(StaticValues.Customer))
-            vm_panel.SaveCustomerReminder(StaticValues.Call, Position, stringDate, stringTime, "", 0);
+            vm_panel.saveCustomerReminder(StaticValues.Call, Position, stringDate, stringTime, "", 0);
         else
-            vm_panel.SaveColleagueReminder(StaticValues.Call, Position, stringDate, stringTime, "", 0);
+            vm_panel.saveColleagueReminder(StaticValues.Call, Position, stringDate, stringTime, "", 0);
     }//_____________________________________________________________________________________________ SaveCallReminder
 
 
     private void SaveMeetingReminder(Integer Position) {//__________________________________________ SaveMeetingReminder
         if (panelType.equals(StaticValues.Customer))
-            vm_panel.SaveCustomerReminder(StaticValues.Meeting, Position, stringDate, stringTime, "", 0);
+            vm_panel.saveCustomerReminder(StaticValues.Meeting, Position, stringDate, stringTime, "", 0);
         else
-            vm_panel.SaveColleagueReminder(StaticValues.Meeting, Position, stringDate, stringTime, "", 0);
+            vm_panel.saveColleagueReminder(StaticValues.Meeting, Position, stringDate, stringTime, "", 0);
     }//_____________________________________________________________________________________________ SaveMeetingReminder
 
 

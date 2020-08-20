@@ -1,6 +1,5 @@
 package ir.bppir.pishtazan.views.fragments;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -13,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
@@ -27,7 +25,6 @@ import ir.bppir.pishtazan.databinding.FragmentVerifyBinding;
 import ir.bppir.pishtazan.utility.StaticFunctions;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Verify;
-import ir.bppir.pishtazan.views.dialogs.DialogMessage;
 import ir.bppir.pishtazan.views.dialogs.DialogProgress;
 
 public class Verify extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {

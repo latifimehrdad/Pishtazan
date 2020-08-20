@@ -21,27 +21,32 @@ public class VM_Panel extends VM_Primary {
 
     private List<MD_Person> personList;
 
-    public VM_Panel(Activity context) {//___________________________________________________________ VM_Panel
+    //______________________________________________________________________________________________ VM_Panel
+    public VM_Panel(Activity context) {
         setContext(context);
-    }//_____________________________________________________________________________________________ VM_Panel
+    }
+    //______________________________________________________________________________________________ VM_Panel
 
 
-    public void GetPerson(int panelType, Byte PersonType) {//_______________________________________ GetPerson
+    //______________________________________________________________________________________________ GetPerson
+    public void GetPerson(int panelType, Byte PersonType, boolean isDeleted) {
 
         CancelRequest();
 
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             if (panelType == StaticValues.Customer)
-                GetAllCustomers(PersonType);
+                getAllCustomers(PersonType, isDeleted);
             else
-                GetAllColleagues(PersonType);
+                getAllColleagues(PersonType, isDeleted);
         }, 200);
 
-    }//_____________________________________________________________________________________________ GetPerson
+    }
+    //______________________________________________________________________________________________ GetPerson
 
 
-    private void GetAllCustomers(Byte PersonType) {//_______________________________________________ GetAllCustomers
+    //______________________________________________________________________________________________ getAllCustomers
+    private void getAllCustomers(Byte PersonType, boolean isDeleted) {
 
         Integer UserInfoId = GetUserId();
         if (UserInfoId == 0) {
@@ -53,7 +58,7 @@ public class VM_Panel extends VM_Primary {
                 .getApplication(getContext())
                 .getRetrofitComponent()
                 .getRetrofitApiInterface()
-                .GET_ALL_CUSTOMERS(UserInfoId, PersonType, false));
+                .GET_ALL_CUSTOMERS(UserInfoId, PersonType, isDeleted));
 
         getPrimaryCall().enqueue(new Callback<MR_GetAllPerson>() {
             @Override
@@ -76,10 +81,12 @@ public class VM_Panel extends VM_Primary {
         });
 
 
-    }//_____________________________________________________________________________________________ GetAllCustomers
+    }
+    //______________________________________________________________________________________________ getAllCustomers
 
 
-    private void GetAllColleagues(Byte PersonType) {//______________________________________________ GetAllColleagues
+    //______________________________________________________________________________________________ getAllColleagues
+    private void getAllColleagues(Byte PersonType, boolean isDeleted) {
 
         Integer UserInfoId = GetUserId();
         if (UserInfoId == 0) {
@@ -91,7 +98,7 @@ public class VM_Panel extends VM_Primary {
                 .getApplication(getContext())
                 .getRetrofitComponent()
                 .getRetrofitApiInterface()
-                .GET_ALL_COLLEAGUES(UserInfoId, PersonType, false));
+                .GET_ALL_COLLEAGUES(UserInfoId, PersonType, isDeleted));
 
         getPrimaryCall().enqueue(new Callback<MR_GetAllPerson>() {
             @Override
@@ -113,23 +120,27 @@ public class VM_Panel extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ GetAllColleagues
+    }
+    //______________________________________________________________________________________________ getAllColleagues
 
 
-    public List<MD_Person> getPersonList() {//______________________________________________________ getPersonList
+    //______________________________________________________________________________________________ getPersonList
+    public List<MD_Person> getPersonList() {
         if (personList == null)
             personList = new ArrayList<>();
         return personList;
-    }//_____________________________________________________________________________________________ getPersonList
+    }
+    //______________________________________________________________________________________________ getPersonList
 
 
-    public void SaveCustomerReminder(
+    //______________________________________________________________________________________________ saveCustomerReminder
+    public void saveCustomerReminder(
             Byte ReminderTypes,
             Integer Position,
             String stringDate,
             String stringTime,
             String Name,
-            Integer PersonId) {//__________________________________________________________________ SaveCustomerReminder
+            Integer PersonId) {
 
         StringBuilder title = new StringBuilder();
         if (ReminderTypes.equals(StaticValues.Call))
@@ -182,16 +193,18 @@ public class VM_Panel extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ SaveCustomerReminder
+    }
+    //______________________________________________________________________________________________ saveCustomerReminder
 
 
-    public void SaveColleagueReminder(
+    //______________________________________________________________________________________________ saveColleagueReminder
+    public void saveColleagueReminder(
             Byte ReminderTypes,
             Integer Position,
             String stringDate,
             String stringTime,
             String Name,
-            Integer PersonId) {//__________________________________________________________________ SaveColleagueReminder
+            Integer PersonId) {
 
         StringBuilder title = new StringBuilder();
         if (ReminderTypes.equals(StaticValues.Call))
@@ -244,18 +257,22 @@ public class VM_Panel extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ SaveColleagueReminder
+    }
+    //______________________________________________________________________________________________ saveColleagueReminder
 
 
-    public void DeletePerson(int panelType, Integer Position) {//___________________________________ DeletePerson
+    //______________________________________________________________________________________________ deletePerson
+    public void deletePerson(int panelType, Integer Position) {
         if (panelType == StaticValues.Customer)
-            DeleteCustomer(Position);
+            deleteCustomer(Position);
         else
-            DeleteColleague(Position);
-    }//_____________________________________________________________________________________________ DeletePerson
+            deleteColleague(Position);
+    }
+    //______________________________________________________________________________________________ deletePerson
 
 
-    private void DeleteCustomer(Integer Position) {//_______________________________________________ DeleteCustomer
+    //______________________________________________________________________________________________ deleteCustomer
+    private void deleteCustomer(Integer Position) {
 
         Integer Id = GetUserId();
         if (Id == 0) {
@@ -287,10 +304,12 @@ public class VM_Panel extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ DeleteCustomer
+    }
+    //______________________________________________________________________________________________ deleteCustomer
 
 
-    private void DeleteColleague(Integer Position) {//_______________________________________________ DeleteColleague
+    //______________________________________________________________________________________________ deleteColleague
+    private void deleteColleague(Integer Position) {
 
         Integer Id = GetUserId();
         if (Id == 0) {
@@ -322,18 +341,110 @@ public class VM_Panel extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ DeleteColleague
+    }
+    //______________________________________________________________________________________________ deleteColleague
 
 
-    public void MoveToPossible(int panelType, Integer Position) {//_________________________________ MoveToPossible
+
+    //______________________________________________________________________________________________ deletePersonFromArchive
+    public void deletePersonFromArchive(int panelType, Integer Position) {
         if (panelType == StaticValues.Customer)
-            MoveToPossibleCustomer(Position);
+            deleteCustomerFromArchive(Position);
         else
-            MoveToPossibleColleague(Position);
-    }//_____________________________________________________________________________________________ MoveToPossible
+            deleteColleagueFromArchive(Position);
+    }
+    //______________________________________________________________________________________________ deletePersonFromArchive
 
 
-    public void MoveToPossibleColleague(Integer Position) {//_______________________________________ MoveToPossibleColleague
+
+    //______________________________________________________________________________________________ deleteCustomerFromArchive
+    private void deleteCustomerFromArchive(Integer Position) {
+
+        Integer Id = GetUserId();
+        if (Id == 0) {
+            UserIsNotAuthorization();
+            return;
+        }
+
+        setPrimaryCall(PishtazanApplication
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .DELETE_CUSTOMER_ARCHIVE(personList.get(Position).getId(), Id));
+
+        getPrimaryCall().enqueue(new Callback<MR_Primary>() {
+            @Override
+            public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
+                if (ResponseIsOk(response)) {
+                    setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 1)
+                        getPublishSubject().onNext(StaticValues.ML_DeleteArchive);
+                    else
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MR_Primary> call, Throwable t) {
+                CallIsFailure();
+            }
+        });
+
+    }
+    //______________________________________________________________________________________________ deleteCustomerFromArchive
+
+
+
+    //______________________________________________________________________________________________ deleteColleagueFromArchive
+    private void deleteColleagueFromArchive(Integer Position) {
+
+        Integer Id = GetUserId();
+        if (Id == 0) {
+            UserIsNotAuthorization();
+            return;
+        }
+
+        setPrimaryCall(PishtazanApplication
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .DELETE_COLLEAGUE_ARCHIVE(personList.get(Position).getId(), Id));
+
+        getPrimaryCall().enqueue(new Callback<MR_Primary>() {
+            @Override
+            public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
+                if (ResponseIsOk(response)) {
+                    setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 1)
+                        getPublishSubject().onNext(StaticValues.ML_DeleteArchive);
+                    else
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MR_Primary> call, Throwable t) {
+                CallIsFailure();
+            }
+        });
+
+    }
+    //______________________________________________________________________________________________ deleteColleagueFromArchive
+
+
+
+    //______________________________________________________________________________________________ moveToPossible
+    public void moveToPossible(int panelType, Integer Position) {
+        if (panelType == StaticValues.Customer)
+            moveToPossibleCustomer(Position);
+        else
+            moveToPossibleColleague(Position);
+    }
+    //______________________________________________________________________________________________ moveToPossible
+
+
+    //______________________________________________________________________________________________ moveToPossibleColleague
+    public void moveToPossibleColleague(Integer Position) {
 
         Integer Id = GetUserId();
         if (Id == 0) {
@@ -365,10 +476,12 @@ public class VM_Panel extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ MoveToPossibleColleague
+    }
+    //______________________________________________________________________________________________ moveToPossibleColleague
 
 
-    public void MoveToPossibleCustomer(Integer Position) {//________________________________________ MoveToPossibleCustomer
+    //______________________________________________________________________________________________ moveToPossibleCustomer
+    public void moveToPossibleCustomer(Integer Position) {
 
         Integer Id = GetUserId();
         if (Id == 0) {
@@ -400,6 +513,7 @@ public class VM_Panel extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ MoveToPossibleCustomer
+    }
+    //______________________________________________________________________________________________ moveToPossibleCustomer
 
 }

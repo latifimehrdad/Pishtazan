@@ -64,7 +64,9 @@ public class VM_PolicyType extends VM_Primary {
             String PolicyTypeId,
             String CustomerId,
             String PolicyAmont,
-            String Description) {//_________________________________________________________________ CreatePolicy
+            String Description,
+            String Insured,
+            String InsuredNationalCode) {//_________________________________________________________________ CreatePolicy
 
         Integer UserInfoId = GetUserId();
         if (UserInfoId == 0) {
@@ -81,7 +83,9 @@ public class VM_PolicyType extends VM_Primary {
                         CustomerId,
                         PolicyAmont,
                         UserInfoId.toString(),
-                        Description));
+                        Description,
+                        Insured,
+                        InsuredNationalCode));
 
 
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
@@ -114,7 +118,9 @@ public class VM_PolicyType extends VM_Primary {
             Integer CustomerId,
             Long PolicyAmont,
             String Description,
-            String SuggestionDateM) {//_________________________________________________________________ CreatePolicy
+            String SuggestionDateM,
+            String Insured,
+            String InsuredNationalCode) {//_________________________________________________________________ CreatePolicy
 
         Integer UserInfoId = GetUserId();
         if (UserInfoId == 0) {
@@ -133,7 +139,9 @@ public class VM_PolicyType extends VM_Primary {
                         PolicyAmont,
                         UserInfoId,
                         Description,
-                        SuggestionDateM));
+                        SuggestionDateM,
+                        Insured,
+                        InsuredNationalCode));
 
 
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {

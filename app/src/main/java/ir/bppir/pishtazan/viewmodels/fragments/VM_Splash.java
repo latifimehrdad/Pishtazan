@@ -1,16 +1,13 @@
 package ir.bppir.pishtazan.viewmodels.fragments;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Handler;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 import ir.bppir.pishtazan.database.DB_UserInfo;
 import ir.bppir.pishtazan.models.MD_Update;
-import ir.bppir.pishtazan.models.MR_SpinnerItem;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
@@ -61,6 +58,7 @@ public class VM_Splash extends VM_Primary {
                 if (ResponseIsOk(response)) {
                     if (response.body() != null){
                         md_update = response.body();
+                        checkUpdate();
                     }
                     else
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
@@ -92,12 +90,16 @@ public class VM_Splash extends VM_Primary {
         Integer v = md_update.getVresion();
 
         if (version < v)
-            getPublishSubject().onNext(StaticValues.ML_ResponseError);
+            getPublishSubject().onNext(StaticValues.ML_Update);
         else
             CheckLogin();
     }
     //______________________________________________________________________________________________ checkUpdate
 
 
-
+    //______________________________________________________________________________________________ getMd_update
+    public MD_Update getMd_update() {
+        return md_update;
+    }
+    //______________________________________________________________________________________________ getMd_update
 }

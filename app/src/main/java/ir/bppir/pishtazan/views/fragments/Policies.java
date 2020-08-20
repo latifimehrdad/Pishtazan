@@ -13,8 +13,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.SimpleDateFormat;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
@@ -137,6 +135,14 @@ public class Policies extends FragmentPrimary implements
         String date = vm_policyList.getMd_policies().get(Position).getSuggestionDateM();
         bundle.putString(getContext().getResources().getString(R.string.ML_Date),
                 date);
+
+        String insured = vm_policyList.getMd_policies().get(Position).getInsured();
+        bundle.putString(getContext().getResources().getString(R.string.ML_Insured),
+                insured);
+
+        String insuredNationalCode = vm_policyList.getMd_policies().get(Position).getInsuredNationalCode();
+        bundle.putString(getContext().getResources().getString(R.string.ML_InsuredNationalCode),
+                insuredNationalCode);
 
         navController.navigate(R.id.action_policies_to_policyType, bundle);
 

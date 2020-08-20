@@ -90,6 +90,9 @@ public class StaticValues {
     public static Byte ML_GetRecourse = 33;
     public static Byte ML_FileDownloading = 34;
     public static Byte ML_FileDownloaded = 35;
+    public static Byte ML_Update = 36;
+    public static Byte ML_DeleteArchive = 37;
+
 
 
 

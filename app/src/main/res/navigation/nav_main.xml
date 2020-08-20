@@ -253,6 +253,15 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"/>
 
+
+        <action
+            android:id="@+id/action_tutorial_to_examResults"
+            app:destination="@id/examResults"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
     </fragment>
 
     <fragment
@@ -403,6 +412,16 @@
         android:id="@+id/examReport"
         android:name="ir.bppir.pishtazan.views.fragments.ExamReport"
         android:label="ExamReport"
-        tools:layout="@layout/fragment_exam_report"/>
+        tools:layout="@layout/fragment_exam_report">
+
+        <action
+            android:id="@+id/action_examReport_to_post"
+            app:destination="@id/post"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+    </fragment>
 
 </navigation>

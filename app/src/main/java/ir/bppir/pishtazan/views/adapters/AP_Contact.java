@@ -41,6 +41,8 @@ public class AP_Contact extends RecyclerView.Adapter<AP_Contact.CustomHolder> {
     }
 
     public int getItemCount() {
+        if (md_contacts == null)
+            return 0;
         return md_contacts.size();
     }
 

@@ -1,16 +1,11 @@
 package ir.bppir.pishtazan.viewmodels.fragments;
 
 import android.app.Activity;
-import android.os.Handler;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import ir.bppir.pishtazan.models.MD_AnaliticalReport;
 import ir.bppir.pishtazan.models.MD_Report;
-import ir.bppir.pishtazan.models.MD_ReportDetail;
 import ir.bppir.pishtazan.models.MD_SpinnerItem;
-import ir.bppir.pishtazan.models.MD_StatisticalReport;
 import ir.bppir.pishtazan.models.MR_AnalyticalReport;
 import ir.bppir.pishtazan.models.MR_SpinnerItem;
 import ir.bppir.pishtazan.models.MR_StatisticalReport;

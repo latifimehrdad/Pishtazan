@@ -2,8 +2,6 @@ package ir.bppir.pishtazan.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class MD_Exam {
 
     @SerializedName("Id")

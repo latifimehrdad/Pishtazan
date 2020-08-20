@@ -95,6 +95,7 @@
     <string name="SavePolicy">ثبت پرسشنامه</string>
     <string name="EditPolicy">ویرایش پرسشنامه</string>
     <string name="EmptyAmount">مبلغ را وارد نمایید</string>
+    <string name="EmptyNationalCode">کد ملی را وارد نمایید</string>
     <string name="PoliciesList">لیست پرسشنامه ها</string>
     <string name="InsuranceList">لیست بیمه نامه ها</string>
     <string name="AddNewPolicy">اضافه کردن پرسشنامه جدید</string>
@@ -121,7 +122,7 @@
     <string name="DateFrom">تاریخ از</string>
     <string name="DateTo">تا تاریخ</string>
     <string name="createReport">تهیه گزارش</string>
-    <string name="RankOfCompany">رتبه سازمانی</string>
+    <string name="RankOfCompany">انتخاب رتبه سازمانی</string>
     <string name="InstallApp">نصب نرم افزار</string>
     <string name="DownloadingFile">بارگیری فایل ...</string>
     <string name="FileDownloaded">پایان بارگیری فایل</string>
@@ -131,6 +132,9 @@
     <string name="SortingAverageGrade">نمره</string>
     <string name="SortingTotalScore">معدل</string>
     <string name="SortingTotalActivity">عملکرد</string>
+    <string name="insuredName">نام بیمه شده</string>
+    <string name="Archived">بایگانی شده ها</string>
+    <string name="NoArchive">حذف از بایگانی</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>
@@ -155,5 +159,9 @@
     <string name="ML_ExamHistory">ExamHistory</string>
     <string name="ML_UpdateUrl">UpdateUrl</string>
     <string name="ML_UpdateFile">UpdateFile</string>
+    <string name="ML_Insured">Insured</string>
+    <string name="ML_InsuredNationalCode">InsuredNationalCode</string>
+    <string name="ML_MyReport">MyReport</string>
+    <string name="ML_MySubsetReport">MySubsetReport</string>
 
 </resources>

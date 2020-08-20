@@ -1,17 +1,11 @@
 package ir.bppir.pishtazan.viewmodels.fragments;
 
 import android.app.Activity;
-import android.os.Handler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ir.bppir.pishtazan.models.MD_Education;
-import ir.bppir.pishtazan.models.MD_Report;
-import ir.bppir.pishtazan.models.MD_ReportDetail;
-import ir.bppir.pishtazan.models.MD_Tutorial;
 import ir.bppir.pishtazan.models.MR_Education;
-import ir.bppir.pishtazan.models.MR_EducationCategoryVms;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;

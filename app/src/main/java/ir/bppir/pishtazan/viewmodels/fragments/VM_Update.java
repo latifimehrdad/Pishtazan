@@ -120,12 +120,12 @@ public class VM_Update extends VM_Primary {
 
     private void saveToDisk(ResponseBody body, String filename) {//_________________________________ saveToDisk
 
-        File file = new File(Environment.getExternalStorageDirectory() + "/WMS");
+        File file = new File(Environment.getExternalStorageDirectory() + "/pishtazan");
         if (!file.exists()) {
             file.mkdir();
         }
 
-        File destinationFile = new File(Environment.getExternalStorageDirectory() + "/WMS/" + filename);
+        File destinationFile = new File(Environment.getExternalStorageDirectory() + "/pishtazan/" + filename);
 
         try (InputStream inputStream = body.byteStream(); OutputStream outputStream = new FileOutputStream(destinationFile)) {
             byte[] data = new byte[4096];
@@ -157,7 +157,7 @@ public class VM_Update extends VM_Primary {
         // Create an image file name
         File imageFile;
         imageFile = new File(Environment.getExternalStorageDirectory()
-                + "/WMS/", filename);
+                + "/pishtazan/", filename);
 
 //        String imagePath = Environment.getExternalStorageDirectory() + "/MyApp/"
 //                + "Camera_" + dt + ".jpg";

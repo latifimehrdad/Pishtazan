@@ -1,31 +1,17 @@
 package ir.bppir.pishtazan.views.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
-import ir.bppir.pishtazan.database.DB_Persons;
 import ir.bppir.pishtazan.databinding.AdabterPersonPanelBinding;
 import ir.bppir.pishtazan.databinding.AdapterItemPolicyBinding;
-import ir.bppir.pishtazan.models.MD_Person;
 import ir.bppir.pishtazan.models.MD_Policy;
-import ir.bppir.pishtazan.models.MD_PolicyType;
-import ir.bppir.pishtazan.utility.StaticValues;
-import ir.bppir.pishtazan.views.fragments.Panel;
 
 public class AP_PolicyType extends RecyclerView.Adapter<AP_PolicyType.CustomHolder> {
 
@@ -48,6 +34,9 @@ public class AP_PolicyType extends RecyclerView.Adapter<AP_PolicyType.CustomHold
     }
 
     public int getItemCount() {
+        if (md_policies == null)
+            return 0;
+
         return md_policies.size();
     }
 

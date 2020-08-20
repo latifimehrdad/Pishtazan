@@ -3,8 +3,6 @@ package ir.bppir.pishtazan.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
-
 public class MD_EducationFiles {
 
     @SerializedName("Id")

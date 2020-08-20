@@ -1,16 +1,11 @@
 package ir.bppir.pishtazan.background;
 
 import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.google.gson.Gson;
@@ -19,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ir.bppir.pishtazan.R;
-import ir.bppir.pishtazan.database.DB_Notification;
 import ir.bppir.pishtazan.models.MD_Notification;
 import ir.bppir.pishtazan.utility.StaticValues;
 
@@ -157,6 +151,7 @@ public class NotificationOld {
                 .setContentTitle(Title)
                 .setSound(getSound())
                 .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .build();
 
         if (actions != null) {

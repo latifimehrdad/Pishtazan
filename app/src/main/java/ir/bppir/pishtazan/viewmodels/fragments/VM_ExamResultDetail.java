@@ -6,7 +6,6 @@ import java.util.List;
 
 import ir.bppir.pishtazan.models.MD_ExamResultDetail;
 import ir.bppir.pishtazan.models.MR_ExamResultDetail;
-import ir.bppir.pishtazan.models.MR_ExamResults;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;

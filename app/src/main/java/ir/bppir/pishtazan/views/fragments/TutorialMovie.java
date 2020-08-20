@@ -22,10 +22,8 @@ import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.FragmentTutorialBinding;
 import ir.bppir.pishtazan.databinding.FragmentTutorialMovieBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
-import ir.bppir.pishtazan.viewmodels.fragments.VM_Tutorial;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_TutorialMovie;
 import ir.bppir.pishtazan.views.adapters.AP_Movie;
-import ir.bppir.pishtazan.views.adapters.AP_Tutorial;
 
 public class TutorialMovie extends FragmentPrimary implements
         FragmentPrimary.GetMessageFromObservable,

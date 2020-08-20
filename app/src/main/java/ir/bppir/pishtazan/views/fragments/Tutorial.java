@@ -104,10 +104,20 @@ public class Tutorial extends FragmentPrimary implements
 
     @Override
     public void clickItemTutorial(Integer Position, View view) {//__________________________________ clickItemTutorial
-        Bundle bundle = new Bundle();
-        bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_tutorial.getMd_educations().get(Position).getId());
-        bundle.putString(getContext().getResources().getString(R.string.ML_Type), examType);
-        navController.navigate(R.id.action_tutorial_to_tutorialMovie, bundle);
+        if (!examType.equalsIgnoreCase(getString(R.string.ML_MySubsetReport))) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_tutorial.getMd_educations().get(Position).getId());
+            bundle.putString(getContext().getResources().getString(R.string.ML_Type), examType);
+            navController.navigate(R.id.action_tutorial_to_tutorialMovie, bundle);
+        } else {
+            Integer personId = getArguments().getInt(getContext().getResources().getString(R.string.ML_personId));
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getResources().getString(R.string.ML_personId), personId);
+            bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_tutorial.getMd_educations().get(Position).getId());
+            bundle.putString(getContext().getResources().getString(R.string.ML_Type),
+                    getContext().getResources().getString(R.string.ML_ExamHistory));
+            navController.navigate(R.id.action_tutorial_to_examResults, bundle);
+        }
     }//_____________________________________________________________________________________________ clickItemTutorial
 
 

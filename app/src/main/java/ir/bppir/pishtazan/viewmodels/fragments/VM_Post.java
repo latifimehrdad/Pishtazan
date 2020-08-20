@@ -1,9 +1,7 @@
 package ir.bppir.pishtazan.viewmodels.fragments;
 
 import android.app.Activity;
-import android.os.Handler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ir.bppir.pishtazan.models.MD_Education;

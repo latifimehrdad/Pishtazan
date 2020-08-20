@@ -138,7 +138,10 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
         LinearLayoutTutorial.setOnClickListener(v -> {
             Post.ExamResultId = 0;
-            navController.navigate(R.id.action_home_to_post);
+            Bundle bundle = new Bundle();
+            bundle.putString(getContext().getResources().getString(R.string.ML_Type),
+                    getContext().getResources().getString(R.string.ML_MyReport));
+            navController.navigate(R.id.action_home_to_post, bundle);
         });
 
 

@@ -2,8 +2,6 @@ package ir.bppir.pishtazan.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
-
 public class MD_Policy {
 
     @SerializedName("Id")
@@ -30,8 +28,14 @@ public class MD_Policy {
     @SerializedName("PolicyAmont")
     Long PolicyAmont;
 
+    @SerializedName("Insured")
+    String Insured;
 
-    public MD_Policy(Integer id, Integer policyTypeId, MD_PolicyType policyType, Integer customerId, String suggestionDateJ, String suggestionDateM, String description, Long policyAmont) {
+    @SerializedName("InsuredNationalCode")
+    String InsuredNationalCode;
+
+
+    public MD_Policy(Integer id, Integer policyTypeId, MD_PolicyType policyType, Integer customerId, String suggestionDateJ, String suggestionDateM, String description, Long policyAmont, String insured, String insuredNationalCode) {
         Id = id;
         PolicyTypeId = policyTypeId;
         PolicyType = policyType;
@@ -40,6 +44,8 @@ public class MD_Policy {
         SuggestionDateM = suggestionDateM;
         Description = description;
         PolicyAmont = policyAmont;
+        Insured = insured;
+        InsuredNationalCode = insuredNationalCode;
     }
 
     public Integer getId() {
@@ -58,6 +64,14 @@ public class MD_Policy {
         PolicyTypeId = policyTypeId;
     }
 
+    public MD_PolicyType getPolicyType() {
+        return PolicyType;
+    }
+
+    public void setPolicyType(MD_PolicyType policyType) {
+        PolicyType = policyType;
+    }
+
     public Integer getCustomerId() {
         return CustomerId;
     }
@@ -74,21 +88,20 @@ public class MD_Policy {
         SuggestionDateJ = suggestionDateJ;
     }
 
+    public String getSuggestionDateM() {
+        return SuggestionDateM;
+    }
+
+    public void setSuggestionDateM(String suggestionDateM) {
+        SuggestionDateM = suggestionDateM;
+    }
+
     public String getDescription() {
         return Description;
     }
 
     public void setDescription(String description) {
         Description = description;
-    }
-
-
-    public MD_PolicyType getPolicyType() {
-        return PolicyType;
-    }
-
-    public void setPolicyType(MD_PolicyType policyType) {
-        PolicyType = policyType;
     }
 
     public Long getPolicyAmont() {
@@ -99,12 +112,19 @@ public class MD_Policy {
         PolicyAmont = policyAmont;
     }
 
-
-    public String getSuggestionDateM() {
-        return SuggestionDateM;
+    public String getInsured() {
+        return Insured;
     }
 
-    public void setSuggestionDateM(String suggestionDateM) {
-        SuggestionDateM = suggestionDateM;
+    public void setInsured(String insured) {
+        Insured = insured;
+    }
+
+    public String getInsuredNationalCode() {
+        return InsuredNationalCode;
+    }
+
+    public void setInsuredNationalCode(String insuredNationalCode) {
+        InsuredNationalCode = insuredNationalCode;
     }
 }

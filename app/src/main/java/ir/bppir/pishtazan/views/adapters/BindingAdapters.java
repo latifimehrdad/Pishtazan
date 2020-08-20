@@ -2,13 +2,11 @@ package ir.bppir.pishtazan.views.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 import androidx.databinding.BindingAdapter;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -87,7 +85,7 @@ public class BindingAdapters {
     @BindingAdapter(value = "SetTextViewDouble")
     public static void SetTextViewDouble(TextView textView, double value) {//___________________________ SetTextViewText
 
-        String v = String.format("%.2f", value);
+        String v = String.format("%.1f", value);
         textView.setText(v);
 
     }//_____________________________________________________________________________________________ SetTextViewText
@@ -158,6 +156,12 @@ public class BindingAdapters {
                 break;
             case "type" :
                 textView.setText(context.getResources().getString(R.string.Type) + " : " + text);
+                break;
+            case "insured" :
+                textView.setText(context.getResources().getString(R.string.insuredName) + " : " + text);
+                break;
+            case "insuredNationalCode":
+                textView.setText(context.getResources().getString(R.string.NationalCode) + " : " + text);
                 break;
         }
 

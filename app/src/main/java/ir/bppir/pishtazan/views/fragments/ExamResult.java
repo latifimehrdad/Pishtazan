@@ -13,8 +13,6 @@ import androidx.databinding.DataBindingUtil;
 
 import com.cunoraz.gifview.library.GifView;
 
-import org.w3c.dom.Text;
-
 import butterknife.BindView;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.FragmentExamResultBinding;
@@ -80,7 +78,7 @@ public class ExamResult extends FragmentPrimary implements
         getContext().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         LinearLayoutExamResult.setVisibility(View.GONE);
         GifViewLoading.setVisibility(View.VISIBLE);
-        vm_examResult.GetExamResult(examResultId);
+        vm_examResult.getExamResult(examResultId);
     }//_____________________________________________________________________________________________ onStart
 
 

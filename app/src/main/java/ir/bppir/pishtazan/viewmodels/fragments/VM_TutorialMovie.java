@@ -1,7 +1,6 @@
 package ir.bppir.pishtazan.viewmodels.fragments;
 
 import android.app.Activity;
-import android.os.Handler;
 
 import java.util.List;
 

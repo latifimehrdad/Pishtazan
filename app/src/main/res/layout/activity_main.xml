@@ -23,8 +23,6 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@drawable/dw_login"
-
-                android:paddingTop="@dimen/_35sdp"
                 android:orientation="horizontal"
                 >
 
@@ -70,6 +68,7 @@
             android:src="@drawable/ic_baseline_menu"
             android:tint="@color/ML_White"
             android:padding="@dimen/_4sdp"
+            android:visibility="gone"
             />
 
     </RelativeLayout>

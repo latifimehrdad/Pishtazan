@@ -113,6 +113,24 @@ public interface RetrofitApiInterface {
 
 
     @FormUrlEncoded
+    @POST(Version + "/UnDeleteCustomer")
+    Call<MR_Primary> DELETE_CUSTOMER_ARCHIVE
+            (
+                    @Field("Id") Integer Id,
+                    @Field("UserInfoId") Integer UserInfoId
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/UnDeleteColleague")
+    Call<MR_Primary> DELETE_COLLEAGUE_ARCHIVE
+            (
+                    @Field("Id") Integer Id,
+                    @Field("UserInfoId") Integer UserInfoId
+            );
+
+
+    @FormUrlEncoded
     @POST(Version + "/DeleteColleague")
     Call<MR_Primary> DELETE_COLLEAGUE
             (
@@ -215,7 +233,9 @@ public interface RetrofitApiInterface {
                     @Field(Policy + "CustomerId") String CustomerId,
                     @Field(Policy + "PolicyAmont") String PolicyAmont,
                     @Field(Policy + "UserInfoId") String UserInfoId,
-                    @Field(Policy + "Description") String Description
+                    @Field(Policy + "Description") String Description,
+                    @Field(Policy + "Insured") String Insured,
+                    @Field(Policy + "InsuredNationalCode") String InsuredNationalCode
             );
 
 
@@ -240,7 +260,9 @@ public interface RetrofitApiInterface {
                     @Field(Policy + "PolicyAmont") Long PolicyAmont,
                     @Field(Policy + "UserInfoId") Integer UserInfoId,
                     @Field(Policy + "Description") String Description,
-                    @Field(Policy + "SuggestionDateM") String SuggestionDateM
+                    @Field(Policy + "SuggestionDateM") String SuggestionDateM,
+                    @Field(Policy + "Insured") String Insured,
+                    @Field(Policy + "InsuredNationalCode") String InsuredNationalCode
             );
 
     
@@ -421,5 +443,42 @@ public interface RetrofitApiInterface {
     @GET(Version + "/hi")
     Call<MD_Update> GET_UPDATE
             ();
+
+
+    @FormUrlEncoded
+    @POST(Version + "/LearningReport")
+    Call<MR_StatisticalReport> GET_LEARN_REPORT
+            (
+                    @Field("UserInfoId") Integer UserInfoId,
+                    @Field("SortingResourceId") Integer SortingResourceId
+            );
+
+    @FormUrlEncoded
+    @POST(Version + "/LearningReport")
+    Call<MR_StatisticalReport> GET_LEARN_REPORT_SortByAverageGrade
+            (
+                    @Field("UserInfoId") Integer UserInfoId,
+                    @Field("SortingResourceId") Integer SortingResourceId,
+                    @Field("SortByAverageGrade") boolean SortByAverageGrade
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/LearningReport")
+    Call<MR_StatisticalReport> GET_LEARN_REPORT_SortByTotalScore
+            (
+                    @Field("UserInfoId") Integer UserInfoId,
+                    @Field("SortingResourceId") Integer SortingResourceId,
+                    @Field("SortByTotalScore") boolean SortByTotalScore
+            );
+
+    @FormUrlEncoded
+    @POST(Version + "/LearningReport")
+    Call<MR_StatisticalReport> GET_LEARN_REPORT_SortByTotalActivity
+            (
+                    @Field("UserInfoId") Integer UserInfoId,
+                    @Field("SortingResourceId") Integer SortingResourceId,
+                    @Field("SortByTotalActivity") boolean SortByTotalActivity
+            );
 
 }

@@ -18,9 +18,7 @@ import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.FragmentExamResultDetailsBinding;
 import ir.bppir.pishtazan.databinding.FragmentExamResultsBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
-import ir.bppir.pishtazan.viewmodels.fragments.VM_ExamResult;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_ExamResultDetail;
-import ir.bppir.pishtazan.views.adapters.AP_ExamResult;
 import ir.bppir.pishtazan.views.adapters.AP_ExamResultDetail;
 
 public class ExamResultDetails extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {

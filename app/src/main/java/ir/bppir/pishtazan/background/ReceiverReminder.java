@@ -7,7 +7,6 @@ import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;

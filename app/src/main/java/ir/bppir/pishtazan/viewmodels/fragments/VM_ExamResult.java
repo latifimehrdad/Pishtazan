@@ -5,7 +5,6 @@ import android.app.Activity;
 import java.util.List;
 
 import ir.bppir.pishtazan.models.MD_ExamResult;
-import ir.bppir.pishtazan.models.MR_Exam;
 import ir.bppir.pishtazan.models.MR_ExamResult;
 import ir.bppir.pishtazan.models.MR_ExamResults;
 import ir.bppir.pishtazan.utility.StaticValues;
@@ -28,8 +27,8 @@ public class VM_ExamResult extends VM_Primary {
     //______________________________________________________________________________________________ VM_ExamResult
 
 
-
-    public void GetExamResult(Integer examResultId) {//_____________________________________________ GetExamResult
+    //______________________________________________________________________________________________ getExamResult
+    public void getExamResult(Integer examResultId) {
 
         Integer UserInfoId = GetUserId();
         if (UserInfoId == 0) {
@@ -62,19 +61,21 @@ public class VM_ExamResult extends VM_Primary {
                 CallIsFailure();
             }
         });
-    }//_____________________________________________________________________________________________ GetExamResult
+    }
+    //______________________________________________________________________________________________ getExamResult
 
 
-
-
-
-    public void GetExamResults(Integer examId) {//__________________________________________________ GetExamResults
+    //______________________________________________________________________________________________ getExamResults
+    public void getExamResults(Integer examId, Integer personId) {
 
         Integer UserInfoId = GetUserId();
         if (UserInfoId == 0) {
             UserIsNotAuthorization();
             return;
         }
+
+        if (personId != null)
+            UserInfoId = personId;
 
         setPrimaryCall(PishtazanApplication
                 .getApplication(getContext())
@@ -101,9 +102,8 @@ public class VM_ExamResult extends VM_Primary {
                 CallIsFailure();
             }
         });
-    }//_____________________________________________________________________________________________ GetExamResults
-
-
+    }
+    //______________________________________________________________________________________________ getExamResults
 
 
     //______________________________________________________________________________________________ getMd_examResult
@@ -111,7 +111,6 @@ public class VM_ExamResult extends VM_Primary {
         return md_examResult;
     }
     //______________________________________________________________________________________________ getMd_examResult
-
 
 
     //______________________________________________________________________________________________ getMd_examResults

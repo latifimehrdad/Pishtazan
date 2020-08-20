@@ -3,25 +3,18 @@ package ir.bppir.pishtazan.views.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import net.cachapa.expandablelayout.ExpandableLayout;
 
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.AdapterItemReportBinding;
 import ir.bppir.pishtazan.databinding.AdapterTutorialBinding;
 import ir.bppir.pishtazan.models.MD_Education;
-import ir.bppir.pishtazan.models.MD_Report;
-import ir.bppir.pishtazan.models.MD_Tutorial;
 
 public class AP_Tutorial extends RecyclerView.Adapter<AP_Tutorial.CustomHolder> {
 
@@ -46,6 +39,8 @@ public class AP_Tutorial extends RecyclerView.Adapter<AP_Tutorial.CustomHolder> 
 
     @Override
     public int getItemCount() {
+        if (md_educations == null)
+            return 0;
         return md_educations.size();
     }
 

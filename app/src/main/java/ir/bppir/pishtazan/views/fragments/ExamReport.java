@@ -11,6 +11,10 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cunoraz.gifview.library.GifView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
@@ -32,14 +36,18 @@ import ir.bppir.pishtazan.models.MD_Report;
 import ir.bppir.pishtazan.models.MD_SpinnerItem;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_ExamReport;
+import ir.bppir.pishtazan.views.adapters.AP_LearnReport;
 
-public class ExamReport extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class ExamReport extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable,
+        AP_LearnReport.ClickItemPerson {
 
 
     private VM_ExamReport vm_examReport;
     private Integer rankOfCompanyId;
+    private Integer sortPosition;
     private List<MD_Report> md_reports;
     private CompositeDisposable disposable = new CompositeDisposable();
+    private NavController navController;
 
 
     @BindView(R.id.editTextSearch)
@@ -70,6 +78,9 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.GetMe
     MaterialSpinner MaterialSpinnerSort;
 
 
+    @BindView(R.id.RecyclerViewReport)
+    RecyclerView RecyclerViewReport;
+
 
     @Nullable
     @Override
@@ -96,6 +107,7 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.GetMe
                 ExamReport.this,
                 vm_examReport.getPublishSubject(),
                 vm_examReport);
+        navController = Navigation.findNavController(getView());
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -109,6 +121,7 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.GetMe
                 .subscribeWith(searchContactsTextWatcher()));
 
         rankOfCompanyId = -1;
+        sortPosition = -1;
         GifViewLoading.setVisibility(View.VISIBLE);
         LinearLayoutFiltering.setVisibility(View.GONE);
         LinearLayoutReport.setVisibility(View.GONE);
@@ -143,14 +156,14 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.GetMe
     private void searchName(String name) {
 
         md_reports = new ArrayList<>();
-/*        for (MD_Report report : vm_examReport.getMd_reports()){
+        for (MD_Report report : vm_examReport.getMd_reports()) {
             if (name == null || name.equalsIgnoreCase(""))
                 md_reports.add(report);
             else {
                 if (report.getFullName().contains(name))
                     md_reports.add(report);
             }
-        }*/
+        }
 
         SetReportAdapter();
     }
@@ -201,9 +214,23 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.GetMe
         });
 
 
+        MaterialSpinnerSort.setOnItemSelectedListener((view, position, id, item) -> {
+            sortPosition = position;
+
+        });
+
+
         RelativeLayoutReport.setOnClickListener(v -> {
+
+            if (rankOfCompanyId == -1)
+                return;
+
             GifViewReport.setVisibility(View.VISIBLE);
             ImageViewReport.setVisibility(View.GONE);
+
+
+            vm_examReport.getLearnReport(rankOfCompanyId, sortPosition);
+
         });
 
     }
@@ -230,15 +257,30 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.GetMe
         sorting.add(getContext().getResources().getString(R.string.SortingAverageGrade));
         sorting.add(getContext().getResources().getString(R.string.SortingTotalScore));
         sorting.add(getContext().getResources().getString(R.string.SortingTotalActivity));
+        sortPosition = 0;
         MaterialSpinnerSort.setItems(sorting);
     }
     //______________________________________________________________________________________________ setMaterialSpinnerSorting
 
 
     private void SetReportAdapter() {//_____________________________________________________________ SetReportAdapter
-/*        AP_Report ap_report = new AP_Report(md_reports, getContext());
+        AP_LearnReport ap_report = new AP_LearnReport(md_reports, getContext(), ExamReport.this);
         RecyclerViewReport.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        RecyclerViewReport.setAdapter(ap_report);*/
+        RecyclerViewReport.setAdapter(ap_report);
     }//_____________________________________________________________________________________________ SetReportAdapter
+
+
+    //______________________________________________________________________________________________ clickItemPerson
+    @Override
+    public void clickItemPerson(Integer Position) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(getContext().getResources().getString(R.string.ML_Id),
+                vm_examReport.getMd_reports().get(Position).getId());
+        bundle.putString(getContext().getResources().getString(R.string.ML_Type),
+                getContext().getResources().getString(R.string.ML_MySubsetReport));
+        navController.navigate(R.id.action_examReport_to_post, bundle);
+    }
+    //______________________________________________________________________________________________ clickItemPerson
+
 
 }

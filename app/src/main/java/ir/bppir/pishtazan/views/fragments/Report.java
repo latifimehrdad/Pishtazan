@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +25,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
@@ -39,8 +37,6 @@ import ir.bppir.pishtazan.models.MD_Report;
 import ir.bppir.pishtazan.models.MD_SpinnerItem;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Report;
-import ir.bppir.pishtazan.viewmodels.fragments.VM_Splash;
-import ir.bppir.pishtazan.views.activity.MainActivity;
 import ir.bppir.pishtazan.views.adapters.AP_Report;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
 import ir.hamsaa.persiandatepicker.Listener;

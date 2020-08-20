@@ -1,26 +1,19 @@
 package ir.bppir.pishtazan.viewmodels.fragments;
 
 import android.app.Activity;
-import android.os.Handler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ir.bppir.pishtazan.models.MD_Answer;
-import ir.bppir.pishtazan.models.MD_Education;
 import ir.bppir.pishtazan.models.MD_ExamResult;
 import ir.bppir.pishtazan.models.MD_Question;
-import ir.bppir.pishtazan.models.MD_QuestionOld;
 import ir.bppir.pishtazan.models.MD_SendAnswer;
-import ir.bppir.pishtazan.models.MR_EducationFiles;
 import ir.bppir.pishtazan.models.MR_Exam;
 import ir.bppir.pishtazan.models.MR_ExamResult;
 import ir.bppir.pishtazan.models.MR_Question;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

@@ -14,7 +14,6 @@ import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.AdapterItemReportDetailBinding;
 import ir.bppir.pishtazan.databinding.AdapterItemResultDetailBinding;
 import ir.bppir.pishtazan.databinding.AdapterPostBinding;
-import ir.bppir.pishtazan.models.MD_EducationCategoryVms;
 import ir.bppir.pishtazan.models.MD_ExamResultDetail;
 
 public class AP_ExamResultDetail extends RecyclerView.Adapter<AP_ExamResultDetail.CustomHolder> {
@@ -42,6 +41,9 @@ public class AP_ExamResultDetail extends RecyclerView.Adapter<AP_ExamResultDetai
 
     @Override
     public int getItemCount() {
+        if (md_examResultDetails == null)
+            return 0;
+
         return md_examResultDetails.size();
     }
 

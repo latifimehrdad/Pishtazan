@@ -15,8 +15,6 @@ import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.AdapterTutorialBinding;
 import ir.bppir.pishtazan.databinding.AdapterTutorialMovieBinding;
 import ir.bppir.pishtazan.models.MD_EducationFiles;
-import ir.bppir.pishtazan.models.MD_Tutorial;
-import ir.bppir.pishtazan.models.MD_TutorialMovie;
 
 public class AP_Movie extends RecyclerView.Adapter<AP_Movie.CustomHolder> {
 
@@ -45,6 +43,9 @@ public class AP_Movie extends RecyclerView.Adapter<AP_Movie.CustomHolder> {
 
     @Override
     public int getItemCount() {
+        if (md_educationFiles == null)
+            return 0;
+
         return md_educationFiles.size();
     }
 

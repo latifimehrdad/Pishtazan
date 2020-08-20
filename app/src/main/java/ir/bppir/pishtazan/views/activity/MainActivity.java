@@ -9,7 +9,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -47,7 +46,6 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.ActivityMainBinding;
-import ir.bppir.pishtazan.utility.StaticFunctions;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.activity.VM_Main;
 

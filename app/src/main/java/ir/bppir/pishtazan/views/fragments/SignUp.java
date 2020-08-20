@@ -1,6 +1,5 @@
 package ir.bppir.pishtazan.views.fragments;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -25,7 +23,6 @@ import ir.bppir.pishtazan.databinding.FragmentSignupBinding;
 import ir.bppir.pishtazan.utility.StaticFunctions;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_SignUp;
-import ir.bppir.pishtazan.views.dialogs.DialogMessage;
 
 import static ir.bppir.pishtazan.utility.StaticFunctions.TextChangeForChangeBack;
 

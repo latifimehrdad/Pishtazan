@@ -37,6 +37,9 @@ public class AP_Post extends RecyclerView.Adapter<AP_Post.CustomHolder> {
 
     @Override
     public int getItemCount() {
+        if (md_educationCategoryVms == null)
+            return 0;
+
         return md_educationCategoryVms.size();
     }
 

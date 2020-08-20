@@ -1,7 +1,6 @@
 package ir.bppir.pishtazan.viewmodels;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Handler;
 
 import org.json.JSONArray;
@@ -11,12 +10,10 @@ import io.reactivex.subjects.PublishSubject;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import ir.bppir.pishtazan.R;
-import ir.bppir.pishtazan.background.NotificationManagerClass;
 import ir.bppir.pishtazan.database.DB_Notification;
 import ir.bppir.pishtazan.database.DB_UserInfo;
 import ir.bppir.pishtazan.models.MD_Notify;
 import ir.bppir.pishtazan.utility.StaticValues;
-import ir.bppir.pishtazan.views.application.PishtazanApplication;
 import retrofit2.Call;
 import retrofit2.Response;
 

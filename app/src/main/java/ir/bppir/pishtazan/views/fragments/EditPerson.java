@@ -3,14 +3,12 @@ package ir.bppir.pishtazan.views.fragments;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -38,7 +36,6 @@ import ir.bppir.pishtazan.databinding.FragmentAddPersonBinding;
 import ir.bppir.pishtazan.databinding.FragmentEditPersonBinding;
 import ir.bppir.pishtazan.utility.StaticFunctions;
 import ir.bppir.pishtazan.utility.StaticValues;
-import ir.bppir.pishtazan.viewmodels.fragments.VM_AddPerson;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_EditPerson;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Map;
 import ir.bppir.pishtazan.views.activity.MainActivity;
@@ -389,10 +386,10 @@ public class EditPerson extends FragmentPrimary implements
             name = false;
         }
 
-        if (stringDate.length() == 0) {
+/*        if ((stringDate.length() == 0)) {
             TextViewChooseBirthDay.setBackgroundResource(R.drawable.dw_edit_empty_background);
             birthday = false;
-        }
+        }*/
 
         if (Degree == -1) {
             ShowMessage(
@@ -404,7 +401,7 @@ public class EditPerson extends FragmentPrimary implements
 
 
 
-        if (mobile && name && birthday)
+        if (mobile && name)
             return true;
         else
             return false;

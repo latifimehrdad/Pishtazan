@@ -1,5 +1,6 @@
 package ir.bppir.pishtazan.models;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -16,16 +17,20 @@ public class MD_Report {
     String ResourceName;
 
     @SerializedName("Reports")
+    @Expose
     List<MD_ReportDetail> Reports;
 
+    @SerializedName("LearningReports")
+    @Expose
+    List<MD_LearnReport> LearningReports;
 
-    public MD_Report(Integer id, String fullName, String resourceName, List<MD_ReportDetail> reports) {
+    public MD_Report(Integer id, String fullName, String resourceName, List<MD_ReportDetail> reports, List<MD_LearnReport> learningReports) {
         Id = id;
         FullName = fullName;
         ResourceName = resourceName;
         Reports = reports;
+        LearningReports = learningReports;
     }
-
 
     public Integer getId() {
         return Id;
@@ -57,5 +62,13 @@ public class MD_Report {
 
     public void setReports(List<MD_ReportDetail> reports) {
         Reports = reports;
+    }
+
+    public List<MD_LearnReport> getLearningReports() {
+        return LearningReports;
+    }
+
+    public void setLearningReports(List<MD_LearnReport> learningReports) {
+        LearningReports = learningReports;
     }
 }

@@ -13,7 +13,6 @@ import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.AdapterQuestionBinding;
 import ir.bppir.pishtazan.models.MD_Question;
-import ir.bppir.pishtazan.models.MD_QuestionOld;
 
 public class AP_Question extends RecyclerView.Adapter<AP_Question.CustomHolder> {
 

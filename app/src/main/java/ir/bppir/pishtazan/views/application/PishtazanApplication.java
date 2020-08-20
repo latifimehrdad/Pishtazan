@@ -1,10 +1,8 @@
 package ir.bppir.pishtazan.views.application;
 
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 
 import androidx.multidex.MultiDexApplication;
@@ -25,7 +23,6 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.firebase.NotificationReceiver;
-import ir.bppir.pishtazan.background.ReceiverLunchAppInBackground;
 import ir.bppir.pishtazan.daggers.applicationutility.ApplicationUtilityComponent;
 import ir.bppir.pishtazan.daggers.applicationutility.ApplicationUtilityModul;
 import ir.bppir.pishtazan.daggers.applicationutility.DaggerApplicationUtilityComponent;

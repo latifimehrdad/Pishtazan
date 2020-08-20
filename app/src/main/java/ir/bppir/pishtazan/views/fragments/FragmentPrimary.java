@@ -1,7 +1,6 @@
 package ir.bppir.pishtazan.views.fragments;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
