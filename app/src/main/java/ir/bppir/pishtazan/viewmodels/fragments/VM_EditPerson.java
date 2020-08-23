@@ -27,13 +27,15 @@ public class VM_EditPerson extends VM_Primary {
     private String AddressString;
     private MD_Person person;
 
-    public VM_EditPerson(Activity context) {//______________________________________________________ VM_EditPerson
+    //______________________________________________________________________________________________ VM_EditPerson
+    public VM_EditPerson(Activity context) {
         setContext(context);
-    }//_____________________________________________________________________________________________ VM_EditPerson
+    }
+    //______________________________________________________________________________________________ VM_EditPerson
 
 
-
-    public void EditProfile(
+    //______________________________________________________________________________________________ editProfile
+    public void editProfile(
             Byte panelId,
             Integer eId,
             String eFullName,
@@ -44,18 +46,19 @@ public class VM_EditPerson extends VM_Primary {
             String eAddress,
             String eLat,
             String eLang,
-            String eNationalCode) {//_______________________________________________________________ EditProfile
+            String eNationalCode) {
 
         if (panelId.equals(StaticValues.Customer))
-            EditCustomerProfile(eId,eFullName,eMobileNumber,eLevel,ePhoneNumber,eBirthDateJ,eAddress,eLat,eLang,eNationalCode);
+            editCustomerProfile(eId, eFullName, eMobileNumber, eLevel, ePhoneNumber, eBirthDateJ, eAddress, eLat, eLang, eNationalCode);
         else
-            EditColleagueProfile(eId,eFullName,eMobileNumber,eLevel,ePhoneNumber,eBirthDateJ,eAddress,eLat,eLang,eNationalCode);
+            editColleagueProfile(eId, eFullName, eMobileNumber, eLevel, ePhoneNumber, eBirthDateJ, eAddress, eLat, eLang, eNationalCode);
 
-    }//_____________________________________________________________________________________________ EditProfile
+    }
+    //______________________________________________________________________________________________ editProfile
 
 
-
-    public void EditCustomerProfile(
+    //______________________________________________________________________________________________ editCustomerProfile
+    public void editCustomerProfile(
             Integer eId,
             String eFullName,
             String eMobileNumber,
@@ -65,7 +68,7 @@ public class VM_EditPerson extends VM_Primary {
             String eAddress,
             String eLat,
             String eLang,
-            String eNationalCode) {//_______________________________________________________________ EditCustomerProfile
+            String eNationalCode) {
 
         eMobileNumber = PishtazanApplication
                 .getApplication(getContext())
@@ -136,11 +139,12 @@ public class VM_EditPerson extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ EditCustomerProfile
+    }
+    //______________________________________________________________________________________________ editCustomerProfile
 
 
-
-    public void EditColleagueProfile(
+    //______________________________________________________________________________________________ editColleagueProfile
+    public void editColleagueProfile(
             Integer eId,
             String eFullName,
             String eMobileNumber,
@@ -150,7 +154,7 @@ public class VM_EditPerson extends VM_Primary {
             String eAddress,
             String eLat,
             String eLang,
-            String eNationalCode) {//_______________________________________________________________ EditColleagueProfile
+            String eNationalCode) {
 
         eMobileNumber = PishtazanApplication
                 .getApplication(getContext())
@@ -221,12 +225,12 @@ public class VM_EditPerson extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ EditColleagueProfile
+    }
+    //______________________________________________________________________________________________ editColleagueProfile
 
 
-
-
-    public void GetCustomer(Integer personId) {//___________________________________________________ GetCustomer
+    //______________________________________________________________________________________________ getCustomer
+    public void getCustomer(Integer personId) {
 
         Integer UserInfoId = GetUserId();
         if (UserInfoId == 0) {
@@ -261,10 +265,12 @@ public class VM_EditPerson extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ GetCustomer
+    }
+    //______________________________________________________________________________________________ getCustomer
 
 
-    public void GetColleague(Integer personId) {//__________________________________________________ GetCustomer
+    //______________________________________________________________________________________________ getColleague
+    public void getColleague(Integer personId) {
 
         Integer UserInfoId = GetUserId();
         if (UserInfoId == 0) {
@@ -299,10 +305,12 @@ public class VM_EditPerson extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ GetCustomer
+    }
+    //______________________________________________________________________________________________ getColleague
 
 
-    public void SetAddressString() {//______________________________________________________________ SetAddressString
+    //______________________________________________________________________________________________ setAddressString
+    public void setAddressString() {
 
         if (address != null && address.getAddress() != null) {
             StringBuilder addressString = new StringBuilder();
@@ -394,33 +402,45 @@ public class VM_EditPerson extends VM_Primary {
         }, 500);
 
 
-    }//_____________________________________________________________________________________________ SetAddressString
+    }
+    //______________________________________________________________________________________________ setAddressString
 
-    public MD_GetAddres getAddress() {//____________________________________________________________ getAddress
+
+    //______________________________________________________________________________________________ getAddress
+    public MD_GetAddres getAddress() {
         return address;
-    }//_____________________________________________________________________________________________ getAddress
+    }
+    //______________________________________________________________________________________________ getAddress
 
 
-    public void setAddress(MD_GetAddres address) {//____________________________________________________________ setAddress
+    //______________________________________________________________________________________________ setAddress
+    public void setAddress(MD_GetAddres address) {
         this.address = address;
-    }//_____________________________________________________________________________________________ setAddress
+    }
+    //______________________________________________________________________________________________ setAddress
 
 
-    public String getAddressString() {//____________________________________________________________ getAddressString
+    //______________________________________________________________________________________________ getAddressString
+    public String getAddressString() {
         return AddressString;
-    }//_____________________________________________________________________________________________ getAddressString
+    }
+    //______________________________________________________________________________________________ getAddressString
 
 
-    public void setAddressString(String addressString) {//__________________________________________ setAddressString
+    //______________________________________________________________________________________________ setAddressString
+    public void setAddressString(String addressString) {
         AddressString = addressString;
-    }//_____________________________________________________________________________________________ setAddressString
+    }
+    //______________________________________________________________________________________________ setAddressString
 
 
-    public MD_Person getPerson() {//________________________________________________________________ getPerson
+    //______________________________________________________________________________________________ getPerson
+    public MD_Person getPerson() {
         if (person == null)
             person = new MD_Person();
         return person;
-    }//_____________________________________________________________________________________________ getPerson
+    }
+    //______________________________________________________________________________________________ getPerson
 
 
 }

@@ -6,6 +6,8 @@ import android.os.Handler;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.List;
+
 import io.reactivex.subjects.PublishSubject;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -13,6 +15,7 @@ import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.database.DB_Notification;
 import ir.bppir.pishtazan.database.DB_UserInfo;
 import ir.bppir.pishtazan.models.MD_Notify;
+import ir.bppir.pishtazan.models.MR_Primary;
 import ir.bppir.pishtazan.utility.StaticValues;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -74,7 +77,6 @@ public class VM_Primary {
     }//_____________________________________________________________________________________________ SaveToNotify
 
 
-
     public boolean ResponseIsOk(Response response) {//______________________________________________ ResponseIsOk
         if (response.body() == null) {
             setResponseMessage(ResponseErrorMessage(response));
@@ -108,6 +110,18 @@ public class VM_Primary {
     }//_____________________________________________________________________________________________ ResponseErrorMessage
 
 
+    //______________________________________________________________________________________________ getResponseMessages
+    public String getResponseMessages(Response<MR_Primary> response) {
+        String result = "";
+        if (response.body().getMessages() != null && response.body().getMessages().size() > 0)
+            for (String message : response.body().getMessages())
+                result = result + message + System.getProperty("line.separator");
+            else
+                result = response.body().getMessage();
+
+        return result;
+    }
+    //______________________________________________________________________________________________ getResponseMessages
 
     public void CallIsFailure() {//_________________________________________________________________ CallIsFailure
 
@@ -128,7 +142,6 @@ public class VM_Primary {
     }//_____________________________________________________________________________________________ CallIsFailure
 
 
-
     public DB_UserInfo GetUserInfo() {//____________________________________________________________ GetUserInfo
 
         Realm realm = Realm.getDefaultInstance();
@@ -139,7 +152,6 @@ public class VM_Primary {
     }//_____________________________________________________________________________________________ GetUserInfo
 
 
-
     public Integer GetUserId() {//__________________________________________________________________ GetUserId
 
         DB_UserInfo db_userInfo = GetUserInfo();
@@ -148,7 +160,6 @@ public class VM_Primary {
         else
             return db_userInfo.getId();
     }//_____________________________________________________________________________________________ GetUserId
-
 
 
     public void UserIsNotAuthorization() {//________________________________________________________ GetUserId
@@ -209,7 +220,7 @@ public class VM_Primary {
 
     public void SendMessageToObservable(Byte action) {//____________________________________________ SendMessageToObservable
         Handler handler = new Handler();
-        handler.postDelayed(() -> publishSubject.onNext(action),200);
+        handler.postDelayed(() -> publishSubject.onNext(action), 200);
 
     }//_____________________________________________________________________________________________ SendMessageToObservable
 

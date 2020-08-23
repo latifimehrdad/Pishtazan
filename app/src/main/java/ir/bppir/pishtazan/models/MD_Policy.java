@@ -1,5 +1,6 @@
 package ir.bppir.pishtazan.models;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class MD_Policy {
@@ -34,8 +35,12 @@ public class MD_Policy {
     @SerializedName("InsuredNationalCode")
     String InsuredNationalCode;
 
+    @SerializedName("InsuranceNum")
+    @Expose
+    String InsuranceNum;
 
-    public MD_Policy(Integer id, Integer policyTypeId, MD_PolicyType policyType, Integer customerId, String suggestionDateJ, String suggestionDateM, String description, Long policyAmont, String insured, String insuredNationalCode) {
+
+    public MD_Policy(Integer id, Integer policyTypeId, MD_PolicyType policyType, Integer customerId, String suggestionDateJ, String suggestionDateM, String description, Long policyAmont, String insured, String insuredNationalCode, String insuranceNum) {
         Id = id;
         PolicyTypeId = policyTypeId;
         PolicyType = policyType;
@@ -46,6 +51,7 @@ public class MD_Policy {
         PolicyAmont = policyAmont;
         Insured = insured;
         InsuredNationalCode = insuredNationalCode;
+        InsuranceNum = insuranceNum;
     }
 
     public Integer getId() {
@@ -126,5 +132,13 @@ public class MD_Policy {
 
     public void setInsuredNationalCode(String insuredNationalCode) {
         InsuredNationalCode = insuredNationalCode;
+    }
+
+    public String getInsuranceNum() {
+        return InsuranceNum;
+    }
+
+    public void setInsuranceNum(String insuranceNum) {
+        InsuranceNum = insuranceNum;
     }
 }

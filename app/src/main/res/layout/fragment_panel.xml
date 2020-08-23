@@ -54,19 +54,37 @@
 
             <include layout="@layout/layout_menu_type_panel"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/RecyclerViewPanel"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                tools:listitem="@layout/adabter_person_panel"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:paddingLeft="@dimen/_5sdp"
-                android:paddingRight="@dimen/_5sdp"
-                android:paddingTop="@dimen/_5sdp"
-                android:paddingBottom="@dimen/_2sdp">
+                android:layout_weight="1">
 
-            </androidx.recyclerview.widget.RecyclerView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/RecyclerViewPanel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/adabter_person_panel"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_5sdp"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_2sdp"/>
+
+                <TextView
+                    android:id="@+id/TextViewNothing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/_14sdp"
+                    android:text="@string/EmptyList"
+                    fontPath="fonts/iransans_web_medium.ttf"/>
+
+
+            </RelativeLayout>
+
+
+
 
 
             <LinearLayout

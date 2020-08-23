@@ -81,6 +81,9 @@ public class Panel extends FragmentPrimary implements
     @BindView(R.id.SwitchMaterialArchived)
     SwitchMaterial SwitchMaterialArchived;
 
+    @BindView(R.id.TextViewNothing)
+    TextView TextViewNothing;
+
 
     public Panel() {//______________________________________________________________________________ Panel
 
@@ -137,6 +140,8 @@ public class Panel extends FragmentPrimary implements
 
 
     private void GetList() {//______________________________________________________________________ GetList
+        RecyclerViewPanel.setVisibility(View.GONE);
+        TextViewNothing.setVisibility(View.GONE);
         GifViewLoading.setVisibility(View.VISIBLE);
         if (vm_panel.getPersonList() != null)
             vm_panel.getPersonList().clear();
@@ -244,6 +249,13 @@ public class Panel extends FragmentPrimary implements
         AP_person = new AP_Person(vm_panel.getPersonList(), getContext(), Panel.this);
         RecyclerViewPanel.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewPanel.setAdapter(AP_person);
+        if (vm_panel.getPersonList().size() == 0){
+            RecyclerViewPanel.setVisibility(View.GONE);
+            TextViewNothing.setVisibility(View.VISIBLE);
+        } else {
+            RecyclerViewPanel.setVisibility(View.VISIBLE);
+            TextViewNothing.setVisibility(View.GONE);
+        }
     }//_____________________________________________________________________________________________ SetAdapterPerson
 
 
@@ -274,11 +286,11 @@ public class Panel extends FragmentPrimary implements
         LinearLayout LinearLayoutMeetingReminder = (LinearLayout)
                 dialog.findViewById(R.id.LinearLayoutMeetingReminder);
 
-        LinearLayout LinearLayoutSuccessSale = (LinearLayout)
-                dialog.findViewById(R.id.LinearLayoutSuccessSale);
+        LinearLayout LinearLayoutConvertToCustomer = (LinearLayout)
+                dialog.findViewById(R.id.LinearLayoutConvertToCustomer);
 
-        LinearLayout LinearLayoutSuccessAbsorption = (LinearLayout)
-                dialog.findViewById(R.id.LinearLayoutSuccessAbsorption);
+        LinearLayout LinearLayoutConvertToColleague = (LinearLayout)
+                dialog.findViewById(R.id.LinearLayoutConvertToColleague);
 
         LinearLayout LinearLayoutDeleteFromList = (LinearLayout)
                 dialog.findViewById(R.id.LinearLayoutDeleteFromList);
@@ -299,8 +311,8 @@ public class Panel extends FragmentPrimary implements
             LinearLayoutCompleteInformation.setVisibility(View.GONE);
             LinearLayoutCallReminder.setVisibility(View.GONE);
             LinearLayoutMeetingReminder.setVisibility(View.GONE);
-            LinearLayoutSuccessSale.setVisibility(View.GONE);
-            LinearLayoutSuccessAbsorption.setVisibility(View.GONE);
+            LinearLayoutConvertToCustomer.setVisibility(View.GONE);
+            LinearLayoutConvertToColleague.setVisibility(View.GONE);
             LinearLayoutDeleteFromList.setVisibility(View.GONE);
             LinearLayoutQuestionnaire.setVisibility(View.GONE);
             LinearLayoutInsurance.setVisibility(View.GONE);
@@ -308,15 +320,11 @@ public class Panel extends FragmentPrimary implements
         } else
             LinearLayoutNoArchived.setVisibility(View.GONE);
 
-
-        LinearLayoutSuccessSale.setVisibility(View.GONE);
-        LinearLayoutSuccessAbsorption.setVisibility(View.GONE);
-
         if (panelType == StaticValues.Customer) {
 
-            LinearLayoutSuccessAbsorption.setVisibility(View.GONE);
+            LinearLayoutConvertToColleague.setVisibility(View.GONE);
         } else {
-            LinearLayoutSuccessSale.setVisibility(View.GONE);
+            LinearLayoutConvertToCustomer.setVisibility(View.GONE);
             LinearLayoutQuestionnaire.setVisibility(View.GONE);
             LinearLayoutInsurance.setVisibility(View.GONE);
         }
@@ -361,16 +369,16 @@ public class Panel extends FragmentPrimary implements
             }
         });
 
-        LinearLayoutSuccessSale.setOnClickListener(new View.OnClickListener() {
+        LinearLayoutConvertToCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
                 dialog = null;
-                //MoveToPossible(Position);
+                MoveToCertain(Position);
             }
         });
 
-        LinearLayoutSuccessAbsorption.setOnClickListener(new View.OnClickListener() {
+        LinearLayoutConvertToColleague.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
@@ -778,7 +786,7 @@ public class Panel extends FragmentPrimary implements
 
 
     private void MoveToCertain(Integer Position) {//_______________________________________________ MoveToPossible
-        //vm_panel.MoveToCertain(Position);
+        vm_panel.moveToCertain(panelType, Position);
     }//_____________________________________________________________________________________________ MoveToPossible
 
 

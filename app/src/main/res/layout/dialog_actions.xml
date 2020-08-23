@@ -138,7 +138,7 @@
 
 
     <LinearLayout
-        android:id="@+id/LinearLayoutSuccessSale"
+        android:id="@+id/LinearLayoutConvertToCustomer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -160,13 +160,13 @@
                 android:textSize="@dimen/_11sdp"
                 android:textColor="@color/colorPrimaryDark"
                 android:gravity="right|center_vertical"
-                android:text="@string/SuccessToSale"
+                android:text="@string/ConvertToCustomer"
                 android:padding="@dimen/_5sdp"/>
 
             <ImageView
                 android:layout_width="@dimen/_25sdp"
                 android:layout_height="@dimen/_25sdp"
-                android:src="@drawable/ic_baseline_check_circle"
+                android:src="@drawable/ic_baseline_transfer_within_a_station"
                 android:tint="@color/colorAccent"/>
 
 
@@ -182,7 +182,7 @@
 
 
     <LinearLayout
-        android:id="@+id/LinearLayoutSuccessAbsorption"
+        android:id="@+id/LinearLayoutConvertToColleague"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -204,13 +204,13 @@
                 android:textSize="@dimen/_11sdp"
                 android:textColor="@color/colorPrimaryDark"
                 android:gravity="right|center_vertical"
-                android:text="@string/SuccessAbsorption"
+                android:text="@string/ConvertToColleague"
                 android:padding="@dimen/_5sdp"/>
 
             <ImageView
                 android:layout_width="@dimen/_25sdp"
                 android:layout_height="@dimen/_25sdp"
-                android:src="@drawable/ic_baseline_check_circle"
+                android:src="@drawable/ic_baseline_transfer_within_a_station"
                 android:tint="@color/colorAccent"/>
 
 

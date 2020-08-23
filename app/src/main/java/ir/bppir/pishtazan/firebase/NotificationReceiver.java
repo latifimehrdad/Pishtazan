@@ -88,42 +88,15 @@ public class NotificationReceiver extends BroadcastReceiver {
     }//_____________________________________________________________________________________________ CancelNotification
 
 
-    private void CallPerson(String PhoneNumber) {//_________________________________________________ CallPerson
-        Intent call = new Intent(Intent.ACTION_DIAL);
-        call.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        call.setData(Uri.parse("tel:" + PhoneNumber));
-        context.startActivity(call);
-    }//_____________________________________________________________________________________________ CallPerson
+    private void GetPersonNumber(Integer Id) {//__________________________________ GetPersonNumber
 
-
-
-    private void GetPersonNumber(Integer Id) {//____________________________________________________ GetPersonNumber
-
-
-        RetrofitComponent retrofitComponent = PishtazanApplication
-                .getApplication(context)
-                .getRetrofitComponent();
-
-        Integer UserInfoId = GetUserId();
-
-        retrofitComponent
-                .getRetrofitApiInterface()
-                .GET_MOBILE_NUMBER(Id, UserInfoId)
-                .enqueue(new Callback<MR_PersonNumber>() {
-                    @Override
-                    public void onResponse(Call<MR_PersonNumber> call, Response<MR_PersonNumber> response) {
-                        if (response.body() != null) {
-                            CancelNotification(Id);
-                            if (response.body().getStatue() == 1)
-                                CallPerson(response.body().getMobileNumber());
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<MR_PersonNumber> call, Throwable t) {
-
-                    }
-                });
+        CancelNotification(Id);
+        Intent intent1 = new Intent(context.getApplicationContext(), RememberAgain.class);
+        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent1.putExtra(context.getResources().getString(R.string.ML_personId), GetUserId());
+        intent1.putExtra(context.getResources().getString(R.string.ML_Id), Id);
+        intent1.putExtra(context.getResources().getString(R.string.ML_Type), StaticValues.Calling);
+        context.getApplicationContext().startActivity(intent1);
 
     }//_____________________________________________________________________________________________ GetPersonNumber
 
@@ -143,7 +116,6 @@ public class NotificationReceiver extends BroadcastReceiver {
 
         Realm realm = Realm.getDefaultInstance();
         DB_UserInfo db_userInfo = realm.where(DB_UserInfo.class).findFirst();
-        realm.close();
         return db_userInfo;
 
     }//_____________________________________________________________________________________________ GetUserInfo

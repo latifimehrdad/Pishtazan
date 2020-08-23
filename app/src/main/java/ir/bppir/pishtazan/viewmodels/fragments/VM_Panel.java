@@ -64,12 +64,14 @@ public class VM_Panel extends VM_Primary {
             @Override
             public void onResponse(Call<MR_GetAllPerson> call, Response<MR_GetAllPerson> response) {
                 if (ResponseIsOk(response)) {
-                    setResponseMessage(response.body().getMessage());
-                    if (response.body().getStatue() == 0)
-                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
-                    else {
+                    //setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 1) {
+                        setResponseMessage("");
                         personList = response.body().getCustomers();
                         getPublishSubject().onNext(StaticValues.ML_GetPerson);
+                    } else {
+                        setResponseMessage(response.body().getMessage());
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
                     }
                 }
             }
@@ -104,12 +106,13 @@ public class VM_Panel extends VM_Primary {
             @Override
             public void onResponse(Call<MR_GetAllPerson> call, Response<MR_GetAllPerson> response) {
                 if (ResponseIsOk(response)) {
-                    setResponseMessage(response.body().getMessage());
-                    if (response.body().getStatue() == 0)
-                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
-                    else {
+                    if (response.body().getStatue() == 1) {
+                        setResponseMessage("");
                         personList = response.body().getColleagues();
                         getPublishSubject().onNext(StaticValues.ML_GetPerson);
+                    } else {
+                        setResponseMessage(response.body().getMessage());
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
                     }
                 }
             }
@@ -345,7 +348,6 @@ public class VM_Panel extends VM_Primary {
     //______________________________________________________________________________________________ deleteColleague
 
 
-
     //______________________________________________________________________________________________ deletePersonFromArchive
     public void deletePersonFromArchive(int panelType, Integer Position) {
         if (panelType == StaticValues.Customer)
@@ -354,7 +356,6 @@ public class VM_Panel extends VM_Primary {
             deleteColleagueFromArchive(Position);
     }
     //______________________________________________________________________________________________ deletePersonFromArchive
-
 
 
     //______________________________________________________________________________________________ deleteCustomerFromArchive
@@ -394,7 +395,6 @@ public class VM_Panel extends VM_Primary {
     //______________________________________________________________________________________________ deleteCustomerFromArchive
 
 
-
     //______________________________________________________________________________________________ deleteColleagueFromArchive
     private void deleteColleagueFromArchive(Integer Position) {
 
@@ -430,7 +430,6 @@ public class VM_Panel extends VM_Primary {
 
     }
     //______________________________________________________________________________________________ deleteColleagueFromArchive
-
 
 
     //______________________________________________________________________________________________ moveToPossible
@@ -515,5 +514,95 @@ public class VM_Panel extends VM_Primary {
 
     }
     //______________________________________________________________________________________________ moveToPossibleCustomer
+
+
+
+    //______________________________________________________________________________________________ moveToCertain
+    public void moveToCertain(int panelType, Integer Position) {
+        if (panelType == StaticValues.Customer)
+            moveToCertainCustomer(Position);
+        else
+            moveToCertainColleague(Position);
+    }
+    //______________________________________________________________________________________________ moveToCertain
+
+
+    //______________________________________________________________________________________________ moveToPossibleColleague
+    public void moveToCertainColleague(Integer Position) {
+
+        Integer Id = GetUserId();
+        if (Id == 0) {
+            UserIsNotAuthorization();
+            return;
+        }
+
+        setPrimaryCall(PishtazanApplication
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .CONVERT_TO_CERTAIN_COLLEAGUE(personList.get(Position).getId(), Id));
+
+        getPrimaryCall().enqueue(new Callback<MR_Primary>() {
+            @Override
+            public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
+                if (ResponseIsOk(response)) {
+                    setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 1)
+                        getPublishSubject().onNext(StaticValues.ML_ConvertPerson);
+                    else
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MR_Primary> call, Throwable t) {
+                CallIsFailure();
+            }
+        });
+
+    }
+    //______________________________________________________________________________________________ moveToPossibleColleague
+
+
+    //______________________________________________________________________________________________ moveToPossibleCustomer
+    public void moveToCertainCustomer(Integer Position) {
+
+        Integer Id = GetUserId();
+        if (Id == 0) {
+            UserIsNotAuthorization();
+            return;
+        }
+
+        setPrimaryCall(PishtazanApplication
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .CONVERT_TO_CERTAIN_CUSTOMER(personList.get(Position).getId(), Id));
+
+        getPrimaryCall().enqueue(new Callback<MR_Primary>() {
+            @Override
+            public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
+                if (ResponseIsOk(response)) {
+                    setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 1) {
+                        setResponseMessage(response.body().getMessage());
+                        getPublishSubject().onNext(StaticValues.ML_ConvertPerson);
+                    } else {
+                        setResponseMessage(getResponseMessages(response));
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MR_Primary> call, Throwable t) {
+                CallIsFailure();
+            }
+        });
+
+    }
+    //______________________________________________________________________________________________ moveToPossibleCustomer
+
+
 
 }

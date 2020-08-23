@@ -155,6 +155,24 @@ public interface RetrofitApiInterface {
                     @Field("UserInfoId") Integer UserInfoId
             );
 
+
+    @FormUrlEncoded
+    @POST(Version + "/CheckToCertainColleague")
+    Call<MR_Primary> CONVERT_TO_CERTAIN_COLLEAGUE
+            (
+                    @Field("Id") Integer Id,
+                    @Field("UserInfoId") Integer UserInfoId
+            );
+
+    @FormUrlEncoded
+    @POST(Version + "/CheckToCertainCustomer")
+    Call<MR_Primary> CONVERT_TO_CERTAIN_CUSTOMER
+            (
+                    @Field("Id") Integer Id,
+                    @Field("UserInfoId") Integer UserInfoId
+            );
+
+
     @GET()
     Call<MD_GetAddres> getAddress(
             @Url String url

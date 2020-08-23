@@ -67,7 +67,7 @@ public class NotificationNew {
             if (RType.equals(StaticValues.RTypeCall)) {
                 actions.add(NotificationNewAction.GetAgainAction(id, context, StaticValues.Call, PersonId, PersonType));
                 actions.add(NotificationNewAction.GetIgnoreAction(id, context, StaticValues.Call));
-                actions.add(NotificationNewAction.GetCallAction(id, context, StaticValues.Call));
+                actions.add(NotificationNewAction.GetCallAction(id, context, StaticValues.Call,PersonId));
                 BuilderNotification(
                         id,
                         md_notification.getTitle(),

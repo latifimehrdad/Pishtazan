@@ -171,6 +171,8 @@ public class PolicyType extends FragmentPrimary implements
             TextPolicy.setText(getResources().getString(R.string.ChoosePolicyType));
             EditTextAmount.getText().clear();
             EditTextDescription.getText().clear();
+            EditTextNationalCode.getText().clear();
+            EditTextName.getText().clear();
             return;
         }
 

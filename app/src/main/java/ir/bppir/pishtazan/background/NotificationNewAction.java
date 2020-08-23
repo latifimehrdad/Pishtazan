@@ -29,10 +29,11 @@ public class NotificationNewAction {
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public static Notification.Action GetCallAction(Integer notifyId, Context context, Byte type) {// GetCallAction
+    public static Notification.Action GetCallAction(Integer notifyId, Context context, Byte type, Integer PersonId) {// GetCallAction
         Intent CallIntent = new Intent();
         CallIntent.setAction(context.getString(R.string.ML_Calling));
         CallIntent.putExtra(context.getResources().getString(R.string.ML_Id), notifyId);
+        CallIntent.putExtra(context.getResources().getString(R.string.ML_personId), PersonId);
         PendingIntent CallingPendingIntent = PendingIntent.getBroadcast(context, notifyId + 20, CallIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         return new Notification.Action(0, context.getResources().getString(R.string.Calling), CallingPendingIntent);
     }//_____________________________________________________________________________________________ GetCallAction

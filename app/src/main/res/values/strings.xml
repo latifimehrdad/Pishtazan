@@ -62,9 +62,9 @@
     <string name="AnalyticalReport">گزارش تحلیلی</string>
     <string name="StatisticalReport">گزارش آماری</string>
     <string name="Close">بستن</string>
-    <string name="DegreeNormal">عادی</string>
-    <string name="DegreePeach">هلو</string>
-    <string name="DegreeGiant">غول</string>
+    <string name="DegreeNormal">برنزی</string>
+    <string name="DegreePeach">نقره</string>
+    <string name="DegreeGiant">طلایی</string>
     <string name="ChoosePersonDegree">درجه شخص را انتخاب کنید</string>
     <string name="RememberCall">یادآوری تماس</string>
     <string name="RememberMeeting">یادآوری جلسه</string>
@@ -135,6 +135,11 @@
     <string name="insuredName">نام بیمه شده</string>
     <string name="Archived">بایگانی شده ها</string>
     <string name="NoArchive">حذف از بایگانی</string>
+    <string name="EmptyList">لیست خالی است</string>
+    <string name="ConvertToCustomer">انتقال به لیست مشتری ها</string>
+    <string name="ConvertToColleague">انتقال به لیست همکاران</string>
+    <string name="insuranceNum">شماره بیمه نامه</string>
+    <string name="GetPhoneNumber">دریافت شماره موبایل</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>

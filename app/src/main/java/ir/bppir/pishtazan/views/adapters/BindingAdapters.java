@@ -163,6 +163,14 @@ public class BindingAdapters {
             case "insuredNationalCode":
                 textView.setText(context.getResources().getString(R.string.NationalCode) + " : " + text);
                 break;
+            case "insuranceNum":
+                if (text == null || text.equalsIgnoreCase("") || text.equalsIgnoreCase("null"))
+                    textView.setVisibility(View.GONE);
+                else {
+                    textView.setVisibility(View.VISIBLE);
+                    textView.setText(context.getResources().getString(R.string.NationalCode) + " : " + text);
+                }
+                break;
         }
 
     }//_____________________________________________________________________________________________ SetTextViewText

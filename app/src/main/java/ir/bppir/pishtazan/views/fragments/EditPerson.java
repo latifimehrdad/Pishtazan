@@ -32,7 +32,6 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.daggers.datepicker.PersianPickerModule;
-import ir.bppir.pishtazan.databinding.FragmentAddPersonBinding;
 import ir.bppir.pishtazan.databinding.FragmentEditPersonBinding;
 import ir.bppir.pishtazan.utility.StaticFunctions;
 import ir.bppir.pishtazan.utility.StaticValues;
@@ -112,12 +111,13 @@ public class EditPerson extends FragmentPrimary implements
     TextView TextViewChooseBirthDay;
 
 
+    //______________________________________________________________________________________________ onCreateView
     @Nullable
     @Override
     public View onCreateView(
             LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+            Bundle savedInstanceState) {
         if (getView() == null) {
             VM_Map.map_Address = null;
             vm_editPerson = new VM_EditPerson(getActivity());
@@ -126,35 +126,41 @@ public class EditPerson extends FragmentPrimary implements
             binding.setEditPerson(vm_editPerson);
             setView(binding.getRoot());
             ButterKnife.bind(this, getView());
-            SetTextWatcher();
-            SetClick();
+            setTextWatcher();
+            setClick();
             stringDate = "";
-            GetPersonInfo();
+            getPersonInfo();
         }
         return getView();
-    }//_____________________________________________________________________________________________ onCreateView
+    }
+    //______________________________________________________________________________________________ onCreateView
 
 
+    //______________________________________________________________________________________________ onStart
     @Override
-    public void onStart() {//_______________________________________________________________________ onStart
+    public void onStart() {
         super.onStart();
         init();
-    }//_____________________________________________________________________________________________ onStart
+    }
+    //______________________________________________________________________________________________ onStart
 
 
-    private void GetPersonInfo() {//________________________________________________________________ GetPersonInfo
+    //______________________________________________________________________________________________ getPersonInfo
+    private void getPersonInfo() {
         Integer panel = getArguments().getInt(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
         panelType = panel.byteValue();
         personId = getArguments().getInt(getContext().getString(R.string.ML_personId), 0);
         if (panelType == StaticValues.Customer) {
-            vm_editPerson.GetCustomer(personId);
+            vm_editPerson.getCustomer(personId);
         } else {
-            vm_editPerson.GetColleague(personId);
+            vm_editPerson.getColleague(personId);
         }
-    }//_____________________________________________________________________________________________ GetPersonInfo
+    }
+    //______________________________________________________________________________________________ getPersonInfo
 
 
-    private void init() {//_________________________________________________________________________ init
+    //______________________________________________________________________________________________ init
+    private void init() {
         navController = Navigation.findNavController(getView());
         setGetMessageFromObservable(
                 EditPerson.this,
@@ -163,7 +169,7 @@ public class EditPerson extends FragmentPrimary implements
 
         if (VM_Map.map_Address != null) {
             vm_editPerson.setAddress(VM_Map.map_Address);
-            vm_editPerson.SetAddressString();
+            vm_editPerson.setAddressString();
 
             double slat = vm_editPerson.getPerson().getLat();
             double slng = vm_editPerson.getPerson().getLang();
@@ -172,17 +178,19 @@ public class EditPerson extends FragmentPrimary implements
             Address = vm_editPerson.getPerson().getAddress();
         }
 
-    }//_____________________________________________________________________________________________ init
+    }
+    //______________________________________________________________________________________________ init
 
 
+    //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void GetMessageFromObservable(Byte action) {
 
         if (progress != null)
             progress.dismiss();
         progress = null;
 
-        FinishLoadingSend();
+        finishLoadingSend();
         if (action == StaticValues.ML_EditSuccess) {
             Degree = -1;
             EditTextName.getText().clear();
@@ -195,7 +203,7 @@ public class EditPerson extends FragmentPrimary implements
             return;
         }
 
-        if (action.equals(StaticValues.ML_AddressFromMap)){
+        if (action.equals(StaticValues.ML_AddressFromMap)) {
             EditTextAddress.setText(vm_editPerson.getAddressString());
             return;
         }
@@ -208,8 +216,8 @@ public class EditPerson extends FragmentPrimary implements
             EditTextAddress.setText(vm_editPerson.getPerson().getAddress());
             TextViewChooseBirthDay.setText(vm_editPerson.getPerson().getBirthDateJ());
             Byte level = vm_editPerson.getPerson().getLevel().byteValue();
-            SetPersonDegree(level);
-            SetPersonImage(CircleImageViewProfile, vm_editPerson.getPerson().getImage());
+            setPersonDegree(level);
+            setPersonImage(CircleImageViewProfile, vm_editPerson.getPerson().getImage());
             stringDate = vm_editPerson.getPerson().getBirthDateJ();
             double slat = vm_editPerson.getPerson().getLat();
             double slng = vm_editPerson.getPerson().getLang();
@@ -218,15 +226,19 @@ public class EditPerson extends FragmentPrimary implements
             Address = vm_editPerson.getPerson().getAddress();
         }
 
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
+    }
+    //______________________________________________________________________________________________ getMessageFromObservable
 
 
-    private void SetClick() {//_____________________________________________________________________ SetClick
+    //______________________________________________________________________________________________ setClick
+    private void setClick() {
 
 
-        LinearLayoutMap.setOnClickListener(v -> {navController.navigate(R.id.action_editPerson_to_map);});
+        LinearLayoutMap.setOnClickListener(v -> {
+            navController.navigate(R.id.action_editPerson_to_map);
+        });
 
-        TextViewChooseBirthDay.setOnClickListener(v ->{
+        TextViewChooseBirthDay.setOnClickListener(v -> {
             PersianPickerModule.context = getContext();
             PersianDatePickerDialog persianCalendar = PishtazanApplication
                     .getApplication(getContext())
@@ -267,7 +279,7 @@ public class EditPerson extends FragmentPrimary implements
                 File file = new File(destination.getPath());
                 if (file.exists())
                     file.delete();
-                SetObserverToObservable();
+                setObserverToObservable();
                 MainActivity.mainPublish.onNext(StaticValues.ML_PictureDialog);
             }
         });
@@ -288,10 +300,10 @@ public class EditPerson extends FragmentPrimary implements
                 phone = phone.replaceAll(" ", "");
                 phone = phone.replaceAll("-", "");
                 EditTextPhoneNumber.setText(phone);
-                if (CheckEmpty()) {
+                if (checkEmpty()) {
                     StaticFunctions.hideKeyboard(getActivity());
-                    ShowLoadingSend();
-                    vm_editPerson.EditProfile(
+                    showLoadingSend();
+                    vm_editPerson.editProfile(
                             panelType,
                             vm_editPerson.getPerson().getId(),
                             EditTextName.getText().toString(),
@@ -312,7 +324,7 @@ public class EditPerson extends FragmentPrimary implements
         LinearLayoutNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SetPersonDegree(StaticValues.DegreeNormal);
+                setPersonDegree(StaticValues.DegreeNormal);
             }
         });
 
@@ -320,7 +332,7 @@ public class EditPerson extends FragmentPrimary implements
         LinearLayoutPeach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SetPersonDegree(StaticValues.DegreePeach);
+                setPersonDegree(StaticValues.DegreePeach);
             }
         });
 
@@ -328,14 +340,16 @@ public class EditPerson extends FragmentPrimary implements
         LinearLayoutGiant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SetPersonDegree(StaticValues.DegreeGiant);
+                setPersonDegree(StaticValues.DegreeGiant);
             }
         });
 
-    }//_____________________________________________________________________________________________ SetClick
+    }
+    //______________________________________________________________________________________________ setClick
 
 
-    private void SetPersonDegree(Byte type) {//_____________________________________________________ SetPersonDegree
+    //______________________________________________________________________________________________ setPersonDegree
+    private void setPersonDegree(Byte type) {
         LinearLayoutNormal.setBackground(null);
         LinearLayoutPeach.setBackground(null);
         LinearLayoutGiant.setBackground(null);
@@ -346,18 +360,22 @@ public class EditPerson extends FragmentPrimary implements
         else
             LinearLayoutGiant.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
         Degree = type;
-    }//_____________________________________________________________________________________________ SetPersonDegree
+    }
+    //______________________________________________________________________________________________ setPersonDegree
 
 
-    private void SetTextWatcher() {//_______________________________________________________________ Start SetTextWatcher
+    //______________________________________________________________________________________________ setTextWatcher
+    private void setTextWatcher() {
         EditTextPhoneNumber.addTextChangedListener(TextChangeForChangeBack(EditTextPhoneNumber));
         EditTextName.addTextChangedListener(TextChangeForChangeBack(EditTextName));
         EditTextNationalCode.addTextChangedListener(TextChangeForChangeBack(EditTextNationalCode));
         EditTextAddress.addTextChangedListener(TextChangeForChangeBack(EditTextAddress));
-    }//_____________________________________________________________________________________________ End SetTextWatcher
+    }
+    //______________________________________________________________________________________________ setTextWatcher
 
 
-    private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
+    //______________________________________________________________________________________________ checkEmpty
+    private Boolean checkEmpty() {
 
         boolean name = true;
         boolean mobile = true;
@@ -371,7 +389,7 @@ public class EditPerson extends FragmentPrimary implements
             mobile = false;
         } else {
             String ZeroNine = EditTextMobileNumber.getText().subSequence(0, 2).toString();
-            if(!ZeroNine.equalsIgnoreCase("09")) {
+            if (!ZeroNine.equalsIgnoreCase("09")) {
                 EditTextMobileNumber.setBackgroundResource(R.drawable.dw_edit_empty_background);
                 EditTextMobileNumber.setError(getResources().getString(R.string.EnterPhoneNumber));
                 EditTextMobileNumber.requestFocus();
@@ -400,33 +418,38 @@ public class EditPerson extends FragmentPrimary implements
         }
 
 
-
         if (mobile && name)
             return true;
         else
             return false;
 
-    }//_____________________________________________________________________________________________ CheckEmpty
+    }
+    //______________________________________________________________________________________________ checkEmpty
 
 
-    private void ShowLoadingSend() {//______________________________________________________________ ShowLoadingSend
+    //______________________________________________________________________________________________ showLoadingSend
+    private void showLoadingSend() {
         ImageViewSend.setVisibility(View.GONE);
         GifViewSend.setVisibility(View.VISIBLE);
         TextViewSend.setText(getContext().getResources().getString(R.string.PleaseWait));
 
-    }//_____________________________________________________________________________________________ ShowLoadingSend
+    }
+    //______________________________________________________________________________________________ showLoadingSend
 
 
-    private void FinishLoadingSend() {//____________________________________________________________ ShowLoadingSend
+    //______________________________________________________________________________________________ finishLoadingSend
+    private void finishLoadingSend() {
 
         ImageViewSend.setVisibility(View.VISIBLE);
         GifViewSend.setVisibility(View.GONE);
         TextViewSend.setText(getContext().getResources().getString(R.string.Save));
 
-    }//_____________________________________________________________________________________________ ShowLoadingSend
+    }
+    //______________________________________________________________________________________________ finishLoadingSend
 
 
-    public void SetObserverToObservable() {//_______________________________________________________ SetObserverToObservable
+    //______________________________________________________________________________________________ setObserverToObservable
+    public void setObserverToObservable() {
 
         disposableObserver = new DisposableObserver<Byte>() {
             @Override
@@ -450,10 +473,12 @@ public class EditPerson extends FragmentPrimary implements
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(disposableObserver);
 
-    }//_____________________________________________________________________________________________ SetObserverToObservable
+    }
+    //______________________________________________________________________________________________ setObserverToObservable
 
 
-    private void actionHandler(Byte action) {//_____________________________________________________ actionHandler
+    //______________________________________________________________________________________________ actionHandler
+    private void actionHandler(Byte action) {
         getContext().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -467,20 +492,21 @@ public class EditPerson extends FragmentPrimary implements
 
             }
         });
-    }//_____________________________________________________________________________________________ actionHandler
+    }
+    //______________________________________________________________________________________________ actionHandler
 
 
-
-    private void ShowProgressDialog() {//___________________________________________________________ ShowProgressDialog
+    //______________________________________________________________________________________________ showProgressDialog
+    private void showProgressDialog() {
         progress = new DialogProgress(getContext(), null);
         progress.setCancelable(false);
         progress.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
-    }//_____________________________________________________________________________________________ ShowProgressDialog
+    }
+    //______________________________________________________________________________________________ showProgressDialog
 
 
-
-
-    public void SetPersonImage(CircleImageView imageView, String url) {//____________________ SetPersonImage
+    //______________________________________________________________________________________________ setPersonImage
+    public void setPersonImage(CircleImageView imageView, String url) {
 
         ImageLoader imageLoader = PishtazanApplication
                 .getApplication(imageView.getContext())
@@ -512,7 +538,8 @@ public class EditPerson extends FragmentPrimary implements
             }
         });
 
-    }//_____________________________________________________________________________________________ SetPersonImage
+    }
+    //______________________________________________________________________________________________ setPersonImage
 
 
 }
