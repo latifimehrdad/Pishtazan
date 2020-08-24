@@ -35,14 +35,11 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
     @BindView(R.id.LinearLayoutCustomer)
     LinearLayout LinearLayoutCustomer;
 
-    @BindView(R.id.LinearLayoutStatisticalReport)
-    LinearLayout LinearLayoutStatisticalReport;
-
-    @BindView(R.id.LinearLayoutAnalyticalReport)
-    LinearLayout LinearLayoutAnalyticalReport;
-
     @BindView(R.id.LinearLayoutTutorial)
     LinearLayout LinearLayoutTutorial;
+
+    @BindView(R.id.LinearLayoutReports)
+    LinearLayout LinearLayoutReports;
 
 
     public Home() {//_______________________________________________________________________________ Home
@@ -85,8 +82,6 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
                 vm_home);
         LinearLayoutColleagues.setVisibility(View.GONE);
         LinearLayoutCustomer.setVisibility(View.GONE);
-        LinearLayoutStatisticalReport.setVisibility(View.GONE);
-        LinearLayoutAnalyticalReport.setVisibility(View.GONE);
         SetAnimation();
 
     }//_____________________________________________________________________________________________ init
@@ -99,31 +94,14 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
         LinearLayoutTutorial.setAnimation(bounce);
 
         Handler handler1 = new Handler();
-        handler1.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Animation inTop = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_top);
-                Animation inBottom = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_bottom);
-                LinearLayoutColleagues.setAnimation(inTop);
-                LinearLayoutCustomer.setAnimation(inBottom);
-                LinearLayoutColleagues.setVisibility(View.VISIBLE);
-                LinearLayoutCustomer.setVisibility(View.VISIBLE);
-            }
+        handler1.postDelayed(() -> {
+            Animation inTop = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_top);
+            Animation inBottom = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_bottom);
+            LinearLayoutColleagues.setAnimation(inTop);
+            LinearLayoutCustomer.setAnimation(inBottom);
+            LinearLayoutColleagues.setVisibility(View.VISIBLE);
+            LinearLayoutCustomer.setVisibility(View.VISIBLE);
         },400);
-
-        Handler handler2 = new Handler();
-        handler2.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Animation inRight = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_right);
-                Animation inLeft = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_left);
-                LinearLayoutStatisticalReport.setAnimation(inLeft);
-                LinearLayoutAnalyticalReport.setAnimation(inRight);
-                LinearLayoutStatisticalReport.setVisibility(View.VISIBLE);
-                LinearLayoutAnalyticalReport.setVisibility(View.VISIBLE);
-            }
-        },1100);
-
 
     }//_____________________________________________________________________________________________ SetAnimation
 
@@ -157,17 +135,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
             navController.navigate(R.id.action_home_to_panel, bundle);
         });
 
-        LinearLayoutStatisticalReport.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putInt(getContext().getResources().getString(R.string.ML_Type), StaticValues.StatisticalReport);
-            navController.navigate(R.id.action_home_to_report, bundle);
-        });
-
-        LinearLayoutAnalyticalReport.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putInt(getContext().getResources().getString(R.string.ML_Type), StaticValues.AnalyticalReport);
-            navController.navigate(R.id.action_home_to_report, bundle);
-        });
+        LinearLayoutReports.setOnClickListener(v -> navController.navigate(R.id.action_home_to_reports));
 
     }//_____________________________________________________________________________________________ SetClick
 

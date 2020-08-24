@@ -20,9 +20,9 @@
         >
 
         <ImageView
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_width="@dimen/_27sdp"
+            android:layout_height="@dimen/_27sdp"
+            android:layout_marginLeft="@dimen/_12sdp"
             android:layout_marginRight="@dimen/_2sdp"
             android:src="@drawable/svg_goal"
             android:tint="@color/ML_Harmony"
@@ -68,10 +68,10 @@
             />
 
         <ImageView
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_width="@dimen/_27sdp"
+            android:layout_height="@dimen/_27sdp"
             android:layout_marginLeft="@dimen/_2sdp"
-            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_12sdp"
             android:tint="@color/ML_Harmony"
             android:src="@drawable/svg_files_and_folders"
             />

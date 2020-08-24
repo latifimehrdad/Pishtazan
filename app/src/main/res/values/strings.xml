@@ -31,6 +31,7 @@
     <string name="PhoneNumber">تلفن ثابت</string>
     <string name="SearchContact">جستجوی مخاطب</string>
     <string name="Search">جستجو</string>
+    <string name="SearchName">جستجوی نام</string>
     <string name="EmptyContactName">لطفا نام شخص را وارد نمایید</string>
     <string name="ErrorForSave">خطا در ثبت اطلاعات</string>
     <string name="AddPersonOk">شخص به لیست شما اضافه شد</string>
@@ -115,7 +116,7 @@
     <string name="CorrectAnswerCount">تعداد پاسخ درست</string>
     <string name="WrongAnswerCount">پاسخ اشتباه</string>
     <string name="NotAnswer">بدون پاسخ</string>
-    <string name="AverageGrade">معدل</string>
+    <string name="AcceptancePercentage">درصد قبولی</string>
     <string name="CorrectAnswer">پاسخ درست</string>
     <string name="YourAnswer">پاسخ شما</string>
     <string name="ExamResultDetail">جزییات کارنامه</string>
@@ -128,6 +129,7 @@
     <string name="FileDownloaded">پایان بارگیری فایل</string>
     <string name="EndOfExam">پایان آزمون</string>
     <string name="QuizReport">گزارش آموزش</string>
+    <string name="NewReport">گزارش جدید</string>
     <string name="SortingNeither">هیچ کدام</string>
     <string name="SortingAverageGrade">نمره</string>
     <string name="SortingTotalScore">معدل</string>
@@ -140,6 +142,7 @@
     <string name="ConvertToColleague">انتقال به لیست همکاران</string>
     <string name="insuranceNum">شماره بیمه نامه</string>
     <string name="GetPhoneNumber">دریافت شماره موبایل</string>
+    <string name="Reports">گزارشات</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>

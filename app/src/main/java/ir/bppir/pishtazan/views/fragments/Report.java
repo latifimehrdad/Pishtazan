@@ -94,6 +94,9 @@ public class Report extends FragmentPrimary implements FragmentPrimary.GetMessag
     @BindView(R.id.editTextSearch)
     EditText editTextSearch;
 
+    @BindView(R.id.LinearLayoutNewReport)
+    LinearLayout LinearLayoutNewReport;
+
     @Nullable
     @Override
     public View onCreateView(
@@ -215,6 +218,11 @@ public class Report extends FragmentPrimary implements FragmentPrimary.GetMessag
 
     //______________________________________________________________________________________________ setOnClick
     private void setOnClick() {
+
+        LinearLayoutNewReport.setOnClickListener(v -> {
+            LinearLayoutFiltering.setVisibility(View.VISIBLE);
+            LinearLayoutReport.setVisibility(View.GONE);
+        });
 
         TextViewFrom.setOnClickListener(v -> {
 

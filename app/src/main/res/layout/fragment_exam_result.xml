@@ -282,7 +282,7 @@
                     android:textSize="@dimen/_10sdp"
                     android:textColor="@color/colorPrimaryDark"
                     android:gravity="right|center_vertical"
-                    android:text="@string/AverageGrade"/>
+                    android:text="@string/AcceptancePercentage"/>
 
 
             </LinearLayout>

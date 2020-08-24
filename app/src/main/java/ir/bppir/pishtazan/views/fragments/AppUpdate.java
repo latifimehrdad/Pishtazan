@@ -2,7 +2,9 @@ package ir.bppir.pishtazan.views.fragments;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +15,23 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 
+import java.io.File;
+
 import butterknife.BindView;
+import ir.bppir.pishtazan.BuildConfig;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitApis;
 import ir.bppir.pishtazan.databinding.FragmentUpdateBinding;
+import ir.bppir.pishtazan.utility.DownloadTask;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Update;
 
-public class AppUpdate extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable,
-        VM_Update.ProgressDownload {
+public class AppUpdate extends FragmentPrimary implements
+        FragmentPrimary.GetMessageFromObservable,
+        VM_Update.ProgressDownload{
 
 
     private VM_Update vm_update;
@@ -84,7 +92,8 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.GetMes
 
             if (!url.equalsIgnoreCase(""))
                 if (!fileName.equalsIgnoreCase(""))
-                    vm_update.DownloadFile(url, fileName);
+                    vm_update.downloadFile(url,fileName, progressBar);
+                    //vm_update.DownloadFile(url, fileName);
         }
 
     }//_____________________________________________________________________________________________ init
@@ -92,14 +101,26 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.GetMes
     private void SetOnClick() {//___________________________________________________________________ SetOnClick
         ButtonInstall.setOnClickListener(v -> {
 
-            Uri uri = vm_update.getTempUri(fileName);
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
-            intent.setDataAndType(uri, "application/vnd.android.package-archive");
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //dont forget add this line
-            if (getContext() != null)
-                getContext().startActivity(intent);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Uri uri = vm_update.getTempUri(fileName);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
+                intent.setDataAndType(uri, "application/vnd.android.package-archive");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //dont forget add this line
+                if (getContext() != null)
+                    getContext().startActivity(intent);
+            } else {
+                File apkFile;
+                apkFile = new File(Environment.getExternalStorageDirectory()
+                        + "/pishtazan/", fileName);
+                Uri apkUri = Uri.fromFile(apkFile);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getActivity().startActivity(intent);
+            }
+
         });
     }//_____________________________________________________________________________________________ SetOnClick
 

@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Pair;
+import android.widget.ProgressBar;
 
 import androidx.core.content.FileProvider;
 
@@ -15,6 +16,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
+import ir.bppir.pishtazan.utility.DownloadTask;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
@@ -39,6 +41,16 @@ public class VM_Update extends VM_Primary {
 
         void onProgress(int progress);
     }//_____________________________________________________________________________________________ ProgressDownload
+
+
+    //______________________________________________________________________________________________ downloadFile
+    public void downloadFile(String url, String filePath, ProgressBar bar) {
+
+        DownloadTask downloadTask = new DownloadTask(getContext(), filePath, bar, getPublishSubject());
+        downloadTask.execute(url);
+    }
+    //______________________________________________________________________________________________ downloadFile
+
 
 
     public void DownloadFile(String url, String fileName) {//_______________________________________ DownloadFile

@@ -44,13 +44,12 @@
 
             </LinearLayout>
 
-            <include layout="@layout/home_action_button"/>
-
 
             <LinearLayout
                 android:id="@+id/LinearLayoutColleague"
-                android:layout_width="@dimen/_200sdp"
-                android:layout_height="@dimen/_100sdp"
+                android:layout_width="@dimen/_170sdp"
+                android:layout_height="@dimen/_85sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:gravity="bottom|center_horizontal"
                 android:background="@drawable/dw_home_circle_top"
                 android:orientation="vertical">
@@ -76,8 +75,8 @@
 
             <LinearLayout
                 android:id="@+id/LinearLayoutCustomer"
-                android:layout_width="@dimen/_200sdp"
-                android:layout_height="@dimen/_100sdp"
+                android:layout_width="@dimen/_170sdp"
+                android:layout_height="@dimen/_85sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:background="@drawable/dw_home_circle_bottom"
                 android:gravity="top|center_horizontal"
@@ -102,6 +101,34 @@
 
 
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayoutReports"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/dw_back_home_learn"
+                android:padding="@dimen/_7sdp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:tint="@color/colorPrimaryDark"
+                    android:src="@drawable/svg_to_do_list"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/_11sdp"
+                    fontPath="fonts/iransans_web_medium.ttf"
+                    android:text="@string/Reports"
+                    android:layout_marginTop="@dimen/_3sdp"/>
+
+            </LinearLayout>
+
 
         </LinearLayout>
 

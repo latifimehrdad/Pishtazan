@@ -101,17 +101,18 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"/>
 
+
         <action
-            android:id="@+id/action_home_to_report"
-            app:destination="@id/report"
+            android:id="@+id/action_home_to_post"
+            app:destination="@id/post"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"/>
 
         <action
-            android:id="@+id/action_home_to_post"
-            app:destination="@id/post"
+            android:id="@+id/action_home_to_reports"
+            app:destination="@id/reports"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
@@ -368,15 +369,6 @@
             app:popExitAnim="@anim/slide_out_left"/>
 
 
-        <action
-            android:id="@+id/action_post_to_examReport"
-            app:destination="@id/examReport"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"/>
-
-
     </fragment>
 
     <fragment
@@ -421,6 +413,33 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/reports"
+        android:name="ir.bppir.pishtazan.views.fragments.Reports"
+        android:label="Reports"
+        tools:layout="@layout/fragment_reports">
+
+        <action
+            android:id="@+id/action_reports_to_report"
+            app:destination="@id/report"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            />
+
+
+        <action
+            android:id="@+id/action_reports_to_examReport"
+            app:destination="@id/examReport"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
 
     </fragment>
 

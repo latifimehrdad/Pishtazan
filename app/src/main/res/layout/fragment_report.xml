@@ -11,7 +11,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="@dimen/_10sdp">
 
         <LinearLayout
             android:id="@+id/LinearLayoutTitle"
@@ -46,8 +47,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_below="@id/LinearLayoutTitle"
-            android:padding="@dimen/_10sdp"
             android:gravity="center"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/_10sdp">
 
             <LinearLayout
@@ -210,8 +211,38 @@
             android:layout_below="@id/LinearLayoutTitle"
             android:layout_marginTop="@dimen/_10sdp"
             android:gravity="center"
-            android:visibility="gone"
             android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/LinearLayoutNewReport"
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/dw_back_bottom"
+                android:padding="@dimen/_8sdp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/ML_White"
+                    android:gravity="center"
+                    fontPath="fonts/iransans_web_medium.ttf"
+                    android:text="@string/NewReport"
+                    android:textSize="@dimen/_10sdp" />
+
+                <ImageView
+                    android:layout_width="@dimen/_27sdp"
+                    android:layout_height="@dimen/_27sdp"
+                    android:src="@drawable/svg_quiz"
+                    android:tint="@color/ML_White"
+                    android:layout_marginRight="@dimen/_3sdp"
+                    />
+
+            </LinearLayout>
 
 
             <EditText
@@ -221,9 +252,10 @@
                 android:minHeight="@dimen/_32sdp"
                 android:background="@drawable/dw_back_item_report"
                 android:gravity="center"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/_12sdp"
-                android:hint="@string/Search"
+                android:hint="@string/SearchName"
                 />
 
             <androidx.recyclerview.widget.RecyclerView
