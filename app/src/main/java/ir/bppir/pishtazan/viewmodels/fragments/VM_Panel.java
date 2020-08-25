@@ -28,8 +28,8 @@ public class VM_Panel extends VM_Primary {
     //______________________________________________________________________________________________ VM_Panel
 
 
-    //______________________________________________________________________________________________ GetPerson
-    public void GetPerson(int panelType, Byte PersonType, boolean isDeleted) {
+    //______________________________________________________________________________________________ getPerson
+    public void getPerson(int panelType, Byte PersonType, boolean isDeleted) {
 
         CancelRequest();
 
@@ -42,7 +42,7 @@ public class VM_Panel extends VM_Primary {
         }, 200);
 
     }
-    //______________________________________________________________________________________________ GetPerson
+    //______________________________________________________________________________________________ getPerson
 
 
     //______________________________________________________________________________________________ getAllCustomers
@@ -547,10 +547,13 @@ public class VM_Panel extends VM_Primary {
             public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
                 if (ResponseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
-                    if (response.body().getStatue() == 1)
+                    if (response.body().getStatue() == 1) {
+                        setResponseMessage(response.body().getMessage());
                         getPublishSubject().onNext(StaticValues.ML_ConvertPerson);
-                    else
+                    } else {
+                        setResponseMessage(getResponseMessages(response));
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    }
                 }
             }
 

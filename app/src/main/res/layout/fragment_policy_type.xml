@@ -131,7 +131,7 @@
                     android:layout_height="@dimen/_30sdp"
                     android:background="@drawable/dw_edit_back_image"
                     android:padding="@dimen/_4sdp"
-                    android:src="@drawable/ic_baseline_attach_money"
+                    android:src="@drawable/ic_baseline_person"
                     android:tint="@color/ML_White"
                     />
 
@@ -163,7 +163,7 @@
                     android:layout_height="@dimen/_30sdp"
                     android:background="@drawable/dw_edit_back_image"
                     android:padding="@dimen/_4sdp"
-                    android:src="@drawable/ic_baseline_attach_money"
+                    android:src="@drawable/ic_baseline_recent_actors"
                     android:tint="@color/ML_White"
                     />
 

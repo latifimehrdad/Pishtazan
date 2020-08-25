@@ -107,7 +107,7 @@ public class Panel extends FragmentPrimary implements
             PersonType = 0;
             LinearLayoutAdd.setVisibility(View.VISIBLE);
             init();
-/*            GetList();*/
+            /*            GetList();*/
         }
         return getView();
     }//_____________________________________________________________________________________________ onCreateView
@@ -145,7 +145,7 @@ public class Panel extends FragmentPrimary implements
         GifViewLoading.setVisibility(View.VISIBLE);
         if (vm_panel.getPersonList() != null)
             vm_panel.getPersonList().clear();
-        vm_panel.GetPerson(panelType, PersonType, SwitchMaterialArchived.isChecked());
+        vm_panel.getPerson(panelType, PersonType, SwitchMaterialArchived.isChecked());
     }//_____________________________________________________________________________________________ GetList
 
 
@@ -249,7 +249,7 @@ public class Panel extends FragmentPrimary implements
         AP_person = new AP_Person(vm_panel.getPersonList(), getContext(), Panel.this);
         RecyclerViewPanel.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewPanel.setAdapter(AP_person);
-        if (vm_panel.getPersonList().size() == 0){
+        if (vm_panel.getPersonList().size() == 0) {
             RecyclerViewPanel.setVisibility(View.GONE);
             TextViewNothing.setVisibility(View.VISIBLE);
         } else {
@@ -305,7 +305,7 @@ public class Panel extends FragmentPrimary implements
                 dialog.findViewById(R.id.LinearLayoutInsurance);
 
         LinearLayout LinearLayoutNoArchived = (LinearLayout)
-        dialog.findViewById(R.id.LinearLayoutNoArchived);
+                dialog.findViewById(R.id.LinearLayoutNoArchived);
 
         if (SwitchMaterialArchived.isChecked()) {
             LinearLayoutCompleteInformation.setVisibility(View.GONE);
@@ -429,9 +429,6 @@ public class Panel extends FragmentPrimary implements
         bundle.putInt(getContext().getResources().getString(R.string.ML_Type), type);
         navController.navigate(R.id.action_panel_to_policies, bundle);
     }//_____________________________________________________________________________________________ ShowSavePolicyType
-
-
-
 
 
     private void ShowCallReminder(Integer Position) {//_____________________________________________ ShowCallReminder
@@ -794,7 +791,10 @@ public class Panel extends FragmentPrimary implements
     public void clickItemPerson(Integer Position, View view) {//____________________________________ clickItemPerson
 
         if (PersonType == StaticValues.ML_Maybe) {
-            AdapterMoveToPossible(Position, view);
+            if (vm_panel.getPersonList().get(Position).isDelete())
+                ChooseActionFromList(Position, view);
+            else
+                AdapterMoveToPossible(Position, view);
         } else if (PersonType == StaticValues.ML_Possible) {
             ChooseActionFromList(Position, view);
         }

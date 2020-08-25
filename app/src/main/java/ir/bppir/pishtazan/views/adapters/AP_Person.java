@@ -31,7 +31,9 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
 
 
     public interface ClickItemPerson {//____________________________________________________________ ClickItemPerson
+
         void clickItemPerson(Integer Position, View view);
+
         void clickDeleteItemPerson(Integer Position, View view);
     }//_____________________________________________________________________________________________ ClickItemPerson
 
@@ -78,6 +80,9 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
         @BindView(R.id.LinearLayoutAction)
         LinearLayout LinearLayoutAction;
 
+        @BindView(R.id.ImageViewIcon)
+        ImageView ImageViewIcon;
+
         public CustomHolder(AdabterPersonPanelBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
@@ -88,13 +93,24 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
         public void bind(MD_Person item, final int itemPosition) {
             binding.setPerson(item);
 
-            if (panel.PersonType == StaticValues.ML_Maybe)
-                TextViewAction.setText(context.getResources().getString(R.string.MoveToPossible));
-            else if (panel.PersonType == StaticValues.ML_Possible)
+            ImageViewIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_transfer_within_a_station));
+
+            if (panel.PersonType == StaticValues.ML_Maybe) {
+                if (item.isDelete()) {
+                    TextViewAction.setText(context.getResources().getString(R.string.NoArchive));
+                    ImageViewIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_delete_forever));
+                } else
+                    TextViewAction.setText(context.getResources().getString(R.string.MoveToPossible));
+            } else if (panel.PersonType == StaticValues.ML_Possible)
                 TextViewAction.setText(context.getResources().getString(R.string.ChooseAction));
 
             LinearLayoutAction.setOnClickListener(view ->
                     clickItemPerson.clickItemPerson(itemPosition, viewParent));
+
+            if (item.isDelete())
+                ImageViewDelete.setVisibility(View.GONE);
+            else
+                ImageViewDelete.setVisibility(View.VISIBLE);
 
             ImageViewDelete.setOnClickListener(view ->
                     clickItemPerson.clickDeleteItemPerson(itemPosition, viewParent));

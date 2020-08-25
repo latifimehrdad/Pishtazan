@@ -433,7 +433,7 @@ public interface RetrofitApiInterface {
                     @Field("UserInfoId") Integer UserInfoId,
                     @Field("fromdate") String fromdate,
                     @Field("todate") String todate,
-                    @Field("Diffrence") Integer Diffrence
+                    @Field("SortingResourceId") Integer SortingResourceId
             );
 
 
@@ -444,7 +444,7 @@ public interface RetrofitApiInterface {
                     @Field("UserInfoId") Integer UserInfoId,
                     @Field("fromdate") String fromdate,
                     @Field("todate") String todate,
-                    @Field("Diffrence") Integer Diffrence
+                    @Field("SortingResourceId") Integer SortingResourceId
             );
 
 

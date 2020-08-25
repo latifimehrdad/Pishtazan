@@ -200,7 +200,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        vm_addPerson.GetContact();
+                        vm_addPerson.getContact();
                     }
                 }, 1000);
 
@@ -226,7 +226,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
                 if (CheckEmpty()) {
                     StaticFunctions.hideKeyboard(getActivity());
                     ShowLoadingSend();
-                    vm_addPerson.AddPerson(
+                    vm_addPerson.addPerson(
                             EditTextName.getText().toString(),
                             EditTextPhoneNumber.getText().toString(),
                             Degree,
@@ -365,8 +365,9 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
         return new DisposableObserver<TextViewTextChangeEvent>() {
             @Override
             public void onNext(TextViewTextChangeEvent textViewTextChangeEvent) {
+                hideKeyboard();
                 String text = textViewTextChangeEvent.text().toString();
-                vm_addPerson.FilterContact(text);
+                vm_addPerson.filterContact(text);
             }
 
             @Override

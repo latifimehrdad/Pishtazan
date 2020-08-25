@@ -17,13 +17,15 @@ public class VM_PolicyList extends VM_Primary {
 
     private List<MD_Policy> md_policies;
 
-
-    public VM_PolicyList(Activity context) {//______________________________________________________ VM_PolicyList
+    //______________________________________________________________________________________________ VM_PolicyList
+    public VM_PolicyList(Activity context) {
         setContext(context);
-    }//_____________________________________________________________________________________________ VM_PolicyList
+    }
+    //______________________________________________________________________________________________ VM_PolicyList
 
 
-    public void GetAllPolicies(Integer CustomerId, Byte PolicyStatus) {//___________________________ GetAllPolicies
+    //______________________________________________________________________________________________ getAllPolicies
+    public void getAllPolicies(Integer CustomerId, Byte PolicyStatus) {
 
         Integer UserInfoId = GetUserId();
         if (UserInfoId == 0) {
@@ -62,10 +64,14 @@ public class VM_PolicyList extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ GetAllPolicies
+    }
+    //______________________________________________________________________________________________ getAllPolicies
 
 
-    public List<MD_Policy> getMd_policies() {//_____________________________________________________ getMd_policies
+    //______________________________________________________________________________________________ getMd_policies
+    public List<MD_Policy> getMd_policies() {
         return md_policies;
-    }//_____________________________________________________________________________________________ getMd_policies
+    }
+    //______________________________________________________________________________________________ getMd_policies
+
 }

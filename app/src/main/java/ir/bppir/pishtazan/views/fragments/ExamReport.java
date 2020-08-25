@@ -39,7 +39,7 @@ import ir.bppir.pishtazan.viewmodels.fragments.VM_ExamReport;
 import ir.bppir.pishtazan.views.adapters.AP_LearnReport;
 
 public class ExamReport extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable,
-        AP_LearnReport.ClickItemPerson {
+        AP_LearnReport.ClickItemDetail {
 
 
     private VM_ExamReport vm_examReport;
@@ -272,7 +272,7 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.GetMe
 
     //______________________________________________________________________________________________ clickItemPerson
     @Override
-    public void clickItemPerson(Integer Position) {
+    public void clickItemDetail(Integer Position) {
         Bundle bundle = new Bundle();
         bundle.putInt(getContext().getResources().getString(R.string.ML_Id),
                 vm_examReport.getMd_reports().get(Position).getId());

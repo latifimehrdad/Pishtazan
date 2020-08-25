@@ -16,7 +16,7 @@ public class MD_ExamResult {
     @SerializedName("WrongAnswerCount")
     Integer WrongAnswerCount;
 
-    @SerializedName("AcceptancePercentage")
+    @SerializedName("AverageGrade")
     float AverageGrade;
 
     @SerializedName("ExamResultStatus")

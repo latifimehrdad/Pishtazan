@@ -150,7 +150,7 @@ public class PolicyType extends FragmentPrimary implements
                 vm_policyType.getPublishSubject(),
                 vm_policyType);
         if (!editMode)
-            vm_policyType.GetAllPolicyTypes();
+            vm_policyType.getAllPolicyTypes();
         ClickPolicyType = false;
 //        navController = Navigation.findNavController(getView());
     }//_____________________________________________________________________________________________ init
@@ -188,7 +188,7 @@ public class PolicyType extends FragmentPrimary implements
         LayoutPolicyType.setOnClickListener(v -> {
             ClickPolicyType = true;
             if ((vm_policyType.getMd_policyTypes() == null) || (vm_policyType.getMd_policyTypes().size() == 0))
-                vm_policyType.GetAllPolicyTypes();
+                vm_policyType.getAllPolicyTypes();
             else
                 SetPolicyType();
         });
@@ -200,7 +200,7 @@ public class PolicyType extends FragmentPrimary implements
                 hideKeyboard();
                 ShowLoading();
                 if (editMode)
-                    vm_policyType.EditPolicy(
+                    vm_policyType.editPolicy(
                             Id,
                             PolicyTypeId,
                             PersonId,
@@ -211,7 +211,7 @@ public class PolicyType extends FragmentPrimary implements
                             EditTextNationalCode.getText().toString()
                     );
                 else
-                    vm_policyType.CreatePolicy(
+                    vm_policyType.createPolicy(
                             PolicyTypeId.toString(),
                             PersonId.toString(),
                             EditTextAmount.getText().toString(),

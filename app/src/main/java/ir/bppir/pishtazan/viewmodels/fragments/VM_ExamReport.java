@@ -68,8 +68,7 @@ public class VM_ExamReport extends VM_Primary {
 
 
     //______________________________________________________________________________________________ getLearnReport
-    public void getLearnReport(
-            Integer SortingResourceId, Integer sortPosition) {
+    public void getLearnReport(Integer sortingResourceId, Integer sortPosition) {
 
         Integer UserInfoId = GetUserId();
         if (UserInfoId == 0) {
@@ -85,7 +84,7 @@ public class VM_ExamReport extends VM_Primary {
                     .getRetrofitApiInterface()
                     .GET_LEARN_REPORT(
                             UserInfoId,
-                            SortingResourceId
+                            sortingResourceId
                     ));
         else if (sortPosition == 1)
             setPrimaryCall(PishtazanApplication
@@ -94,7 +93,7 @@ public class VM_ExamReport extends VM_Primary {
                     .getRetrofitApiInterface()
                     .GET_LEARN_REPORT_SortByAverageGrade(
                             UserInfoId,
-                            SortingResourceId,
+                            sortingResourceId,
                             true
                     ));
         else if (sortPosition == 2)
@@ -104,7 +103,7 @@ public class VM_ExamReport extends VM_Primary {
                     .getRetrofitApiInterface()
                     .GET_LEARN_REPORT_SortByTotalScore(
                             UserInfoId,
-                            SortingResourceId,
+                            sortingResourceId,
                             true
                     ));
         else if (sortPosition == 3)
@@ -114,10 +113,9 @@ public class VM_ExamReport extends VM_Primary {
                     .getRetrofitApiInterface()
                     .GET_LEARN_REPORT_SortByTotalActivity(
                             UserInfoId,
-                            SortingResourceId,
+                            sortingResourceId,
                             true
                     ));
-
 
 
         getPrimaryCall().enqueue(new Callback<MR_StatisticalReport>() {
@@ -150,9 +148,11 @@ public class VM_ExamReport extends VM_Primary {
     //______________________________________________________________________________________________ getMd_spinnerItems
 
 
-    public List<MD_Report> getMd_reports() {//______________________________________________________ getMd_reports
+    //______________________________________________________________________________________________ getMd_reports
+    public List<MD_Report> getMd_reports() {
         return md_reports;
-    }//_____________________________________________________________________________________________ getMd_reports
+    }
+    //______________________________________________________________________________________________ getMd_reports
 
 
 }

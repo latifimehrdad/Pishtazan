@@ -27,7 +27,7 @@ public class VM_Post extends VM_Primary {
 
 
 
-    public void GetPost() {//_______________________________________________________________________ GetPost
+    public void GetPost(Integer personId) {//_______________________________________________________ GetPost
 
         Integer UserInfoId = GetUserId();
         if (UserInfoId == 0) {
@@ -35,6 +35,8 @@ public class VM_Post extends VM_Primary {
             return;
         }
 
+        if (personId != null)
+            UserInfoId = personId;
 
         setPrimaryCall(PishtazanApplication
                 .getApplication(getContext())

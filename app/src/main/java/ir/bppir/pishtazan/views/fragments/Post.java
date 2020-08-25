@@ -67,6 +67,11 @@ public class Post extends FragmentPrimary implements FragmentPrimary.GetMessageF
             setView(binding.getRoot());
             postType = getArguments().getString(getContext().getResources().getString(R.string.ML_Type),
                     getContext().getResources().getString(R.string.ML_MyReport));
+            if (postType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_MySubsetReport)))
+                personId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
+            else
+                personId = null;
+
             init();
             setClick();
         }
@@ -103,7 +108,7 @@ public class Post extends FragmentPrimary implements FragmentPrimary.GetMessageF
         else
             LinearLayoutExam.setVisibility(View.GONE);
 
-        vm_post.GetPost();
+        vm_post.GetPost(personId);
     }
     //______________________________________________________________________________________________ init
 
@@ -167,7 +172,6 @@ public class Post extends FragmentPrimary implements FragmentPrimary.GetMessageF
             bundle.putString(getContext().getResources().getString(R.string.ML_Description), vm_post.getMd_educationCategoryVms().get(Position).getTitle());
             navController.navigate(R.id.action_post_to_tutorial, bundle);
         } else {
-            personId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
             Bundle bundle = new Bundle();
             bundle.putInt(getContext().getResources().getString(R.string.ML_personId), personId);
             bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_post.getMd_educationCategoryVms().get(Position).getId());

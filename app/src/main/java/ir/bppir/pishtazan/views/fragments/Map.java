@@ -79,9 +79,9 @@ public class Map extends FragmentPrimary implements FragmentPrimary.GetMessageFr
     @Override
     public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
-        if (action.equals(StaticValues.ML_AddressFromMap)){
+//        if (action.equals(StaticValues.ML_AddressFromMap)){
             getContext().onBackPressed();
-        }
+//        }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
@@ -96,7 +96,7 @@ public class Map extends FragmentPrimary implements FragmentPrimary.GetMessageFr
                 textChoose.setVisibility(View.GONE);
                 MarkerGif.setVisibility(View.VISIBLE);
                 LatLng agaring = mMap.getCameraPosition().target;
-                vm_map.GetAddress(agaring.latitude, agaring.longitude);
+                vm_map.getAddress(agaring.latitude, agaring.longitude);
 
 //                vm_mapFragment.GetAddress(29.479993 , -139.565491);
 //                LatLng negra = mMap.getCameraPosition().target;

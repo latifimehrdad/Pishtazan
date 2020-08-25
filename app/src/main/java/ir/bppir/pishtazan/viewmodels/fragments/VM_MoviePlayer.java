@@ -6,9 +6,11 @@ import ir.bppir.pishtazan.viewmodels.VM_Primary;
 
 public class VM_MoviePlayer extends VM_Primary {
 
-    public VM_MoviePlayer(Activity activity) {//____________________________________________________ VM_MoviePlayer
+    //______________________________________________________________________________________________ VM_MoviePlayer
+    public VM_MoviePlayer(Activity activity) {
         setContext(activity);
-    }//_____________________________________________________________________________________________ VM_MoviePlayer
+    }
+    //______________________________________________________________________________________________ VM_MoviePlayer
 
 
 }

@@ -29,6 +29,7 @@ public class Policies extends FragmentPrimary implements
     private VM_PolicyList vm_policyList;
     private NavController navController;
     private Integer PersonId;
+    private Byte typePolicies;
 
     @BindView(R.id.ButtonNew)
     Button ButtonNew;
@@ -69,12 +70,12 @@ public class Policies extends FragmentPrimary implements
         navController = Navigation.findNavController(getView());
         PersonId = getArguments().getInt(getContext().getResources().getString(R.string.ML_personId), 0);
         Integer temp = getArguments().getInt(getContext().getResources().getString(R.string.ML_Type), StaticValues.PolicyStatusQuestionnaire);
-        Byte type = temp.byteValue();
-        if (type.equals(StaticValues.PolicyStatusQuestionnaire))
-            vm_policyList.GetAllPolicies(PersonId, StaticValues.PolicyStatusQuestionnaire);
+        typePolicies = temp.byteValue();
+        if (typePolicies.equals(StaticValues.PolicyStatusQuestionnaire))
+            vm_policyList.getAllPolicies(PersonId, StaticValues.PolicyStatusQuestionnaire);
         else {
             ButtonNew.setVisibility(View.GONE);
-            vm_policyList.GetAllPolicies(PersonId, StaticValues.PolicyStatusInsurance);
+            vm_policyList.getAllPolicies(PersonId, StaticValues.PolicyStatusInsurance);
         }
 
     }//_____________________________________________________________________________________________ onStart
@@ -116,35 +117,37 @@ public class Policies extends FragmentPrimary implements
     @Override
     public void clickItemPolicy(Integer Position) {//_______________________________________________ clickItemPolicy
 
-        Bundle bundle = new Bundle();
-        bundle.putInt(getContext().getResources().getString(R.string.ML_personId), PersonId);
-        bundle.putBoolean(getContext().getResources().getString(R.string.ML_Type), true);
+        if (typePolicies.equals(StaticValues.PolicyStatusQuestionnaire)) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getResources().getString(R.string.ML_personId), PersonId);
+            bundle.putBoolean(getContext().getResources().getString(R.string.ML_Type), true);
 
-        bundle.putInt(getContext().getResources().getString(R.string.ML_Id),
-                vm_policyList.getMd_policies().get(Position).getId());
+            bundle.putInt(getContext().getResources().getString(R.string.ML_Id),
+                    vm_policyList.getMd_policies().get(Position).getId());
 
-        bundle.putInt(getContext().getResources().getString(R.string.ML_PolicyTypeId),
-                vm_policyList.getMd_policies().get(Position).getPolicyTypeId());
+            bundle.putInt(getContext().getResources().getString(R.string.ML_PolicyTypeId),
+                    vm_policyList.getMd_policies().get(Position).getPolicyTypeId());
 
-        bundle.putLong(getContext().getResources().getString(R.string.ML_Amount),
-                vm_policyList.getMd_policies().get(Position).getPolicyAmont());
+            bundle.putLong(getContext().getResources().getString(R.string.ML_Amount),
+                    vm_policyList.getMd_policies().get(Position).getPolicyAmont());
 
-        bundle.putString(getContext().getResources().getString(R.string.ML_Description),
-                vm_policyList.getMd_policies().get(Position).getDescription());
+            bundle.putString(getContext().getResources().getString(R.string.ML_Description),
+                    vm_policyList.getMd_policies().get(Position).getDescription());
 
-        String date = vm_policyList.getMd_policies().get(Position).getSuggestionDateM();
-        bundle.putString(getContext().getResources().getString(R.string.ML_Date),
-                date);
+            String date = vm_policyList.getMd_policies().get(Position).getSuggestionDateM();
+            bundle.putString(getContext().getResources().getString(R.string.ML_Date),
+                    date);
 
-        String insured = vm_policyList.getMd_policies().get(Position).getInsured();
-        bundle.putString(getContext().getResources().getString(R.string.ML_Insured),
-                insured);
+            String insured = vm_policyList.getMd_policies().get(Position).getInsured();
+            bundle.putString(getContext().getResources().getString(R.string.ML_Insured),
+                    insured);
 
-        String insuredNationalCode = vm_policyList.getMd_policies().get(Position).getInsuredNationalCode();
-        bundle.putString(getContext().getResources().getString(R.string.ML_InsuredNationalCode),
-                insuredNationalCode);
+            String insuredNationalCode = vm_policyList.getMd_policies().get(Position).getInsuredNationalCode();
+            bundle.putString(getContext().getResources().getString(R.string.ML_InsuredNationalCode),
+                    insuredNationalCode);
 
-        navController.navigate(R.id.action_policies_to_policyType, bundle);
+            navController.navigate(R.id.action_policies_to_policyType, bundle);
+        }
 
     }//_____________________________________________________________________________________________ clickItemPolicy
 

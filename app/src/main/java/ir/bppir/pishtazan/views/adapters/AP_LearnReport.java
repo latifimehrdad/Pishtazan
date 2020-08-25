@@ -27,18 +27,18 @@ public class AP_LearnReport extends RecyclerView.Adapter<AP_LearnReport.CustomHo
     private LayoutInflater layoutInflater;
     private List<MD_Report> md_reports;
     private Context context;
-    private ClickItemPerson clickItemPerson;
+    private ClickItemDetail clickItemDetail;
 
 
-    public interface ClickItemPerson {//____________________________________________________________ ClickItemPerson
-        void clickItemPerson(Integer Position);
+    public interface ClickItemDetail {//____________________________________________________________ ClickItemPerson
+        void clickItemDetail(Integer Position);
     }//_____________________________________________________________________________________________ ClickItemPerson
 
 
-    public AP_LearnReport(List<MD_Report> md_reports, Context context, ClickItemPerson clickItemPerson) {
+    public AP_LearnReport(List<MD_Report> md_reports, Context context, ClickItemDetail clickItemDetail) {
         this.md_reports = md_reports;
         this.context = context;
-        this.clickItemPerson = clickItemPerson;
+        this.clickItemDetail = clickItemDetail;
     }
 
     @NonNull
@@ -97,7 +97,7 @@ public class AP_LearnReport extends RecyclerView.Adapter<AP_LearnReport.CustomHo
                 else
                     ExpandableLayoutItem.expand();
             });
-            LinearLayoutExamResultDetail.setOnClickListener(v -> clickItemPerson.clickItemPerson(itemPosition));
+            LinearLayoutExamResultDetail.setOnClickListener(v -> clickItemDetail.clickItemDetail(itemPosition));
             binding.executePendingBindings();
 
         }

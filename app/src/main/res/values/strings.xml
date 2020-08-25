@@ -136,7 +136,7 @@
     <string name="SortingTotalActivity">عملکرد</string>
     <string name="insuredName">نام بیمه شده</string>
     <string name="Archived">بایگانی شده ها</string>
-    <string name="NoArchive">حذف از بایگانی</string>
+    <string name="NoArchive">بازگشت به لیست</string>
     <string name="EmptyList">لیست خالی است</string>
     <string name="ConvertToCustomer">انتقال به لیست مشتری ها</string>
     <string name="ConvertToColleague">انتقال به لیست همکاران</string>

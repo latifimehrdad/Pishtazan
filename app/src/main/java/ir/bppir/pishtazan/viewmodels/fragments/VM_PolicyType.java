@@ -20,12 +20,15 @@ public class VM_PolicyType extends VM_Primary {
 
     private List<MD_PolicyType> md_policyTypes;
 
-    public VM_PolicyType(Activity context) {//______________________________________________________ VM_PolicyType
+    //______________________________________________________________________________________________ VM_PolicyType
+    public VM_PolicyType(Activity context) {
         setContext(context);
-    }//_____________________________________________________________________________________________ VM_PolicyType
+    }
+    //______________________________________________________________________________________________ VM_PolicyType
 
 
-    public void GetAllPolicyTypes() {//_____________________________________________________________ GetAllPolicyTypes
+    //______________________________________________________________________________________________ getAllPolicyTypes
+    public void getAllPolicyTypes() {
 
         RetrofitComponent retrofitComponent = PishtazanApplication
                 .getApplication(getContext())
@@ -55,18 +58,18 @@ public class VM_PolicyType extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ GetAllPolicyTypes
+    }
+    //______________________________________________________________________________________________ getAllPolicyTypes
 
 
-
-
-    public void CreatePolicy(
+    //______________________________________________________________________________________________ createPolicy
+    public void createPolicy(
             String PolicyTypeId,
             String CustomerId,
-            String PolicyAmont,
+            String PolicyAmount,
             String Description,
             String Insured,
-            String InsuredNationalCode) {//_________________________________________________________________ CreatePolicy
+            String InsuredNationalCode) {
 
         Integer UserInfoId = GetUserId();
         if (UserInfoId == 0) {
@@ -81,7 +84,7 @@ public class VM_PolicyType extends VM_Primary {
                 .CREATE_POLICY(
                         PolicyTypeId,
                         CustomerId,
-                        PolicyAmont,
+                        PolicyAmount,
                         UserInfoId.toString(),
                         Description,
                         Insured,
@@ -107,20 +110,20 @@ public class VM_PolicyType extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ CreatePolicy
+    }
+    //______________________________________________________________________________________________ createPolicy
 
 
-
-
-    public void EditPolicy(
+    //______________________________________________________________________________________________ editPolicy
+    public void editPolicy(
             Integer Id,
             Integer PolicyTypeId,
             Integer CustomerId,
-            Long PolicyAmont,
+            Long PolicyAmount,
             String Description,
             String SuggestionDateM,
             String Insured,
-            String InsuredNationalCode) {//_________________________________________________________________ CreatePolicy
+            String InsuredNationalCode) {
 
         Integer UserInfoId = GetUserId();
         if (UserInfoId == 0) {
@@ -136,7 +139,7 @@ public class VM_PolicyType extends VM_Primary {
                         Id,
                         PolicyTypeId,
                         CustomerId,
-                        PolicyAmont,
+                        PolicyAmount,
                         UserInfoId,
                         Description,
                         SuggestionDateM,
@@ -163,13 +166,14 @@ public class VM_PolicyType extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ CreatePolicy
+    }
+    //______________________________________________________________________________________________ editPolicy
 
 
-
-
-    public List<MD_PolicyType> getMd_policyTypes() {//______________________________________________ getMd_policyTypes
+    //______________________________________________________________________________________________ getMd_policyTypes
+    public List<MD_PolicyType> getMd_policyTypes() {
         return md_policyTypes;
-    }//_____________________________________________________________________________________________ getMd_policyTypes
+    }
+    //______________________________________________________________________________________________ getMd_policyTypes
 
 }

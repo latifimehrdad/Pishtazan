@@ -16,18 +16,21 @@ public class VM_Map extends VM_Primary {
 
     public static MD_GetAddres map_Address;
 
-    public VM_Map(Activity activity) {//____________________________________________________________ VM_Map
+    //______________________________________________________________________________________________ VM_Map
+    public VM_Map(Activity activity) {
         setContext(activity);
-    }//_____________________________________________________________________________________________ VM_Map
+    }
+    //______________________________________________________________________________________________ VM_Map
 
 
-    public void GetAddress(double lat, double lon) {//____________________________________________________________________ Start GetAddress
+    //______________________________________________________________________________________________ getAddress
+    public void getAddress(double lat, double lon) {
 
         RetrofitComponent retrofitComponent = PishtazanApplication
                 .getApplication(getContext())
                 .getRetrofitComponent();
 
-        String url = "http://nominatim.openstreetmap.org/reverse?format=json&lat=" + lat + "&lon=" + lon + "&zoom=22&addressdetails=5";
+        String url = "https://nominatim.openstreetmap.org/reverse?format=json&lat=" + lat + "&lon=" + lon + "&zoom=22&addressdetails=5";
 
 
         setPrimaryCall(
@@ -49,7 +52,7 @@ public class VM_Map extends VM_Primary {
                         map_Address.setLon(String.valueOf(lon));
                     }
                     setResponseMessage("");
-                    CheckCountry();
+                    checkCountry();
                 }
             }
 
@@ -59,11 +62,12 @@ public class VM_Map extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ End GetAddress
+    }
+    //______________________________________________________________________________________________ getAddress
 
 
-
-    public void CheckCountry() {//__________________________________________________________________ Start CheckCountry
+    //______________________________________________________________________________________________ checkCountry
+    public void checkCountry() {
 
         if (map_Address != null && map_Address.getAddress() != null) {
             String country = map_Address.getAddress().getCountry();
@@ -71,7 +75,7 @@ public class VM_Map extends VM_Primary {
                     !country.equalsIgnoreCase("null") &&
                     !country.equalsIgnoreCase("")) {
 
-                if(!country.equalsIgnoreCase("ایران")) {
+                if (!country.equalsIgnoreCase("ایران")) {
                     setResponseMessage(getContext().getResources().getString(R.string.OutOfIran));
                     getPublishSubject().onNext(StaticValues.ML_AddressFromMapOutOfIran);
                 } else {
@@ -84,7 +88,8 @@ public class VM_Map extends VM_Primary {
             }
         }
 
-    }//_____________________________________________________________________________________________ End CheckCountry
+    }
+    //______________________________________________________________________________________________ checkCountry
 
 
 }

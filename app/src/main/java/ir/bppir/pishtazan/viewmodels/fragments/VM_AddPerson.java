@@ -25,103 +25,50 @@ public class VM_AddPerson extends VM_Primary {
     private List<MD_Contact> md_contacts;
     private List<MD_Contact> md_contactsFilter;
 
-    public VM_AddPerson(Activity context) {//_______________________________________________________ VM_AddPerson
+    //______________________________________________________________________________________________ VM_AddPerson
+    public VM_AddPerson(Activity context) {
         setContext(context);
-    }//_____________________________________________________________________________________________ VM_AddPerson
+    }
+    //______________________________________________________________________________________________ VM_AddPerson
 
 
-    public void AddPerson(String Name, String Phone, Byte Degree, int panelType) {//______________ AddPerson
+    //______________________________________________________________________________________________ addPerson
+    public void addPerson(String Name, String Phone, Byte Degree, int panelType) {
 
         if (panelType == StaticValues.Customer)
-            AddCustomer(Name, Phone, Degree);
+            addCustomer(Name, Phone, Degree);
         else if (panelType == StaticValues.Colleague)
-            AddColleague(Name, Phone, Degree);
-
-//        Phone = PishtazanApplication
-//                .getApplication(context)
-//                .getApplicationUtilityComponent()
-//                .getApplicationUtility()
-//                .PersianToEnglish(Phone);
-//
-//        Realm realm = Realm.getDefaultInstance();
-//
-//        try {
-//            realm.beginTransaction();
-//
-//            int id;
-//            Number currentIdNum = realm.where(DB_Persons.class).max("Id");
-//            if (currentIdNum == null) {
-//                id = 1;
-//            } else {
-//                id = currentIdNum.intValue() + 1;
-//            }
-//
-//            realm
-//                    .createObject(DB_Persons.class, id)
-//                    .insert(Name,
-//                            Phone,
-//                            "",
-//                            "",
-//                            0.0,
-//                            0.0,
-//                            "",
-//                            true,
-//                            "",
-//                            Degree,
-//                            panelType,
-//                            (byte) 0);
-//            realm.commitTransaction();
-//
-//            Handler handler = new Handler();
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    setResponseMessage(context.getResources().getString(R.string.AddPersonOk));
-//                    getPublishSubject().onNext(StaticValues.ML_AddPerson);
-//                }
-//            }, 2000);
-//
-//        } finally {
-//            if (realm != null)
-//                realm.close();
-//        }
-
-//        catch (Exception e) {
-//            realm.cancelTransaction();
-//            setResponseMessage(context.getResources().getString(R.string.ErrorForSave));
-//            getPublishSubject().onNext(StaticValues.ML_Error);
-//        }
-
-    }//_____________________________________________________________________________________________ AddPerson
+            addColleague(Name, Phone, Degree);
+    }
+    //______________________________________________________________________________________________ addPerson
 
 
+    //______________________________________________________________________________________________ addCustomer
+    private void addCustomer(String name, String phone, Byte degree) {
 
-
-    private void AddCustomer(String Name, String Phone, Byte Degree) {//____________________________ AddCustomer
-
-        Phone = PishtazanApplication
+        phone = PishtazanApplication
                 .getApplication(getContext())
                 .getApplicationUtilityComponent()
                 .getApplicationUtility()
-                .PersianToEnglish(Phone);
+                .PersianToEnglish(phone);
 
         Integer UserInfoId = GetUserId();
         if (UserInfoId == 0) {
             UserIsNotAuthorization();
             return;
         }
-        Map<String,String> params = new HashMap<String, String>();
-        params.put("FullName" , Name);
-        params.put("UserInfoId" , UserInfoId.toString());
-        params.put("MobileNumber" , Phone);
-        params.put("Level" , Degree.toString());
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("FullName", name);
+        params.put("UserInfoId", UserInfoId.toString());
+        params.put("MobileNumber", phone);
+        params.put("Level", degree.toString());
 
 
         setPrimaryCall(PishtazanApplication
-        .getApplication(getContext())
-        .getRetrofitComponent()
-        .getRetrofitApiInterface()
-        .ADD_CUSTOMER(params));
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .ADD_CUSTOMER(params));
 
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
@@ -141,28 +88,29 @@ public class VM_AddPerson extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ AddCustomer
+    }
+    //______________________________________________________________________________________________ addCustomer
 
 
+    //______________________________________________________________________________________________ addColleague
+    private void addColleague(String name, String phone, Byte degree) {
 
-    private void AddColleague(String Name, String Phone, Byte Degree){//____________________________ AddColleague
-
-        Phone = PishtazanApplication
+        phone = PishtazanApplication
                 .getApplication(getContext())
                 .getApplicationUtilityComponent()
                 .getApplicationUtility()
-                .PersianToEnglish(Phone);
+                .PersianToEnglish(phone);
 
         Integer UserInfoId = GetUserId();
         if (UserInfoId == 0) {
             UserIsNotAuthorization();
             return;
         }
-        Map<String,String> params = new HashMap<String, String>();
-        params.put("FullName" , Name);
-        params.put("UserInfoId" , UserInfoId.toString());
-        params.put("MobileNumber" , Phone);
-        params.put("Level" , Degree.toString());
+        Map<String, String> params = new HashMap<>();
+        params.put("FullName", name);
+        params.put("UserInfoId", UserInfoId.toString());
+        params.put("MobileNumber", phone);
+        params.put("Level", degree.toString());
 
 
         setPrimaryCall(PishtazanApplication
@@ -189,12 +137,12 @@ public class VM_AddPerson extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ AddColleague
+    }
+    //______________________________________________________________________________________________ addColleague
 
 
-
-
-    public void GetContact() {//____________________________________________________________________ GetContact
+    //______________________________________________________________________________________________ getContact
+    public void getContact() {
         if (md_contacts == null) {
             md_contacts = new ArrayList<>();
             ContentResolver cr = getContext().getContentResolver();
@@ -217,9 +165,9 @@ public class VM_AddPerson extends VM_Primary {
                             String phoneNo = pCur.getString(pCur.getColumnIndex(
                                     ContactsContract.CommonDataKinds.Phone.NUMBER));
                             phoneNo = phoneNo.replaceAll("-", "");
-                            String temp = phoneNo.substring(0,3);
+                            String temp = phoneNo.substring(0, 3);
                             if (temp.equals("+98")) {
-                                phoneNo = "0" + phoneNo.substring(3,phoneNo.length());
+                                phoneNo = "0" + phoneNo.substring(3, phoneNo.length());
                             }
                             md_contacts.add(new MD_Contact(name, phoneNo));
                         }
@@ -242,10 +190,12 @@ public class VM_AddPerson extends VM_Primary {
         }
 
 
-    }//_____________________________________________________________________________________________ GetContact
+    }
+    //______________________________________________________________________________________________ getContact
 
 
-    public void FilterContact(String text) {//______________________________________________________ FilterContact
+    //______________________________________________________________________________________________ filterContact
+    public void filterContact(String text) {
         if (text == null || text.length() == 0) {
             setResponseMessage("");
             getPublishSubject().onNext(StaticValues.ML_GetContact);
@@ -274,16 +224,21 @@ public class VM_AddPerson extends VM_Primary {
             getPublishSubject().onNext(StaticValues.ML_GetContactFilter);
         }
 
+    }
+    //______________________________________________________________________________________________ filterContact
 
-    }//_____________________________________________________________________________________________ FilterContact
 
-
-    public List<MD_Contact> getMd_contacts() {//____________________________________________________ getMd_contacts
+    //______________________________________________________________________________________________ getMd_contacts
+    public List<MD_Contact> getMd_contacts() {
         return md_contacts;
-    }//_____________________________________________________________________________________________ getMd_contacts
+    }
+    //______________________________________________________________________________________________ getMd_contacts
 
 
-    public List<MD_Contact> getMd_contactsFilter() {//______________________________________________ getMd_contactsFilter
+    //______________________________________________________________________________________________ getMd_contactsFilter
+    public List<MD_Contact> getMd_contactsFilter() {
         return md_contactsFilter;
-    }//_____________________________________________________________________________________________ getMd_contactsFilter
+    }
+    //______________________________________________________________________________________________ getMd_contactsFilter
+
 }
