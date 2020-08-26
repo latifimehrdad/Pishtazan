@@ -321,12 +321,31 @@ public class Panel extends FragmentPrimary implements
             LinearLayoutNoArchived.setVisibility(View.GONE);
 
         if (panelType == StaticValues.Customer) {
-
             LinearLayoutConvertToColleague.setVisibility(View.GONE);
+            if (PersonType == StaticValues.ML_Certain) {
+                LinearLayoutCompleteInformation.setVisibility(View.GONE);
+                LinearLayoutCallReminder.setVisibility(View.GONE);
+                LinearLayoutMeetingReminder.setVisibility(View.GONE);
+                LinearLayoutConvertToCustomer.setVisibility(View.GONE);
+                LinearLayoutConvertToColleague.setVisibility(View.GONE);
+                LinearLayoutDeleteFromList.setVisibility(View.GONE);
+//                LinearLayoutQuestionnaire.setVisibility(View.GONE);
+//                LinearLayoutInsurance.setVisibility(View.GONE);
+                LinearLayoutNoArchived.setVisibility(View.GONE);
+            }
         } else {
             LinearLayoutConvertToCustomer.setVisibility(View.GONE);
             LinearLayoutQuestionnaire.setVisibility(View.GONE);
-            LinearLayoutInsurance.setVisibility(View.GONE);
+            if (PersonType == StaticValues.ML_Certain) {
+                LinearLayoutCompleteInformation.setVisibility(View.GONE);
+                LinearLayoutCallReminder.setVisibility(View.GONE);
+                LinearLayoutMeetingReminder.setVisibility(View.GONE);
+                LinearLayoutConvertToCustomer.setVisibility(View.GONE);
+                LinearLayoutConvertToColleague.setVisibility(View.GONE);
+                LinearLayoutDeleteFromList.setVisibility(View.GONE);
+                LinearLayoutNoArchived.setVisibility(View.GONE);
+            } else
+                LinearLayoutInsurance.setVisibility(View.GONE);
         }
 
         LinearLayoutQuestionnaire.setOnClickListener(v -> {
@@ -797,7 +816,8 @@ public class Panel extends FragmentPrimary implements
                 AdapterMoveToPossible(Position, view);
         } else if (PersonType == StaticValues.ML_Possible) {
             ChooseActionFromList(Position, view);
-        }
+        } else
+            ChooseActionFromList(Position, view);
 
     }//_____________________________________________________________________________________________ clickItemPerson
 

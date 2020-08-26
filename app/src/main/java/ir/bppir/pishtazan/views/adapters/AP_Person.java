@@ -101,16 +101,29 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
                     ImageViewIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_delete_forever));
                 } else
                     TextViewAction.setText(context.getResources().getString(R.string.MoveToPossible));
-            } else if (panel.PersonType == StaticValues.ML_Possible)
+
+                if (item.isDelete())
+                    ImageViewDelete.setVisibility(View.GONE);
+                else {
+                    ImageViewDelete.setVisibility(View.VISIBLE);
+                }
+
+            } else if (panel.PersonType == StaticValues.ML_Possible) {
                 TextViewAction.setText(context.getResources().getString(R.string.ChooseAction));
+                if (item.isDelete())
+                    ImageViewDelete.setVisibility(View.GONE);
+                else {
+                    ImageViewDelete.setVisibility(View.VISIBLE);
+                }
+            } else {
+                ImageViewDelete.setVisibility(View.GONE);
+                TextViewAction.setText(context.getResources().getString(R.string.ChooseAction));
+            }
 
             LinearLayoutAction.setOnClickListener(view ->
                     clickItemPerson.clickItemPerson(itemPosition, viewParent));
 
-            if (item.isDelete())
-                ImageViewDelete.setVisibility(View.GONE);
-            else
-                ImageViewDelete.setVisibility(View.VISIBLE);
+
 
             ImageViewDelete.setOnClickListener(view ->
                     clickItemPerson.clickDeleteItemPerson(itemPosition, viewParent));
