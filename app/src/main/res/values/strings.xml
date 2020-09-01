@@ -21,8 +21,6 @@
     <string name="Certain">قطعی</string>
     <string name="Maybe">بالقوه</string>
     <string name="Possible">احتمالی</string>
-    <string name="ShowOnMap">نمایش افراد روی نقشه</string>
-    <string name="DescriptionForShowMap">در قسمت ویرایش اطلاعات، میتوانید با انتخاب موقعیت افراد، آنها را روی نقشه مشاهده کنید</string>
     <string name="AddPerson">اضافه کردن افراد</string>
     <string name="AddFromContact">انتخاب از لیست مخاطبین</string>
     <string name="Name_LastName">نام و نام خانوادگی</string>
@@ -33,8 +31,6 @@
     <string name="Search">جستجو</string>
     <string name="SearchName">جستجوی نام</string>
     <string name="EmptyContactName">لطفا نام شخص را وارد نمایید</string>
-    <string name="ErrorForSave">خطا در ثبت اطلاعات</string>
-    <string name="AddPersonOk">شخص به لیست شما اضافه شد</string>
     <string name="ChooseAction">انتخاب عملیات</string>
     <string name="CompleteInformation">تکمیل اطلاعات</string>
     <string name="SetCallReminder">ثبت یادآوری تماس</string>
@@ -43,21 +39,11 @@
     <string name="ChooseDate">انتخاب تاریخ</string>
     <string name="ChooseTime">انتخاب ساعت</string>
     <string name="TodayDate">تاریخ امروز</string>
-    <string name="SaveCallReminderAndConvert">یادآوری تماس ثبت شد و شخص به لیست احتمالی اضافه شد</string>
-    <string name="SaveCallReminder">یادآوری تماس ثبت شد</string>
-    <string name="SaveMeetingReminderAndConvert">یادآوری جلسه ثبت شد و شخص به لیست احتمالی اضافه شد</string>
-    <string name="SaveMeetingReminder">یادآوری جلسه ثبت شد</string>
     <string name="Yes">بلی</string>
     <string name="AreYouSureYouWantToDeleteIt1">آیا برای حذف</string>
     <string name="AreYouSureYouWantToDeleteIt2">مطمئن هستید؟</string>
     <string name="AreYouSureYouWantToMoveIt1">آیا برای انتقال</string>
-    <string name="SuccessDeletePerson">شخص با موفقیت از لیست حذف شد</string>
     <string name="MoveToPossible">انتقال به احتمالی</string>
-    <string name="MoveToCertain">انتقال به قطعی</string>
-    <string name="SuccessToSale">فروش موفق بود</string>
-    <string name="SuccessAbsorption">جذب موفق بود</string>
-    <string name="SuccessForMoveToPossible">شخص با موفقیت به لیست احتمالی منتقل شد</string>
-    <string name="SuccessForMoveToCertain">شخص با موفقیت به لیست قطعی منتقل شد</string>
     <string name="PleaseWaitingForConnectingToServer">در حال برقراری ارتباط با مرکز</string>
     <string name="PowerBy">قدرت گرفته از قلب تپنده پیشتازان</string>
     <string name="AnalyticalReport">گزارش تحلیلی</string>
@@ -67,8 +53,6 @@
     <string name="DegreePeach">نقره</string>
     <string name="DegreeGiant">طلایی</string>
     <string name="ChoosePersonDegree">درجه شخص را انتخاب کنید</string>
-    <string name="RememberCall">یادآوری تماس</string>
-    <string name="RememberMeeting">یادآوری جلسه</string>
     <string name="CallWith">تماس با</string>
     <string name="Clock">ساعت</string>
     <string name="MeetingWith">جلسه با</string>
@@ -85,10 +69,7 @@
     <string name="Choose">انتخاب</string>
     <string name="OutOfIran">آدرس انتخابی خارج از ایران است</string>
     <string name="ChooseBirthDay">انتخاب تاریخ تولد</string>
-    <string name="ResponseCall">نتیجه تماس</string>
-    <string name="HowWasIt">چگونه بود؟</string>
     <string name="Failed">ناموفق</string>
-    <string name="ResponseMeeting">نتیجه جلسه</string>
     <string name="ChoosePolicyType">انتخاب نوع پرسشنامه</string>
     <string name="SearchPolicyType">جستجوی نوع پرسشنامه</string>
     <string name="Amount">مبلغ</string>
@@ -140,9 +121,10 @@
     <string name="EmptyList">لیست خالی است</string>
     <string name="ConvertToCustomer">انتقال به لیست مشتری ها</string>
     <string name="ConvertToColleague">انتقال به لیست همکاران</string>
-    <string name="insuranceNum">شماره بیمه نامه</string>
     <string name="GetPhoneNumber">دریافت شماره موبایل</string>
     <string name="Reports">گزارشات</string>
+    <string name="FeeReport">گزارش کارمزد</string>
+
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>
@@ -161,7 +143,6 @@
     <string name="ML_Description">ML_Description</string>
     <string name="ML_PolicyTypeId">ML_PolicyTypeId</string>
     <string name="ML_Date">ML_Date</string>
-    <string name="ML_questionTime">questionTime</string>
     <string name="ML_MovieUrl">MovieUrl</string>
     <string name="ML_LastExam">LastExam</string>
     <string name="ML_ExamHistory">ExamHistory</string>

@@ -2,7 +2,6 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_main"
     app:startDestination="@id/splash">
 
     <fragment
@@ -440,7 +439,21 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"/>
 
+        <action
+            android:id="@+id/action_reports_to_reportGrid"
+            app:destination="@id/reportGrid"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
 
     </fragment>
+
+    <fragment
+        android:id="@+id/reportGrid"
+        android:name="ir.bppir.pishtazan.views.fragments.ReportGrid"
+        android:label="ReportGrid"
+        tools:layout="@layout/fr_report_grid"/>
 
 </navigation>

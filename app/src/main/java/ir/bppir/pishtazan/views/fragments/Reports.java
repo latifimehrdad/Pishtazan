@@ -32,6 +32,9 @@ public class Reports extends FragmentPrimary implements FragmentPrimary.GetMessa
     @BindView(R.id.LinearLayoutExamReport)
     LinearLayout LinearLayoutExamReport;
 
+    @BindView(R.id.LinearLayoutReportGrid)
+    LinearLayout LinearLayoutReportGrid;
+
     //______________________________________________________________________________________________ onCreateView
     @Nullable
     @Override
@@ -91,6 +94,7 @@ public class Reports extends FragmentPrimary implements FragmentPrimary.GetMessa
 
         LinearLayoutExamReport.setOnClickListener(v -> navController.navigate(R.id.action_reports_to_examReport));
 
+        LinearLayoutReportGrid.setOnClickListener(v -> navController.navigate(R.id.action_reports_to_reportGrid));
     }
     //______________________________________________________________________________________________ setOnClick
 
