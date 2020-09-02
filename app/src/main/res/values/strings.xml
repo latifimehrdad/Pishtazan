@@ -124,6 +124,9 @@
     <string name="GetPhoneNumber">دریافت شماره موبایل</string>
     <string name="Reports">گزارشات</string>
     <string name="FeeReport">گزارش کارمزد</string>
+    <string name="ChangePicture">تغییر عکس</string>
+    <string name="EmptyPhoneNumber">شماره تلفن را کامل وارد نمایید</string>
+    <string name="EmptyNational">شماره ملی را وارد نمایید</string>
 
 
     //___________________________ Values For SharedPreference ______________________________________

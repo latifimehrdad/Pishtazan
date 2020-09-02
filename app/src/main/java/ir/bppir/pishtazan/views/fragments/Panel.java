@@ -39,7 +39,7 @@ import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
 public class Panel extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable,
+        FragmentPrimary.MessageFromObservable,
         AP_Person.ClickItemPerson {
 
     private NavController navController;
@@ -150,7 +150,7 @@ public class Panel extends FragmentPrimary implements
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         if (dialog != null) {
             dialog.dismiss();
@@ -332,6 +332,8 @@ public class Panel extends FragmentPrimary implements
 //                LinearLayoutQuestionnaire.setVisibility(View.GONE);
 //                LinearLayoutInsurance.setVisibility(View.GONE);
                 LinearLayoutNoArchived.setVisibility(View.GONE);
+            } else if (PersonType == StaticValues.ML_Possible) {
+                LinearLayoutInsurance.setVisibility(View.GONE);
             }
         } else {
             LinearLayoutConvertToCustomer.setVisibility(View.GONE);

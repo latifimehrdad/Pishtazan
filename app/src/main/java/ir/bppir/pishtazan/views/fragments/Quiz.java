@@ -36,7 +36,7 @@ import ir.bppir.pishtazan.views.adapters.AP_Question;
 
 
 public class Quiz extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable,
+        FragmentPrimary.MessageFromObservable,
         AP_Question.ClickItemAnswer {
 
 
@@ -177,7 +177,7 @@ public class Quiz extends FragmentPrimary implements
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         GifViewLoading.setVisibility(View.GONE);
         if (action.equals(StaticValues.ML_GetExam)) {

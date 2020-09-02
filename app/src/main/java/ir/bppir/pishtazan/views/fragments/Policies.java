@@ -22,7 +22,7 @@ import ir.bppir.pishtazan.viewmodels.fragments.VM_PolicyList;
 import ir.bppir.pishtazan.views.adapters.AP_Policy;
 
 public class Policies extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable,
+        FragmentPrimary.MessageFromObservable,
         AP_Policy.ClickItemPolicy {
 
 
@@ -82,7 +82,7 @@ public class Policies extends FragmentPrimary implements
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         if (action.equals(StaticValues.ML_GetAllPolicy)) {
             SetAdapterPolicies();

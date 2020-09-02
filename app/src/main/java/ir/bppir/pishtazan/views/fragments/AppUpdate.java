@@ -15,22 +15,19 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 
 import java.io.File;
 
 import butterknife.BindView;
-import ir.bppir.pishtazan.BuildConfig;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitApis;
 import ir.bppir.pishtazan.databinding.FragmentUpdateBinding;
-import ir.bppir.pishtazan.utility.DownloadTask;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Update;
 
 public class AppUpdate extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable,
+        FragmentPrimary.MessageFromObservable,
         VM_Update.ProgressDownload{
 
 
@@ -126,7 +123,7 @@ public class AppUpdate extends FragmentPrimary implements
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ getMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ getMessageFromObservable
 
         if (action.equals(StaticValues.ML_Success)) {
             if (getContext() != null)

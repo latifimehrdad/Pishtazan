@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -48,7 +49,7 @@ import static ir.bppir.pishtazan.daggers.retrofit.RetrofitApis.Host;
 import static ir.bppir.pishtazan.utility.StaticFunctions.TextChangeForChangeBack;
 
 public class EditPerson extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable {
+        FragmentPrimary.MessageFromObservable {
 
     private NavController navController;
     private Byte panelType;
@@ -110,6 +111,12 @@ public class EditPerson extends FragmentPrimary implements
     @BindView(R.id.TextViewChooseBirthDay)
     TextView TextViewChooseBirthDay;
 
+    @BindView(R.id.scrollView)
+    ScrollView scrollView;
+
+    @BindView(R.id.GifViewLoading)
+    GifView GifViewLoading;
+
 
     //______________________________________________________________________________________________ onCreateView
     @Nullable
@@ -147,6 +154,9 @@ public class EditPerson extends FragmentPrimary implements
 
     //______________________________________________________________________________________________ getPersonInfo
     private void getPersonInfo() {
+        scrollView.setVisibility(View.GONE);
+        GifViewLoading.setVisibility(View.VISIBLE);
+
         Integer panel = getArguments().getInt(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
         panelType = panel.byteValue();
         personId = getArguments().getInt(getContext().getString(R.string.ML_personId), 0);
@@ -184,11 +194,12 @@ public class EditPerson extends FragmentPrimary implements
 
     //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void GetMessageFromObservable(Byte action) {
+    public void getMessageFromObservable(Byte action) {
 
         if (progress != null)
             progress.dismiss();
         progress = null;
+        GifViewLoading.setVisibility(View.GONE);
 
         finishLoadingSend();
         if (action == StaticValues.ML_EditSuccess) {
@@ -209,6 +220,7 @@ public class EditPerson extends FragmentPrimary implements
         }
 
         if (action.equals(StaticValues.ML_GetPerson)) {
+            scrollView.setVisibility(View.VISIBLE);
             EditTextName.setText(vm_editPerson.getPerson().getFullName());
             EditTextMobileNumber.setText(vm_editPerson.getPerson().getMobileNumber());
             EditTextPhoneNumber.setText(vm_editPerson.getPerson().getPhoneNumber());
@@ -380,6 +392,8 @@ public class EditPerson extends FragmentPrimary implements
         boolean name = true;
         boolean mobile = true;
         boolean birthday = true;
+        boolean phoneNumber = true;
+        boolean national = true;
 
 
         if (EditTextMobileNumber.getText().length() != 11) {
@@ -397,6 +411,23 @@ public class EditPerson extends FragmentPrimary implements
             }
         }
 
+
+        if (EditTextPhoneNumber.getText().length() > 0)
+            if (EditTextPhoneNumber.getText().length() < 8) {
+                EditTextPhoneNumber.setBackgroundResource(R.drawable.dw_edit_empty_background);
+                EditTextPhoneNumber.setError(getResources().getString(R.string.EmptyPhoneNumber));
+                EditTextPhoneNumber.requestFocus();
+                phoneNumber = false;
+            }
+
+        if (EditTextNationalCode.getText().length() > 0)
+            if (EditTextNationalCode.getText().length() < 10) {
+                EditTextNationalCode.setBackgroundResource(R.drawable.dw_edit_empty_background);
+                EditTextNationalCode.setError(getResources().getString(R.string.EmptyNational));
+                EditTextNationalCode.requestFocus();
+                national = false;
+            }
+
         if (EditTextName.getText().length() == 0) {
             EditTextName.setBackgroundResource(R.drawable.dw_edit_empty_background);
             EditTextName.setError(getResources().getString(R.string.EmptyContactName));
@@ -410,7 +441,7 @@ public class EditPerson extends FragmentPrimary implements
         }*/
 
         if (Degree == -1) {
-            ShowMessage(
+            showMessage(
                     getContext().getResources().getString(R.string.ChoosePersonDegree),
                     getResources().getColor(R.color.ML_Dialog),
                     getResources().getDrawable(R.drawable.ic_baseline_warning),
@@ -418,7 +449,7 @@ public class EditPerson extends FragmentPrimary implements
         }
 
 
-        if (mobile && name)
+        if (mobile && name && phoneNumber && national)
             return true;
         else
             return false;

@@ -19,14 +19,13 @@ import com.cunoraz.gifview.library.GifView;
 
 import butterknife.BindView;
 import ir.bppir.pishtazan.R;
-import ir.bppir.pishtazan.databinding.FragmentTutorialBinding;
 import ir.bppir.pishtazan.databinding.FragmentTutorialMovieBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_TutorialMovie;
 import ir.bppir.pishtazan.views.adapters.AP_Movie;
 
 public class TutorialMovie extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable,
+        FragmentPrimary.MessageFromObservable,
         AP_Movie.ClickItemTutorialMovie {
 
     private VM_TutorialMovie vm_tutorialMovie;
@@ -118,7 +117,7 @@ public class TutorialMovie extends FragmentPrimary implements
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         GifViewLoading.setVisibility(View.GONE);
         if (action.equals(StaticValues.ML_GetTutorialMovie)) {

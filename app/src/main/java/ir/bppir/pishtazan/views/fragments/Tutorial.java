@@ -23,7 +23,7 @@ import ir.bppir.pishtazan.viewmodels.fragments.VM_Tutorial;
 import ir.bppir.pishtazan.views.adapters.AP_Tutorial;
 
 public class Tutorial extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable,
+        FragmentPrimary.MessageFromObservable,
         AP_Tutorial.ClickItemTutorial {
 
     private VM_Tutorial vm_tutorial;
@@ -77,7 +77,7 @@ public class Tutorial extends FragmentPrimary implements
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         GifViewLoading.setVisibility(View.GONE);
         if (action.equals(StaticValues.ML_GetTutorial)) {

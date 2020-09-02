@@ -26,7 +26,7 @@ import ir.bppir.pishtazan.viewmodels.fragments.VM_SignUp;
 
 import static ir.bppir.pishtazan.utility.StaticFunctions.TextChangeForChangeBack;
 
-public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class SignUp extends FragmentPrimary implements FragmentPrimary.MessageFromObservable {
 
     private NavController navController;
     private VM_SignUp vm_signUp;
@@ -91,7 +91,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         if (action == StaticValues.ML_GotoVerify) {
             DismissLoading();
@@ -120,7 +120,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
             public void onClick(View v) {
                 StaticFunctions.hideKeyboard(getActivity());
                 if (!StaticFunctions.isInternetConnected(getContext())) {
-                    ShowMessage(
+                    showMessage(
                             getResources().getString(R.string.InternetNotAvailable),
                             getResources().getColor(R.color.ML_Dialog),
                             getResources().getDrawable(R.drawable.ic_baseline_warning),

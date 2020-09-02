@@ -27,7 +27,7 @@ import ir.bppir.pishtazan.viewmodels.fragments.VM_ExamResult;
 import ir.bppir.pishtazan.views.adapters.AP_ExamResult;
 
 public class ExamResults extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable,
+        FragmentPrimary.MessageFromObservable,
         AP_ExamResult.ClickItemResult {
 
     private VM_ExamResult vm_examResult;
@@ -86,7 +86,7 @@ public class ExamResults extends FragmentPrimary implements
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         GifViewLoading.setVisibility(View.GONE);
         if (action.equals(StaticValues.ML_GetExam)) {

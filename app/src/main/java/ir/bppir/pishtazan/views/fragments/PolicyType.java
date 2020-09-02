@@ -28,7 +28,7 @@ import ir.bppir.pishtazan.views.dialogs.searchspinner.MLSpinnerDialog;
 import static ir.bppir.pishtazan.utility.StaticFunctions.TextChangeForChangeBack;
 
 public class PolicyType extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable {
+        FragmentPrimary.MessageFromObservable {
 
     //    private NavController navController;
     private VM_PolicyType vm_policyType;
@@ -157,7 +157,7 @@ public class PolicyType extends FragmentPrimary implements
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         DismissLoading();
 

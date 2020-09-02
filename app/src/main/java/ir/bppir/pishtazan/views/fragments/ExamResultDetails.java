@@ -16,12 +16,11 @@ import com.cunoraz.gifview.library.GifView;
 import butterknife.BindView;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.FragmentExamResultDetailsBinding;
-import ir.bppir.pishtazan.databinding.FragmentExamResultsBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_ExamResultDetail;
 import ir.bppir.pishtazan.views.adapters.AP_ExamResultDetail;
 
-public class ExamResultDetails extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class ExamResultDetails extends FragmentPrimary implements FragmentPrimary.MessageFromObservable {
 
     private VM_ExamResultDetail vm_examResultDetail;
     private Integer examResultId;
@@ -65,7 +64,7 @@ public class ExamResultDetails extends FragmentPrimary implements FragmentPrimar
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         GifViewLoading.setVisibility(View.GONE);
         if (action.equals(StaticValues.ML_GetExamResultDetail)) {

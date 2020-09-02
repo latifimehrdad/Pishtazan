@@ -14,16 +14,19 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -63,30 +66,45 @@ public class MainActivity extends AppCompatActivity {
     private DisposableObserver<Byte> disposableObserver;
     public static String ImageUrl;
     public static Integer startFromNotify = -1;
+    public static MainActivity mainActivity;
 
     @BindView(R.id.ImageViewMenu)
     ImageView ImageViewMenu;
 
+    @BindView(R.id.relativeLayoutToast)
+    RelativeLayout relativeLayoutToast;
 
+    @BindView(R.id.textViewToast)
+    TextView textViewToast;
+
+    @BindView(R.id.imageViewToast)
+    ImageView imageViewToast;
+
+
+    //______________________________________________________________________________________________ onCreate
     @Override
-    protected void onCreate(Bundle savedInstanceState) {//__________________________________________ onCreate
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startFromNotify = getIntent().getIntExtra(getResources().getString(R.string.ML_personId),  -1);
+        startFromNotify = getIntent().getIntExtra(getResources().getString(R.string.ML_personId), -1);
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         vm_main = new VM_Main(this);
         binding.setMain(vm_main);
         ButterKnife.bind(this);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         mainPublish = PublishSubject.create();
-        SetPermission();
+        setPermission();
         if (disposableObserver != null)
             disposableObserver.dispose();
         disposableObserver = null;
-        SetObserverToObservable();
-    }//_____________________________________________________________________________________________ onCreate
+        setObserverToObservable();
+        relativeLayoutToast.setVisibility(View.GONE);
+        MainActivity.mainActivity = this;
+    }
+    //______________________________________________________________________________________________ onCreate
 
 
-    public void SetObserverToObservable() {//_______________________________________________________ SetObserverToObservable
+    //______________________________________________________________________________________________ setObserverToObservable
+    public void setObserverToObservable() {
 
         disposableObserver = new DisposableObserver<Byte>() {
             @Override
@@ -110,23 +128,22 @@ public class MainActivity extends AppCompatActivity {
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(disposableObserver);
 
-    }//_____________________________________________________________________________________________ SetObserverToObservable
+    }
+    //______________________________________________________________________________________________ setObserverToObservable
 
 
-    private void actionHandler(Byte action) {//_____________________________________________________ actionHandler
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                if (action.equals(StaticValues.ML_PictureDialog))
-                    openDialogTakePhotos(MainActivity.this);
-
-            }
+    //______________________________________________________________________________________________ actionHandler
+    private void actionHandler(Byte action) {
+        runOnUiThread(() -> {
+            if (action.equals(StaticValues.ML_PictureDialog))
+                openDialogTakePhotos(MainActivity.this);
         });
-    }//_____________________________________________________________________________________________ actionHandler
+    }
+    //______________________________________________________________________________________________ actionHandler
 
 
-    public void SetPermission() {//_________________________________________________________________ Start SetPermission
+    //______________________________________________________________________________________________ setPermission
+    public void setPermission() {
 
         int permissionLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
         int permissionPhone = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
@@ -157,15 +174,19 @@ public class MainActivity extends AppCompatActivity {
                     0);
         }
 
-    }//_____________________________________________________________________________________________ End SetPermission
+    }
+    //______________________________________________________________________________________________ setPermission
 
 
-    public void attachBaseContext(Context newBase) {//______________________________________________ Start attachBaseContext
+    //______________________________________________________________________________________________ attachBaseContext
+    public void attachBaseContext(Context newBase) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
-    }//_____________________________________________________________________________________________ End attachBaseContext
+    }
+    //______________________________________________________________________________________________ attachBaseContext
 
 
-    private void WhiteList() {//_____________________________________________________________________ WhiteList
+    //______________________________________________________________________________________________ whiteList
+    private void whiteList() {
         PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
         boolean isIgnoringBatteryOptimizations = false;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
@@ -178,14 +199,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-    }//_____________________________________________________________________________________________ WhiteList
+    }
+    //______________________________________________________________________________________________ whiteList
 
 
+    //______________________________________________________________________________________________ onRequestPermissionsResult
     @Override
     public void onRequestPermissionsResult(
             int requestCode,
             String permissions[],
-            int[] grantResults) {//_________________________________________________________________ Start onRequestPermissionsResult
+            int[] grantResults) {
         switch (requestCode) {
             case 0: {
 /*                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
@@ -208,10 +231,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-    }//_____________________________________________________________________________________________ End onRequestPermissionsResult
+    }
+    //______________________________________________________________________________________________ onRequestPermissionsResult
 
 
-    public void openDialogTakePhotos(Activity activity) {//__________________________________ Start openDialogTakePhotos
+    //______________________________________________________________________________________________ openDialogTakePhotos
+    public void openDialogTakePhotos(Activity activity) {
 
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -266,17 +291,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
         dialog.show();
-    }//_____________________________________________________________________________________________ End openDialogTakePhotos
+    }
+    //______________________________________________________________________________________________ openDialogTakePhotos
 
 
-    private void showCamera() {//___________________________________________________________________ Strat showCamera
+    //______________________________________________________________________________________________ showCamera
+    private void showCamera() {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
         startActivityForResult(cameraIntent, REQUEST_PICK);
-    }//_____________________________________________________________________________________________ End showCamera
+    }
+    //______________________________________________________________________________________________ showCamera
 
 
-    private Uri getTempUri() {//____________________________________________________________________ Start getTempUri
+    //______________________________________________________________________________________________ getTempUri
+    private Uri getTempUri() {
         // Create an image file name
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
         String dt = sdf.format(new Date());
@@ -300,11 +329,13 @@ public class MainActivity extends AppCompatActivity {
         mCurrentPhotoPath = imageUri;
 
         return imageUri;
-    }//_____________________________________________________________________________________________ End getTempUri
+    }
+    //______________________________________________________________________________________________ getTempUri
 
 
+    //______________________________________________________________________________________________ onActivityResult
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {//_______________ Start onActivityResult
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == REQUEST_PICK) {
             Uri uri;
@@ -325,19 +356,44 @@ public class MainActivity extends AppCompatActivity {
         } else if (resultCode == UCrop.RESULT_ERROR) {
             final Throwable cropError = UCrop.getError(data);
         }
-    }//_____________________________________________________________________________________________ End onActivityResult
+    }
+    //______________________________________________________________________________________________ onActivityResult
 
 
-    private void beginCrop(Uri source) {//__________________________________________________________ Start beginCrop
-
+    //______________________________________________________________________________________________ beginCrop
+    private void beginCrop(Uri source) {
         Uri destination = Uri.fromFile(new File(getExternalCacheDir(), "cropped.jpg"));
-
         UCrop.of(source, destination)
                 .withMaxResultSize(MAX_WIDTH, MAX_HEIGHT)
                 .withAspectRatio(1, 1)
                 .start(MainActivity.this);
+    }
+    //______________________________________________________________________________________________ beginCrop
 
-    }//_____________________________________________________________________________________________ End beginCrop
+
+    //______________________________________________________________________________________________ showCustomToast
+    public void showCustomToast(String title, int color, Drawable icon, int tintColor, Context context) {
+        relativeLayoutToast.setVisibility(View.GONE);
+        textViewToast.setText(title);
+        imageViewToast.setImageDrawable(icon);
+        imageViewToast.setColorFilter(tintColor);
+        relativeLayoutToast.startAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_in_left));
+        relativeLayoutToast.setVisibility(View.VISIBLE);
+        int delay = 1000;
+        int titleLength = title.length();
+        if (titleLength > 10)
+            titleLength = titleLength / 10;
+
+        delay = 1000 * titleLength;
+        delay = delay + 500;
+
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            relativeLayoutToast.startAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_out_left));
+            relativeLayoutToast.setVisibility(View.GONE);
+        },delay);
+    }
+    //______________________________________________________________________________________________ showCustomToast
 
 
 }

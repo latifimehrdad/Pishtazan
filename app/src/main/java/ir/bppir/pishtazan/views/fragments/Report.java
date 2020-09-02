@@ -32,7 +32,6 @@ import io.reactivex.schedulers.Schedulers;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.daggers.datepicker.PersianPickerModule;
 import ir.bppir.pishtazan.databinding.FragmentReportBinding;
-import ir.bppir.pishtazan.databinding.FragmentSplashBinding;
 import ir.bppir.pishtazan.models.MD_Report;
 import ir.bppir.pishtazan.models.MD_SpinnerItem;
 import ir.bppir.pishtazan.utility.StaticValues;
@@ -43,7 +42,7 @@ import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
-public class Report extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class Report extends FragmentPrimary implements FragmentPrimary.MessageFromObservable {
 
 
     private VM_Report vm_report;
@@ -194,7 +193,7 @@ public class Report extends FragmentPrimary implements FragmentPrimary.GetMessag
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         GifViewLoading.setVisibility(View.GONE);
         GifViewReport.setVisibility(View.GONE);

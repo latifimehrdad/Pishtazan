@@ -38,7 +38,7 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_ExamReport;
 import ir.bppir.pishtazan.views.adapters.AP_LearnReport;
 
-public class ExamReport extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable,
+public class ExamReport extends FragmentPrimary implements FragmentPrimary.MessageFromObservable,
         AP_LearnReport.ClickItemDetail {
 
 
@@ -171,7 +171,7 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.GetMe
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         GifViewLoading.setVisibility(View.GONE);
         GifViewReport.setVisibility(View.GONE);

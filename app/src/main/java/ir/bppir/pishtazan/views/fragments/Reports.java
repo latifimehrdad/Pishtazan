@@ -17,7 +17,7 @@ import ir.bppir.pishtazan.databinding.FragmentReportsBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Reports;
 
-public class Reports extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class Reports extends FragmentPrimary implements FragmentPrimary.MessageFromObservable {
 
 
     private VM_Reports vm_reports;
@@ -71,7 +71,7 @@ public class Reports extends FragmentPrimary implements FragmentPrimary.GetMessa
 
     //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void GetMessageFromObservable(Byte action) {
+    public void getMessageFromObservable(Byte action) {
 
     }
     //______________________________________________________________________________________________ getMessageFromObservable

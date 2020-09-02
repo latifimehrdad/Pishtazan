@@ -23,7 +23,7 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Post;
 import ir.bppir.pishtazan.views.adapters.AP_Post;
 
-public class Post extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable,
+public class Post extends FragmentPrimary implements FragmentPrimary.MessageFromObservable,
         AP_Post.ClickItemTutorial {
 
 
@@ -128,7 +128,7 @@ public class Post extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
     //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void GetMessageFromObservable(Byte action) {
+    public void getMessageFromObservable(Byte action) {
 
         GifViewLoading.setVisibility(View.GONE);
         ImageViewNew.setVisibility(View.VISIBLE);

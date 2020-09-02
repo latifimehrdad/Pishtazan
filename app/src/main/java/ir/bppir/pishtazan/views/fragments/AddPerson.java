@@ -44,17 +44,17 @@ import ir.bppir.pishtazan.views.adapters.AP_Contact;
 
 import static ir.bppir.pishtazan.utility.StaticFunctions.TextChangeForChangeBack;
 
-public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class AddPerson extends FragmentPrimary implements FragmentPrimary.MessageFromObservable {
 
     private NavController navController;
     private int panelType;
     private VM_AddPerson vm_addPerson;
     private Dialog dialogContact;
-    private AP_Contact AP_contact;
+    private AP_Contact ap_contact;
     private CompositeDisposable disposable = new CompositeDisposable();
     private List<MD_Contact> md_contacts;
-    private RecyclerView RecyclerViewContact;
-    private Byte Degree = -1;
+    private RecyclerView recyclerViewContact;
+    private Byte degree = -1;
 
 
     @BindView(R.id.RelativeLayoutAdd)
@@ -99,17 +99,19 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
     @BindView(R.id.LinearLayoutGiant)
     LinearLayout LinearLayoutGiant;
 
-    public AddPerson() {//__________________________________________________________________________ AddPerson
+    //______________________________________________________________________________________________ AddPerson
+    public AddPerson() {
+    }
+    //______________________________________________________________________________________________ AddPerson
 
-    }//_____________________________________________________________________________________________ AddPerson
 
-
+    //______________________________________________________________________________________________ onCreateView
     @Nullable
     @Override
     public View onCreateView(
             LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+            Bundle savedInstanceState) {
         if (getView() == null) {
             vm_addPerson = new VM_AddPerson(getActivity());
             FragmentAddPersonBinding binding = DataBindingUtil.inflate(
@@ -117,21 +119,25 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
             binding.setAddPerson(vm_addPerson);
             setView(binding.getRoot());
             ButterKnife.bind(this, getView());
-            SetTextWatcher();
-            SetClick();
+            setTextWatcher();
+            setClick();
         }
         return getView();
-    }//_____________________________________________________________________________________________ onCreateView
+    }
+    //______________________________________________________________________________________________ onCreateView
 
 
+    //______________________________________________________________________________________________ onStart
     @Override
-    public void onStart() {//_______________________________________________________________________ onStart
+    public void onStart() {
         super.onStart();
         init();
-    }//_____________________________________________________________________________________________ onStart
+    }
+    //______________________________________________________________________________________________ onStart
 
 
-    private void init() {//_________________________________________________________________________ init
+    //______________________________________________________________________________________________ init
+    private void init() {
         navController = Navigation.findNavController(getView());
         setGetMessageFromObservable(
                 AddPerson.this,
@@ -144,18 +150,20 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
 
         }
 
-    }//_____________________________________________________________________________________________ init
+    }
+    //______________________________________________________________________________________________ init
 
 
+    //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {
 
-        FinishLoadingSend();
-        FinishWaiting();
+        finishLoadingSend();
+        finishWaiting();
 
         if (action == StaticValues.ML_AddPerson) {
-            ShowContactDialog();
-            Degree = -1;
+//            showContactDialog();
+            degree = -1;
             EditTextName.getText().clear();
             EditTextPhoneNumber.getText().clear();
             EditTextName.requestFocus();
@@ -167,13 +175,13 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
 
         if (action == StaticValues.ML_GetContact) {
             md_contacts = vm_addPerson.getMd_contacts();
-            if (AP_contact == null) {
-                ShowContactDialog();
+            if (ap_contact == null) {
+                showContactDialog();
             } else {
                 if (dialogContact == null || !dialogContact.isShowing())
-                    ShowContactDialog();
+                    showContactDialog();
                 else {
-                    SetContactAdapter();
+                    setContactAdapter();
                 }
             }
             return;
@@ -181,21 +189,23 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
 
         if (action == StaticValues.ML_GetContactFilter) {
             md_contacts = vm_addPerson.getMd_contactsFilter();
-            SetContactAdapter();
+            setContactAdapter();
             return;
         }
 
 
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
+    }
+    //______________________________________________________________________________________________ getMessageFromObservable
 
 
-    private void SetClick() {//_____________________________________________________________________ SetClick
+    //______________________________________________________________________________________________ setClick
+    private void setClick() {
 
         RelativeLayoutAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 hideKeyboard();
-                ShowWaiting();
+                showWaiting();
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -223,13 +233,13 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
                 phone = phone.replaceAll(" ", "");
                 phone = phone.replaceAll("-", "");
                 EditTextPhoneNumber.setText(phone);
-                if (CheckEmpty()) {
+                if (checkEmpty()) {
                     StaticFunctions.hideKeyboard(getActivity());
-                    ShowLoadingSend();
+                    showLoadingSend();
                     vm_addPerson.addPerson(
                             EditTextName.getText().toString(),
                             EditTextPhoneNumber.getText().toString(),
-                            Degree,
+                            degree,
                             panelType
                     );
                 }
@@ -243,7 +253,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
                 LinearLayoutPeach.setBackground(null);
                 LinearLayoutGiant.setBackground(null);
                 LinearLayoutNormal.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
-                Degree = StaticValues.DegreeNormal;
+                degree = StaticValues.DegreeNormal;
             }
         });
 
@@ -254,7 +264,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
                 LinearLayoutNormal.setBackground(null);
                 LinearLayoutGiant.setBackground(null);
                 LinearLayoutPeach.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
-                Degree = StaticValues.DegreePeach;
+                degree = StaticValues.DegreePeach;
             }
         });
 
@@ -265,56 +275,62 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
                 LinearLayoutNormal.setBackground(null);
                 LinearLayoutPeach.setBackground(null);
                 LinearLayoutGiant.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
-                Degree = StaticValues.DegreeGiant;
+                degree = StaticValues.DegreeGiant;
             }
         });
 
-    }//_____________________________________________________________________________________________ SetClick
+    }
+    //______________________________________________________________________________________________ setClick
 
 
-    private void SetTextWatcher() {//_______________________________________________________________ Start SetTextWatcher
+    //______________________________________________________________________________________________ setTextWatcher
+    private void setTextWatcher() {
         EditTextPhoneNumber.addTextChangedListener(TextChangeForChangeBack(EditTextPhoneNumber));
         EditTextName.addTextChangedListener(TextChangeForChangeBack(EditTextName));
-    }//_____________________________________________________________________________________________ End SetTextWatcher
+    }
+    //______________________________________________________________________________________________ setTextWatcher
 
 
-    private void ShowLoadingSend() {//______________________________________________________________ ShowLoadingSend
+    //______________________________________________________________________________________________ showLoadingSend
+    private void showLoadingSend() {
         ImageViewSend.setVisibility(View.GONE);
         GifViewSend.setVisibility(View.VISIBLE);
         TextViewSend.setText(getContext().getResources().getString(R.string.PleaseWait));
+    }
+    //______________________________________________________________________________________________ showLoadingSend
 
-    }//_____________________________________________________________________________________________ ShowLoadingSend
 
-
-    private void FinishLoadingSend() {//____________________________________________________________ ShowLoadingSend
-
+    //______________________________________________________________________________________________ finishLoadingSend
+    private void finishLoadingSend() {
         ImageViewSend.setVisibility(View.VISIBLE);
         GifViewSend.setVisibility(View.GONE);
         TextViewSend.setText(getContext().getResources().getString(R.string.Save));
+    }
+    //______________________________________________________________________________________________ finishLoadingSend
 
-    }//_____________________________________________________________________________________________ ShowLoadingSend
 
-
-    private void ShowWaiting() {//__________________________________________________________________ ShowWaiting
-
+    //______________________________________________________________________________________________ showWaiting
+    private void showWaiting() {
         GifViewAdd.setVisibility(View.VISIBLE);
         ImageViewAdd.setVisibility(View.GONE);
         TextViewAdd.setText(getContext().getString(R.string.PleaseWait));
         RelativeLayoutAdd.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_bottom_connection));
-    }//_____________________________________________________________________________________________ ShowWaiting
+    }
+    //______________________________________________________________________________________________ showWaiting
 
 
-    private void FinishWaiting() {//________________________________________________________________ FinishWaiting
-
+    //______________________________________________________________________________________________ finishWaiting
+    private void finishWaiting() {
         GifViewAdd.setVisibility(View.GONE);
         ImageViewAdd.setVisibility(View.VISIBLE);
         TextViewAdd.setText(getContext().getString(R.string.AddFromContact));
         RelativeLayoutAdd.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_bottom));
-    }//_____________________________________________________________________________________________ FinishWaiting
+    }
+    //______________________________________________________________________________________________ finishWaiting
 
 
-    private void ShowContactDialog() {//____________________________________________________________ ShowContactDialog
-
+    //______________________________________________________________________________________________ showContactDialog
+    private void showContactDialog() {
         if (md_contacts == null)
             return;
 
@@ -332,11 +348,11 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         window.setAttributes(lp);
 
-        RecyclerViewContact = (RecyclerView)
+        recyclerViewContact = (RecyclerView)
                 dialogContact.findViewById(R.id.RecyclerViewContact);
 
         md_contacts = vm_addPerson.getMd_contacts();
-        SetContactAdapter();
+        setContactAdapter();
 
         LinearLayout LinearLayoutCancel = (LinearLayout)
                 dialogContact.findViewById(R.id.LinearLayoutCancel);
@@ -358,10 +374,12 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
                 .subscribeWith(searchContactsTextWatcher()));
 
         dialogContact.show();
-    }//_____________________________________________________________________________________________ ShowContactDialog
+    }
+    //______________________________________________________________________________________________ showContactDialog
 
 
-    private DisposableObserver<TextViewTextChangeEvent> searchContactsTextWatcher() {//_____________ searchContactsTextWatcher
+    //______________________________________________________________________________________________ searchContactsTextWatcher
+    private DisposableObserver<TextViewTextChangeEvent> searchContactsTextWatcher() {
         return new DisposableObserver<TextViewTextChangeEvent>() {
             @Override
             public void onNext(TextViewTextChangeEvent textViewTextChangeEvent) {
@@ -379,37 +397,42 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
 
             }
         };
-    }//_____________________________________________________________________________________________ searchContactsTextWatcher
+    }
+    //______________________________________________________________________________________________ searchContactsTextWatcher
 
 
-    private void SetContactAdapter() {//____________________________________________________________ SetContactAdapter
-        AP_contact = new AP_Contact(md_contacts, getContext(), AddPerson.this);
-        RecyclerViewContact.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        RecyclerViewContact.setAdapter(AP_contact);
-    }//_____________________________________________________________________________________________ SetContactAdapter
+    //______________________________________________________________________________________________ setContactAdapter
+    private void setContactAdapter() {
+        ap_contact = new AP_Contact(md_contacts, getContext(), AddPerson.this);
+        recyclerViewContact.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        recyclerViewContact.setAdapter(ap_contact);
+    }
+    //______________________________________________________________________________________________ setContactAdapter
 
 
-    public void ClickContact(Integer position) {//__________________________________________________ SetContactAdapter
+    //______________________________________________________________________________________________ clickContact
+    public void clickContact(Integer position) {
         dialogContact.dismiss();
         dialogContact = null;
-        AP_contact = null;
+        ap_contact = null;
         StaticFunctions.hideKeyboard(getActivity());
         String phone = md_contacts.get(position).getPhone();
         phone = phone.replaceAll(" ", "");
         phone = phone.replaceAll("-", "");
         EditTextPhoneNumber.setText(phone);
         EditTextName.setText(md_contacts.get(position).getName());
+    }
+    //______________________________________________________________________________________________ clickContact
 
-    }//_____________________________________________________________________________________________ SetContactAdapter
 
-
-    private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
+    //______________________________________________________________________________________________ checkEmpty
+    private Boolean checkEmpty() {
 
         boolean name = true;
         boolean mobile = true;
 
-        if (Degree == -1) {
-            ShowMessage(
+        if (degree == -1) {
+            showMessage(
                     getContext().getResources().getString(R.string.ChoosePersonDegree),
                     getResources().getColor(R.color.ML_Dialog),
                     getResources().getDrawable(R.drawable.ic_baseline_warning),
@@ -436,8 +459,8 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.GetMes
         else
             return false;
 
-    }//_____________________________________________________________________________________________ CheckEmpty
-
+    }
+    //______________________________________________________________________________________________ checkEmpty
 
 
 }

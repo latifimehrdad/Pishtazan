@@ -23,10 +23,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.FragmentMapBinding;
-import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Map;
 
-public class Map extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable,
+public class Map extends FragmentPrimary implements FragmentPrimary.MessageFromObservable,
         OnMapReadyCallback {
 
     private VM_Map vm_map;
@@ -77,7 +76,7 @@ public class Map extends FragmentPrimary implements FragmentPrimary.GetMessageFr
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
 //        if (action.equals(StaticValues.ML_AddressFromMap)){
             getContext().onBackPressed();

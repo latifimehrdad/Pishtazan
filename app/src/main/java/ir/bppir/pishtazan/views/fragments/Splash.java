@@ -20,7 +20,7 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Splash;
 import ir.bppir.pishtazan.views.activity.MainActivity;
 
-public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class Splash extends FragmentPrimary implements FragmentPrimary.MessageFromObservable {
 
 
     private VM_Splash vm_splash;
@@ -71,7 +71,7 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         if (action == StaticValues.ML_GotoSignUp) {
             navController.navigate(R.id.action_splash_to_signUp);

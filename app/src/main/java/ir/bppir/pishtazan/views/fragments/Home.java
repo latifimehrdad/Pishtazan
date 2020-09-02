@@ -24,7 +24,7 @@ import ir.bppir.pishtazan.databinding.FragmentHomeBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Home;
 
-public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class Home extends FragmentPrimary implements FragmentPrimary.MessageFromObservable {
 
     private NavController navController;
     private VM_Home vm_home;
@@ -107,7 +107,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 

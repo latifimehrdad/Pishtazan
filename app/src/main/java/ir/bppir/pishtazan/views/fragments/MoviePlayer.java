@@ -21,10 +21,9 @@ import butterknife.BindView;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitApis;
 import ir.bppir.pishtazan.databinding.FragmentMoviePlayerBinding;
-import ir.bppir.pishtazan.databinding.FragmentQuizBinding;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_MoviePlayer;
 
-public class MoviePlayer extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class MoviePlayer extends FragmentPrimary implements FragmentPrimary.MessageFromObservable {
 
 
     private VM_MoviePlayer vm_moviePlayer;
@@ -76,7 +75,7 @@ public class MoviePlayer extends FragmentPrimary implements FragmentPrimary.GetM
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 

@@ -12,7 +12,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -20,6 +21,7 @@
             android:layout_weight="1"/>
 
         <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
@@ -31,10 +33,9 @@
                 android:orientation="vertical"
                 android:gravity="center_horizontal">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_marginTop="@dimen/_10sdp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -42,10 +43,26 @@
                         android:layout_width="@dimen/_70sdp"
                         android:layout_height="@dimen/_70sdp"
                         app:civ_border_width="@dimen/_3sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
                         app:civ_border_color="@color/colorAccent"
                         android:src="@drawable/ic_baseline_account_circle"/>
 
-                </LinearLayout>
+                    <TextView
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/ML_White"
+                        android:textSize="@dimen/_9sdp"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/ChangePicture"
+                        android:gravity="center"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/colorAccent"
+                        android:padding="@dimen/_2sdp"
+                        />
+
+
+                </RelativeLayout>
 
 
                 <LinearLayout
@@ -139,7 +156,7 @@
                         android:layout_width="@dimen/_25sdp"
                         android:layout_height="match_parent"
                         android:background="@drawable/dw_icon_background"
-                        android:src="@drawable/ic_baseline_phone_android"
+                        android:src="@drawable/svg_phone"
                         android:tint="@color/ML_Harmony" />
 
                 </LinearLayout>
@@ -164,7 +181,8 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/_12sdp"
                         android:hint="@string/NationalCode"
-                        android:maxLength="11"
+                        android:maxLength="10"
+
                         />
 
                     <ImageView
@@ -373,6 +391,16 @@
             </LinearLayout>
 
         </ScrollView>
+
+        <com.cunoraz.gifview.library.GifView
+            android:id="@+id/GifViewLoading"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:background="@drawable/dw_choose_current_map"
+            android:visibility="gone"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:padding="@dimen/_5sdp"
+            custom:gif="@drawable/loading3" />
 
         <LinearLayout
             android:layout_width="0dp"

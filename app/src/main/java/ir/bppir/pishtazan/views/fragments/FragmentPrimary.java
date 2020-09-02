@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 
 import butterknife.ButterKnife;
@@ -17,7 +16,7 @@ import io.reactivex.subjects.PublishSubject;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
-import ir.bppir.pishtazan.views.dialogs.DialogMessage;
+import ir.bppir.pishtazan.views.activity.MainActivity;
 
 
 public class FragmentPrimary extends Fragment {
@@ -25,80 +24,98 @@ public class FragmentPrimary extends Fragment {
     private DisposableObserver<Byte> disposableObserver;
     private Activity context;
     private View view;
-    private GetMessageFromObservable getMessageFromObservable;
+    private MessageFromObservable MessageFromObservable;
     private VM_Primary vm_primary;
 
 
-    public interface GetMessageFromObservable {//___________________________________________________ GetMessageFromObservable
-        void GetMessageFromObservable(Byte action);
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
+    //______________________________________________________________________________________________ getMessageFromObservable
+    public interface MessageFromObservable {
+        void getMessageFromObservable(Byte action);
+    }
+    //______________________________________________________________________________________________ getMessageFromObservable
 
 
-    public FragmentPrimary() {//____________________________________________________________________ FragmentPrimary
+    //______________________________________________________________________________________________ FragmentPrimary
+    public FragmentPrimary() {
+    }
+    //______________________________________________________________________________________________ FragmentPrimary
 
-    }//_____________________________________________________________________________________________ FragmentPrimary
 
-
-
+    //______________________________________________________________________________________________ onCreate
     @Override
-    public void onCreate(Bundle savedInstanceState) {//_____________________________________________ onCreate
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
+    }
+    //______________________________________________________________________________________________ onCreate
 
-    }//_____________________________________________________________________________________________ onCreate
 
-
+    //______________________________________________________________________________________________ onDestroy
     @Override
-    public void onDestroy() {//_____________________________________________________________________ onDestroy
+    public void onDestroy() {
         super.onDestroy();
         StaticValues.isCancel = true;
         if (disposableObserver != null)
             disposableObserver.dispose();
         disposableObserver = null;
-    }//_____________________________________________________________________________________________ onDestroy
+    }
+    //______________________________________________________________________________________________ onDestroy
 
 
+    //______________________________________________________________________________________________ onStop
     @Override
-    public void onStop() {//________________________________________________________________________ onStop
+    public void onStop() {
         super.onStop();
         if (disposableObserver != null)
             disposableObserver.dispose();
         disposableObserver = null;
-    }//_____________________________________________________________________________________________ onStop
+    }
+    //______________________________________________________________________________________________ onStop
 
 
+    //______________________________________________________________________________________________ getContext
     @Override
-    public Activity getContext() {//________________________________________________________________ getContext
+    public Activity getContext() {
         return context;
-    }//_____________________________________________________________________________________________ getContext
+    }
+    //______________________________________________________________________________________________ getContext
 
 
+    //______________________________________________________________________________________________ getView
     @Override
-    public View getView() {//_______________________________________________________________________ getView
+    public View getView() {
         return view;
-    }//_____________________________________________________________________________________________ getView
+    }
+    //______________________________________________________________________________________________ getView
 
 
-    public void setView(View view) {//______________________________________________________________ setView
+    //______________________________________________________________________________________________ setView
+    public void setView(View view) {
         this.view = view;
         ButterKnife.bind(this, getView());
-    }//_____________________________________________________________________________________________ setView
+    }
+    //______________________________________________________________________________________________ setView
 
 
+
+    //______________________________________________________________________________________________ setGetMessageFromObservable
     public void setGetMessageFromObservable(
-            GetMessageFromObservable getMessageFromObservable,
+            MessageFromObservable MessageFromObservable,
             PublishSubject<Byte> publishSubject,
-            VM_Primary vm_primary) {//______________________________________________________________ setGetMessageFromObservable
-        this.getMessageFromObservable = getMessageFromObservable;
+            VM_Primary vm_primary) {
+        this.MessageFromObservable = MessageFromObservable;
         this.vm_primary = vm_primary;
         if (disposableObserver != null)
             disposableObserver.dispose();
         disposableObserver = null;
-        SetObserverToObservable(publishSubject);
-    }//_____________________________________________________________________________________________ setGetMessageFromObservable
+        setObserverToObservable(publishSubject);
+    }
+    //______________________________________________________________________________________________ setGetMessageFromObservable
 
 
-    public void SetObserverToObservable(PublishSubject<Byte> publishSubject) {//____________________ SetObserverToObservable
+
+    //______________________________________________________________________________________________ setObserverToObservable
+    public void setObserverToObservable(PublishSubject<Byte> publishSubject) {
 
         disposableObserver = new DisposableObserver<Byte>() {
             @Override
@@ -122,17 +139,18 @@ public class FragmentPrimary extends Fragment {
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(disposableObserver);
 
-    }//_____________________________________________________________________________________________ SetObserverToObservable
+    }
+    //______________________________________________________________________________________________ setObserverToObservable
 
 
-
-    private void actionHandler(Byte action) {//_____________________________________________________ actionHandler
+    //______________________________________________________________________________________________ actionHandler
+    private void actionHandler(Byte action) {
         getActivity()
                 .runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
-                        getMessageFromObservable.GetMessageFromObservable(action);
+                        MessageFromObservable.getMessageFromObservable(action);
 
                         if (vm_primary.getResponseMessage() == null)
                             return;
@@ -143,32 +161,34 @@ public class FragmentPrimary extends Fragment {
                         if ((action == StaticValues.ML_RequestCancel)
                                 || (action == StaticValues.ML_ResponseError)
                                 || (action == StaticValues.ML_ResponseFailure))
-                            ShowMessage(vm_primary.getResponseMessage(),
+                            showMessage(vm_primary.getResponseMessage(),
                                     getResources().getColor(R.color.ML_White),
                                     getResources().getDrawable(R.drawable.ic_baseline_warning),
                                     getResources().getColor(R.color.ML_HarmonyDark));
                         else
-                            ShowMessage(vm_primary.getResponseMessage()
+                            showMessage(vm_primary.getResponseMessage()
                                     , getResources().getColor(R.color.ML_White),
                                     getResources().getDrawable(R.drawable.ic_baseline_check_circle),
                                     getResources().getColor(R.color.ML_OK));
 
                     }
                 });
-    }//_____________________________________________________________________________________________ actionHandler
+    }
+    //______________________________________________________________________________________________ actionHandler
 
 
-
-    public void ShowMessage(String message, int color, Drawable icon, int tintColor) {//___________ ShowMessage
-
-        DialogMessage dialogMessage = new DialogMessage(getContext(), message, color, icon, tintColor);
+    //______________________________________________________________________________________________ showMessage
+    public void showMessage(String message, int color, Drawable icon, int tintColor) {
+        MainActivity.mainActivity.showCustomToast(message, color, icon, tintColor, getContext());
+/*        DialogMessage dialogMessage = new DialogMessage(getContext(), message, color, icon, tintColor);
         dialogMessage.setCancelable(false);
-        dialogMessage.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+        dialogMessage.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);*/
+    }
+    //______________________________________________________________________________________________ showMessage
 
-    }//_____________________________________________________________________________________________ ShowMessage
 
-
-    public void hideKeyboard() {//___________________________________________________________ Start hideKeyboard
+    //______________________________________________________________________________________________ hideKeyboard
+    public void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) vm_primary.getContext().getSystemService(vm_primary.getContext().INPUT_METHOD_SERVICE);
         //Find the currently focused view, so we can grab the correct window token from it.
         View view = vm_primary.getContext().getCurrentFocus();
@@ -177,6 +197,7 @@ public class FragmentPrimary extends Fragment {
             view = new View(vm_primary.getContext());
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }//_____________________________________________________________________________________________ End hideKeyboard
+    }
+    //______________________________________________________________________________________________ hideKeyboard
 
 }

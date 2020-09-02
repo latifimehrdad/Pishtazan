@@ -27,7 +27,7 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Verify;
 import ir.bppir.pishtazan.views.dialogs.DialogProgress;
 
-public class Verify extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class Verify extends FragmentPrimary implements FragmentPrimary.MessageFromObservable {
 
     private NavController navController;
     private VM_Verify vm_verify;
@@ -115,7 +115,7 @@ public class Verify extends FragmentPrimary implements FragmentPrimary.GetMessag
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         if (action == StaticValues.ML_ReTrySensSms) {
             DismissProgress();

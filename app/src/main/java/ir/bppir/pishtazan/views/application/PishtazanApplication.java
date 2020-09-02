@@ -35,6 +35,7 @@ import ir.bppir.pishtazan.daggers.imageloader.ImageLoaderModule;
 import ir.bppir.pishtazan.daggers.retrofit.DaggerRetrofitComponent;
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitModule;
+import ir.bppir.pishtazan.utility.SSLCertificateHandler;
 
 
 public class PishtazanApplication extends MultiDexApplication {
@@ -50,6 +51,7 @@ public class PishtazanApplication extends MultiDexApplication {
         super.onCreate();
         this.context = getApplicationContext();
 /*        setComponentEnabledSetting();*/
+        SSLCertificateHandler.nuke();
         ConfigurationCalligraphy();
         ConfigurationApplicationUtility();
         ConfigurationDataPicker();

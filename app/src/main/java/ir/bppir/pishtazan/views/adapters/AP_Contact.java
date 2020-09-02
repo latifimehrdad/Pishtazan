@@ -63,7 +63,7 @@ public class AP_Contact extends RecyclerView.Adapter<AP_Contact.CustomHolder> {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    addPerson.ClickContact(position);
+                    addPerson.clickContact(position);
                 }
             });
             binding.executePendingBindings();
