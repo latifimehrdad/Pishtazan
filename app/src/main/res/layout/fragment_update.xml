@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="update"
@@ -11,6 +12,23 @@
         android:layout_height="match_parent">
 
 
+        <com.yangp.ypwaveview.YPWaveView
+            android:id="@+id/yPWaveView"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            app:animatorEnable="true"
+            app:textHidden="false"
+            app:shapeType="circle"
+            app:frontColor="@color/mlWave"
+            app:behideColor="@color/mlWave2"
+            app:borderColor="@color/colorAccent"
+            app:borderWidthSize="3dp"
+            app:textColor="@color/mlWave3"
+            app:max="100"
+            app:progress="20"
+            app:strong="50" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -22,7 +40,8 @@
             android:background="@drawable/dw_half_circle_progress_back"
             android:max="100"
             android:progress="40"
-            android:progressDrawable="@drawable/dw_half_circle_progress" />
+            android:progressDrawable="@drawable/dw_half_circle_progress"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/TextViewProgress"
@@ -31,6 +50,8 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:textSize="@dimen/_9sdp"
+            android:layout_above="@id/yPWaveView"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:gravity="center"/>
 
         <ImageView
@@ -41,9 +62,8 @@
             android:tint="@color/colorAccent"
             android:layout_centerHorizontal="true"
             android:layout_above="@id/TextViewProgress"
+            android:visibility="gone"
             android:layout_marginBottom="@dimen/_5sdp"/>
-
-
 
         <Button
             android:id="@+id/ButtonInstall"

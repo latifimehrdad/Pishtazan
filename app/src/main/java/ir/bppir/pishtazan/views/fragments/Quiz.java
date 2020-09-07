@@ -100,6 +100,8 @@ public class Quiz extends FragmentPrimary implements
     @BindView(R.id.GifViewLoadingSend)
     GifView GifViewLoadingSend;
 
+    @BindView(R.id.textViewCount)
+    TextView textViewCount;
 
     @Nullable
     @Override
@@ -156,7 +158,7 @@ public class Quiz extends FragmentPrimary implements
         LinearLayoutStart.setOnClickListener(v -> {
             ImageViewLoading.setVisibility(View.GONE);
             GifViewLoadingNew.setVisibility(View.VISIBLE);
-            vm_quiz.GetQuestion(examId);
+            vm_quiz.GetQuestion(vm_quiz.getMr_exam().getExam().getId());
         });
 
 
@@ -258,6 +260,9 @@ public class Quiz extends FragmentPrimary implements
 
 
     private void SetAdapterQuestion() {//___________________________________________________________ SetAdapterQuestion
+        textViewCount.setText(
+                getContext().getResources().getString(R.string.RemainingQuestions) + " : " +
+                        (vm_quiz.getMd_questions().size() - (questionPosition + 1)));
         md_question = vm_quiz.getMd_questions().get(questionPosition);
         ap_question = new AP_Question(md_question, Quiz.this);
         RecyclerViewQuestion.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));

@@ -23,6 +23,9 @@
     <color name="ML_Green">#6ADADC</color>
     <color name="mlEditEmpty">#FFF4CC</color>
     <color name="mlWrong">#FDCFCF</color>
+    <color name="mlWave">#1A3AFF</color>
+    <color name="mlWave2">#5BB1FB</color>
+    <color name="mlWave3">#15DF89</color>
 
 
 </resources>

@@ -11,7 +11,7 @@
     <string name="Address">آدرس</string>
     <string name="InternetNotAvailable">اینترنت دستگاه خود را روشن کنید</string>
     <string name="VerifyCode">6 رقم کد فعال سازی را وارد نمایید</string>
-    <string name="ElapsedTimeGetSMS">زمان باقی مانده\n برای دریافت پیامک</string>
+    <string name="ElapsedTimeGetSMS">زمان باقیمانده\n برای دریافت پیامک</string>
     <string name="ReTryGetSMS">دریافت دوباره\n پیامک</string>
     <string name="PleaseWait">شکیبا باشید</string>
     <string name="Colleagues">همکاران</string>
@@ -127,6 +127,7 @@
     <string name="ChangePicture">تغییر عکس</string>
     <string name="EmptyPhoneNumber">شماره تلفن را کامل وارد نمایید</string>
     <string name="EmptyNational">شماره ملی را وارد نمایید</string>
+    <string name="RemainingQuestions">سوالات باقیمانده</string>
 
 
     //___________________________ Values For SharedPreference ______________________________________

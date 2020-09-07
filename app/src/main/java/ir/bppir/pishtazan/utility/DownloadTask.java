@@ -21,15 +21,16 @@ public class DownloadTask extends AsyncTask<String, Integer, String> {
     private Context context;
     private PowerManager.WakeLock mWakeLock;
     private String path;
-    private ProgressBar progressBar;
+//    private ProgressBar progressBar;
     private PublishSubject<Byte> publishSubject;
+    public static int progressDownload;
 
 
-    public DownloadTask(Context context, String path, ProgressBar progressBar, PublishSubject<Byte> publishSubject) {
+    public DownloadTask(Context context, String path, PublishSubject<Byte> publishSubject) {
         this.context = context;
         this.path = Environment.getExternalStorageDirectory() + "/pishtazan/" + path;
-        this.progressBar = progressBar;
         this.publishSubject = publishSubject;
+        progressDownload = 0;
     }
 
     @Override
@@ -100,17 +101,14 @@ public class DownloadTask extends AsyncTask<String, Integer, String> {
         mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 getClass().getName());
         mWakeLock.acquire();
-        progressBar.setProgress(0);
     }
 
 
     @Override
     protected void onProgressUpdate(Integer... progress) {
         super.onProgressUpdate(progress);
+        progressDownload = progress[0];
         // if we get here, length is known, now set indeterminate to false
-        progressBar.setIndeterminate(false);
-        progressBar.setMax(100);
-        progressBar.setProgress(progress[0]);
     }
 
 

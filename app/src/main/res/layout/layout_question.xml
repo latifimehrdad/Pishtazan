@@ -28,6 +28,7 @@
             android:progressDrawable="@drawable/dw_half_circle_progress" />
 
 
+
         <TextView
             android:id="@+id/TimeElapsed"
             android:layout_width="match_parent"
@@ -43,6 +44,15 @@
 
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textViewCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textSize="@dimen/_11sdp"
+        android:textColor="@color/ML_Black"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecyclerViewQuestion"

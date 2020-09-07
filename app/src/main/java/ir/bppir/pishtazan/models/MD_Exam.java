@@ -11,7 +11,7 @@ public class MD_Exam {
     String Title;
 
     @SerializedName("ExamTime")
-    Integer ExamTime;
+    String ExamTime;
 
     @SerializedName("QuestionsCount")
     Integer QuestionsCount;
@@ -31,7 +31,7 @@ public class MD_Exam {
 /*    @SerializedName("Questions")
     List<MD_Question> Questions;*/
 
-    public MD_Exam(Integer id, String title, Integer examTime, Integer questionsCount, Integer minimumScore, Integer maximumExamScore, Integer minimumExamRate, Integer educationId) {
+    public MD_Exam(Integer id, String title, String examTime, Integer questionsCount, Integer minimumScore, Integer maximumExamScore, Integer minimumExamRate, Integer educationId) {
         Id = id;
         Title = title;
         ExamTime = examTime;
@@ -59,10 +59,10 @@ public class MD_Exam {
     }
 
     public Integer getExamTime() {
-        return ExamTime;
+        return Integer.valueOf(ExamTime);
     }
 
-    public void setExamTime(Integer examTime) {
+    public void setExamTime(String examTime) {
         ExamTime = examTime;
     }
 

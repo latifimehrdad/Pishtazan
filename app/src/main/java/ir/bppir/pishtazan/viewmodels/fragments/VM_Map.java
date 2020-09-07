@@ -31,8 +31,7 @@ public class VM_Map extends VM_Primary {
                 .getRetrofitComponent();
 
         String url = "https://nominatim.openstreetmap.org/reverse?format=json&lat=" + lat + "&lon=" + lon + "&zoom=22&addressdetails=5";
-
-
+        
         setPrimaryCall(
                 retrofitComponent
                         .getRetrofitApiInterface()

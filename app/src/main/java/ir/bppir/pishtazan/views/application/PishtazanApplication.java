@@ -51,7 +51,7 @@ public class PishtazanApplication extends MultiDexApplication {
         super.onCreate();
         this.context = getApplicationContext();
 /*        setComponentEnabledSetting();*/
-        SSLCertificateHandler.nuke();
+//        SSLCertificateHandler.nuke();
         ConfigurationCalligraphy();
         ConfigurationApplicationUtility();
         ConfigurationDataPicker();

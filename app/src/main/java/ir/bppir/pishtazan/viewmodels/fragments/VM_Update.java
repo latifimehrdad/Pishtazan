@@ -9,6 +9,8 @@ import android.widget.ProgressBar;
 
 import androidx.core.content.FileProvider;
 
+import com.yangp.ypwaveview.YPWaveView;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -44,9 +46,9 @@ public class VM_Update extends VM_Primary {
 
 
     //______________________________________________________________________________________________ downloadFile
-    public void downloadFile(String url, String filePath, ProgressBar bar) {
+    public void downloadFile(String url, String filePath, YPWaveView bar) {
 
-        DownloadTask downloadTask = new DownloadTask(getContext(), filePath, bar, getPublishSubject());
+        DownloadTask downloadTask = new DownloadTask(getContext(), filePath, getPublishSubject());
         downloadTask.execute(url);
     }
     //______________________________________________________________________________________________ downloadFile
