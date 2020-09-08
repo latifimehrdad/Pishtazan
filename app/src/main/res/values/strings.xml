@@ -92,6 +92,7 @@
     <string name="PreviousQuestion">سوال قبلی</string>
     <string name="NextQuestion">سوال بعدی</string>
     <string name="NewQuiz">آزمون جدید</string>
+    <string name="ReTryQuiz">تکرار آزمون</string>
     <string name="Minute">دقیقه</string>
     <string name="TotalQuestion">تعداد کل سوالات</string>
     <string name="CorrectAnswerCount">تعداد پاسخ درست</string>

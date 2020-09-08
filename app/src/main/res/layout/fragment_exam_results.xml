@@ -53,14 +53,16 @@
                 android:padding="@dimen/_5sdp">
 
                 <TextView
+                    android:id="@+id/textViewExam"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/ML_White"
                     android:gravity="center"
-                    android:textSize="@dimen/_10sdp"
+                    android:textSize="@dimen/_11sdp"
                     android:paddingRight="@dimen/_20sdp"
                     android:paddingLeft="@dimen/_20sdp"
-                    android:text="@string/NewQuiz"/>
+                    android:text="@string/NewQuiz"
+                    fontPath="fonts/iransans_web_medium.ttf"/>
 
                 <ImageView
                     android:id="@+id/ImageViewNew"

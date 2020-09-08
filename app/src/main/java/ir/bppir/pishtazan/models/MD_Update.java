@@ -11,10 +11,10 @@ public class MD_Update {
     String UpdateAddress;
 
     @SerializedName("Vresion")
-    Integer Vresion;
+    float Vresion;
 
 
-    public MD_Update(Integer id, String updateAddress, Integer vresion) {
+    public MD_Update(Integer id, String updateAddress, float vresion) {
         Id = id;
         UpdateAddress = updateAddress;
         Vresion = vresion;
@@ -36,11 +36,11 @@ public class MD_Update {
         UpdateAddress = updateAddress;
     }
 
-    public Integer getVresion() {
+    public float getVresion() {
         return Vresion;
     }
 
-    public void setVresion(Integer vresion) {
+    public void setVresion(float vresion) {
         Vresion = vresion;
     }
 }

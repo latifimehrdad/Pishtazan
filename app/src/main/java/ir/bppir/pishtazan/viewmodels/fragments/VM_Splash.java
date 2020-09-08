@@ -80,16 +80,16 @@ public class VM_Splash extends VM_Primary {
     //______________________________________________________________________________________________ checkUpdate
     private void checkUpdate() {
         PackageInfo pInfo;
-        int version = 0;
+        float versionName = 0;
         try {
             pInfo = getContext().getPackageManager().getPackageInfo(getContext().getPackageName(), 0);
-            version = pInfo.versionCode;
+            versionName = Float.valueOf(pInfo.versionName);
         } catch (PackageManager.NameNotFoundException ignored) {
         }
 
-        Integer v = md_update.getVresion();
+        float v = md_update.getVresion();
 
-        if (version < v)
+        if (versionName < v)
             getPublishSubject().onNext(StaticValues.ML_Update);
         else
             CheckLogin();

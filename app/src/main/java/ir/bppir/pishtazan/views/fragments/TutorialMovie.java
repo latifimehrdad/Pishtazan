@@ -1,5 +1,6 @@
 package ir.bppir.pishtazan.views.fragments;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -81,6 +82,7 @@ public class TutorialMovie extends FragmentPrimary implements
                 vm_tutorialMovie.getPublishSubject(),
                 vm_tutorialMovie);
         navController = Navigation.findNavController(getView());
+        getContext().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }//_____________________________________________________________________________________________ onStart
 
 

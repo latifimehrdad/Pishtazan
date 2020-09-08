@@ -53,6 +53,9 @@ public class ExamResults extends FragmentPrimary implements
     @BindView(R.id.LinearLayoutNewQuiz)
     LinearLayout LinearLayoutNewQuiz;
 
+    @BindView(R.id.textViewExam)
+    TextView textViewExam;
+
     //______________________________________________________________________________________________ onCreateView
     @Nullable
     @Override
@@ -135,9 +138,11 @@ public class ExamResults extends FragmentPrimary implements
             if (vm_examResult.getMd_examResult().getAverageGrade() < 60) {
                 textViewStatus.setText(getContext().getResources().getString(R.string.YouFailedTheTest));
                 textViewStatus.setTextColor(getContext().getResources().getColor(R.color.ML_RedQuestion));
+                textViewExam.setText(getContext().getResources().getString(R.string.ReTryQuiz));
             } else {
                 textViewStatus.setText(getContext().getResources().getString(R.string.YouPassedTheTest));
                 textViewStatus.setTextColor(getContext().getResources().getColor(R.color.ML_OK));
+                textViewExam.setText(getContext().getResources().getString(R.string.NewQuiz));
             }
             List<MD_ExamResult> examResults = new ArrayList<>();
             examResults.add(vm_examResult.getMd_examResult());
