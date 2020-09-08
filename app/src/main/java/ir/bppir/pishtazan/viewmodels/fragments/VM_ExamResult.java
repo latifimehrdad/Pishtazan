@@ -30,9 +30,9 @@ public class VM_ExamResult extends VM_Primary {
     //______________________________________________________________________________________________ getExamResult
     public void getExamResult(Integer examResultId) {
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -45,7 +45,7 @@ public class VM_ExamResult extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_ExamResult>() {
             @Override
             public void onResponse(Call<MR_ExamResult> call, Response<MR_ExamResult> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
@@ -58,7 +58,7 @@ public class VM_ExamResult extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_ExamResult> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
     }
@@ -68,9 +68,9 @@ public class VM_ExamResult extends VM_Primary {
     //______________________________________________________________________________________________ getExamResults
     public void getExamResults(Integer examId, Integer personId) {
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -86,7 +86,7 @@ public class VM_ExamResult extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_ExamResults>() {
             @Override
             public void onResponse(Call<MR_ExamResults> call, Response<MR_ExamResults> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
@@ -99,7 +99,7 @@ public class VM_ExamResult extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_ExamResults> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
     }

@@ -52,9 +52,9 @@ public class VM_AddPerson extends VM_Primary {
                 .getApplicationUtility()
                 .PersianToEnglish(phone);
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
         Map<String, String> params = new HashMap<String, String>();
@@ -73,7 +73,7 @@ public class VM_AddPerson extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
             public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
                         getPublishSubject().onNext(StaticValues.ML_AddPerson);
@@ -84,7 +84,7 @@ public class VM_AddPerson extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_Primary> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -101,9 +101,9 @@ public class VM_AddPerson extends VM_Primary {
                 .getApplicationUtility()
                 .PersianToEnglish(phone);
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
         Map<String, String> params = new HashMap<>();
@@ -122,7 +122,7 @@ public class VM_AddPerson extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
             public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
                         getPublishSubject().onNext(StaticValues.ML_AddPerson);
@@ -133,7 +133,7 @@ public class VM_AddPerson extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_Primary> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 

@@ -32,9 +32,9 @@ public class VM_ExamReport extends VM_Primary {
     //______________________________________________________________________________________________ getRecourse
     public void getRecourse() {
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -47,7 +47,7 @@ public class VM_ExamReport extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_SpinnerItem>() {
             @Override
             public void onResponse(Call<MR_SpinnerItem> call, Response<MR_SpinnerItem> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1) {
                         md_spinnerItems = response.body().getResources();
@@ -59,7 +59,7 @@ public class VM_ExamReport extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_SpinnerItem> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -70,9 +70,9 @@ public class VM_ExamReport extends VM_Primary {
     //______________________________________________________________________________________________ getLearnReport
     public void getLearnReport(Integer sortingResourceId, Integer sortPosition) {
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -121,7 +121,7 @@ public class VM_ExamReport extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_StatisticalReport>() {
             @Override
             public void onResponse(Call<MR_StatisticalReport> call, Response<MR_StatisticalReport> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1) {
                         md_reports = response.body().getStatisticalReportVms();
@@ -133,7 +133,7 @@ public class VM_ExamReport extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_StatisticalReport> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 

@@ -24,9 +24,9 @@ public class VM_TutorialMovie extends VM_Primary {
 
     public void GetTutorialMovie(Integer tutorialId) {//____________________________________________ GetTutorialMovie
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -39,7 +39,7 @@ public class VM_TutorialMovie extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_EducationFiles>() {
             @Override
             public void onResponse(Call<MR_EducationFiles> call, Response<MR_EducationFiles> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1){
                         md_educationFiles = response.body().getEducationFiles();
@@ -52,7 +52,7 @@ public class VM_TutorialMovie extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_EducationFiles> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 

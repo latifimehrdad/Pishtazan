@@ -38,7 +38,7 @@ public class VM_SignUp extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_GenerateCode>() {
             @Override
             public void onResponse(Call<MR_GenerateCode> call, Response<MR_GenerateCode> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
                         getPublishSubject().onNext(StaticValues.ML_GotoVerify);
@@ -49,7 +49,7 @@ public class VM_SignUp extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_GenerateCode> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 

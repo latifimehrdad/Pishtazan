@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,8 +30,7 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Update;
 
 public class AppUpdate extends FragmentPrimary implements
-        FragmentPrimary.MessageFromObservable,
-        VM_Update.ProgressDownload{
+        FragmentPrimary.MessageFromObservable {
 
 
     private VM_Update vm_update;
@@ -41,9 +39,6 @@ public class AppUpdate extends FragmentPrimary implements
 
     @BindView(R.id.TextViewProgress)
     TextView TextViewProgress;
-/*
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;*/
 
     @BindView(R.id.ImageViewDownload)
     ImageView ImageViewDownload;
@@ -55,14 +50,15 @@ public class AppUpdate extends FragmentPrimary implements
     YPWaveView yPWaveView;
 
 
+    //______________________________________________________________________________________________ onCreateView
     @Nullable
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {//________________________________________________ onCreateView
+            @Nullable Bundle savedInstanceState) {
         if (getView() == null) {
-            vm_update = new VM_Update(getContext(), AppUpdate.this);
+            vm_update = new VM_Update(getContext());
             FragmentUpdateBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_update, container, false);
             binding.setUpdate(vm_update);
@@ -71,24 +67,28 @@ public class AppUpdate extends FragmentPrimary implements
                 TextViewProgress.setText(getContext().getResources().getString(R.string.PleaseWait));
             yPWaveView.setProgress(0);
             ButtonInstall.setVisibility(View.GONE);
-            SetOnClick();
+            setOnClick();
             init();
         }
         return getView();
-    }//_____________________________________________________________________________________________ onCreateView
+    }
+    //______________________________________________________________________________________________ onCreateView
 
 
+    //______________________________________________________________________________________________ onStart
     @Override
-    public void onStart() {//_______________________________________________________________________ onStart
+    public void onStart() {
         super.onStart();
         setGetMessageFromObservable(
                 AppUpdate.this,
                 vm_update.getPublishSubject(),
                 vm_update);
-    }//_____________________________________________________________________________________________ onStart
+    }
+    //______________________________________________________________________________________________ onStart
 
 
-    private void init() {//_________________________________________________________________________ init
+    //______________________________________________________________________________________________ init
+    private void init() {
         if (getContext() != null && getArguments() != null) {
             String url = getArguments().getString(getContext().getResources().getString(R.string.ML_UpdateUrl), "");
             fileName = getArguments().getString(getContext().getResources().getString(R.string.ML_UpdateFile), "");
@@ -100,12 +100,15 @@ public class AppUpdate extends FragmentPrimary implements
                     setProgress();
                     vm_update.downloadFile(url, fileName, yPWaveView);
                 }
-                    //vm_update.DownloadFile(url, fileName);
+            //vm_update.DownloadFile(url, fileName);
         }
 
-    }//_____________________________________________________________________________________________ init
+    }
+    //______________________________________________________________________________________________ init
 
-    private void SetOnClick() {//___________________________________________________________________ SetOnClick
+
+    //______________________________________________________________________________________________ setOnClick
+    private void setOnClick() {
         ButtonInstall.setOnClickListener(v -> {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -129,11 +132,13 @@ public class AppUpdate extends FragmentPrimary implements
             }
 
         });
-    }//_____________________________________________________________________________________________ SetOnClick
+    }
+    //______________________________________________________________________________________________ setOnClick
 
 
+    //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ getMessageFromObservable
+    public void getMessageFromObservable(Byte action) {
 
         handlerDownload = null;
 
@@ -155,15 +160,8 @@ public class AppUpdate extends FragmentPrimary implements
                 TextViewProgress.setText(getContext().getResources().getString(R.string.FileDownloaded));
         }
 
-    }//_____________________________________________________________________________________________ getMessageFromObservable
-
-
-    @Override
-    public void onProgress(int progress) {//________________________________________________________ onProgress
-        yPWaveView.setProgress(progress);
-        TextViewProgress.setText(progress + " %");
-    }//_____________________________________________________________________________________________ onProgress
-
+    }
+    //______________________________________________________________________________________________ getMessageFromObservable
 
 
     //______________________________________________________________________________________________ setProgress

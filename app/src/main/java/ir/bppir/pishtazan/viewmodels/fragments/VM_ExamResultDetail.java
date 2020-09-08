@@ -27,9 +27,9 @@ public class VM_ExamResultDetail extends VM_Primary {
     //______________________________________________________________________________________________ getExamResultDetails
     public void getExamResultDetails(Integer id) {
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -42,7 +42,7 @@ public class VM_ExamResultDetail extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_ExamResultDetail>() {
             @Override
             public void onResponse(Call<MR_ExamResultDetail> call, Response<MR_ExamResultDetail> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1) {
                         md_examResultDetails = response.body().getAnswers();
@@ -55,7 +55,7 @@ public class VM_ExamResultDetail extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_ExamResultDetail> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 

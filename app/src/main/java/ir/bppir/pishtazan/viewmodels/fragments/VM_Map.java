@@ -57,7 +57,7 @@ public class VM_Map extends VM_Primary {
 
             @Override
             public void onFailure(Call<MD_GetAddres> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 

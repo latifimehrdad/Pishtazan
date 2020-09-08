@@ -25,9 +25,9 @@ public class VM_Tutorial extends VM_Primary {
 
     public void GetTutorial(Integer postId) {//_____________________________________________________ GetTutorial
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -40,7 +40,7 @@ public class VM_Tutorial extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Education>() {
             @Override
             public void onResponse(Call<MR_Education> call, Response<MR_Education> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1) {
                         md_educations = response.body().getEducations();
@@ -52,7 +52,7 @@ public class VM_Tutorial extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_Education> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 

@@ -33,9 +33,9 @@ public class VM_Splash extends VM_Primary {
             isLogin = true;
 
         if (!isLogin)
-            SendMessageToObservable(StaticValues.ML_GotoSignUp);
+            sendMessageToObservable(StaticValues.ML_GotoSignUp);
         else
-            SendMessageToObservable(StaticValues.ML_GotoHome);
+            sendMessageToObservable(StaticValues.ML_GotoHome);
 
 
     }//_____________________________________________________________________________________________ CheckLogin
@@ -55,7 +55,7 @@ public class VM_Splash extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MD_Update>() {
             @Override
             public void onResponse(Call<MD_Update> call, Response<MD_Update> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     if (response.body() != null){
                         md_update = response.body();
                         checkUpdate();
@@ -67,7 +67,7 @@ public class VM_Splash extends VM_Primary {
 
             @Override
             public void onFailure(Call<MD_Update> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 

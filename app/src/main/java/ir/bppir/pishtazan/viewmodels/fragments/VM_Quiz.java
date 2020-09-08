@@ -47,7 +47,7 @@ public class VM_Quiz extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Exam>() {
             @Override
             public void onResponse(Call<MR_Exam> call, Response<MR_Exam> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
@@ -60,7 +60,7 @@ public class VM_Quiz extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_Exam> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -72,9 +72,9 @@ public class VM_Quiz extends VM_Primary {
     //______________________________________________________________________________________________ getQuestion
     public void getQuestion(Integer quizId) {
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -87,7 +87,7 @@ public class VM_Quiz extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Question>() {
             @Override
             public void onResponse(Call<MR_Question> call, Response<MR_Question> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
@@ -101,7 +101,7 @@ public class VM_Quiz extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_Question> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -112,9 +112,9 @@ public class VM_Quiz extends VM_Primary {
     //______________________________________________________________________________________________ sendAnswer
     public void sendAnswer(List<MD_Answer> answers, Integer examResult) {
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -128,7 +128,7 @@ public class VM_Quiz extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_ExamResult>() {
             @Override
             public void onResponse(Call<MR_ExamResult> call, Response<MR_ExamResult> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
@@ -141,7 +141,7 @@ public class VM_Quiz extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_ExamResult> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 

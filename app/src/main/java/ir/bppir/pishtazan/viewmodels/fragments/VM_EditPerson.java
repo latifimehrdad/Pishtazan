@@ -76,9 +76,9 @@ public class VM_EditPerson extends VM_Primary {
                 .getApplicationUtility()
                 .PersianToEnglish(eMobileNumber);
 
-        Integer eUserInfoId = GetUserId();
+        Integer eUserInfoId = getUserId();
         if (eUserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -124,7 +124,7 @@ public class VM_EditPerson extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
             public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
                         getPublishSubject().onNext(StaticValues.ML_EditSuccess);
@@ -135,7 +135,7 @@ public class VM_EditPerson extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_Primary> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -162,9 +162,9 @@ public class VM_EditPerson extends VM_Primary {
                 .getApplicationUtility()
                 .PersianToEnglish(eMobileNumber);
 
-        Integer eUserInfoId = GetUserId();
+        Integer eUserInfoId = getUserId();
         if (eUserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -210,7 +210,7 @@ public class VM_EditPerson extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
             public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
                         getPublishSubject().onNext(StaticValues.ML_EditSuccess);
@@ -221,7 +221,7 @@ public class VM_EditPerson extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_Primary> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -232,9 +232,9 @@ public class VM_EditPerson extends VM_Primary {
     //______________________________________________________________________________________________ getCustomer
     public void getCustomer(Integer personId) {
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -247,21 +247,21 @@ public class VM_EditPerson extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_GetAllPerson>() {
             @Override
             public void onResponse(Call<MR_GetAllPerson> call, Response<MR_GetAllPerson> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
                     else {
                         person = response.body().getCustomer();
                         setResponseMessage("");
-                        SendMessageToObservable(StaticValues.ML_GetPerson);
+                        sendMessageToObservable(StaticValues.ML_GetPerson);
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<MR_GetAllPerson> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -272,9 +272,9 @@ public class VM_EditPerson extends VM_Primary {
     //______________________________________________________________________________________________ getColleague
     public void getColleague(Integer personId) {
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -287,21 +287,21 @@ public class VM_EditPerson extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_GetAllPerson>() {
             @Override
             public void onResponse(Call<MR_GetAllPerson> call, Response<MR_GetAllPerson> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
                     else {
                         person = response.body().getColleague();
                         setResponseMessage("");
-                        SendMessageToObservable(StaticValues.ML_GetPerson);
+                        sendMessageToObservable(StaticValues.ML_GetPerson);
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<MR_GetAllPerson> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 

@@ -6,15 +6,11 @@ import android.os.Handler;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.List;
-
 import io.reactivex.subjects.PublishSubject;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import ir.bppir.pishtazan.R;
-import ir.bppir.pishtazan.database.DB_Notification;
 import ir.bppir.pishtazan.database.DB_UserInfo;
-import ir.bppir.pishtazan.models.MD_Notify;
 import ir.bppir.pishtazan.models.MR_Primary;
 import ir.bppir.pishtazan.utility.StaticValues;
 import retrofit2.Call;
@@ -27,67 +23,52 @@ public class VM_Primary {
     private Call PrimaryCall;
     private Activity context;
 
-    public VM_Primary() {//_________________________________________________________________________ VM_Primary
+    //______________________________________________________________________________________________ VM_Primary
+    public VM_Primary() {
         publishSubject = PublishSubject.create();
-    }//_____________________________________________________________________________________________ VM_Primary
+    }
+    //______________________________________________________________________________________________ VM_Primary
 
 
-    public void CancelRequest() {//_________________________________________________________________ CancelRequest
+    //______________________________________________________________________________________________ cancelRequest
+    public void cancelRequest() {
         if (PrimaryCall != null) {
             PrimaryCall.cancel();
             PrimaryCall = null;
         }
-    }//_____________________________________________________________________________________________ CancelRequest
+    }
+    //______________________________________________________________________________________________ cancelRequest
 
 
-    public Call getPrimaryCall() {//________________________________________________________________ getPrimaryCall
+    //______________________________________________________________________________________________ getPrimaryCall
+    public Call getPrimaryCall() {
         return PrimaryCall;
-    }//_____________________________________________________________________________________________ getPrimaryCall
+    }
+    //______________________________________________________________________________________________ getPrimaryCall
 
-    public void setPrimaryCall(Call primaryCall) {//________________________________________________ setPrimaryCall
-        CancelRequest();
+
+    //______________________________________________________________________________________________ setPrimaryCall
+    public void setPrimaryCall(Call primaryCall) {
+        cancelRequest();
         PrimaryCall = primaryCall;
-    }//_____________________________________________________________________________________________ setPrimaryCall
+    }
+    //______________________________________________________________________________________________ setPrimaryCall
 
 
-    public void SaveToNotify(MD_Notify md_notify) {//_______________________________________________ SaveToNotify
-        Realm realm = Realm.getDefaultInstance();
-
-        try {
-
-            int id;
-            Number currentIdNum = realm.where(DB_Notification.class).max("Id");
-            if (currentIdNum == null) {
-                id = 1;
-            } else {
-                id = currentIdNum.intValue() + 1;
-            }
-
-            realm.beginTransaction();
-            realm.createObject(DB_Notification.class, id).insert(md_notify);
-            realm.commitTransaction();
-            getPublishSubject().onNext(StaticValues.ML_ConvertPerson);
-//            ShowNotification(context);
-        } finally {
-            if (realm != null)
-                realm.close();
-        }
-
-
-    }//_____________________________________________________________________________________________ SaveToNotify
-
-
-    public boolean ResponseIsOk(Response response) {//______________________________________________ ResponseIsOk
+    //______________________________________________________________________________________________ responseIsOk
+    public boolean responseIsOk(Response response) {
         if (response.body() == null) {
-            setResponseMessage(ResponseErrorMessage(response));
+            setResponseMessage(responseErrorMessage(response));
             getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
             return false;
         } else
             return true;
-    }//_____________________________________________________________________________________________ ResponseIsOk
+    }
+    //______________________________________________________________________________________________ responseIsOk
 
 
-    public String ResponseErrorMessage(Response response) {//_______________________________________ ResponseErrorMessage
+    //______________________________________________________________________________________________ responseErrorMessage
+    public String responseErrorMessage(Response response) {
         try {
             JSONObject jObjError = new JSONObject(response.errorBody().string());
             String jobErrorString = jObjError.toString();
@@ -107,7 +88,8 @@ public class VM_Primary {
         } catch (Exception ex) {
             return ex.toString();
         }
-    }//_____________________________________________________________________________________________ ResponseErrorMessage
+    }
+    //______________________________________________________________________________________________ responseErrorMessage
 
 
     //______________________________________________________________________________________________ getResponseMessages
@@ -116,14 +98,16 @@ public class VM_Primary {
         if (response.body().getMessages() != null && response.body().getMessages().size() > 0)
             for (String message : response.body().getMessages())
                 result = result + message + System.getProperty("line.separator");
-            else
-                result = response.body().getMessage();
+        else
+            result = response.body().getMessage();
 
         return result;
     }
     //______________________________________________________________________________________________ getResponseMessages
 
-    public void CallIsFailure() {//_________________________________________________________________ CallIsFailure
+
+    //______________________________________________________________________________________________ callIsFailure
+    public void callIsFailure() {
 
         if (getPrimaryCall() == null) {
             setResponseMessage("");
@@ -132,37 +116,41 @@ public class VM_Primary {
         } else {
             if (getPrimaryCall().isCanceled()) {
                 setResponseMessage("");
-                SendMessageToObservable(StaticValues.ML_RequestCancel);
+                sendMessageToObservable(StaticValues.ML_RequestCancel);
             } else {
                 setResponseMessage(getContext().getResources().getString(R.string.RequestFailure));
-                SendMessageToObservable(StaticValues.ML_ResponseFailure);
+                sendMessageToObservable(StaticValues.ML_ResponseFailure);
             }
         }
 
-    }//_____________________________________________________________________________________________ CallIsFailure
+    }
+    //______________________________________________________________________________________________ callIsFailure
 
 
-    public DB_UserInfo GetUserInfo() {//____________________________________________________________ GetUserInfo
-
+    //______________________________________________________________________________________________ getUserInfo
+    public DB_UserInfo getUserInfo() {
         Realm realm = Realm.getDefaultInstance();
         DB_UserInfo db_userInfo = realm.where(DB_UserInfo.class).findFirst();
         realm.close();
         return db_userInfo;
+    }
+    //______________________________________________________________________________________________ getUserInfo
 
-    }//_____________________________________________________________________________________________ GetUserInfo
 
+    //______________________________________________________________________________________________ getUserId
+    public Integer getUserId() {
 
-    public Integer GetUserId() {//__________________________________________________________________ GetUserId
-
-        DB_UserInfo db_userInfo = GetUserInfo();
+        DB_UserInfo db_userInfo = getUserInfo();
         if (db_userInfo == null)
             return 0;
         else
             return db_userInfo.getId();
-    }//_____________________________________________________________________________________________ GetUserId
+    }
+    //______________________________________________________________________________________________ getUserId
 
 
-    public void UserIsNotAuthorization() {//________________________________________________________ GetUserId
+    //______________________________________________________________________________________________ userIsNotAuthorization
+    public void userIsNotAuthorization() {
         setResponseMessage(getContext().getResources().getString(R.string.UserIsNotAuthorization));
         Realm realm = Realm.getDefaultInstance();
         try {
@@ -174,54 +162,51 @@ public class VM_Primary {
             realm.close();
             getPublishSubject().onNext(StaticValues.ML_UserIsNotAuthorization);
         }
-    }//_____________________________________________________________________________________________ GetUserId
+    }
+    //______________________________________________________________________________________________ userIsNotAuthorization
 
-//    private void ShowNotification(Context context) {
-//
-//        Realm realm = Realm.getDefaultInstance();
-//
-//        try {
-//
-//            DB_Notification results = realm.where(DB_Notification.class).findAll().last();
-//
-//            NotificationManagerClass managerClass = new NotificationManagerClass(
-//                    context,
-//                    false,
-//                    results
-//            );
-//        } finally {
-//            if (realm != null)
-//                realm.close();
-//        }
-//
-//    }
 
-    public PublishSubject<Byte> getPublishSubject() {//_____________________________________________ getPublishSubject
+    //______________________________________________________________________________________________ getPublishSubject
+    public PublishSubject<Byte> getPublishSubject() {
         return publishSubject;
-    }//_____________________________________________________________________________________________ getPublishSubject
+    }
+    //______________________________________________________________________________________________ getPublishSubject
 
 
-    public String getResponseMessage() {//__________________________________________________________ getResponseMessage
+    //______________________________________________________________________________________________ getResponseMessage
+    public String getResponseMessage() {
         return ResponseMessage;
-    }//_____________________________________________________________________________________________ getResponseMessage
+    }
+    //______________________________________________________________________________________________ getResponseMessage
 
-    public void setResponseMessage(String responseMessage) {//______________________________________ setResponseMessage
+
+    //______________________________________________________________________________________________ setResponseMessage
+    public void setResponseMessage(String responseMessage) {
         ResponseMessage = responseMessage;
-    }//_____________________________________________________________________________________________ setResponseMessage
+    }
+    //______________________________________________________________________________________________ setResponseMessage
 
-    public Activity getContext() {//________________________________________________________________ getContext
+
+    //______________________________________________________________________________________________ getContext
+    public Activity getContext() {
         return context;
-    }//_____________________________________________________________________________________________ getContext
+    }
+    //______________________________________________________________________________________________ getContext
 
-    public void setContext(Activity context) {//____________________________________________________ setContext
+
+    //______________________________________________________________________________________________ setContext
+    public void setContext(Activity context) {
         this.context = context;
-    }//_____________________________________________________________________________________________ setContext
+    }
+    //______________________________________________________________________________________________ setContext
 
 
-    public void SendMessageToObservable(Byte action) {//____________________________________________ SendMessageToObservable
+    //______________________________________________________________________________________________ sendMessageToObservable
+    public void sendMessageToObservable(Byte action) {
         Handler handler = new Handler();
         handler.postDelayed(() -> publishSubject.onNext(action), 200);
 
-    }//_____________________________________________________________________________________________ SendMessageToObservable
+    }
+    //______________________________________________________________________________________________ sendMessageToObservable
 
 }

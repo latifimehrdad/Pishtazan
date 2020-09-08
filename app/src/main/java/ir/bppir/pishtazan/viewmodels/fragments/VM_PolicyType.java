@@ -42,19 +42,19 @@ public class VM_PolicyType extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_PolicyType>() {
             @Override
             public void onResponse(Call<MR_PolicyType> call, Response<MR_PolicyType> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1) {
                         md_policyTypes = response.body().getPolicyTypes();
-                        SendMessageToObservable(StaticValues.ML_GetAllPolicyTypes);
+                        sendMessageToObservable(StaticValues.ML_GetAllPolicyTypes);
                     } else
-                        SendMessageToObservable(StaticValues.ML_ResponseError);
+                        sendMessageToObservable(StaticValues.ML_ResponseError);
                 }
             }
 
             @Override
             public void onFailure(Call<MR_PolicyType> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -71,9 +71,9 @@ public class VM_PolicyType extends VM_Primary {
             String Insured,
             String InsuredNationalCode) {
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -94,19 +94,19 @@ public class VM_PolicyType extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
             public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
-                        SendMessageToObservable(StaticValues.ML_ResponseError);
+                        sendMessageToObservable(StaticValues.ML_ResponseError);
                     else {
-                        SendMessageToObservable(StaticValues.ML_Success);
+                        sendMessageToObservable(StaticValues.ML_Success);
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<MR_Primary> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -125,9 +125,9 @@ public class VM_PolicyType extends VM_Primary {
             String Insured,
             String InsuredNationalCode) {
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -150,19 +150,19 @@ public class VM_PolicyType extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
             public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
-                        SendMessageToObservable(StaticValues.ML_ResponseError);
+                        sendMessageToObservable(StaticValues.ML_ResponseError);
                     else {
-                        SendMessageToObservable(StaticValues.ML_EditSuccess);
+                        sendMessageToObservable(StaticValues.ML_EditSuccess);
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<MR_Primary> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 

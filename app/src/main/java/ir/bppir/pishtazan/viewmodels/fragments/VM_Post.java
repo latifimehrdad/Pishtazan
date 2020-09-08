@@ -29,9 +29,9 @@ public class VM_Post extends VM_Primary {
 
     public void GetPost(Integer personId) {//_______________________________________________________ GetPost
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -47,7 +47,7 @@ public class VM_Post extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_EducationCategoryVms>() {
             @Override
             public void onResponse(Call<MR_EducationCategoryVms> call, Response<MR_EducationCategoryVms> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
@@ -60,7 +60,7 @@ public class VM_Post extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_EducationCategoryVms> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -71,9 +71,9 @@ public class VM_Post extends VM_Primary {
 
     public void GetNewQuiz() {//____________________________________________________________________ GetNewQuiz
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -87,7 +87,7 @@ public class VM_Post extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_LastEducation>() {
             @Override
             public void onResponse(Call<MR_LastEducation> call, Response<MR_LastEducation> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
@@ -100,7 +100,7 @@ public class VM_Post extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_LastEducation> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 

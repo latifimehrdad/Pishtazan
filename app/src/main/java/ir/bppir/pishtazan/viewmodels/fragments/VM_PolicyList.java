@@ -27,9 +27,9 @@ public class VM_PolicyList extends VM_Primary {
     //______________________________________________________________________________________________ getAllPolicies
     public void getAllPolicies(Integer CustomerId, Byte PolicyStatus) {
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -47,20 +47,20 @@ public class VM_PolicyList extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Policy>() {
             @Override
             public void onResponse(Call<MR_Policy> call, Response<MR_Policy> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
-                        SendMessageToObservable(StaticValues.ML_ResponseError);
+                        sendMessageToObservable(StaticValues.ML_ResponseError);
                     else {
                         md_policies = response.body().getPolicies();
-                        SendMessageToObservable(StaticValues.ML_GetAllPolicy);
+                        sendMessageToObservable(StaticValues.ML_GetAllPolicy);
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<MR_Policy> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 

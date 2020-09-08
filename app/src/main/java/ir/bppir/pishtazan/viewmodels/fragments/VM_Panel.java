@@ -31,7 +31,7 @@ public class VM_Panel extends VM_Primary {
     //______________________________________________________________________________________________ getPerson
     public void getPerson(int panelType, Byte PersonType, boolean isDeleted) {
 
-        CancelRequest();
+        cancelRequest();
 
         Handler handler = new Handler();
         handler.postDelayed(() -> {
@@ -48,9 +48,9 @@ public class VM_Panel extends VM_Primary {
     //______________________________________________________________________________________________ getAllCustomers
     private void getAllCustomers(Byte PersonType, boolean isDeleted) {
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -63,7 +63,7 @@ public class VM_Panel extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_GetAllPerson>() {
             @Override
             public void onResponse(Call<MR_GetAllPerson> call, Response<MR_GetAllPerson> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     //setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1) {
                         setResponseMessage("");
@@ -78,7 +78,7 @@ public class VM_Panel extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_GetAllPerson> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -90,9 +90,9 @@ public class VM_Panel extends VM_Primary {
     //______________________________________________________________________________________________ getAllColleagues
     private void getAllColleagues(Byte PersonType, boolean isDeleted) {
 
-        Integer UserInfoId = GetUserId();
+        Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -105,7 +105,7 @@ public class VM_Panel extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_GetAllPerson>() {
             @Override
             public void onResponse(Call<MR_GetAllPerson> call, Response<MR_GetAllPerson> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     if (response.body().getStatue() == 1) {
                         setResponseMessage("");
                         personList = response.body().getColleagues();
@@ -119,7 +119,7 @@ public class VM_Panel extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_GetAllPerson> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -180,7 +180,7 @@ public class VM_Panel extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
             public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
@@ -192,7 +192,7 @@ public class VM_Panel extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_Primary> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -244,7 +244,7 @@ public class VM_Panel extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
             public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 0)
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
@@ -256,7 +256,7 @@ public class VM_Panel extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_Primary> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -277,9 +277,9 @@ public class VM_Panel extends VM_Primary {
     //______________________________________________________________________________________________ deleteCustomer
     private void deleteCustomer(Integer Position) {
 
-        Integer Id = GetUserId();
+        Integer Id = getUserId();
         if (Id == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -292,7 +292,7 @@ public class VM_Panel extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
             public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
                         getPublishSubject().onNext(StaticValues.ML_DeletePerson);
@@ -303,7 +303,7 @@ public class VM_Panel extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_Primary> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -314,9 +314,9 @@ public class VM_Panel extends VM_Primary {
     //______________________________________________________________________________________________ deleteColleague
     private void deleteColleague(Integer Position) {
 
-        Integer Id = GetUserId();
+        Integer Id = getUserId();
         if (Id == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -329,7 +329,7 @@ public class VM_Panel extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
             public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
                         getPublishSubject().onNext(StaticValues.ML_DeletePerson);
@@ -340,7 +340,7 @@ public class VM_Panel extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_Primary> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -361,9 +361,9 @@ public class VM_Panel extends VM_Primary {
     //______________________________________________________________________________________________ deleteCustomerFromArchive
     private void deleteCustomerFromArchive(Integer Position) {
 
-        Integer Id = GetUserId();
+        Integer Id = getUserId();
         if (Id == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -376,7 +376,7 @@ public class VM_Panel extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
             public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
                         getPublishSubject().onNext(StaticValues.ML_DeleteArchive);
@@ -387,7 +387,7 @@ public class VM_Panel extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_Primary> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -398,9 +398,9 @@ public class VM_Panel extends VM_Primary {
     //______________________________________________________________________________________________ deleteColleagueFromArchive
     private void deleteColleagueFromArchive(Integer Position) {
 
-        Integer Id = GetUserId();
+        Integer Id = getUserId();
         if (Id == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -413,7 +413,7 @@ public class VM_Panel extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
             public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
                         getPublishSubject().onNext(StaticValues.ML_DeleteArchive);
@@ -424,7 +424,7 @@ public class VM_Panel extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_Primary> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -445,9 +445,9 @@ public class VM_Panel extends VM_Primary {
     //______________________________________________________________________________________________ moveToPossibleColleague
     public void moveToPossibleColleague(Integer Position) {
 
-        Integer Id = GetUserId();
+        Integer Id = getUserId();
         if (Id == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -460,7 +460,7 @@ public class VM_Panel extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
             public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
                         getPublishSubject().onNext(StaticValues.ML_ConvertPerson);
@@ -471,7 +471,7 @@ public class VM_Panel extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_Primary> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -482,9 +482,9 @@ public class VM_Panel extends VM_Primary {
     //______________________________________________________________________________________________ moveToPossibleCustomer
     public void moveToPossibleCustomer(Integer Position) {
 
-        Integer Id = GetUserId();
+        Integer Id = getUserId();
         if (Id == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -497,7 +497,7 @@ public class VM_Panel extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
             public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
                         getPublishSubject().onNext(StaticValues.ML_ConvertPerson);
@@ -508,7 +508,7 @@ public class VM_Panel extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_Primary> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -530,9 +530,9 @@ public class VM_Panel extends VM_Primary {
     //______________________________________________________________________________________________ moveToPossibleColleague
     public void moveToCertainColleague(Integer Position) {
 
-        Integer Id = GetUserId();
+        Integer Id = getUserId();
         if (Id == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -545,7 +545,7 @@ public class VM_Panel extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
             public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1) {
                         setResponseMessage(response.body().getMessage());
@@ -559,7 +559,7 @@ public class VM_Panel extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_Primary> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
@@ -570,9 +570,9 @@ public class VM_Panel extends VM_Primary {
     //______________________________________________________________________________________________ moveToPossibleCustomer
     public void moveToCertainCustomer(Integer Position) {
 
-        Integer Id = GetUserId();
+        Integer Id = getUserId();
         if (Id == 0) {
-            UserIsNotAuthorization();
+            userIsNotAuthorization();
             return;
         }
 
@@ -585,7 +585,7 @@ public class VM_Panel extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
             public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
-                if (ResponseIsOk(response)) {
+                if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1) {
                         setResponseMessage(response.body().getMessage());
@@ -599,7 +599,7 @@ public class VM_Panel extends VM_Primary {
 
             @Override
             public void onFailure(Call<MR_Primary> call, Throwable t) {
-                CallIsFailure();
+                callIsFailure();
             }
         });
 
