@@ -37,7 +37,7 @@ import ir.bppir.pishtazan.views.adapters.AP_Question;
 
 public class Quiz extends FragmentPrimary implements
         FragmentPrimary.MessageFromObservable,
-        AP_Question.ClickItemAnswer {
+        AP_Question.clickItemAnswerQuestion {
 
 
     private VM_Quiz vm_quiz;
@@ -103,12 +103,13 @@ public class Quiz extends FragmentPrimary implements
     @BindView(R.id.textViewCount)
     TextView textViewCount;
 
+    //______________________________________________________________________________________________ onCreateView
     @Nullable
     @Override
     public View onCreateView(
             LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+            Bundle savedInstanceState) {
         if (getView() == null) {
             FragmentQuizBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_quiz, container, false);
@@ -118,14 +119,16 @@ public class Quiz extends FragmentPrimary implements
             examId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
             movieUrl = getArguments().getString(getContext().getResources().getString(R.string.ML_MovieUrl), "");
             examType = getArguments().getString(getContext().getResources().getString(R.string.ML_Type), "");
-            SetOnClick();
+            setOnClick();
         }
         return getView();
-    }//_____________________________________________________________________________________________ onCreateView
+    }
+    //______________________________________________________________________________________________ onCreateView
 
 
+    //______________________________________________________________________________________________ onStart
     @Override
-    public void onStart() {//_______________________________________________________________________ onStart
+    public void onStart() {
         super.onStart();
         setGetMessageFromObservable(
                 Quiz.this,
@@ -134,52 +137,57 @@ public class Quiz extends FragmentPrimary implements
         navController = Navigation.findNavController(getView());
         getContext().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         init();
-    }//_____________________________________________________________________________________________ onStart
+    }
+    //______________________________________________________________________________________________ onStart
 
 
-    private void init() {//_________________________________________________________________________ init
+    //______________________________________________________________________________________________ init
+    private void init() {
         questionPosition = 0;
         LinearLayoutStart.setVisibility(View.GONE);
         LinearLayoutQuestion.setVisibility(View.GONE);
         GifViewLoading.setVisibility(View.VISIBLE);
-        vm_quiz.GetExam(examId);
-    }//_____________________________________________________________________________________________ init
+        vm_quiz.getExam(examId);
+    }
+    //______________________________________________________________________________________________ init
 
 
-    private void SetOnClick() {//___________________________________________________________________ SetOnClick
-
+    //______________________________________________________________________________________________ setOnClick
+    private void setOnClick() {
 
         LinearLayoutSend.setOnClickListener(v -> {
             ImageViewLoadingSend.setVisibility(View.GONE);
             GifViewLoadingSend.setVisibility(View.VISIBLE);
-            SendResultExam();
+            sendResultExam();
         });
 
         LinearLayoutStart.setOnClickListener(v -> {
             ImageViewLoading.setVisibility(View.GONE);
             GifViewLoadingNew.setVisibility(View.VISIBLE);
-            vm_quiz.GetQuestion(vm_quiz.getMr_exam().getExam().getId());
+            vm_quiz.getQuestion(vm_quiz.getMr_exam().getExam().getId());
         });
 
 
         LinearLayoutPreviousQuestion.setOnClickListener(v -> {
             questionPosition--;
             if (questionPosition > -1)
-                AnimationChangeQuestion(false);
+                animationChangeQuestion(false);
             else
                 questionPosition++;
         });
 
         LinearLayoutNextQuestion.setOnClickListener(v -> {
-            NextQuestion();
+            nextQuestion();
         });
 
 
-    }//_____________________________________________________________________________________________ SetOnClick
+    }
+    //______________________________________________________________________________________________ setOnClick
 
 
+    //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {
 
         GifViewLoading.setVisibility(View.GONE);
         if (action.equals(StaticValues.ML_GetExam)) {
@@ -191,12 +199,12 @@ public class Quiz extends FragmentPrimary implements
             LinearLayoutStart.setVisibility(View.GONE);
             LinearLayoutQuestion.setVisibility(View.VISIBLE);
             LinearLayoutExam.setVisibility(View.GONE);
-            SetAdapterQuestion();
-            StartTimer(questionTime);
+            setAdapterQuestion();
+            startTimer(questionTime);
             return;
         }
 
-        if (action.equals(StaticValues.ML_SendAnswer)){
+        if (action.equals(StaticValues.ML_SendAnswer)) {
             if (examType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_LastExam))) {
                 Post.ExamResultId = vm_quiz.getExamResult();
                 getActivity().onBackPressed();
@@ -209,11 +217,12 @@ public class Quiz extends FragmentPrimary implements
             }
         }
 
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
+    }
+    //______________________________________________________________________________________________ getMessageFromObservable
 
 
-
-    private void initExam() {//_____________________________________________________________________ initExam
+    //______________________________________________________________________________________________ initExam
+    private void initExam() {
         LinearLayoutStart.setVisibility(View.VISIBLE);
         LinearLayoutExam.setVisibility(View.VISIBLE);
         questionTime = vm_quiz.getMr_exam().getExam().getExamTime();
@@ -222,12 +231,13 @@ public class Quiz extends FragmentPrimary implements
                 getContext().getString(R.string.MovieTime) + " : " +
                         vm_quiz.getMr_exam().getExam().getExamTime() + " " +
                         getContext().getString(R.string.Minute)
-                );
-    }//_____________________________________________________________________________________________ initExam
+        );
+    }
+    //______________________________________________________________________________________________ initExam
 
 
-
-    private void AnimationChangeQuestion(boolean next) {//__________________________________________ AnimationChangeQuestion
+    //______________________________________________________________________________________________ animationChangeQuestion
+    private void animationChangeQuestion(boolean next) {
 
         Animation animationExit;
         Animation animationEnter;
@@ -243,7 +253,7 @@ public class Quiz extends FragmentPrimary implements
 
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            SetAdapterQuestion();
+            setAdapterQuestion();
             RecyclerViewQuestion.setAnimation(null);
             RecyclerViewQuestion.setAnimation(animationEnter);
             RecyclerViewQuestion.setVisibility(View.VISIBLE);
@@ -256,10 +266,12 @@ public class Quiz extends FragmentPrimary implements
             ap_question.notifyDataSetChanged();
         },600);*/
 
-    }//_____________________________________________________________________________________________ AnimationChangeQuestion
+    }
+    //______________________________________________________________________________________________ animationChangeQuestion
 
 
-    private void SetAdapterQuestion() {//___________________________________________________________ SetAdapterQuestion
+    //______________________________________________________________________________________________ setAdapterQuestion
+    private void setAdapterQuestion() {
         textViewCount.setText(
                 getContext().getResources().getString(R.string.RemainingQuestions) + " : " +
                         (vm_quiz.getMd_questions().size() - (questionPosition + 1)));
@@ -267,10 +279,12 @@ public class Quiz extends FragmentPrimary implements
         ap_question = new AP_Question(md_question, Quiz.this);
         RecyclerViewQuestion.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         RecyclerViewQuestion.setAdapter(ap_question);
-    }//_____________________________________________________________________________________________ SetAdapterQuestion
+    }
+    //______________________________________________________________________________________________ setAdapterQuestion
 
 
-    private void StartTimer(int Elapse) {//_________________________________________________________ StartTimer
+    //______________________________________________________________________________________________ startTimer
+    private void startTimer(int Elapse) {
 
         Elapse = Elapse * 10;
         Elapse = Elapse * 60;
@@ -291,51 +305,50 @@ public class Quiz extends FragmentPrimary implements
                 if (progressBar.getProgress() > 0)
                     timer.postDelayed(this, 100);
                 else
-                    SendResultExam();
+                    sendResultExam();
             }
         };
         timer.postDelayed(runnable, 100);
 
-    }//_____________________________________________________________________________________________ StartTimer
+    }
+    //______________________________________________________________________________________________ startTimer
 
 
-
-    private void NextQuestion() {//_________________________________________________________________ NextQuestion
+    //______________________________________________________________________________________________ nextQuestion
+    private void nextQuestion() {
 
         if (vm_quiz.getMd_questions().get(questionPosition).getUserAnswer() != null) {
             questionPosition++;
             if (questionPosition < vm_quiz.getMd_questions().size())
-                AnimationChangeQuestion(true);
+                animationChangeQuestion(true);
             else {
                 questionPosition--;
             }
         }
-    }//_____________________________________________________________________________________________ NextQuestion
+    }
+    //______________________________________________________________________________________________ nextQuestion
 
 
-
+    //______________________________________________________________________________________________ clickItemAnswer
     @Override
-    public void clickItemAnswer(Integer Answer) {//_________________________________________________ clickItemAnswer
-
+    public void clickItemAnswer(Integer Answer) {
         vm_quiz.getMd_questions().get(questionPosition).setUserAnswer(Answer.byteValue());
-        NextQuestion();
-
-    }//_____________________________________________________________________________________________ clickItemAnswer
-
-
-
-   private void SendResultExam() {//________________________________________________________________ SendResultExam
-
-       List<MD_Answer> md_answers = new ArrayList<>();
-       for (MD_Question question: vm_quiz.getMd_questions()) {
-           md_answers.add(new MD_Answer(question.getUserAnswer(), question.getId()));
-       }
-       LinearLayoutQuestion.setVisibility(View.GONE);
-       GifViewLoading.setVisibility(View.VISIBLE);
-       vm_quiz.SendAnswer(md_answers, vm_quiz.getExamResult());
+        nextQuestion();
+    }
+    //______________________________________________________________________________________________ clickItemAnswer
 
 
-   }//______________________________________________________________________________________________ SendResultExam
+    //______________________________________________________________________________________________ sendResultExam
+    private void sendResultExam() {
+        List<MD_Answer> md_answers = new ArrayList<>();
+        for (MD_Question question : vm_quiz.getMd_questions()) {
+            md_answers.add(new MD_Answer(question.getUserAnswer(), question.getId()));
+        }
+        LinearLayoutQuestion.setVisibility(View.GONE);
+        GifViewLoading.setVisibility(View.VISIBLE);
+        vm_quiz.sendAnswer(md_answers, vm_quiz.getExamResult());
+    }
+    //______________________________________________________________________________________________ sendResultExam
 
 
 }

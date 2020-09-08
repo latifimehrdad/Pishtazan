@@ -19,8 +19,26 @@ public class AP_Post extends RecyclerView.Adapter<AP_Post.CustomHolder> {
 
     private LayoutInflater layoutInflater;
     private List<MD_EducationCategoryVms> md_educationCategoryVms;
-    private AP_Post.ClickItemTutorial clickItemTutorial;
+    private clickItemTutorial clickItem;
 
+
+    //______________________________________________________________________________________________ AP_Post
+    public AP_Post(List<MD_EducationCategoryVms> md_educationCategoryVms, clickItemTutorial clickItem) {
+        this.md_educationCategoryVms = md_educationCategoryVms;
+        this.clickItem = clickItem;
+    }
+    //______________________________________________________________________________________________ AP_Post
+
+
+    //______________________________________________________________________________________________ clickItemTutorial
+    public interface clickItemTutorial {
+
+        void clickTutorial(Integer Position, View view);
+    }
+    //______________________________________________________________________________________________ clickItemTutorial
+
+
+    //______________________________________________________________________________________________ onCreateViewHolder
     @NonNull
     @Override
     public AP_Post.CustomHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -29,32 +47,28 @@ public class AP_Post extends RecyclerView.Adapter<AP_Post.CustomHolder> {
 
         return new AP_Post.CustomHolder(DataBindingUtil.inflate(layoutInflater, R.layout.adapter_post, parent, false));
     }
+    //______________________________________________________________________________________________ onCreateViewHolder
 
+
+    //______________________________________________________________________________________________ onBindViewHolder
     @Override
     public void onBindViewHolder(@NonNull AP_Post.CustomHolder holder, int position) {
         holder.bind(md_educationCategoryVms.get(position), position);
     }
+    //______________________________________________________________________________________________ onBindViewHolder
 
+
+    //______________________________________________________________________________________________ getItemCount
     @Override
     public int getItemCount() {
         if (md_educationCategoryVms == null)
             return 0;
-
         return md_educationCategoryVms.size();
     }
-
-    public interface ClickItemTutorial {//__________________________________________________________ ClickItemTutorial
-        void clickItemTutorial(Integer Position, View view);
-    }//_____________________________________________________________________________________________ ClickItemTutorial
+    //______________________________________________________________________________________________ getItemCount
 
 
-    public AP_Post(List<MD_EducationCategoryVms> md_educationCategoryVms, AP_Post.ClickItemTutorial clickItemTutorial) {
-        this.md_educationCategoryVms = md_educationCategoryVms;
-        this.clickItemTutorial = clickItemTutorial;
-    }
-
-
-
+    //______________________________________________________________________________________________ CustomHolder
     public class CustomHolder extends RecyclerView.ViewHolder {
 
         AdapterPostBinding binding;
@@ -67,10 +81,11 @@ public class AP_Post extends RecyclerView.Adapter<AP_Post.CustomHolder> {
 
         public void bind(MD_EducationCategoryVms item, final int itemPosition) {
             binding.setPost(item);
-            binding.getRoot().setOnClickListener(v -> clickItemTutorial.clickItemTutorial(itemPosition, binding.getRoot()));
+            binding.getRoot().setOnClickListener(v -> clickItem.clickTutorial(itemPosition, binding.getRoot()));
             binding.executePendingBindings();
         }
 
     }
+    //______________________________________________________________________________________________ CustomHolder
 
 }

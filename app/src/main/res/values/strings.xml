@@ -128,6 +128,8 @@
     <string name="EmptyPhoneNumber">شماره تلفن را کامل وارد نمایید</string>
     <string name="EmptyNational">شماره ملی را وارد نمایید</string>
     <string name="RemainingQuestions">سوالات باقیمانده</string>
+    <string name="YouPassedTheTest">شما در آزمون قبول شدید</string>
+    <string name="YouFailedTheTest">شما در آزمون رد شدید</string>
 
 
     //___________________________ Values For SharedPreference ______________________________________

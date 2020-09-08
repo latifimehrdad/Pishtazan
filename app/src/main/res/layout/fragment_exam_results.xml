@@ -25,10 +25,71 @@
             android:padding="@dimen/_5sdp"
             custom:gif="@drawable/loading3" />
 
+
+        <LinearLayout
+            android:id="@+id/linearLayoutStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/_10sdp">
+
+            <TextView
+                android:id="@+id/textViewStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_13sdp"
+                android:gravity="center"
+                fontPath="fonts/iransans_web_medium.ttf"/>
+
+            <LinearLayout
+                android:id="@+id/LinearLayoutNewQuiz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:background="@drawable/dw_back_bottom"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:padding="@dimen/_5sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/ML_White"
+                    android:gravity="center"
+                    android:textSize="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_20sdp"
+                    android:paddingLeft="@dimen/_20sdp"
+                    android:text="@string/NewQuiz"/>
+
+                <ImageView
+                    android:id="@+id/ImageViewNew"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/svg_quiz"
+                    android:tint="@color/ML_White"
+                    android:layout_marginRight="@dimen/_3sdp"
+                    />
+
+                <com.cunoraz.gifview.library.GifView
+                    android:id="@+id/GifViewLoadingNew"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:visibility="gone"
+                    android:layout_marginRight="@dimen/_3sdp"
+                    android:padding="@dimen/_5sdp"
+                    custom:gif="@drawable/loading3" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerViewExamResult"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
+
 
     </LinearLayout>
 

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -42,12 +44,22 @@ public class ExamResults extends FragmentPrimary implements
     @BindView(R.id.RecyclerViewExamResult)
     RecyclerView RecyclerViewExamResult;
 
+    @BindView(R.id.linearLayoutStatus)
+    LinearLayout linearLayoutStatus;
+
+    @BindView(R.id.textViewStatus)
+    TextView textViewStatus;
+
+    @BindView(R.id.LinearLayoutNewQuiz)
+    LinearLayout LinearLayoutNewQuiz;
+
+    //______________________________________________________________________________________________ onCreateView
     @Nullable
     @Override
     public View onCreateView(
             LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+            Bundle savedInstanceState) {
         if (getView() == null) {
             Post.ExamResultId = 0;
             FragmentExamResultsBinding binding = DataBindingUtil.inflate(
@@ -55,16 +67,19 @@ public class ExamResults extends FragmentPrimary implements
             vm_examResult = new VM_ExamResult(getActivity());
             binding.setExamResults(vm_examResult);
             setView(binding.getRoot());
+            setOnClick();
             examResultId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
             examResultType = getArguments().getString(getContext().getResources().getString(R.string.ML_Type),
                     getContext().getResources().getString(R.string.ML_LastExam));
         }
         return getView();
-    }//_____________________________________________________________________________________________ onCreateView
+    }
+    //______________________________________________________________________________________________ onCreateView
 
 
+    //______________________________________________________________________________________________ onStart
     @Override
-    public void onStart() {//_______________________________________________________________________ onStart
+    public void onStart() {
         super.onStart();
         navController = Navigation.findNavController(getView());
         setGetMessageFromObservable(
@@ -74,33 +89,56 @@ public class ExamResults extends FragmentPrimary implements
         getContext().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         personId = getArguments().getInt(getContext().getResources().getString(R.string.ML_personId), 0);
         GifViewLoading.setVisibility(View.VISIBLE);
-        if (examResultType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_LastExam)))
+        if (examResultType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_LastExam))) {
+            linearLayoutStatus.setVisibility(View.VISIBLE);
             vm_examResult.getExamResult(examResultId);
-        else {
+        } else {
+            linearLayoutStatus.setVisibility(View.GONE);
             if (personId == 0)
                 vm_examResult.getExamResults(examResultId, null);
             else
                 vm_examResult.getExamResults(examResultId, personId);
         }
-    }//_____________________________________________________________________________________________ onStart
+    }
+    //______________________________________________________________________________________________ onStart
 
 
+    //______________________________________________________________________________________________ setOnClick
+    private void setOnClick() {
+
+        LinearLayoutNewQuiz.setOnClickListener(v -> {
+            Post.ExamResultId = -1;
+            getContext().onBackPressed();
+        });
+    }
+    //______________________________________________________________________________________________ setOnClick
+
+
+    //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {
 
         GifViewLoading.setVisibility(View.GONE);
         if (action.equals(StaticValues.ML_GetExam)) {
             if (vm_examResult.getMd_examResults() != null || vm_examResult.getMd_examResult() != null)
-                SetAdapter();
+                setAdapter();
             return;
         }
+    }
+    //______________________________________________________________________________________________ getMessageFromObservable
 
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
 
-
-    private void SetAdapter() {//___________________________________________________________________ SetAdapter
+    //______________________________________________________________________________________________ setAdapter
+    private void setAdapter() {
 
         if (examResultType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_LastExam))) {
+            if (vm_examResult.getMd_examResult().getAverageGrade() < 60) {
+                textViewStatus.setText(getContext().getResources().getString(R.string.YouFailedTheTest));
+                textViewStatus.setTextColor(getContext().getResources().getColor(R.color.ML_RedQuestion));
+            } else {
+                textViewStatus.setText(getContext().getResources().getString(R.string.YouPassedTheTest));
+                textViewStatus.setTextColor(getContext().getResources().getColor(R.color.ML_OK));
+            }
             List<MD_ExamResult> examResults = new ArrayList<>();
             examResults.add(vm_examResult.getMd_examResult());
             AP_ExamResult ap_examResult = new AP_ExamResult(examResults, ExamResults.this);
@@ -112,7 +150,8 @@ public class ExamResults extends FragmentPrimary implements
             RecyclerViewExamResult.setAdapter(ap_examResult);
         }
 
-    }//_____________________________________________________________________________________________ SetAdapter
+    }
+    //______________________________________________________________________________________________ setAdapter
 
 
     //______________________________________________________________________________________________ clickItemResult

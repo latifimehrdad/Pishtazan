@@ -24,7 +24,7 @@ import ir.bppir.pishtazan.viewmodels.fragments.VM_Post;
 import ir.bppir.pishtazan.views.adapters.AP_Post;
 
 public class Post extends FragmentPrimary implements FragmentPrimary.MessageFromObservable,
-        AP_Post.ClickItemTutorial {
+        AP_Post.clickItemTutorial {
 
 
     private VM_Post vm_post;
@@ -89,7 +89,12 @@ public class Post extends FragmentPrimary implements FragmentPrimary.MessageFrom
                 vm_post.getPublishSubject(),
                 vm_post);
         navController = Navigation.findNavController(getView());
-        if (ExamResultId != 0) {
+        if (ExamResultId == -1) {
+            ImageViewNew.setVisibility(View.GONE);
+            GifViewLoadingNew.setVisibility(View.VISIBLE);
+            ExamResultId = 0;
+            vm_post.GetNewQuiz();
+        } else if (ExamResultId != 0) {
             Bundle bundle = new Bundle();
             bundle.putInt(getContext().getResources().getString(R.string.ML_Id), ExamResultId);
             bundle.putString(getContext().getResources().getString(R.string.ML_Type),
@@ -163,7 +168,7 @@ public class Post extends FragmentPrimary implements FragmentPrimary.MessageFrom
 
     //______________________________________________________________________________________________ clickItemTutorial
     @Override
-    public void clickItemTutorial(Integer Position, View view) {
+    public void clickTutorial(Integer Position, View view) {
 
         if (postType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_MyReport))) {
             Bundle bundle = new Bundle();

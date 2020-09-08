@@ -19,19 +19,26 @@ public class AP_Question extends RecyclerView.Adapter<AP_Question.CustomHolder> 
 
     private LayoutInflater layoutInflater;
     private MD_Question md_question;
-    private ClickItemAnswer clickItemAnswer;
+    private clickItemAnswerQuestion clickItem;
 
-    public AP_Question(MD_Question md_question, ClickItemAnswer clickItemAnswer) {
+
+    //______________________________________________________________________________________________ AP_Question
+    public AP_Question(MD_Question md_question, clickItemAnswerQuestion clickItem) {
         this.md_question = md_question;
-        this.clickItemAnswer = clickItemAnswer;
+        this.clickItem = clickItem;
     }
+    //______________________________________________________________________________________________ AP_Question
 
 
-    public interface ClickItemAnswer {//____________________________________________________________ ClickItemPolicy
+    //______________________________________________________________________________________________ clickItemAnswerQuestion
+    public interface clickItemAnswerQuestion {
+
         void clickItemAnswer(Integer Answer);
-    }//_____________________________________________________________________________________________ ClickItemPolicy
+    }
+    //______________________________________________________________________________________________ clickItemAnswerQuestion
 
 
+    //______________________________________________________________________________________________ onCreateViewHolder
     @NonNull
     @Override
     public CustomHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -40,18 +47,26 @@ public class AP_Question extends RecyclerView.Adapter<AP_Question.CustomHolder> 
 
         return new CustomHolder(DataBindingUtil.inflate(layoutInflater, R.layout.adapter_question, parent, false));
     }
+    //______________________________________________________________________________________________ onCreateViewHolder
 
+
+    //______________________________________________________________________________________________ onBindViewHolder
     @Override
     public void onBindViewHolder(@NonNull CustomHolder holder, int position) {
         holder.bind(md_question);
     }
+    //______________________________________________________________________________________________ onBindViewHolder
 
+
+    //______________________________________________________________________________________________ getItemCount
     @Override
     public int getItemCount() {
         return 1;
     }
+    //______________________________________________________________________________________________ getItemCount
 
 
+    //______________________________________________________________________________________________ CustomHolder
     public class CustomHolder extends RecyclerView.ViewHolder {
 
         AdapterQuestionBinding binding;
@@ -69,7 +84,6 @@ public class AP_Question extends RecyclerView.Adapter<AP_Question.CustomHolder> 
         RadioButton RadioButtonD;
 
 
-
         public CustomHolder(AdapterQuestionBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
@@ -81,29 +95,29 @@ public class AP_Question extends RecyclerView.Adapter<AP_Question.CustomHolder> 
 
             RadioButtonA.setOnClickListener(v -> {
                 if (RadioButtonA.isChecked())
-                    clickItemAnswer.clickItemAnswer(1);
+                    clickItem.clickItemAnswer(1);
             });
 
 
             RadioButtonB.setOnClickListener(v -> {
                 if (RadioButtonB.isChecked())
-                    clickItemAnswer.clickItemAnswer(2);
+                    clickItem.clickItemAnswer(2);
             });
 
             RadioButtonC.setOnClickListener(v -> {
                 if (RadioButtonC.isChecked())
-                    clickItemAnswer.clickItemAnswer(3);
+                    clickItem.clickItemAnswer(3);
             });
 
             RadioButtonD.setOnClickListener(v -> {
                 if (RadioButtonD.isChecked())
-                    clickItemAnswer.clickItemAnswer(4);
+                    clickItem.clickItemAnswer(4);
             });
 
             binding.executePendingBindings();
         }
 
     }
-
+    //______________________________________________________________________________________________ CustomHolder
 
 }
