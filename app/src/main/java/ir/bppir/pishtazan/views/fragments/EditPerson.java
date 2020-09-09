@@ -47,7 +47,7 @@ import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 import static ir.bppir.pishtazan.daggers.retrofit.RetrofitApis.Host;
 
 public class EditPerson extends FragmentPrimary implements
-        FragmentPrimary.MessageFromObservable {
+        FragmentPrimary.messageFromObservable {
 
     private NavController navController;
     private Byte panelType;
@@ -376,10 +376,10 @@ public class EditPerson extends FragmentPrimary implements
 
     //______________________________________________________________________________________________ setTextWatcher
     private void setTextWatcher() {
-        EditTextPhoneNumber.addTextChangedListener(TextChangeForChangeBack(EditTextPhoneNumber));
-        EditTextName.addTextChangedListener(TextChangeForChangeBack(EditTextName));
-        EditTextNationalCode.addTextChangedListener(TextChangeForChangeBack(EditTextNationalCode));
-        EditTextAddress.addTextChangedListener(TextChangeForChangeBack(EditTextAddress));
+        EditTextPhoneNumber.addTextChangedListener(textChangeForChangeBack(EditTextPhoneNumber));
+        EditTextName.addTextChangedListener(textChangeForChangeBack(EditTextName));
+        EditTextNationalCode.addTextChangedListener(textChangeForChangeBack(EditTextNationalCode));
+        EditTextAddress.addTextChangedListener(textChangeForChangeBack(EditTextAddress));
     }
     //______________________________________________________________________________________________ setTextWatcher
 
@@ -569,6 +569,13 @@ public class EditPerson extends FragmentPrimary implements
 
     }
     //______________________________________________________________________________________________ setPersonImage
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 
 }

@@ -20,7 +20,7 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_ExamResultDetail;
 import ir.bppir.pishtazan.views.adapters.AP_ExamResultDetail;
 
-public class ExamResultDetails extends FragmentPrimary implements FragmentPrimary.MessageFromObservable {
+public class ExamResultDetails extends FragmentPrimary implements FragmentPrimary.messageFromObservable {
 
     private VM_ExamResultDetail vm_examResultDetail;
     private Integer examResultId;
@@ -81,6 +81,14 @@ public class ExamResultDetails extends FragmentPrimary implements FragmentPrimar
         RecyclerViewExamResult.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewExamResult.setAdapter(ap_examResult);
     }//_____________________________________________________________________________________________ SetAdapter
+
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 
 }

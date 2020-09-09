@@ -36,7 +36,7 @@ import ir.bppir.pishtazan.views.adapters.AP_Question;
 
 
 public class Quiz extends FragmentPrimary implements
-        FragmentPrimary.MessageFromObservable,
+        FragmentPrimary.messageFromObservable,
         AP_Question.clickItemAnswerQuestion {
 
 
@@ -350,5 +350,11 @@ public class Quiz extends FragmentPrimary implements
     }
     //______________________________________________________________________________________________ sendResultExam
 
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 }

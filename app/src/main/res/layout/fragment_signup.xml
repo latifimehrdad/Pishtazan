@@ -87,6 +87,7 @@
                                 android:textSize="@dimen/_12sdp"
                                 android:hint="@string/MobileNumber"
                                 android:maxLength="11"
+                                android:text="@={signup.phoneNumber}"
                                 />
 
                             <ImageView

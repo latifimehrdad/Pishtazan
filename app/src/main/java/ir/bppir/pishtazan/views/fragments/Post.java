@@ -23,7 +23,7 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Post;
 import ir.bppir.pishtazan.views.adapters.AP_Post;
 
-public class Post extends FragmentPrimary implements FragmentPrimary.MessageFromObservable,
+public class Post extends FragmentPrimary implements FragmentPrimary.messageFromObservable,
         AP_Post.clickItemTutorial {
 
 
@@ -186,6 +186,14 @@ public class Post extends FragmentPrimary implements FragmentPrimary.MessageFrom
         }
     }
     //______________________________________________________________________________________________ clickItemTutorial
+
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 
 }

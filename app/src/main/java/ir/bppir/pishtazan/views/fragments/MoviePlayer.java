@@ -23,7 +23,7 @@ import ir.bppir.pishtazan.daggers.retrofit.RetrofitApis;
 import ir.bppir.pishtazan.databinding.FragmentMoviePlayerBinding;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_MoviePlayer;
 
-public class MoviePlayer extends FragmentPrimary implements FragmentPrimary.MessageFromObservable {
+public class MoviePlayer extends FragmentPrimary implements FragmentPrimary.messageFromObservable {
 
 
     private VM_MoviePlayer vm_moviePlayer;
@@ -138,5 +138,11 @@ public class MoviePlayer extends FragmentPrimary implements FragmentPrimary.Mess
 //        VideoViewMovie.start();
     }//_____________________________________________________________________________________________ init
 
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 }

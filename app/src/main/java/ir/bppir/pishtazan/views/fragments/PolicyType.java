@@ -28,7 +28,7 @@ import ir.bppir.pishtazan.views.application.PishtazanApplication;
 import ir.bppir.pishtazan.views.dialogs.searchspinner.MLSpinnerDialog;
 
 public class PolicyType extends FragmentPrimary implements
-        FragmentPrimary.MessageFromObservable {
+        FragmentPrimary.messageFromObservable {
 
     //    private NavController navController;
     private VM_PolicyType vm_policyType;
@@ -313,8 +313,8 @@ public class PolicyType extends FragmentPrimary implements
 
 
     private void SetTextWatcher() {//_______________________________________________________________ Start SetTextWatcher
-        EditTextName.addTextChangedListener(TextChangeForChangeBack(EditTextName));
-        EditTextNationalCode.addTextChangedListener(TextChangeForChangeBack(EditTextNationalCode));
+        EditTextName.addTextChangedListener(textChangeForChangeBack(EditTextName));
+        EditTextNationalCode.addTextChangedListener(textChangeForChangeBack(EditTextNationalCode));
 
         ApplicationUtility utility = PishtazanApplication.getApplication(getContext())
                 .getApplicationUtilityComponent()
@@ -324,5 +324,10 @@ public class PolicyType extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ End SetTextWatcher
 
 
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 }

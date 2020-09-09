@@ -22,7 +22,7 @@ import ir.bppir.pishtazan.viewmodels.fragments.VM_PolicyList;
 import ir.bppir.pishtazan.views.adapters.AP_Policy;
 
 public class Policies extends FragmentPrimary implements
-        FragmentPrimary.MessageFromObservable,
+        FragmentPrimary.messageFromObservable,
         AP_Policy.ClickItemPolicy {
 
 
@@ -150,6 +150,14 @@ public class Policies extends FragmentPrimary implements
         }
 
     }//_____________________________________________________________________________________________ clickItemPolicy
+
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 
 }

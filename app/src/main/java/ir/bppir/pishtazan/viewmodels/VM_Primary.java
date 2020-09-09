@@ -1,6 +1,9 @@
 package ir.bppir.pishtazan.viewmodels;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 
 import androidx.databinding.BaseObservable;
@@ -54,7 +57,14 @@ public class VM_Primary extends BaseObservable {
     //______________________________________________________________________________________________ setPrimaryCall
     public void setPrimaryCall(Call primaryCall) {
         cancelRequest();
-        PrimaryCall = primaryCall;
+        if (isInternetConnected()) {
+            setResponseMessage("");
+            PrimaryCall = primaryCall;
+        } else {
+            setResponseMessage(getContext().getResources().getString(R.string.InternetNotAvailable));
+            PrimaryCall = null;
+            sendMessageToObservable(StaticValues.ML_InternetAccessFailed);
+        }
     }
     //______________________________________________________________________________________________ setPrimaryCall
 
@@ -208,7 +218,7 @@ public class VM_Primary extends BaseObservable {
     //______________________________________________________________________________________________ sendMessageToObservable
     public void sendMessageToObservable(Byte action) {
         Handler handler = new Handler();
-        handler.postDelayed(() -> publishSubject.onNext(action), 200);
+        handler.postDelayed(() -> publishSubject.onNext(action), 500);
 
     }
     //______________________________________________________________________________________________ sendMessageToObservable
@@ -219,6 +229,19 @@ public class VM_Primary extends BaseObservable {
         return FirebaseInstanceId.getInstance().getToken();
     }
     //______________________________________________________________________________________________ getFirebaseToken
+
+
+    //______________________________________________________________________________________________ isInternetConnected
+    public boolean isInternetConnected() {
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork == null)
+            return false;
+        return activeNetwork.isConnectedOrConnecting();
+    }
+    //______________________________________________________________________________________________ isInternetConnected
 
 
 }

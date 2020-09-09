@@ -38,7 +38,7 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_ExamReport;
 import ir.bppir.pishtazan.views.adapters.AP_LearnReport;
 
-public class ExamReport extends FragmentPrimary implements FragmentPrimary.MessageFromObservable,
+public class ExamReport extends FragmentPrimary implements FragmentPrimary.messageFromObservable,
         AP_LearnReport.ClickItemDetail {
 
 
@@ -281,6 +281,13 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.Messa
         navController.navigate(R.id.action_examReport_to_post, bundle);
     }
     //______________________________________________________________________________________________ clickItemPerson
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 
 }

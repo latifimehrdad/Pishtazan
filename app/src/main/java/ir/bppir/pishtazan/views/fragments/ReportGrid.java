@@ -11,7 +11,7 @@ import ir.bppir.pishtazan.databinding.FrReportGridBinding;
 
 import ir.bppir.pishtazan.viewmodels.fragments.VM_ReportGrid;
 
-public class ReportGrid extends FragmentPrimary implements FragmentPrimary.MessageFromObservable {
+public class ReportGrid extends FragmentPrimary implements FragmentPrimary.messageFromObservable {
 
     private VM_ReportGrid vm_reportGrid;
 
@@ -53,5 +53,12 @@ public class ReportGrid extends FragmentPrimary implements FragmentPrimary.Messa
     }
     //______________________________________________________________________________________________ GetMessageFromObservable
 
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 }

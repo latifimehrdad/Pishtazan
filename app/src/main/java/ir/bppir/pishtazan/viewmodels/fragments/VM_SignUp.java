@@ -2,6 +2,7 @@ package ir.bppir.pishtazan.viewmodels.fragments;
 
 import android.app.Activity;
 
+import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
 import ir.bppir.pishtazan.models.MR_GenerateCode;
 import ir.bppir.pishtazan.utility.StaticValues;
@@ -13,18 +14,23 @@ import retrofit2.Response;
 
 public class VM_SignUp extends VM_Primary {
 
-    public VM_SignUp(Activity context) {//__________________________________________________________ VM_SignUp
+    private String phoneNumber;
+
+    //______________________________________________________________________________________________ VM_SignUp
+    public VM_SignUp(Activity context) {
         setContext(context);
-    }//_____________________________________________________________________________________________ VM_SignUp
+    }
+    //______________________________________________________________________________________________ VM_SignUp
 
 
-    public void SendNumber(String PhoneNumber) {//__________________________________________________ SendNumber
+    //______________________________________________________________________________________________ sendNumber
+    public void sendNumber() {
 
-        PhoneNumber = PishtazanApplication
+        phoneNumber = PishtazanApplication
                 .getApplication(getContext())
                 .getApplicationUtilityComponent()
                 .getApplicationUtility()
-                .PersianToEnglish(PhoneNumber);
+                .PersianToEnglish(phoneNumber);
 
 
         RetrofitComponent retrofitComponent = PishtazanApplication
@@ -32,8 +38,11 @@ public class VM_SignUp extends VM_Primary {
                 .getRetrofitComponent();
 
         setPrimaryCall(retrofitComponent
-                        .getRetrofitApiInterface()
-                        .REQUEST_GENERATE_CODE_CALL(PhoneNumber));
+                .getRetrofitApiInterface()
+                .REQUEST_GENERATE_CODE_CALL(phoneNumber));
+
+        if (getPrimaryCall() == null)
+            return;
 
         getPrimaryCall().enqueue(new Callback<MR_GenerateCode>() {
             @Override
@@ -53,6 +62,21 @@ public class VM_SignUp extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ SendNumber
+    }
+    //______________________________________________________________________________________________ sendNumber
 
+
+
+    //______________________________________________________________________________________________ getPhoneNumber
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    //______________________________________________________________________________________________ getPhoneNumber
+
+
+    //______________________________________________________________________________________________ setPhoneNumber
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+    //______________________________________________________________________________________________ setPhoneNumber
 }

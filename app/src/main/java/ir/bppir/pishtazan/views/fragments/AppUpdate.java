@@ -30,7 +30,7 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Update;
 
 public class AppUpdate extends FragmentPrimary implements
-        FragmentPrimary.MessageFromObservable {
+        FragmentPrimary.messageFromObservable {
 
 
     private VM_Update vm_update;
@@ -177,6 +177,14 @@ public class AppUpdate extends FragmentPrimary implements
         }, 500);
     }
     //______________________________________________________________________________________________ setProgress
+
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 
 }

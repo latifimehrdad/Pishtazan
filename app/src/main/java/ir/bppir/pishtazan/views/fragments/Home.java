@@ -24,7 +24,7 @@ import ir.bppir.pishtazan.databinding.FragmentHomeBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Home;
 
-public class Home extends FragmentPrimary implements FragmentPrimary.MessageFromObservable {
+public class Home extends FragmentPrimary implements FragmentPrimary.messageFromObservable {
 
     private NavController navController;
     private VM_Home vm_home;
@@ -157,5 +157,12 @@ public class Home extends FragmentPrimary implements FragmentPrimary.MessageFrom
             }
         }, 1000);
     }//_____________________________________________________________________________________________ StartService
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 }

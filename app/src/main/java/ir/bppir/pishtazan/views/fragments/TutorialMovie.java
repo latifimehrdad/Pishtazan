@@ -26,7 +26,7 @@ import ir.bppir.pishtazan.viewmodels.fragments.VM_TutorialMovie;
 import ir.bppir.pishtazan.views.adapters.AP_Movie;
 
 public class TutorialMovie extends FragmentPrimary implements
-        FragmentPrimary.MessageFromObservable,
+        FragmentPrimary.messageFromObservable,
         AP_Movie.ClickItemTutorialMovie {
 
     private VM_TutorialMovie vm_tutorialMovie;
@@ -154,5 +154,14 @@ public class TutorialMovie extends FragmentPrimary implements
         navController.navigate(R.id.action_tutorialMovie_to_moviePlayer, bundle);
 
     }//_____________________________________________________________________________________________ clickItemTutorialMovie
+
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
 
 }

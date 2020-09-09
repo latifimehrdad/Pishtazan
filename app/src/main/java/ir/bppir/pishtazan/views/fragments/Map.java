@@ -25,7 +25,7 @@ import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.FragmentMapBinding;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Map;
 
-public class Map extends FragmentPrimary implements FragmentPrimary.MessageFromObservable,
+public class Map extends FragmentPrimary implements FragmentPrimary.messageFromObservable,
         OnMapReadyCallback {
 
     private VM_Map vm_map;
@@ -162,5 +162,10 @@ public class Map extends FragmentPrimary implements FragmentPrimary.MessageFromO
     }//_____________________________________________________________________________________________ End Void onMapReady
 
 
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 }

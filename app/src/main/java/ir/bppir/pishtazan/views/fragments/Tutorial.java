@@ -23,7 +23,7 @@ import ir.bppir.pishtazan.viewmodels.fragments.VM_Tutorial;
 import ir.bppir.pishtazan.views.adapters.AP_Tutorial;
 
 public class Tutorial extends FragmentPrimary implements
-        FragmentPrimary.MessageFromObservable,
+        FragmentPrimary.messageFromObservable,
         AP_Tutorial.ClickItemTutorial {
 
     private VM_Tutorial vm_tutorial;
@@ -120,5 +120,12 @@ public class Tutorial extends FragmentPrimary implements
         }
     }//_____________________________________________________________________________________________ clickItemTutorial
 
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 }

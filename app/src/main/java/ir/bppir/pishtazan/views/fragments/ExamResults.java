@@ -29,7 +29,7 @@ import ir.bppir.pishtazan.viewmodels.fragments.VM_ExamResult;
 import ir.bppir.pishtazan.views.adapters.AP_ExamResult;
 
 public class ExamResults extends FragmentPrimary implements
-        FragmentPrimary.MessageFromObservable,
+        FragmentPrimary.messageFromObservable,
         AP_ExamResult.ClickItemResult {
 
     private VM_ExamResult vm_examResult;
@@ -172,6 +172,13 @@ public class ExamResults extends FragmentPrimary implements
         navController.navigate(R.id.action_examResults_to_examResultDetails, bundle);
     }
     //______________________________________________________________________________________________ clickItemResult
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 
 }

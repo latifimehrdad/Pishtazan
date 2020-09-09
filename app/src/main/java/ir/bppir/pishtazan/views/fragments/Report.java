@@ -42,7 +42,7 @@ import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
-public class Report extends FragmentPrimary implements FragmentPrimary.MessageFromObservable {
+public class Report extends FragmentPrimary implements FragmentPrimary.messageFromObservable {
 
 
     private VM_Report vm_report;
@@ -330,5 +330,13 @@ public class Report extends FragmentPrimary implements FragmentPrimary.MessageFr
         RecyclerViewReport.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewReport.setAdapter(ap_report);
     }//_____________________________________________________________________________________________ SetReportAdapter
+
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 }

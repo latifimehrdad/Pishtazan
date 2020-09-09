@@ -131,6 +131,7 @@
     <string name="RemainingQuestions">سوالات باقیمانده</string>
     <string name="YouPassedTheTest">شما در آزمون قبول شدید</string>
     <string name="YouFailedTheTest">شما در آزمون رد شدید</string>
+    <string name="ReTry">تلاش مجدد</string>
 
 
     //___________________________ Values For SharedPreference ______________________________________

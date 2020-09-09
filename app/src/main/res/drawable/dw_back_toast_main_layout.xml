@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <solid android:color="@color/ML_Dialog"/>
+    <solid android:color="@color/mlToastBack"/>
     <corners android:topRightRadius="@dimen/_200sdp"
         android:bottomRightRadius="@dimen/_200sdp"/>
 

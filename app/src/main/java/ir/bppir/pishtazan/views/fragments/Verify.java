@@ -26,7 +26,7 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Verify;
 import ir.bppir.pishtazan.views.dialogs.DialogProgress;
 
-public class Verify extends FragmentPrimary implements FragmentPrimary.MessageFromObservable {
+public class Verify extends FragmentPrimary implements FragmentPrimary.messageFromObservable {
 
     private NavController navController;
     private VM_Verify vm_verify;
@@ -325,5 +325,12 @@ public class Verify extends FragmentPrimary implements FragmentPrimary.MessageFr
             progress.dismiss();
     }//_____________________________________________________________________________________________ DismissDialogLoading
 
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 }

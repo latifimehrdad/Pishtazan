@@ -1,10 +1,8 @@
 package ir.bppir.pishtazan.views.fragments;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,8 +11,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
-
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -32,15 +28,16 @@ public class FragmentPrimary extends Fragment {
     private DisposableObserver<Byte> disposableObserver;
     private Activity context;
     private View view;
-    private MessageFromObservable MessageFromObservable;
+    private messageFromObservable MessageFromObservable;
     private VM_Primary vm_primary;
 
 
-    //______________________________________________________________________________________________ getMessageFromObservable
-    public interface MessageFromObservable {
+    //______________________________________________________________________________________________ messageFromObservable
+    public interface messageFromObservable {
         void getMessageFromObservable(Byte action);
+        void actionWhenFailureRequest();
     }
-    //______________________________________________________________________________________________ getMessageFromObservable
+    //______________________________________________________________________________________________ messageFromObservable
 
 
     //______________________________________________________________________________________________ FragmentPrimary
@@ -107,7 +104,7 @@ public class FragmentPrimary extends Fragment {
 
     //______________________________________________________________________________________________ setGetMessageFromObservable
     public void setGetMessageFromObservable(
-            MessageFromObservable MessageFromObservable,
+            messageFromObservable MessageFromObservable,
             PublishSubject<Byte> publishSubject,
             VM_Primary vm_primary) {
         this.MessageFromObservable = MessageFromObservable;
@@ -152,32 +149,31 @@ public class FragmentPrimary extends Fragment {
     //______________________________________________________________________________________________ actionHandler
     private void actionHandler(Byte action) {
         getActivity()
-                .runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+                .runOnUiThread(() -> {
 
-                        MessageFromObservable.getMessageFromObservable(action);
+                    MessageFromObservable.getMessageFromObservable(action);
 
-                        if (vm_primary.getResponseMessage() == null)
-                            return;
+                    if (vm_primary.getResponseMessage() == null)
+                        return;
 
-                        if (vm_primary.getResponseMessage().equalsIgnoreCase(""))
-                            return;
+                    if (vm_primary.getResponseMessage().equalsIgnoreCase(""))
+                        return;
 
-                        if ((action == StaticValues.ML_RequestCancel)
-                                || (action == StaticValues.ML_ResponseError)
-                                || (action == StaticValues.ML_ResponseFailure))
-                            showMessage(vm_primary.getResponseMessage(),
-                                    getResources().getColor(R.color.ML_White),
-                                    getResources().getDrawable(R.drawable.ic_baseline_warning),
-                                    getResources().getColor(R.color.ML_HarmonyDark));
-                        else
-                            showMessage(vm_primary.getResponseMessage()
-                                    , getResources().getColor(R.color.ML_White),
-                                    getResources().getDrawable(R.drawable.ic_baseline_check_circle),
-                                    getResources().getColor(R.color.ML_OK));
+                    if ((action == StaticValues.ML_RequestCancel)
+                            || (action == StaticValues.ML_ResponseError)
+                            || (action == StaticValues.ML_ResponseFailure)
+                            || (action == StaticValues.ML_InternetAccessFailed)) {
+                        showMessage(vm_primary.getResponseMessage(),
+                                getResources().getColor(R.color.ML_White),
+                                getResources().getDrawable(R.drawable.ic_baseline_warning),
+                                getResources().getColor(R.color.ML_Harmony));
+                        MessageFromObservable.actionWhenFailureRequest();
+                    } else
+                        showMessage(vm_primary.getResponseMessage()
+                                , getResources().getColor(R.color.ML_White),
+                                getResources().getDrawable(R.drawable.ic_baseline_check_circle),
+                                getResources().getColor(R.color.ML_OK));
 
-                    }
                 });
     }
     //______________________________________________________________________________________________ actionHandler
@@ -207,22 +203,8 @@ public class FragmentPrimary extends Fragment {
     //______________________________________________________________________________________________ hideKeyboard
 
 
-    //______________________________________________________________________________________________ isInternetConnected
-    public boolean isInternetConnected() {
-        ConnectivityManager cm =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        if (activeNetwork == null)
-            return false;
-        return activeNetwork.isConnectedOrConnecting();
-    }
-    //______________________________________________________________________________________________ isInternetConnected
-
-
-
-    //______________________________________________________________________________________________
-    public TextWatcher TextChangeForChangeBack(final EditText editText) {
+    //______________________________________________________________________________________________ textChangeForChangeBack
+    public TextWatcher textChangeForChangeBack(final EditText editText) {
         return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -242,6 +224,14 @@ public class FragmentPrimary extends Fragment {
         };
 
     }
+    //______________________________________________________________________________________________ textChangeForChangeBack
+
+
+    //______________________________________________________________________________________________ getRes
+    public Resources getRes() {
+        return getContext().getResources();
+    }
+    //______________________________________________________________________________________________ getRes
 
 
 }

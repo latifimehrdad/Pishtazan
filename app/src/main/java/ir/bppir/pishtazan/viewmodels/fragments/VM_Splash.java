@@ -54,6 +54,9 @@ public class VM_Splash extends VM_Primary {
                 .getRetrofitApiInterface()
                 .GET_UPDATE());
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MD_Update>() {
             @Override
             public void onResponse(Call<MD_Update> call, Response<MD_Update> response) {

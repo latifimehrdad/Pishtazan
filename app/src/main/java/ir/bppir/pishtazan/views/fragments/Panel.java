@@ -39,7 +39,7 @@ import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
 public class Panel extends FragmentPrimary implements
-        FragmentPrimary.MessageFromObservable,
+        FragmentPrimary.messageFromObservable,
         AP_Person.ClickItemPerson {
 
     private NavController navController;
@@ -835,4 +835,13 @@ public class Panel extends FragmentPrimary implements
         bundle.putInt(getContext().getString(R.string.ML_personId), vm_panel.getPersonList().get(Position).getId());
         navController.navigate(R.id.action_panel_to_editPerson, bundle);
     }//_____________________________________________________________________________________________ EditProfilePerson
+
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
 }

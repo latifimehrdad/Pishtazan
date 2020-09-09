@@ -385,7 +385,7 @@ public class MainActivity extends AppCompatActivity {
             titleLength = titleLength / 10;
 
         delay = 1000 * titleLength;
-        delay = delay + 500;
+        delay = delay + 1500;
 
         Handler handler = new Handler();
         handler.postDelayed(() -> {

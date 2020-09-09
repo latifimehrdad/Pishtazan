@@ -28,6 +28,7 @@
                 android:src="@drawable/pishtaz_logo" />
 
             <LinearLayout
+                android:id="@+id/linearLayoutLoading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
@@ -57,11 +58,37 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/linearLayoutRefresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="@drawable/dw_back_bottom_connection"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/_20sdp"
+                    android:paddingRight="@dimen/_20sdp"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:textColor="@color/ML_White"
+                    android:textSize="@dimen/_10sdp"
+                    android:text="@string/ReTry"/>
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_7sdp"
+                    android:tint="@color/ML_White"
+                    android:src="@drawable/svg_refresh"/>
+
+            </LinearLayout>
+
         </LinearLayout>
-
-
-
-
 
 
     </RelativeLayout>

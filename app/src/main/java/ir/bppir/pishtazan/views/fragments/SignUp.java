@@ -16,6 +16,8 @@ import androidx.navigation.Navigation;
 import com.cunoraz.gifview.library.GifView;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
@@ -23,11 +25,10 @@ import ir.bppir.pishtazan.databinding.FragmentSignupBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_SignUp;
 
-public class SignUp extends FragmentPrimary implements FragmentPrimary.MessageFromObservable {
+public class SignUp extends FragmentPrimary implements FragmentPrimary.messageFromObservable {
 
     private NavController navController;
     private VM_SignUp vm_signUp;
-    private String PhoneNumber;
 
 
     @BindView(R.id.EditPhoneNumber)
@@ -46,150 +47,144 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.MessageFr
     GifView ProgressGif;
 
 
+    //______________________________________________________________________________________________ SignUp
+    public SignUp() {
+    }
+    //______________________________________________________________________________________________ SignUp
 
-    public SignUp() {//_____________________________________________________________________________ SignUp
-    }//_____________________________________________________________________________________________ SignUp
 
-
+    //______________________________________________________________________________________________ onCreateView
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+            Bundle savedInstanceState) {
         if (getView() == null) {
             vm_signUp = new VM_SignUp(getActivity());
             FragmentSignupBinding binding = DataBindingUtil.inflate(
-                    inflater, R.layout.fragment_signup,container, false);
+                    inflater, R.layout.fragment_signup, container, false);
             binding.setSignup(vm_signUp);
             setView(binding.getRoot());
             ButterKnife.bind(this, getView());
-            SetClick();
-            SetTextWatcher();
+            setClick();
+            setTextWatcher();
         }
         return getView();
-    }//_____________________________________________________________________________________________ onCreateView
+    }
+    //______________________________________________________________________________________________ onCreateView
 
 
+    //______________________________________________________________________________________________ onStart
     @Override
-    public void onStart() {//_______________________________________________________________________ onStart
+    public void onStart() {
         super.onStart();
         FirebaseMessaging.getInstance().subscribeToTopic("all_user");
         init();
-    }//_____________________________________________________________________________________________ onStart
+    }
+    //______________________________________________________________________________________________ onStart
 
 
-    private void init() {//_________________________________________________________________________ init
+    //______________________________________________________________________________________________ init
+    private void init() {
         setGetMessageFromObservable(
                 SignUp.this,
                 vm_signUp.getPublishSubject(),
                 vm_signUp);
-        navController = Navigation.findNavController(getView());
-    }//_____________________________________________________________________________________________ init
+        if (getView() != null)
+            navController = Navigation.findNavController(getView());
+    }
+    //______________________________________________________________________________________________ init
 
 
+    //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {
 
-        if (action == StaticValues.ML_GotoVerify) {
-            DismissLoading();
+        dismissLoading();
+        if (action.equals(StaticValues.ML_GotoVerify)) {
             Bundle bundle = new Bundle();
-            bundle.putString(getContext()
-                    .getString(R.string.ML_PhoneNumber),EditPhoneNumber.getText().toString());
-            navController.navigate(R.id.action_signUp_to_verify,bundle);
-            return;
+            bundle.putString(getRes().getString(R.string.ML_PhoneNumber), EditPhoneNumber.getText().toString());
+            navController.navigate(R.id.action_signUp_to_verify, bundle);
         }
 
-        if ((action == StaticValues.ML_ResponseError) ||
-                (action == StaticValues.ML_ResponseFailure) ||
-                (action == StaticValues.ML_RequestCancel)) {
-            DismissLoading();
-            return;
-        }
-
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
+    }
+    //______________________________________________________________________________________________ getMessageFromObservable
 
 
+    //______________________________________________________________________________________________ setClick
+    private void setClick() {
 
-    private void SetClick() {//_____________________________________________________________________ SetClick
-
-        ButtonSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hideKeyboard();
-                if (!isInternetConnected()) {
-                    showMessage(
-                            getResources().getString(R.string.InternetNotAvailable),
-                            getResources().getColor(R.color.ML_Dialog),
-                            getResources().getDrawable(R.drawable.ic_baseline_warning),
-                            getResources().getColor(R.color.ML_Red));
-                    return;
-                }
-
-                    if (CheckEmpty()) {
-                        ShowLoading();
-                        vm_signUp.SendNumber(
-                                EditPhoneNumber.getText().toString());
-                    }
+        ButtonSignUp.setOnClickListener(v -> {
+            if (checkEmpty()) {
+                showLoading();
+                vm_signUp.sendNumber();
             }
         });
+    }
+    //______________________________________________________________________________________________ setClick
 
 
-    }//_____________________________________________________________________________________________ SetClick
+    //______________________________________________________________________________________________ checkEmpty
+    private Boolean checkEmpty() {
 
-
-
-    private void SetTextWatcher() {//_______________________________________________________________ Start SetTextWatcher
-        EditPhoneNumber.addTextChangedListener(TextChangeForChangeBack(EditPhoneNumber));
-    }//_____________________________________________________________________________________________ End SetTextWatcher
-
-
-
-    private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
+        hideKeyboard();
 
         boolean mobile = true;
-        PhoneNumber = EditPhoneNumber.getText().toString();
 
         if (EditPhoneNumber.getText().length() != 11) {
             EditPhoneNumber.setBackgroundResource(R.drawable.dw_edit_empty_background);
-            EditPhoneNumber.setError(getResources().getString(R.string.EnterPhoneNumber));
+            EditPhoneNumber.setError(getRes().getString(R.string.EnterPhoneNumber));
             EditPhoneNumber.requestFocus();
             mobile = false;
         } else {
             String ZeroNine = EditPhoneNumber.getText().subSequence(0, 2).toString();
-            if(!ZeroNine.equalsIgnoreCase("09")) {
+            if (!ZeroNine.equalsIgnoreCase("09")) {
                 EditPhoneNumber.setBackgroundResource(R.drawable.dw_edit_empty_background);
-                EditPhoneNumber.setError(getResources().getString(R.string.EnterPhoneNumber));
+                EditPhoneNumber.setError(getRes().getString(R.string.EnterPhoneNumber));
                 EditPhoneNumber.requestFocus();
                 mobile = false;
             }
         }
 
-        if (mobile)
-            return true;
-        else
-            return false;
+        return mobile;
 
-    }//_____________________________________________________________________________________________ CheckEmpty
+    }
+    //______________________________________________________________________________________________ checkEmpty
 
 
+    //______________________________________________________________________________________________ setTextWatcher
+    private void setTextWatcher() {
+        EditPhoneNumber.addTextChangedListener(textChangeForChangeBack(EditPhoneNumber));
+    }
+    //______________________________________________________________________________________________ setTextWatcher
 
 
-    private void DismissLoading() {//_______________________________________________________________ DismissLoading
+    //______________________________________________________________________________________________ dismissLoading
+    private void dismissLoading() {
 
-        BtnLoginText.setText(getResources().getString(R.string.GetVerifyCode));
-        ButtonSignUp.setBackground(getResources().getDrawable(R.drawable.dw_back_bottom));
+        BtnLoginText.setText(getRes().getString(R.string.GetVerifyCode));
+        ButtonSignUp.setBackground(getRes().getDrawable(R.drawable.dw_back_bottom));
         ProgressGif.setVisibility(View.GONE);
         imgProgress.setVisibility(View.VISIBLE);
 
-    }//_____________________________________________________________________________________________ DismissLoading
+    }
+    //______________________________________________________________________________________________ dismissLoading
 
 
-    private void ShowLoading() {//__________________________________________________________________ ShowLoading
-        BtnLoginText.setText(getResources().getString(R.string.Cancel));
-        ButtonSignUp.setBackground(getResources().getDrawable(R.drawable.dw_back_bottom_connection));
+    //______________________________________________________________________________________________ showLoading
+    private void showLoading() {
+        BtnLoginText.setText(getRes().getString(R.string.Cancel));
+        ButtonSignUp.setBackground(getRes().getDrawable(R.drawable.dw_back_bottom_connection));
         ProgressGif.setVisibility(View.VISIBLE);
         imgProgress.setVisibility(View.INVISIBLE);
-    }//_____________________________________________________________________________________________ ShowLoading
+    }
+    //______________________________________________________________________________________________ showLoading
 
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 }

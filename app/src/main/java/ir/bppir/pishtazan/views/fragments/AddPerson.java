@@ -41,7 +41,7 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_AddPerson;
 import ir.bppir.pishtazan.views.adapters.AP_Contact;
 
-public class AddPerson extends FragmentPrimary implements FragmentPrimary.MessageFromObservable {
+public class AddPerson extends FragmentPrimary implements FragmentPrimary.messageFromObservable {
 
     private NavController navController;
     private int panelType;
@@ -282,8 +282,8 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.Messag
 
     //______________________________________________________________________________________________ setTextWatcher
     private void setTextWatcher() {
-        EditTextPhoneNumber.addTextChangedListener(TextChangeForChangeBack(EditTextPhoneNumber));
-        EditTextName.addTextChangedListener(TextChangeForChangeBack(EditTextName));
+        EditTextPhoneNumber.addTextChangedListener(textChangeForChangeBack(EditTextPhoneNumber));
+        EditTextName.addTextChangedListener(textChangeForChangeBack(EditTextName));
     }
     //______________________________________________________________________________________________ setTextWatcher
 
@@ -458,6 +458,13 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.Messag
 
     }
     //______________________________________________________________________________________________ checkEmpty
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 
 }

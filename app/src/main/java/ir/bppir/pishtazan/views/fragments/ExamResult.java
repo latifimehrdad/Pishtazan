@@ -20,7 +20,7 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_ExamResult;
 
 public class ExamResult extends FragmentPrimary implements
-        FragmentPrimary.MessageFromObservable {
+        FragmentPrimary.messageFromObservable {
 
     private VM_ExamResult vm_examResult;
     private Integer examResultId;
@@ -118,6 +118,13 @@ public class ExamResult extends FragmentPrimary implements
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 
 }
