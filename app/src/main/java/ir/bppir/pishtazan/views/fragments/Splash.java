@@ -29,17 +29,19 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.MessageFr
     @BindView(R.id.ImageViewSplash)
     ImageView ImageViewSplash;
 
-    public Splash() {//_____________________________________________________________________________ Splash
+    //______________________________________________________________________________________________ Splash
+    public Splash() {
+    }
+    //______________________________________________________________________________________________ Splash
 
-    }//_____________________________________________________________________________________________ Splash
 
-
+    //______________________________________________________________________________________________ onCreateView
     @Nullable
     @Override
     public View onCreateView(
             LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+            Bundle savedInstanceState) {
         if (getView() == null) {
             FragmentSplashBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_splash, container, false);
@@ -49,29 +51,35 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.MessageFr
             ButterKnife.bind(this, getView());
         }
         return getView();
-    }//_____________________________________________________________________________________________ onCreateView
+    }
+    //______________________________________________________________________________________________ onCreateView
 
 
+    //______________________________________________________________________________________________ onStart
     @Override
-    public void onStart() {//_______________________________________________________________________ onStart
+    public void onStart() {
         super.onStart();
         setGetMessageFromObservable(
                 Splash.this,
                 vm_splash.getPublishSubject(),
                 vm_splash);
         navController = Navigation.findNavController(getView());
-        StartAnimationSplash();
-    }//_____________________________________________________________________________________________ onStart
+        startAnimationSplash();
+    }
+    //______________________________________________________________________________________________ onStart
 
 
-    private void StartAnimationSplash() {//_________________________________________________________ StartAnimationSplash
+    //______________________________________________________________________________________________ startAnimationSplash
+    private void startAnimationSplash() {
         ImageViewSplash.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.bounce));
         vm_splash.getUpdate();
-    }//_____________________________________________________________________________________________ StartAnimationSplash
+    }
+    //______________________________________________________________________________________________ startAnimationSplash
 
 
+    //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {
 
         if (action == StaticValues.ML_GotoSignUp) {
             navController.navigate(R.id.action_splash_to_signUp);
@@ -92,7 +100,8 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.MessageFr
             navController.navigate(R.id.action_splash_to_appUpdate, bundle);
         }
 
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
+    }
+    //______________________________________________________________________________________________ getMessageFromObservable
 
 
 }

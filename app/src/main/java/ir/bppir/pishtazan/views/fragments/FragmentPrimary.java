@@ -1,12 +1,20 @@
 package ir.bppir.pishtazan.views.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
+
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -97,7 +105,6 @@ public class FragmentPrimary extends Fragment {
     //______________________________________________________________________________________________ setView
 
 
-
     //______________________________________________________________________________________________ setGetMessageFromObservable
     public void setGetMessageFromObservable(
             MessageFromObservable MessageFromObservable,
@@ -111,7 +118,6 @@ public class FragmentPrimary extends Fragment {
         setObserverToObservable(publishSubject);
     }
     //______________________________________________________________________________________________ setGetMessageFromObservable
-
 
 
     //______________________________________________________________________________________________ setObserverToObservable
@@ -199,5 +205,43 @@ public class FragmentPrimary extends Fragment {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
     //______________________________________________________________________________________________ hideKeyboard
+
+
+    //______________________________________________________________________________________________ isInternetConnected
+    public boolean isInternetConnected() {
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork == null)
+            return false;
+        return activeNetwork.isConnectedOrConnecting();
+    }
+    //______________________________________________________________________________________________ isInternetConnected
+
+
+
+    //______________________________________________________________________________________________
+    public TextWatcher TextChangeForChangeBack(final EditText editText) {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                editText.setBackgroundResource(R.drawable.dw_edit_back);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+
+    }
+
 
 }

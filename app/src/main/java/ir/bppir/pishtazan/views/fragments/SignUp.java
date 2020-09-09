@@ -20,11 +20,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.FragmentSignupBinding;
-import ir.bppir.pishtazan.utility.StaticFunctions;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_SignUp;
-
-import static ir.bppir.pishtazan.utility.StaticFunctions.TextChangeForChangeBack;
 
 public class SignUp extends FragmentPrimary implements FragmentPrimary.MessageFromObservable {
 
@@ -118,8 +115,8 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.MessageFr
         ButtonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StaticFunctions.hideKeyboard(getActivity());
-                if (!StaticFunctions.isInternetConnected(getContext())) {
+                hideKeyboard();
+                if (!isInternetConnected()) {
                     showMessage(
                             getResources().getString(R.string.InternetNotAvailable),
                             getResources().getColor(R.color.ML_Dialog),

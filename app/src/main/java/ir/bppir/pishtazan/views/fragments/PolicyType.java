@@ -20,12 +20,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.FragmentPolicyTypeBinding;
+import ir.bppir.pishtazan.utility.ApplicationUtility;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_PolicyType;
 import ir.bppir.pishtazan.views.activity.MainActivity;
+import ir.bppir.pishtazan.views.application.PishtazanApplication;
 import ir.bppir.pishtazan.views.dialogs.searchspinner.MLSpinnerDialog;
-
-import static ir.bppir.pishtazan.utility.StaticFunctions.TextChangeForChangeBack;
 
 public class PolicyType extends FragmentPrimary implements
         FragmentPrimary.MessageFromObservable {
@@ -315,7 +315,12 @@ public class PolicyType extends FragmentPrimary implements
     private void SetTextWatcher() {//_______________________________________________________________ Start SetTextWatcher
         EditTextName.addTextChangedListener(TextChangeForChangeBack(EditTextName));
         EditTextNationalCode.addTextChangedListener(TextChangeForChangeBack(EditTextNationalCode));
-        EditTextAmount.addTextChangedListener(TextChangeForChangeBack(EditTextAmount));
+
+        ApplicationUtility utility = PishtazanApplication.getApplication(getContext())
+                .getApplicationUtilityComponent()
+                .getApplicationUtility();
+
+        EditTextAmount.addTextChangedListener(utility.SetTextWatcherSplitting(EditTextAmount));
     }//_____________________________________________________________________________________________ End SetTextWatcher
 
 

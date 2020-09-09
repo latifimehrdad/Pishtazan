@@ -18,6 +18,18 @@ import ir.bppir.pishtazan.R;
 
 public class ApplicationUtility {
 
+
+    //______________________________________________________________________________________________ splitNumberOfAmount
+    public String splitNumberOfAmount(Long amount) {
+        NumberFormat formatter = new DecimalFormat("#,###");
+        return formatter.format(amount);
+    }
+    //______________________________________________________________________________________________ splitNumberOfAmount
+
+
+
+
+
     //Type = "FullJalaliNumber = 1367/05/31"
     //Type = "YearJalaliNumber = 1367"
     //Type = "MonthJalaliNumber = 05"

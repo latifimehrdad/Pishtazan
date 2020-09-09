@@ -34,7 +34,6 @@ import io.reactivex.schedulers.Schedulers;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.daggers.datepicker.PersianPickerModule;
 import ir.bppir.pishtazan.databinding.FragmentEditPersonBinding;
-import ir.bppir.pishtazan.utility.StaticFunctions;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_EditPerson;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Map;
@@ -46,7 +45,6 @@ import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
 import static ir.bppir.pishtazan.daggers.retrofit.RetrofitApis.Host;
-import static ir.bppir.pishtazan.utility.StaticFunctions.TextChangeForChangeBack;
 
 public class EditPerson extends FragmentPrimary implements
         FragmentPrimary.MessageFromObservable {
@@ -299,7 +297,7 @@ public class EditPerson extends FragmentPrimary implements
         LinearLayoutCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StaticFunctions.hideKeyboard(getActivity());
+                hideKeyboard();
                 getActivity().onBackPressed();
             }
         });
@@ -313,7 +311,7 @@ public class EditPerson extends FragmentPrimary implements
                 phone = phone.replaceAll("-", "");
                 EditTextPhoneNumber.setText(phone);
                 if (checkEmpty()) {
-                    StaticFunctions.hideKeyboard(getActivity());
+                    hideKeyboard();
                     showLoadingSend();
                     vm_editPerson.editProfile(
                             panelType,

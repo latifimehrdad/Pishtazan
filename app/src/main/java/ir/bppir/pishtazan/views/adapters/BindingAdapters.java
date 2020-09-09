@@ -16,6 +16,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.models.MD_ExamResultDetail;
+import ir.bppir.pishtazan.utility.ApplicationUtility;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
 
@@ -205,7 +206,12 @@ public class BindingAdapters {
         Context context = textView.getContext();
         switch (tag) {
             case "amount":
-                textView.setText(context.getResources().getString(R.string.Amount) + " : " + value.toString());
+                ApplicationUtility utility = PishtazanApplication.getApplication(context)
+                        .getApplicationUtilityComponent()
+                        .getApplicationUtility();
+
+
+                textView.setText(context.getResources().getString(R.string.Amount) + " : " + utility.splitNumberOfAmount(value));
                 break;
         }
 

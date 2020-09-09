@@ -22,7 +22,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.FragmentVerifyBinding;
-import ir.bppir.pishtazan.utility.StaticFunctions;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Verify;
 import ir.bppir.pishtazan.views.dialogs.DialogProgress;
@@ -242,7 +241,7 @@ public class Verify extends FragmentPrimary implements FragmentPrimary.MessageFr
                     VerifyCode5.getText().toString() +
                     VerifyCode6.getText().toString();
 
-            StaticFunctions.hideKeyboard(getActivity());
+            hideKeyboard();
             ShowProgressDialog();
             vm_verify.VerifyNumber(PhoneNumber, code);
         }

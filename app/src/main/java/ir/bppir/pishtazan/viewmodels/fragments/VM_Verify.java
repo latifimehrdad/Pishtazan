@@ -1,20 +1,19 @@
 package ir.bppir.pishtazan.viewmodels.fragments;
 
-        import android.app.Activity;
+import android.app.Activity;
 
-        import io.realm.Realm;
-        import io.realm.RealmResults;
-        import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
-        import ir.bppir.pishtazan.database.DB_UserInfo;
-        import ir.bppir.pishtazan.models.MR_GenerateCode;
-        import ir.bppir.pishtazan.models.MRVerifyCode;
-        import ir.bppir.pishtazan.utility.StaticFunctions;
-        import ir.bppir.pishtazan.utility.StaticValues;
-        import ir.bppir.pishtazan.viewmodels.VM_Primary;
-        import ir.bppir.pishtazan.views.application.PishtazanApplication;
-        import retrofit2.Call;
-        import retrofit2.Callback;
-        import retrofit2.Response;
+import io.realm.Realm;
+import io.realm.RealmResults;
+import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
+import ir.bppir.pishtazan.database.DB_UserInfo;
+import ir.bppir.pishtazan.models.MR_GenerateCode;
+import ir.bppir.pishtazan.models.MRVerifyCode;
+import ir.bppir.pishtazan.utility.StaticValues;
+import ir.bppir.pishtazan.viewmodels.VM_Primary;
+import ir.bppir.pishtazan.views.application.PishtazanApplication;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VM_Verify extends VM_Primary {
 
@@ -74,15 +73,13 @@ public class VM_Verify extends VM_Primary {
                 .getApplicationUtility()
                 .PersianToEnglish(VerifyCode);
 
-        String FireBaseToken = StaticFunctions.getFirebaseToken();
-
         RetrofitComponent retrofitComponent = PishtazanApplication
                 .getApplication(getContext())
                 .getRetrofitComponent();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .REQUEST_VERIFY_CODE_CALL(PhoneNumber, FireBaseToken, VerifyCode));
+                .REQUEST_VERIFY_CODE_CALL(PhoneNumber, getFirebaseToken(), VerifyCode));
 
         getPrimaryCall().enqueue(new Callback<MRVerifyCode>() {
             @Override
@@ -103,7 +100,6 @@ public class VM_Verify extends VM_Primary {
         });
 
     }//_____________________________________________________________________________________________ SendNumber
-
 
 
     private void SaveLogin(MRVerifyCode md) {//_____________________________________________ SaveLogin

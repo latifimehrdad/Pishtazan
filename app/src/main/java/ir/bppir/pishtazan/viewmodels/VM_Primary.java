@@ -3,6 +3,10 @@ package ir.bppir.pishtazan.viewmodels;
 import android.app.Activity;
 import android.os.Handler;
 
+import androidx.databinding.BaseObservable;
+
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -16,7 +20,7 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class VM_Primary {
+public class VM_Primary extends BaseObservable {
 
     private PublishSubject<Byte> publishSubject;
     private String ResponseMessage;
@@ -208,5 +212,13 @@ public class VM_Primary {
 
     }
     //______________________________________________________________________________________________ sendMessageToObservable
+
+
+    //______________________________________________________________________________________________ getFirebaseToken
+    public String getFirebaseToken() {
+        return FirebaseInstanceId.getInstance().getToken();
+    }
+    //______________________________________________________________________________________________ getFirebaseToken
+
 
 }

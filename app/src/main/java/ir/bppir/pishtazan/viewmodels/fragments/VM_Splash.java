@@ -20,16 +20,19 @@ public class VM_Splash extends VM_Primary {
     boolean isLogin = false;
     private MD_Update md_update;
 
-    public VM_Splash(Activity context) {//__________________________________________________________ VM_Home
+    //______________________________________________________________________________________________ VM_Splash
+    public VM_Splash(Activity context) {
         setContext(context);
-    }//_____________________________________________________________________________________________ VM_Home
+    }
+    //______________________________________________________________________________________________ VM_Splash
 
 
-    public void CheckLogin() {//____________________________________________________________________ CheckLogin
+    //______________________________________________________________________________________________ checkLogin
+    public void checkLogin() {
 
         Realm realm = Realm.getDefaultInstance();
-        RealmResults<DB_UserInfo> userInfos = realm.where(DB_UserInfo.class).findAll();
-        if (userInfos.size() > 0)
+        RealmResults<DB_UserInfo> userInfo = realm.where(DB_UserInfo.class).findAll();
+        if (userInfo.size() > 0)
             isLogin = true;
 
         if (!isLogin)
@@ -38,9 +41,8 @@ public class VM_Splash extends VM_Primary {
             sendMessageToObservable(StaticValues.ML_GotoHome);
 
 
-    }//_____________________________________________________________________________________________ CheckLogin
-
-
+    }
+    //______________________________________________________________________________________________ checkLogin
 
 
     //______________________________________________________________________________________________ getRecourse
@@ -56,11 +58,10 @@ public class VM_Splash extends VM_Primary {
             @Override
             public void onResponse(Call<MD_Update> call, Response<MD_Update> response) {
                 if (responseIsOk(response)) {
-                    if (response.body() != null){
+                    if (response.body() != null) {
                         md_update = response.body();
                         checkUpdate();
-                    }
-                    else
+                    } else
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
                 }
             }
@@ -73,8 +74,6 @@ public class VM_Splash extends VM_Primary {
 
     }
     //______________________________________________________________________________________________ getRecourse
-
-
 
 
     //______________________________________________________________________________________________ checkUpdate
@@ -92,7 +91,7 @@ public class VM_Splash extends VM_Primary {
         if (versionName < v)
             getPublishSubject().onNext(StaticValues.ML_Update);
         else
-            CheckLogin();
+            checkLogin();
     }
     //______________________________________________________________________________________________ checkUpdate
 

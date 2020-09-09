@@ -37,12 +37,9 @@ import io.reactivex.schedulers.Schedulers;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.FragmentAddPersonBinding;
 import ir.bppir.pishtazan.models.MD_Contact;
-import ir.bppir.pishtazan.utility.StaticFunctions;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_AddPerson;
 import ir.bppir.pishtazan.views.adapters.AP_Contact;
-
-import static ir.bppir.pishtazan.utility.StaticFunctions.TextChangeForChangeBack;
 
 public class AddPerson extends FragmentPrimary implements FragmentPrimary.MessageFromObservable {
 
@@ -234,7 +231,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.Messag
                 phone = phone.replaceAll("-", "");
                 EditTextPhoneNumber.setText(phone);
                 if (checkEmpty()) {
-                    StaticFunctions.hideKeyboard(getActivity());
+                    hideKeyboard();
                     showLoadingSend();
                     vm_addPerson.addPerson(
                             EditTextName.getText().toString(),
@@ -415,7 +412,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.Messag
         dialogContact.dismiss();
         dialogContact = null;
         ap_contact = null;
-        StaticFunctions.hideKeyboard(getActivity());
+        hideKeyboard();
         String phone = md_contacts.get(position).getPhone();
         phone = phone.replaceAll(" ", "");
         phone = phone.replaceAll("-", "");
