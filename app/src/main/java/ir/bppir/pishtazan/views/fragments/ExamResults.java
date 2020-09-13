@@ -34,6 +34,7 @@ public class ExamResults extends FragmentPrimary implements
 
     private VM_ExamResult vm_examResult;
     private Integer examResultId;
+    private Integer tutorialId;
     private String examResultType;
     private NavController navController;
     private Integer personId;
@@ -72,6 +73,7 @@ public class ExamResults extends FragmentPrimary implements
             setView(binding.getRoot());
             setOnClick();
             examResultId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
+            tutorialId = getArguments().getInt(getContext().getResources().getString(R.string.ML_TutorialId), 0);
             examResultType = getArguments().getString(getContext().getResources().getString(R.string.ML_Type),
                     getContext().getResources().getString(R.string.ML_LastExam));
         }
@@ -135,14 +137,16 @@ public class ExamResults extends FragmentPrimary implements
     private void setAdapter() {
 
         if (examResultType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_LastExam))) {
-            if (vm_examResult.getMd_examResult().getExamResultStatus() == 1) {
+            if (vm_examResult.getMd_examResult().getExamResultStatus() == 0) {
                 textViewStatus.setText(getContext().getResources().getString(R.string.YouFailedTheTest));
                 textViewStatus.setTextColor(getContext().getResources().getColor(R.color.ML_RedQuestion));
                 textViewExam.setText(getContext().getResources().getString(R.string.ReTryQuiz));
+                Post.tutorialId = tutorialId;
             } else {
                 textViewStatus.setText(getContext().getResources().getString(R.string.YouPassedTheTest));
                 textViewStatus.setTextColor(getContext().getResources().getColor(R.color.ML_OK));
                 textViewExam.setText(getContext().getResources().getString(R.string.NewLearn));
+                Post.tutorialId = 0;
             }
             List<MD_ExamResult> examResults = new ArrayList<>();
             examResults.add(vm_examResult.getMd_examResult());

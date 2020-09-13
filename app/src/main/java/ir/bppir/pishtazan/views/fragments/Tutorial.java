@@ -106,7 +106,7 @@ public class Tutorial extends FragmentPrimary implements
     public void clickItemTutorial(Integer Position, View view) {//__________________________________ clickItemTutorial
         if (!examType.equalsIgnoreCase(getString(R.string.ML_MySubsetReport))) {
             Bundle bundle = new Bundle();
-            bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_tutorial.getMd_educations().get(Position).getId());
+            bundle.putInt(getContext().getResources().getString(R.string.ML_TutorialId), vm_tutorial.getMd_educations().get(Position).getId());
             bundle.putString(getContext().getResources().getString(R.string.ML_Type), examType);
             navController.navigate(R.id.action_tutorial_to_tutorialMovie, bundle);
         } else {

@@ -41,7 +41,7 @@ public class Quiz extends FragmentPrimary implements
 
 
     private VM_Quiz vm_quiz;
-    private Integer examId;
+    private Integer tutorialId;
     private Integer questionTime;
     private Handler timer;
     private Runnable runnable;
@@ -116,7 +116,7 @@ public class Quiz extends FragmentPrimary implements
             vm_quiz = new VM_Quiz(getActivity());
             binding.setQuiz(vm_quiz);
             setView(binding.getRoot());
-            examId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
+            tutorialId = getArguments().getInt(getContext().getResources().getString(R.string.ML_TutorialId), 0);
             movieUrl = getArguments().getString(getContext().getResources().getString(R.string.ML_MovieUrl), "");
             examType = getArguments().getString(getContext().getResources().getString(R.string.ML_Type), "");
             setOnClick();
@@ -147,7 +147,7 @@ public class Quiz extends FragmentPrimary implements
         LinearLayoutStart.setVisibility(View.GONE);
         LinearLayoutQuestion.setVisibility(View.GONE);
         GifViewLoading.setVisibility(View.VISIBLE);
-        vm_quiz.getExam(examId);
+        vm_quiz.getExam(tutorialId);
     }
     //______________________________________________________________________________________________ init
 
@@ -211,6 +211,7 @@ public class Quiz extends FragmentPrimary implements
                 getActivity().onBackPressed();
             } else {
                 Post.ExamResultId = vm_quiz.getExamResult();
+                Post.tutorialId = tutorialId;
                 getActivity().onBackPressed();
                 getActivity().onBackPressed();
                 getActivity().onBackPressed();

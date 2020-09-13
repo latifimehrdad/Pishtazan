@@ -30,7 +30,7 @@ public class Post extends FragmentPrimary implements FragmentPrimary.messageFrom
     private VM_Post vm_post;
     private NavController navController;
     public static Integer ExamResultId = 0;
-    public static Integer ExamId = 0;
+    public static Integer tutorialId = 0;
     private String postType;
     private Integer personId;
 
@@ -93,12 +93,13 @@ public class Post extends FragmentPrimary implements FragmentPrimary.messageFrom
         if (ExamResultId == -1) {
             ExamResultId = 0;
             Bundle bundle = new Bundle();
-            bundle.putInt(getContext().getResources().getString(R.string.ML_Id), ExamId);
+            bundle.putInt(getContext().getResources().getString(R.string.ML_TutorialId), tutorialId);
             bundle.putString(getContext().getResources().getString(R.string.ML_Type), getContext().getResources().getString(R.string.ML_LastExam));
             navController.navigate(R.id.action_post_to_tutorialMovie, bundle);
         } else if (ExamResultId != 0) {
             Bundle bundle = new Bundle();
             bundle.putInt(getContext().getResources().getString(R.string.ML_Id), ExamResultId);
+            bundle.putInt(getContext().getResources().getString(R.string.ML_TutorialId), tutorialId);
             bundle.putString(getContext().getResources().getString(R.string.ML_Type),
                     getContext().getResources().getString(R.string.ML_LastExam));
             navController.navigate(R.id.action_post_to_examResults, bundle);

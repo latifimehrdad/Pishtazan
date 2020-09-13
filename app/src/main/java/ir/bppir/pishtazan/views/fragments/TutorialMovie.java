@@ -65,7 +65,7 @@ public class TutorialMovie extends FragmentPrimary implements
             vm_tutorialMovie = new VM_TutorialMovie(getActivity());
             binding.setMovie(vm_tutorialMovie);
             setView(binding.getRoot());
-            tutorialId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
+            tutorialId = getArguments().getInt(getContext().getResources().getString(R.string.ML_TutorialId), 0);
             examType = getArguments().getString(getContext().getResources().getString(R.string.ML_Type), "");
             init();
         }
@@ -99,7 +99,7 @@ public class TutorialMovie extends FragmentPrimary implements
 
         LinearLayoutStart.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putInt(getContext().getResources().getString(R.string.ML_Id), tutorialId);
+            bundle.putInt(getContext().getResources().getString(R.string.ML_TutorialId), tutorialId);
             bundle.putString(getContext().getResources().getString(R.string.ML_Type), examType);
             navController.navigate(R.id.action_tutorialMovie_to_quiz, bundle);
         });
