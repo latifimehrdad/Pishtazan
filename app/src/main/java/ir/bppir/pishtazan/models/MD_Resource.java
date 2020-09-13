@@ -2,7 +2,7 @@ package ir.bppir.pishtazan.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class MD_Education {
+public class MD_Resource {
 
     @SerializedName("Id")
     Integer Id;
@@ -10,14 +10,9 @@ public class MD_Education {
     @SerializedName("Title")
     String Title;
 
-    @SerializedName("Resource")
-    MD_Resource Resource;
-
-
-    public MD_Education(Integer id, String title, MD_Resource resource) {
+    public MD_Resource(Integer id, String title) {
         Id = id;
         Title = title;
-        Resource = resource;
     }
 
     public Integer getId() {
@@ -34,13 +29,5 @@ public class MD_Education {
 
     public void setTitle(String title) {
         Title = title;
-    }
-
-    public MD_Resource getResource() {
-        return Resource;
-    }
-
-    public void setResource(MD_Resource resource) {
-        Resource = resource;
     }
 }

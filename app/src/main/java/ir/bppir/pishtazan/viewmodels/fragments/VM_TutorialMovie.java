@@ -49,6 +49,7 @@ public class VM_TutorialMovie extends VM_Primary {
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
                     else {
                         md_education = response.body().getEducation();
+                        notifyChange();
                         getPublishSubject().onNext(StaticValues.ML_GetNewQuiz);
                     }
                 }
