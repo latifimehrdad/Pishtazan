@@ -91,7 +91,7 @@
     <string name="ExamResult">نتایج آزمون</string>
     <string name="PreviousQuestion">سوال قبلی</string>
     <string name="NextQuestion">سوال بعدی</string>
-    <string name="NewQuiz">آزمون جدید</string>
+    <string name="NewLearn">آموزش جدید</string>
     <string name="ReTryQuiz">تکرار آزمون</string>
     <string name="Minute">دقیقه</string>
     <string name="TotalQuestion">تعداد کل سوالات</string>
@@ -160,5 +160,6 @@
     <string name="ML_InsuredNationalCode">InsuredNationalCode</string>
     <string name="ML_MyReport">MyReport</string>
     <string name="ML_MySubsetReport">MySubsetReport</string>
+    <string name="ML_TutorialId">TutorialId</string>
 
 </resources>

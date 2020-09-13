@@ -38,7 +38,7 @@
                     android:textColor="@color/ML_White"
                     android:gravity="center"
                     android:textSize="@dimen/_10sdp"
-                    android:text="@string/NewQuiz"/>
+                    android:text="@string/NewLearn"/>
 
                 <ImageView
                     android:id="@+id/ImageViewNew"

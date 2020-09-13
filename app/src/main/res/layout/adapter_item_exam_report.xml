@@ -59,7 +59,6 @@
             android:layout_marginBottom="@dimen/_3sdp"/>
 
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -284,7 +283,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/_10sdp"
-            android:background="@drawable/dw_back_bottom">
+            android:background="@drawable/dw_back_bottom"
+            app:setViewVisible="@{examResult.examResultStatus}">
 
             <TextView
                 android:layout_width="wrap_content"

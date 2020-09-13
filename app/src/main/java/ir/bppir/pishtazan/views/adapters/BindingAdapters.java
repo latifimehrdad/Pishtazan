@@ -25,6 +25,13 @@ import static ir.bppir.pishtazan.daggers.retrofit.RetrofitApis.Host;
 public class BindingAdapters {
 
 
+    @BindingAdapter(value = "setViewVisible")
+    public static void setViewVisible(View view, Integer visible) {
+        if (visible == 1)
+            view.setVisibility(View.VISIBLE);
+        else
+            view.setVisibility(View.GONE);
+    }
 
     @BindingAdapter(value = "SetLayoutBackExamResult")
     public static void SetLayoutBackExamResult(LinearLayout linearLayout, MD_ExamResultDetail resultDetail){

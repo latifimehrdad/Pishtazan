@@ -135,14 +135,14 @@ public class ExamResults extends FragmentPrimary implements
     private void setAdapter() {
 
         if (examResultType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_LastExam))) {
-            if (vm_examResult.getMd_examResult().getAverageGrade() < 60) {
+            if (vm_examResult.getMd_examResult().getExamResultStatus() == 1) {
                 textViewStatus.setText(getContext().getResources().getString(R.string.YouFailedTheTest));
                 textViewStatus.setTextColor(getContext().getResources().getColor(R.color.ML_RedQuestion));
                 textViewExam.setText(getContext().getResources().getString(R.string.ReTryQuiz));
             } else {
                 textViewStatus.setText(getContext().getResources().getString(R.string.YouPassedTheTest));
                 textViewStatus.setTextColor(getContext().getResources().getColor(R.color.ML_OK));
-                textViewExam.setText(getContext().getResources().getString(R.string.NewQuiz));
+                textViewExam.setText(getContext().getResources().getString(R.string.NewLearn));
             }
             List<MD_ExamResult> examResults = new ArrayList<>();
             examResults.add(vm_examResult.getMd_examResult());

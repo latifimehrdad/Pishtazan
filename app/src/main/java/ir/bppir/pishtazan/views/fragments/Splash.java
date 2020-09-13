@@ -133,7 +133,6 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.messageFr
 
     //______________________________________________________________________________________________ setOnClick
     private void setOnClick() {
-
         linearLayoutRefresh.setOnClickListener(v -> startAnimationSplash());
     }
     //______________________________________________________________________________________________ setOnClick

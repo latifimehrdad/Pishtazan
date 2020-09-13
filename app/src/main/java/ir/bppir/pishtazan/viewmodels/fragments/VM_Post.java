@@ -19,12 +19,10 @@ public class VM_Post extends VM_Primary {
 
     private List<MD_EducationCategoryVms> md_educationCategoryVms;
 
-    private MD_Education md_education;
 
     public VM_Post(Activity context) {//____________________________________________________________ VM_Post
         setContext(context);
     }//_____________________________________________________________________________________________ VM_Post
-
 
 
     public void GetPost(Integer personId) {//_______________________________________________________ GetPost
@@ -68,52 +66,9 @@ public class VM_Post extends VM_Primary {
     }//_____________________________________________________________________________________________ GetPost
 
 
-
-    public void GetNewQuiz() {//____________________________________________________________________ GetNewQuiz
-
-        Integer UserInfoId = getUserId();
-        if (UserInfoId == 0) {
-            userIsNotAuthorization();
-            return;
-        }
-
-
-        setPrimaryCall(PishtazanApplication
-                .getApplication(getContext())
-                .getRetrofitComponent()
-                .getRetrofitApiInterface()
-                .GET_LAST_EDUCATION(UserInfoId));
-
-        getPrimaryCall().enqueue(new Callback<MR_LastEducation>() {
-            @Override
-            public void onResponse(Call<MR_LastEducation> call, Response<MR_LastEducation> response) {
-                if (responseIsOk(response)) {
-                    setResponseMessage(response.body().getMessage());
-                    if (response.body().getStatue() == 0)
-                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
-                    else {
-                        md_education = response.body().getEducation();
-                        getPublishSubject().onNext(StaticValues.ML_GetNewQuiz);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MR_LastEducation> call, Throwable t) {
-                callIsFailure();
-            }
-        });
-
-    }//_____________________________________________________________________________________________ GetNewQuiz
-
-
     public List<MD_EducationCategoryVms> getMd_educationCategoryVms() {//___________________________ getMd_educationCategoryVms
         return md_educationCategoryVms;
     }//_____________________________________________________________________________________________ getMd_educationCategoryVms
 
 
-
-    public MD_Education getMd_education() {//_______________________________________________________ getMd_education
-        return md_education;
-    }//_____________________________________________________________________________________________ getMd_education
 }

@@ -30,6 +30,7 @@ public class Post extends FragmentPrimary implements FragmentPrimary.messageFrom
     private VM_Post vm_post;
     private NavController navController;
     public static Integer ExamResultId = 0;
+    public static Integer ExamId = 0;
     private String postType;
     private Integer personId;
 
@@ -90,10 +91,11 @@ public class Post extends FragmentPrimary implements FragmentPrimary.messageFrom
                 vm_post);
         navController = Navigation.findNavController(getView());
         if (ExamResultId == -1) {
-            ImageViewNew.setVisibility(View.GONE);
-            GifViewLoadingNew.setVisibility(View.VISIBLE);
             ExamResultId = 0;
-            vm_post.GetNewQuiz();
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getResources().getString(R.string.ML_Id), ExamId);
+            bundle.putString(getContext().getResources().getString(R.string.ML_Type), getContext().getResources().getString(R.string.ML_LastExam));
+            navController.navigate(R.id.action_post_to_tutorialMovie, bundle);
         } else if (ExamResultId != 0) {
             Bundle bundle = new Bundle();
             bundle.putInt(getContext().getResources().getString(R.string.ML_Id), ExamResultId);
@@ -122,10 +124,10 @@ public class Post extends FragmentPrimary implements FragmentPrimary.messageFrom
     private void setClick() {
 
         LinearLayoutNewQuiz.setOnClickListener(v -> {
-
-            ImageViewNew.setVisibility(View.GONE);
-            GifViewLoadingNew.setVisibility(View.VISIBLE);
-            vm_post.GetNewQuiz();
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getResources().getString(R.string.ML_Id), 0);
+            bundle.putString(getContext().getResources().getString(R.string.ML_Type), getContext().getResources().getString(R.string.ML_LastExam));
+            navController.navigate(R.id.action_post_to_tutorialMovie, bundle);
         });
     }
     //______________________________________________________________________________________________ setClick
@@ -142,15 +144,6 @@ public class Post extends FragmentPrimary implements FragmentPrimary.messageFrom
         if (action.equals(StaticValues.ML_GetPost)) {
             setAdapter();
             return;
-        }
-
-        if (action.equals(StaticValues.ML_GetNewQuiz)) {
-            if (vm_post.getMd_education() != null) {
-                Bundle bundle = new Bundle();
-                bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_post.getMd_education().getId());
-                bundle.putString(getContext().getResources().getString(R.string.ML_Type), getContext().getResources().getString(R.string.ML_LastExam));
-                navController.navigate(R.id.action_post_to_tutorialMovie, bundle);
-            }
         }
 
     }

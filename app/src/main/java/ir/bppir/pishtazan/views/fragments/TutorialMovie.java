@@ -53,7 +53,6 @@ public class TutorialMovie extends FragmentPrimary implements
     LinearLayout LinearLayoutExamResult;
 
 
-
     @Nullable
     @Override
     public View onCreateView(
@@ -89,10 +88,11 @@ public class TutorialMovie extends FragmentPrimary implements
     private void init() {//_________________________________________________________________________ init
         GifViewLoading.setVisibility(View.VISIBLE);
         SetOnClick();
-        vm_tutorialMovie.GetTutorialMovie(tutorialId);
+        if (tutorialId != 0)
+            vm_tutorialMovie.GetTutorialMovie(tutorialId);
+        else
+            vm_tutorialMovie.GetNewQuiz();
     }//_____________________________________________________________________________________________ init
-
-
 
 
     private void SetOnClick() {//___________________________________________________________________ SetOnClick
@@ -116,8 +116,6 @@ public class TutorialMovie extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ SetOnClick
 
 
-
-
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
@@ -127,13 +125,14 @@ public class TutorialMovie extends FragmentPrimary implements
             return;
         }
 
+        if (action.equals(StaticValues.ML_GetNewQuiz)) {
+            tutorialId = vm_tutorialMovie.getMd_education().getId();
+            vm_tutorialMovie.GetTutorialMovie(tutorialId);
+            return;
+        }
+
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getContext().onBackPressed();
-            }
-        },1000);
+        handler.postDelayed(() -> getContext().onBackPressed(), 1000);
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
@@ -154,7 +153,6 @@ public class TutorialMovie extends FragmentPrimary implements
         navController.navigate(R.id.action_tutorialMovie_to_moviePlayer, bundle);
 
     }//_____________________________________________________________________________________________ clickItemTutorialMovie
-
 
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
