@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 
 import android.Manifest;
@@ -31,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yalantis.ucrop.UCrop;
 
@@ -51,6 +53,7 @@ import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.ActivityMainBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.activity.VM_Main;
+import ir.bppir.pishtazan.viewmodels.fragments.VM_Splash;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
     public static String ImageUrl;
     public static Integer startFromNotify = -1;
     public static MainActivity mainActivity;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @BindView(R.id.ImageViewMenu)
     ImageView ImageViewMenu;
@@ -394,6 +398,41 @@ public class MainActivity extends AppCompatActivity {
         },delay);
     }
     //______________________________________________________________________________________________ showCustomToast
+
+
+
+    //______________________________________________________________________________________________ onBackPressed
+    @Override
+    public void onBackPressed() {
+
+        NavDestination navDestination = navController.getCurrentDestination();
+        if (navDestination != null)
+            if (navDestination.getLabel() != null) {
+                String fragment = navDestination.getLabel().toString();
+                if ((!fragment.equalsIgnoreCase("Home"))) {
+                    super.onBackPressed();
+                    return;
+                }
+            }
+
+        if (VM_Splash.logOut) {
+            super.onBackPressed();
+            return;
+        }
+
+
+        if (doubleBackToExitPressedOnce) {
+            System.exit(1);
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "برای خروج 2 بار کلیک کنید", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
+
+    }
+    //______________________________________________________________________________________________ onBackPressed
 
 
 }

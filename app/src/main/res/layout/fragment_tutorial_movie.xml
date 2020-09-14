@@ -22,6 +22,21 @@
             android:textColor="@color/ML_Black"
             android:layout_margin="@dimen/_5sdp"
             fontPath="fonts/iransans_web_medium.ttf"
+            android:text="@{movie.md_education.resource.title}"/>
+
+
+        <TextView
+            android:id="@+id/textViewTitle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_11sdp"
+            android:gravity="center"
+            android:textColor="@color/ML_Black"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_below="@id/textViewTitle"
+            fontPath="fonts/iransans_web_medium.ttf"
             android:text="@{movie.md_education.title}"/>
 
 
@@ -119,7 +134,7 @@
             android:layout_height="match_parent"
             tools:listitem="@layout/adapter_tutorial_movie"
             android:layout_above="@id/LinearLayout"
-            android:layout_below="@id/textViewTitle"
+            android:layout_below="@id/textViewTitle2"
             android:padding="@dimen/_10sdp"/>
 
         <com.cunoraz.gifview.library.GifView

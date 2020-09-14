@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.FragmentVerifyBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
+import ir.bppir.pishtazan.viewmodels.fragments.VM_Splash;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Verify;
 import ir.bppir.pishtazan.views.dialogs.DialogProgress;
 

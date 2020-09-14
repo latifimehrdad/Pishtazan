@@ -73,7 +73,10 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.messageFr
                 vm_splash.getPublishSubject(),
                 vm_splash);
         navController = Navigation.findNavController(getView());
-        startAnimationSplash();
+        if (VM_Splash.logOut)
+            vm_splash.deleteUserAndLogOut();
+        else
+            startAnimationSplash();
     }
     //______________________________________________________________________________________________ onStart
 

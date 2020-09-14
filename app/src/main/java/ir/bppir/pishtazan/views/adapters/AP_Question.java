@@ -3,16 +3,21 @@ package ir.bppir.pishtazan.views.adapters;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.AdapterQuestionBinding;
 import ir.bppir.pishtazan.models.MD_Question;
+import ir.bppir.pishtazan.models.MD_RandomRadio;
 
 public class AP_Question extends RecyclerView.Adapter<AP_Question.CustomHolder> {
 
@@ -53,7 +58,7 @@ public class AP_Question extends RecyclerView.Adapter<AP_Question.CustomHolder> 
     //______________________________________________________________________________________________ onBindViewHolder
     @Override
     public void onBindViewHolder(@NonNull CustomHolder holder, int position) {
-        holder.bind(md_question);
+        holder.bind(md_question, position);
     }
     //______________________________________________________________________________________________ onBindViewHolder
 
@@ -70,6 +75,9 @@ public class AP_Question extends RecyclerView.Adapter<AP_Question.CustomHolder> 
     public class CustomHolder extends RecyclerView.ViewHolder {
 
         AdapterQuestionBinding binding;
+
+        @BindView(R.id.radioGroupAnswer)
+        RadioGroup radioGroupAnswer;
 
         @BindView(R.id.RadioButtonA)
         RadioButton RadioButtonA;
@@ -90,7 +98,7 @@ public class AP_Question extends RecyclerView.Adapter<AP_Question.CustomHolder> 
             ButterKnife.bind(this, binding.getRoot());
         }
 
-        public void bind(MD_Question item) {
+        public void bind(MD_Question item, Integer position) {
             binding.setQuestion(item);
 
             RadioButtonA.setOnClickListener(v -> {
@@ -115,9 +123,43 @@ public class AP_Question extends RecyclerView.Adapter<AP_Question.CustomHolder> 
             });
 
             binding.executePendingBindings();
+
+            RadioButton[] radioButton = new RadioButton[4];
+            radioButton[0] = RadioButtonA;
+            radioButton[1] = RadioButtonB;
+            radioButton[2] = RadioButtonC;
+            radioButton[3] = RadioButtonD;
+            radioGroupAnswer.removeAllViews();
+            randomRadio(radioButton, radioGroupAnswer);
+
         }
 
     }
     //______________________________________________________________________________________________ CustomHolder
+
+
+    //______________________________________________________________________________________________ randomRadio
+    private void randomRadio(RadioButton[] radioButton, RadioGroup radioGroup) {
+
+        for (int i = 0; i < 4; i++) {//this loop is randomly changing values 4 times
+            int swap_ind1 = ((int) (Math.random() * 10) % radioButton.length);
+            int swap_ind2 = ((int) (Math.random() * 10) % radioButton.length);
+            RadioButton temp = radioButton[swap_ind1];
+            radioButton[swap_ind1] = radioButton[swap_ind2];
+            radioButton[swap_ind2] = temp;
+        }
+        addRadio(radioButton, radioGroup);
+
+    }
+    //______________________________________________________________________________________________ randomRadio
+
+
+    //______________________________________________________________________________________________ addRadio
+    private void addRadio(RadioButton[] radioButton, RadioGroup radioGroup) {
+        for (int i = 0; i < radioButton.length; i++) {
+            radioGroup.addView(radioButton[i]);
+        }
+    }
+    //______________________________________________________________________________________________ addRadio
 
 }

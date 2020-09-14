@@ -132,6 +132,7 @@
     <string name="YouPassedTheTest">شما در آزمون قبول شدید</string>
     <string name="YouFailedTheTest">شما در آزمون رد شدید</string>
     <string name="ReTry">تلاش مجدد</string>
+    <string name="LogOut">خروج از حساب</string>
 
 
     //___________________________ Values For SharedPreference ______________________________________

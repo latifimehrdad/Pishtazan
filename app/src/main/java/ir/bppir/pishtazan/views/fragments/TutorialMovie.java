@@ -89,7 +89,7 @@ public class TutorialMovie extends FragmentPrimary implements
         GifViewLoading.setVisibility(View.VISIBLE);
         SetOnClick();
         if (tutorialId != 0)
-            vm_tutorialMovie.GetTutorialMovie(tutorialId);
+            vm_tutorialMovie. GetTutorialMovie(tutorialId);
         else
             vm_tutorialMovie.GetNewQuiz();
     }//_____________________________________________________________________________________________ init

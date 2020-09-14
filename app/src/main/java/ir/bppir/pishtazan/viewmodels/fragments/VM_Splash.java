@@ -18,9 +18,11 @@ public class VM_Splash extends VM_Primary {
 
     boolean isLogin = false;
     private MD_Update md_update;
+    public static boolean logOut;
 
     //______________________________________________________________________________________________ VM_Splash
     public VM_Splash(Activity context) {
+        logOut = false;
         setContext(context);
     }
     //______________________________________________________________________________________________ VM_Splash
@@ -40,6 +42,24 @@ public class VM_Splash extends VM_Primary {
             sendMessageToObservable(StaticValues.ML_GotoHome);
 
 
+    }
+    //______________________________________________________________________________________________ checkLogin
+
+
+
+    //______________________________________________________________________________________________ checkLogin
+    public void deleteUserAndLogOut() {
+
+        try {
+            Realm realm = Realm.getDefaultInstance();
+            RealmResults<DB_UserInfo> userInfo = realm.where(DB_UserInfo.class).findAll();
+            realm.beginTransaction();
+            userInfo.deleteAllFromRealm();
+            realm.commitTransaction();
+        } finally {
+            VM_Splash.logOut = false;
+            sendMessageToObservable(StaticValues.ML_GotoSignUp);
+        }
     }
     //______________________________________________________________________________________________ checkLogin
 
