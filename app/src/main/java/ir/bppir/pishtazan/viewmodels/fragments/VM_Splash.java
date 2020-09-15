@@ -35,6 +35,8 @@ public class VM_Splash extends VM_Primary {
         RealmResults<DB_UserInfo> userInfo = realm.where(DB_UserInfo.class).findAll();
         if (userInfo.size() > 0)
             isLogin = true;
+        else
+            isLogin = false;
 
         if (!isLogin)
             sendMessageToObservable(StaticValues.ML_GotoSignUp);

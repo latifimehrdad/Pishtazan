@@ -334,6 +334,7 @@ public class Panel extends FragmentPrimary implements
                 LinearLayoutNoArchived.setVisibility(View.GONE);
             } else if (PersonType == StaticValues.ML_Possible) {
                 LinearLayoutInsurance.setVisibility(View.GONE);
+                LinearLayoutQuestionnaire.setVisibility(View.GONE);
             }
         } else {
             LinearLayoutConvertToCustomer.setVisibility(View.GONE);
@@ -804,6 +805,12 @@ public class Panel extends FragmentPrimary implements
 
 
     private void MoveToCertain(Integer Position) {//_______________________________________________ MoveToPossible
+        if (panelType == StaticValues.Customer) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getResources().getString(R.string.ML_personId), vm_panel.getPersonList().get(Position).getId());
+            bundle.putBoolean(getContext().getResources().getString(R.string.ML_Type), false);
+            navController.navigate(R.id.action_panel_to_policyType, bundle);
+        } else
         vm_panel.moveToCertain(panelType, Position);
     }//_____________________________________________________________________________________________ MoveToPossible
 
