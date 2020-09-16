@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:layout_marginBottom="@dimen/_10sdp"
         android:background="@drawable/dw_back_exam_result_wrong"
-        app:SetLayoutBackExamResult="@{detail}">
+        app:setLayoutBackExamResult="@{detail}">
 
         <TextView
             android:layout_width="match_parent"
@@ -52,7 +52,7 @@
             android:textSize="@dimen/_10sdp"
             fontPath="fonts/iransans_web_medium.ttf"
             android:layout_marginTop="@dimen/_3sdp"
-            app:SetCorrectAnswer="@{detail}"
+            app:setCorrectAnswer="@{detail}"
             />
 
         <LinearLayout
@@ -80,7 +80,7 @@
             android:textSize="@dimen/_10sdp"
             fontPath="fonts/iransans_web_medium.ttf"
             android:layout_marginTop="@dimen/_3sdp"
-            app:SetYourAnswer="@{detail}"
+            app:setYourAnswer="@{detail}"
             />
 
     </LinearLayout>

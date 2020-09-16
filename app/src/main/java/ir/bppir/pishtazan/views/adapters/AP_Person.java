@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,42 +32,55 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
     private ClickItemPerson clickItemPerson;
 
 
-    public interface ClickItemPerson {//____________________________________________________________ ClickItemPerson
+    //______________________________________________________________________________________________ ClickItemPerson
+    public interface ClickItemPerson {
 
         void clickItemPerson(Integer Position, View view);
 
         void clickDeleteItemPerson(Integer Position, View view);
-    }//_____________________________________________________________________________________________ ClickItemPerson
+    }
+    //______________________________________________________________________________________________ ClickItemPerson
 
 
-    public AP_Person(List<MD_Person> md_personList,
-                     Context context,
-                     Panel panel) {
+    //______________________________________________________________________________________________ AP_Person
+    public AP_Person(List<MD_Person> md_personList, Context context, Panel panel) {
         this.md_personList = md_personList;
         this.context = context;
         this.panel = panel;
         this.clickItemPerson = panel;
     }
+    //______________________________________________________________________________________________ AP_Person
 
-    public AP_Person.CustomHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+    //______________________________________________________________________________________________ onCreateViewHolder
+    @NotNull
+    public AP_Person.CustomHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
         if (layoutInflater == null) {
             layoutInflater = LayoutInflater.from(parent.getContext());
         }
         return new AP_Person.CustomHolder(DataBindingUtil.inflate(layoutInflater, R.layout.adabter_person_panel, parent, false));
     }
+    //______________________________________________________________________________________________ onCreateViewHolder
 
+
+    //______________________________________________________________________________________________ onBindViewHolder
     public void onBindViewHolder(AP_Person.CustomHolder holder, int position) {
         holder.bind(md_personList.get(position), position);
     }
+    //______________________________________________________________________________________________ onBindViewHolder
 
+
+    //______________________________________________________________________________________________ getItemCount
     public int getItemCount() {
         if (md_personList == null)
             return 0;
 
         return md_personList.size();
     }
+    //______________________________________________________________________________________________ getItemCount
 
 
+    //______________________________________________________________________________________________ CustomHolder
     public class CustomHolder extends RecyclerView.ViewHolder {
 
         AdabterPersonPanelBinding binding;
@@ -95,7 +110,7 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
 
             ImageViewIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_transfer_within_a_station));
 
-            if (panel.PersonType == StaticValues.ML_Maybe) {
+            if (panel.PersonType.equals(StaticValues.ML_Maybe)) {
                 if (item.isDelete()) {
                     TextViewAction.setText(context.getResources().getString(R.string.NoArchive));
                     ImageViewIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_delete_forever));
@@ -108,7 +123,7 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
                     ImageViewDelete.setVisibility(View.VISIBLE);
                 }
 
-            } else if (panel.PersonType == StaticValues.ML_Possible) {
+            } else if (panel.PersonType.equals(StaticValues.ML_Possible)) {
                 TextViewAction.setText(context.getResources().getString(R.string.ChooseAction));
                 if (item.isDelete())
                     ImageViewDelete.setVisibility(View.GONE);
@@ -124,7 +139,6 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
                     clickItemPerson.clickItemPerson(itemPosition, viewParent));
 
 
-
             ImageViewDelete.setOnClickListener(view ->
                     clickItemPerson.clickDeleteItemPerson(itemPosition, viewParent));
 
@@ -133,4 +147,7 @@ public class AP_Person extends RecyclerView.Adapter<AP_Person.CustomHolder> {
         }
 
     }
+    //______________________________________________________________________________________________ CustomHolder
+
+
 }

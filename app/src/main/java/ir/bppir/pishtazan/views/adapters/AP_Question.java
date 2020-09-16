@@ -9,15 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.AdapterQuestionBinding;
 import ir.bppir.pishtazan.models.MD_Question;
-import ir.bppir.pishtazan.models.MD_RandomRadio;
+
 
 public class AP_Question extends RecyclerView.Adapter<AP_Question.CustomHolder> {
 
@@ -58,7 +55,7 @@ public class AP_Question extends RecyclerView.Adapter<AP_Question.CustomHolder> 
     //______________________________________________________________________________________________ onBindViewHolder
     @Override
     public void onBindViewHolder(@NonNull CustomHolder holder, int position) {
-        holder.bind(md_question, position);
+        holder.bind(md_question);
     }
     //______________________________________________________________________________________________ onBindViewHolder
 
@@ -98,7 +95,7 @@ public class AP_Question extends RecyclerView.Adapter<AP_Question.CustomHolder> 
             ButterKnife.bind(this, binding.getRoot());
         }
 
-        public void bind(MD_Question item, Integer position) {
+        public void bind(MD_Question item) {
             binding.setQuestion(item);
 
             RadioButtonA.setOnClickListener(v -> {
@@ -156,8 +153,8 @@ public class AP_Question extends RecyclerView.Adapter<AP_Question.CustomHolder> 
 
     //______________________________________________________________________________________________ addRadio
     private void addRadio(RadioButton[] radioButton, RadioGroup radioGroup) {
-        for (int i = 0; i < radioButton.length; i++) {
-            radioGroup.addView(radioButton[i]);
+        for (RadioButton button : radioButton) {
+            radioGroup.addView(button);
         }
     }
     //______________________________________________________________________________________________ addRadio

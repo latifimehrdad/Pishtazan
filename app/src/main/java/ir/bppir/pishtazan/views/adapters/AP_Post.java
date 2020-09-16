@@ -15,7 +15,7 @@ import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.AdapterPostBinding;
 import ir.bppir.pishtazan.models.MD_EducationCategoryVms;
 
-public class AP_Post extends RecyclerView.Adapter<AP_Post.CustomHolder> {
+public class AP_Post extends RecyclerView.Adapter<AP_Post.customHolder> {
 
     private LayoutInflater layoutInflater;
     private List<MD_EducationCategoryVms> md_educationCategoryVms;
@@ -32,7 +32,6 @@ public class AP_Post extends RecyclerView.Adapter<AP_Post.CustomHolder> {
 
     //______________________________________________________________________________________________ clickItemTutorial
     public interface clickItemTutorial {
-
         void clickTutorial(Integer Position, View view);
     }
     //______________________________________________________________________________________________ clickItemTutorial
@@ -41,18 +40,18 @@ public class AP_Post extends RecyclerView.Adapter<AP_Post.CustomHolder> {
     //______________________________________________________________________________________________ onCreateViewHolder
     @NonNull
     @Override
-    public AP_Post.CustomHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public customHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (layoutInflater == null)
             layoutInflater = LayoutInflater.from(parent.getContext());
 
-        return new AP_Post.CustomHolder(DataBindingUtil.inflate(layoutInflater, R.layout.adapter_post, parent, false));
+        return new customHolder(DataBindingUtil.inflate(layoutInflater, R.layout.adapter_post, parent, false));
     }
     //______________________________________________________________________________________________ onCreateViewHolder
 
 
     //______________________________________________________________________________________________ onBindViewHolder
     @Override
-    public void onBindViewHolder(@NonNull AP_Post.CustomHolder holder, int position) {
+    public void onBindViewHolder(@NonNull customHolder holder, int position) {
         holder.bind(md_educationCategoryVms.get(position), position);
     }
     //______________________________________________________________________________________________ onBindViewHolder
@@ -68,12 +67,12 @@ public class AP_Post extends RecyclerView.Adapter<AP_Post.CustomHolder> {
     //______________________________________________________________________________________________ getItemCount
 
 
-    //______________________________________________________________________________________________ CustomHolder
-    public class CustomHolder extends RecyclerView.ViewHolder {
+    //______________________________________________________________________________________________ customHolder
+    public class customHolder extends RecyclerView.ViewHolder {
 
         AdapterPostBinding binding;
 
-        public CustomHolder(AdapterPostBinding binding) {
+        public customHolder(AdapterPostBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
             ButterKnife.bind(this, binding.getRoot());
@@ -86,6 +85,6 @@ public class AP_Post extends RecyclerView.Adapter<AP_Post.CustomHolder> {
         }
 
     }
-    //______________________________________________________________________________________________ CustomHolder
+    //______________________________________________________________________________________________ customHolder
 
 }

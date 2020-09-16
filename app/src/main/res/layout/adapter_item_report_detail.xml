@@ -27,7 +27,7 @@
                 android:textSize="@dimen/_12sdp"
                 android:textColor="@color/colorPrimaryDark"
                 android:gravity="right|center_vertical"
-                app:SetTextViewDouble="@{detail.value}" />
+                app:setTextViewDouble="@{detail.value}" />
 
             <LinearLayout
                 android:layout_width="1dp"

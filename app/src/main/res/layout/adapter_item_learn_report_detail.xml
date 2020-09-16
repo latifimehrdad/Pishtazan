@@ -28,7 +28,7 @@
                 android:textSize="@dimen/_12sdp"
                 android:textColor="@color/colorPrimaryDark"
                 android:gravity="right|center_vertical"
-                app:SetTextViewDouble="@{detail.totalActivityValue}" />
+                app:setTextViewDouble="@{detail.totalActivityValue}" />
 
             <LinearLayout
                 android:layout_width="1dp"
@@ -44,7 +44,7 @@
                 android:textSize="@dimen/_10sdp"
                 android:textColor="@color/colorPrimaryDark"
                 android:gravity="right|center_vertical"
-                app:SetTextViewDouble="@{detail.totalScoreValue}" />
+                app:setTextViewDouble="@{detail.totalScoreValue}" />
 
             <LinearLayout
                 android:layout_width="1dp"
@@ -60,7 +60,7 @@
                 android:textSize="@dimen/_10sdp"
                 android:textColor="@color/colorPrimaryDark"
                 android:gravity="right|center_vertical"
-                app:SetTextViewDouble="@{detail.averageGradeValue}" />
+                app:setTextViewDouble="@{detail.averageGradeValue}" />
 
             <LinearLayout
                 android:layout_width="1dp"

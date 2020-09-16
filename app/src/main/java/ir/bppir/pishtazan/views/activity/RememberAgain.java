@@ -1,5 +1,6 @@
 package ir.bppir.pishtazan.views.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,11 +20,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
-import io.realm.Realm;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.daggers.datepicker.PersianPickerModule;
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
-import ir.bppir.pishtazan.database.DB_UserInfo;
 import ir.bppir.pishtazan.models.MR_PersonNumber;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Panel;
@@ -50,16 +49,16 @@ public class RememberAgain extends AppCompatActivity {
     private ImageView imgProgress;
     private GifView ProgressGif;
 
+
+    //______________________________________________________________________________________________ onCreate
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_remember);
 
-        LinearLayoutReminderAgain = (LinearLayout)
-                findViewById(R.id.LinearLayoutReminderAgain);
+        LinearLayoutReminderAgain = findViewById(R.id.LinearLayoutReminderAgain);
 
-        LinearLayoutCalling = (LinearLayout)
-                findViewById(R.id.LinearLayoutCalling);
+        LinearLayoutCalling = findViewById(R.id.LinearLayoutCalling);
 
 
         vm_panel = new VM_Panel(this);
@@ -71,8 +70,8 @@ public class RememberAgain extends AppCompatActivity {
             reminderAgain();
         }
 
-
     }
+    //______________________________________________________________________________________________ onCreate
 
 
     //______________________________________________________________________________________________ calling
@@ -81,14 +80,12 @@ public class RememberAgain extends AppCompatActivity {
         LinearLayoutCalling.setVisibility(View.VISIBLE);
         Integer Id = getIntent().getExtras().getInt(getString(R.string.ML_Id), 0);
 
-        RelativeLayout RelativeLayoutGetNumber = (RelativeLayout)
-                findViewById(R.id.RelativeLayoutGetNumber);
+        RelativeLayout RelativeLayoutGetNumber = findViewById(R.id.RelativeLayoutGetNumber);
 
 
-        imgProgress= (ImageView)
-                findViewById(R.id.imgProgress);
+        imgProgress = findViewById(R.id.imgProgress);
 
-        ProgressGif = (GifView) findViewById(R.id.ProgressGif);
+        ProgressGif = findViewById(R.id.ProgressGif);
 
         ProgressGif.setVisibility(View.GONE);
         imgProgress.setVisibility(View.VISIBLE);
@@ -104,6 +101,7 @@ public class RememberAgain extends AppCompatActivity {
 
 
     //______________________________________________________________________________________________ reminderLater
+    @SuppressLint("DefaultLocale")
     private void reminderAgain() {
 
         LinearLayoutReminderAgain.setVisibility(View.VISIBLE);
@@ -114,13 +112,11 @@ public class RememberAgain extends AppCompatActivity {
         if (disposableObserver != null)
             disposableObserver.dispose();
         disposableObserver = null;
-        SetObserverToObservable(vm_panel.getPublishSubject());
+        setObserverToObservable(vm_panel.getPublishSubject());
 
-        TimePicker TimePickerReminder = (TimePicker)
-                findViewById(R.id.TimePickerReminder);
+        TimePicker TimePickerReminder = findViewById(R.id.TimePickerReminder);
 
-        TextView TextViewChooseDate = (TextView)
-                findViewById(R.id.TextViewChooseDate);
+        TextView TextViewChooseDate = findViewById(R.id.TextViewChooseDate);
 
         TextViewChooseDate.setOnClickListener(view -> {
 
@@ -131,21 +127,19 @@ public class RememberAgain extends AppCompatActivity {
                     .getPersianDatePickerDialog();
 
             persianCalendar.setListener(new Listener() {
+                @SuppressLint("DefaultLocale")
                 @Override
                 public void onDateSelected(PersianCalendar persianCalendar) {
-                    StringBuilder sb1 = new StringBuilder();
-                    sb1.append(persianCalendar.getPersianYear());
-                    sb1.append(String.format("%02d", persianCalendar.getPersianMonth()));
-                    sb1.append(String.format("%02d", persianCalendar.getPersianDay()));
-                    longDate = Long.valueOf(sb1.toString());
+                    String sb1 = persianCalendar.getPersianYear() +
+                            String.format("%02d", persianCalendar.getPersianMonth()) +
+                            String.format("%02d", persianCalendar.getPersianDay());
+                    longDate = Long.valueOf(sb1);
 
-                    StringBuilder sb2 = new StringBuilder();
-                    sb2.append(persianCalendar.getPersianYear());
-                    sb2.append("/");
-                    sb2.append(String.format("%02d", persianCalendar.getPersianMonth()));
-                    sb2.append("/");
-                    sb2.append(String.format("%02d", persianCalendar.getPersianDay()));
-                    stringDate = sb2.toString();
+                    stringDate = persianCalendar.getPersianYear() +
+                            "/" +
+                            String.format("%02d", persianCalendar.getPersianMonth()) +
+                            "/" +
+                            String.format("%02d", persianCalendar.getPersianDay());
                     TextViewChooseDate.setText(stringDate);
                     TextViewChooseDate.setBackground(RememberAgain.this.getResources().getDrawable(R.drawable.dw_edit_back));
                 }
@@ -159,30 +153,26 @@ public class RememberAgain extends AppCompatActivity {
         });
 
 
-        LinearLayout LinearLayoutCancel = (LinearLayout)
-                findViewById(R.id.LinearLayoutCancel);
+        LinearLayout LinearLayoutCancel = findViewById(R.id.LinearLayoutCancel);
 
         LinearLayoutCancel.setOnClickListener(view -> finish());
 
 
-        LinearLayout LinearLayoutSave = (LinearLayout)
-                findViewById(R.id.LinearLayoutSave);
+        LinearLayout LinearLayoutSave = findViewById(R.id.LinearLayoutSave);
 
         LinearLayoutSave.setOnClickListener(view -> {
             if (longDate == 0) {
                 TextViewChooseDate.setBackground(RememberAgain.this.getResources().getDrawable(R.drawable.dw_edit_empty_background));
                 return;
             }
-            StringBuilder sb1 = new StringBuilder();
-            sb1.append(String.format("%02d", TimePickerReminder.getCurrentHour()));
-            sb1.append(":");
-            sb1.append(String.format("%02d", TimePickerReminder.getCurrentMinute()));
-            stringTime = sb1.toString();
+            stringTime = String.format("%02d", TimePickerReminder.getCurrentHour()) +
+                    ":" +
+                    String.format("%02d", TimePickerReminder.getCurrentMinute());
             LinearLayoutSave.setAlpha(0.5f);
             if (NotifyType.equals(StaticValues.Call))
-                SaveCallReminder();
+                saveCallReminder();
             else
-                SaveMeetingReminder();
+                saveMeetingReminder();
         });
 
 
@@ -221,7 +211,6 @@ public class RememberAgain extends AppCompatActivity {
     //______________________________________________________________________________________________ getPersonNumber
 
 
-
     //______________________________________________________________________________________________ callPerson
     private void callPerson(String PhoneNumber) {
         Intent call = new Intent(Intent.ACTION_DIAL);
@@ -233,24 +222,28 @@ public class RememberAgain extends AppCompatActivity {
     //______________________________________________________________________________________________ callPerson
 
 
-
-    private void SaveMeetingReminder() {//__________________________________________________________ SaveMeetingReminder
+    //______________________________________________________________________________________________ saveMeetingReminder
+    private void saveMeetingReminder() {
         if (PersonType.equals(StaticValues.Customer))
             vm_panel.saveCustomerReminder(StaticValues.Meeting, null, stringDate, stringTime, "", PersonId);
         else
             vm_panel.saveColleagueReminder(StaticValues.Meeting, null, stringDate, stringTime, "", PersonId);
-    }//_____________________________________________________________________________________________ SaveMeetingReminder
+    }
+    //______________________________________________________________________________________________ saveMeetingReminder
 
 
-    private void SaveCallReminder() {//_____________________________________________________________ SaveCallReminder
+    //______________________________________________________________________________________________ saveCallReminder
+    private void saveCallReminder() {
         if (PersonType.equals(StaticValues.Customer))
             vm_panel.saveCustomerReminder(StaticValues.Call, null, stringDate, stringTime, "", PersonId);
         else
             vm_panel.saveColleagueReminder(StaticValues.Call, null, stringDate, stringTime, "", PersonId);
-    }//_____________________________________________________________________________________________ SaveCallReminder
+    }
+    //______________________________________________________________________________________________ saveCallReminder
 
 
-    public void SetObserverToObservable(PublishSubject<Byte> publishSubject) {//____________________ SetObserverToObservable
+    //______________________________________________________________________________________________ setObserverToObservable
+    public void setObserverToObservable(PublishSubject<Byte> publishSubject) {
 
         disposableObserver = new DisposableObserver<Byte>() {
             @Override
@@ -274,23 +267,23 @@ public class RememberAgain extends AppCompatActivity {
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(disposableObserver);
 
-    }//_____________________________________________________________________________________________ SetObserverToObservable
+    }
+    //______________________________________________________________________________________________ setObserverToObservable
 
 
-    private void actionHandler(Byte action) {//_____________________________________________________ actionHandler
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
+    //______________________________________________________________________________________________ actionHandler
+    private void actionHandler(Byte action) {
+        runOnUiThread(() -> {
 
-                if (action == StaticValues.ML_SaveReminder) {
-                    if (disposableObserver != null)
-                        disposableObserver.dispose();
-                    disposableObserver = null;
-                    finish();
-                }
+            if (action.equals(StaticValues.ML_SaveReminder)) {
+                if (disposableObserver != null)
+                    disposableObserver.dispose();
+                disposableObserver = null;
+                finish();
             }
         });
-    }//_____________________________________________________________________________________________ actionHandler
+    }
+    //______________________________________________________________________________________________ actionHandler
 
 
 }

@@ -37,7 +37,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:tag="insuranceNum"
-                app:SetTextViewText="@{policy.insuranceNum}"
+                app:setTextViewText="@{policy.insuranceNum}"
                 />
 
             <TextView
@@ -50,7 +50,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:tag="date"
-                app:SetTextViewText="@{policy.SuggestionDateJ}"
+                app:setTextViewText="@{policy.SuggestionDateJ}"
                 />
 
             <TextView
@@ -64,7 +64,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:tag="type"
-                app:SetTextViewText="@{policy.policyType.title}"
+                app:setTextViewText="@{policy.policyType.title}"
                 />
 
 
@@ -79,7 +79,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:tag="amount"
-                app:SetTextViewLong="@{policy.policyAmont}"
+                app:setTextViewLong="@{policy.policyAmont}"
                 />
 
 
@@ -94,7 +94,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:tag="insured"
-                app:SetTextViewText="@{policy.insured}"
+                app:setTextViewText="@{policy.insured}"
                 />
 
             <TextView
@@ -108,7 +108,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:tag="insuredNationalCode"
-                app:SetTextViewText="@{policy.insuredNationalCode}"
+                app:setTextViewText="@{policy.insuredNationalCode}"
                 />
 
             <TextView
@@ -122,7 +122,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:tag="description"
-                app:SetTextViewText="@{policy.description}"
+                app:setTextViewText="@{policy.description}"
                 />
 
         </LinearLayout>

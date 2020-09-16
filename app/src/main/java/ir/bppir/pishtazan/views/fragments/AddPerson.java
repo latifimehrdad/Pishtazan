@@ -400,7 +400,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.messag
 
     //______________________________________________________________________________________________ setContactAdapter
     private void setContactAdapter() {
-        ap_contact = new AP_Contact(md_contacts, getContext(), AddPerson.this);
+        ap_contact = new AP_Contact(md_contacts, AddPerson.this);
         recyclerViewContact.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         recyclerViewContact.setAdapter(ap_contact);
     }

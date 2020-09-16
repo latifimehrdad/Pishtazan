@@ -181,7 +181,7 @@ public class FragmentPrimary extends Fragment {
 
     //______________________________________________________________________________________________ showMessage
     public void showMessage(String message, int color, Drawable icon, int tintColor) {
-        MainActivity.mainActivity.showCustomToast(message, color, icon, tintColor, getContext());
+        MainActivity.mainActivity.showCustomToast(message, icon, tintColor, getContext());
 /*        DialogMessage dialogMessage = new DialogMessage(getContext(), message, color, icon, tintColor);
         dialogMessage.setCancelable(false);
         dialogMessage.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);*/

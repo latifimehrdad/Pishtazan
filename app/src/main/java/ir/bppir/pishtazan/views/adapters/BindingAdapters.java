@@ -1,5 +1,6 @@
 package ir.bppir.pishtazan.views.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
@@ -25,6 +26,7 @@ import static ir.bppir.pishtazan.daggers.retrofit.RetrofitApis.Host;
 public class BindingAdapters {
 
 
+    //______________________________________________________________________________________________ setViewVisible
     @BindingAdapter(value = "setViewVisible")
     public static void setViewVisible(View view, Integer visible) {
         if (visible == 1)
@@ -32,19 +34,24 @@ public class BindingAdapters {
         else
             view.setVisibility(View.GONE);
     }
+    //______________________________________________________________________________________________ setViewVisible
 
-    @BindingAdapter(value = "SetLayoutBackExamResult")
-    public static void SetLayoutBackExamResult(LinearLayout linearLayout, MD_ExamResultDetail resultDetail){
 
-        if (resultDetail.getUserAnswer() == resultDetail.getQuestion().getCorrectAnswer())
+    //______________________________________________________________________________________________ setLayoutBackExamResult
+    @BindingAdapter(value = "setLayoutBackExamResult")
+    public static void setLayoutBackExamResult(LinearLayout linearLayout, MD_ExamResultDetail resultDetail) {
+
+        if (resultDetail.getUserAnswer().equals(resultDetail.getQuestion().getCorrectAnswer()))
             linearLayout.setBackground(linearLayout.getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
         else
             linearLayout.setBackground(linearLayout.getContext().getResources().getDrawable(R.drawable.dw_back_exam_result_wrong));
     }
+    //______________________________________________________________________________________________ setLayoutBackExamResult
 
 
-    @BindingAdapter(value = "SetYourAnswer")
-    public static void SetYourAnswer(TextView textView, MD_ExamResultDetail resultDetail){
+    //______________________________________________________________________________________________ setYourAnswer
+    @BindingAdapter(value = "setYourAnswer")
+    public static void setYourAnswer(TextView textView, MD_ExamResultDetail resultDetail) {
         switch (resultDetail.getUserAnswer()) {
             case 1:
                 textView.setText(resultDetail.getQuestion().getFirstChoose());
@@ -60,10 +67,12 @@ public class BindingAdapters {
                 break;
         }
     }
+    //______________________________________________________________________________________________ setYourAnswer
 
 
-    @BindingAdapter(value = "SetCorrectAnswer")
-    public static void SetCorrectAnswer(TextView textView, MD_ExamResultDetail resultDetail){
+    //______________________________________________________________________________________________ setCorrectAnswer
+    @BindingAdapter(value = "setCorrectAnswer")
+    public static void setCorrectAnswer(TextView textView, MD_ExamResultDetail resultDetail) {
         switch (resultDetail.getQuestion().getCorrectAnswer()) {
             case 1:
                 textView.setText(resultDetail.getQuestion().getFirstChoose());
@@ -79,46 +88,56 @@ public class BindingAdapters {
                 break;
         }
     }
+    //______________________________________________________________________________________________ setCorrectAnswer
 
 
-    @BindingAdapter(value = "SetTextViewFloat")
-    public static void SetTextViewFloat(TextView textView, float value) {//___________________________ SetTextViewText
+    //______________________________________________________________________________________________ setTextViewFloat
+    @SuppressLint("DefaultLocale")
+    @BindingAdapter(value = "setTextViewFloat")
+    public static void setTextViewFloat(TextView textView, float value) {
 
         String v = String.format("%.2f", value);
         textView.setText(v);
 
-    }//_____________________________________________________________________________________________ SetTextViewText
+    }
+    //______________________________________________________________________________________________ setTextViewFloat
 
 
-    @BindingAdapter(value = "SetTextViewDouble")
-    public static void SetTextViewDouble(TextView textView, double value) {//___________________________ SetTextViewText
+    //______________________________________________________________________________________________ setTextViewDouble
+    @SuppressLint("DefaultLocale")
+    @BindingAdapter(value = "setTextViewDouble")
+    public static void setTextViewDouble(TextView textView, double value) {
 
         String v = String.format("%.1f", value);
         textView.setText(v);
 
-    }//_____________________________________________________________________________________________ SetTextViewText
+    }
+    //______________________________________________________________________________________________ setTextViewDouble
 
 
+    //______________________________________________________________________________________________ setTextViewExamResultTotal
     @BindingAdapter(value = {"CorrectAnswerCount", "WrongAnswerCount", "NotAnswered"})
-    public static void SetTextViewExamResultTotal(
+    public static void setTextViewExamResultTotal(
             TextView textView,
             Integer CorrectAnswerCount,
             Integer WrongAnswerCount,
-            Integer NotAnswered) {//_________________ SetTextViewText
+            Integer NotAnswered) {
 
-        Integer total;
+        int total;
 
         if (CorrectAnswerCount != null && WrongAnswerCount != null && NotAnswered != null)
             total = CorrectAnswerCount + WrongAnswerCount + NotAnswered;
         else
             total = 0;
-        textView.setText(total.toString());
+        textView.setText(String.valueOf(total));
 
-    }//_____________________________________________________________________________________________ SetTextViewText
+    }
+    //______________________________________________________________________________________________ setTextViewExamResultTotal
 
 
+    //______________________________________________________________________________________________ setValueForRadioButton
     @BindingAdapter(value = {"TextRadioButton", "userAnswerRadioButton", "radioButtonTag"})
-    public static void SetValueForRadioButton(RadioButton radioButton, String title, Byte userAnswer, Integer radioTag) {
+    public static void setValueForRadioButton(RadioButton radioButton, String title, Byte userAnswer, Integer radioTag) {
         radioButton.setText(title);
         if (userAnswer == null) {
             radioButton.setChecked(false);
@@ -130,24 +149,19 @@ public class BindingAdapters {
         else
             radioButton.setChecked(false);
     }
+    //______________________________________________________________________________________________ setValueForRadioButton
 
 
-    @BindingAdapter(value = "SetTextViewLevel")
-    public static void SetTextViewLevel(TextView textView, Integer level) {//_______________________ SetTextViewLevel
-
-        Context context = textView.getContext();
-        textView.setText(context.getResources().getString(R.string.Level) + " " + level.toString());
-
-    }//_____________________________________________________________________________________________ SetTextViewLevel
-
-
-    @BindingAdapter(value = "SetTextViewText")
-    public static void SetTextViewText(TextView textView, String text) {//__________________________ SetTextViewText
+    //______________________________________________________________________________________________ setTextViewText
+    @SuppressLint("SetTextI18n")
+    @BindingAdapter(value = "setTextViewText")
+    public static void setTextViewText(TextView textView, String text) {
 
         String tag = textView.getTag().toString();
         Context context = textView.getContext();
-        if (text == null || text.equalsIgnoreCase("null"))
+        if (text == null || text.equalsIgnoreCase("null")) {
             text = "";
+        }
         switch (tag) {
             case "date":
                 textView.setText(context.getResources().getString(R.string.Date) + " : " + text);
@@ -162,17 +176,17 @@ public class BindingAdapters {
             case "movieTime":
                 textView.setText(context.getResources().getString(R.string.MovieTime) + " : " + text);
                 break;
-            case "type" :
+            case "type":
                 textView.setText(context.getResources().getString(R.string.Type) + " : " + text);
                 break;
-            case "insured" :
+            case "insured":
                 textView.setText(context.getResources().getString(R.string.insuredName) + " : " + text);
                 break;
             case "insuredNationalCode":
                 textView.setText(context.getResources().getString(R.string.NationalCode) + " : " + text);
                 break;
             case "insuranceNum":
-                if (text == null || text.equalsIgnoreCase("") || text.equalsIgnoreCase("null"))
+                if (text.equalsIgnoreCase("") || text.equalsIgnoreCase("null"))
                     textView.setVisibility(View.GONE);
                 else {
                     textView.setVisibility(View.VISIBLE);
@@ -181,53 +195,55 @@ public class BindingAdapters {
                 break;
         }
 
-    }//_____________________________________________________________________________________________ SetTextViewText
+    }
+    //______________________________________________________________________________________________ setTextViewText
 
 
+    //______________________________________________________________________________________________ setTextViewTextInteger
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     @BindingAdapter(value = "SetTextViewInteger")
-    public static void SetTextViewTextInteger(TextView textView, Integer value) {//_________________ SetTextViewText
+    public static void setTextViewTextInteger(TextView textView, Integer value) {
 
         String tag = textView.getTag().toString();
         Context context = textView.getContext();
-        switch (tag) {
-            case "movieTime":
-                Integer h = value % 60;
-                Integer min = value / 60;
-                textView.setText(context.getResources().getString(R.string.MovieTime) + "  " + String.format("%02d", min) + ":" + String.format("%02d", h));
-                break;
-            default:
-                if (value != null)
-                    textView.setText(value.toString());
-                else
-                    textView.setText("0");
-                break;
+        if ("movieTime".equals(tag)) {
+            Integer h = value % 60;
+            Integer min = value / 60;
+            textView.setText(context.getResources().getString(R.string.MovieTime) + "  " + String.format("%02d", min) + ":" + String.format("%02d", h));
+        } else {
+            if (value != null)
+                textView.setText(value.toString());
+            else
+                textView.setText("0");
         }
 
-    }//_____________________________________________________________________________________________ SetTextViewText
+    }
+    //______________________________________________________________________________________________ setTextViewTextInteger
 
 
-    @BindingAdapter(value = "SetTextViewLong")
-    public static void SetTextViewText(TextView textView, Long value) {//___________________________ SetTextViewText
+    //______________________________________________________________________________________________ setTextViewLong
+    @SuppressLint("SetTextI18n")
+    @BindingAdapter(value = "setTextViewLong")
+    public static void setTextViewLong(TextView textView, Long value) {
 
         String tag = textView.getTag().toString();
         Context context = textView.getContext();
-        switch (tag) {
-            case "amount":
-                ApplicationUtility utility = PishtazanApplication.getApplication(context)
-                        .getApplicationUtilityComponent()
-                        .getApplicationUtility();
+        if ("amount".equals(tag)) {
+            ApplicationUtility utility = PishtazanApplication.getApplication(context)
+                    .getApplicationUtilityComponent()
+                    .getApplicationUtility();
 
 
-                textView.setText(context.getResources().getString(R.string.Amount) + " : " + utility.splitNumberOfAmount(value));
-                break;
+            textView.setText(context.getResources().getString(R.string.Amount) + " : " + utility.splitNumberOfAmount(value));
         }
 
-    }//_____________________________________________________________________________________________ SetTextViewText
+    }
+    //______________________________________________________________________________________________ setTextViewLong
 
 
-    @BindingAdapter(value = "SetDegreePersonImage")
-    public static void SetDegreePersonImage(CircleImageView imageView, Integer degree) {//__________ SetDegreePersonImage
-        Context context = imageView.getContext();
+    //______________________________________________________________________________________________ setDegreePersonImage
+    @BindingAdapter(value = "setDegreePersonImage")
+    public static void setDegreePersonImage(CircleImageView imageView, Integer degree) {
         if (degree.byteValue() == StaticValues.DegreeNormal) {
             imageView.setImageResource(R.drawable.normal_icon);
             return;
@@ -240,13 +256,14 @@ public class BindingAdapters {
 
         if (degree.byteValue() == StaticValues.DegreeGiant) {
             imageView.setImageResource(R.drawable.giant_icon);
-            return;
         }
-    }//_____________________________________________________________________________________________ SetDegreePersonImage
+    }
+    //______________________________________________________________________________________________ setDegreePersonImage
 
 
-    @BindingAdapter(value = "SetPersonImage")
-    public static void SetPersonImage(CircleImageView imageView, String url) {//____________________ SetPersonImage
+    //______________________________________________________________________________________________ setPersonImage
+    @BindingAdapter(value = "setPersonImage")
+    public static void setPersonImage(CircleImageView imageView, String url) {
 
         ImageLoader imageLoader = PishtazanApplication
                 .getApplication(imageView.getContext())
@@ -278,11 +295,13 @@ public class BindingAdapters {
             }
         });
 
-    }//_____________________________________________________________________________________________ SetPersonImage
+    }
+    //______________________________________________________________________________________________ setPersonImage
 
 
-    @BindingAdapter(value = "SetPersonImageReport")
-    public static void SetPersonImageReport(CircleImageView imageView, String url) {//____________________ SetPersonImage
+    //______________________________________________________________________________________________ setPersonImageReport
+    @BindingAdapter(value = "setPersonImageReport")
+    public static void setPersonImageReport(CircleImageView imageView, String url) {
 
         ImageLoader imageLoader = PishtazanApplication
                 .getApplication(imageView.getContext())
@@ -312,7 +331,8 @@ public class BindingAdapters {
             }
         });
 
-    }//_____________________________________________________________________________________________ SetPersonImage
+    }
+    //______________________________________________________________________________________________ setPersonImageReport
 
 
 }

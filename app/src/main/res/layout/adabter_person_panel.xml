@@ -125,7 +125,7 @@
                 app:civ_border_color="@color/ML_Harmony"
                 android:layout_marginLeft="@dimen/_8sdp"
                 android:layout_centerVertical="true"
-                app:SetPersonImage="@{person.image}"
+                app:setPersonImage="@{person.image}"
                 />
 
 
@@ -137,7 +137,7 @@
                 android:layout_alignParentRight="true"
                 app:civ_border_width="@dimen/_2sdp"
                 app:civ_border_color="@color/colorPrimary"
-                app:SetDegreePersonImage="@{person.level}"/>
+                app:setDegreePersonImage="@{person.level}"/>
 
 
         </RelativeLayout>

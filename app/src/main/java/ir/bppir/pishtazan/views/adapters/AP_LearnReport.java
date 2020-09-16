@@ -2,7 +2,6 @@ package ir.bppir.pishtazan.views.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
@@ -19,10 +18,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.AdapterItemLearnReportBinding;
-import ir.bppir.pishtazan.databinding.AdapterItemReportBinding;
 import ir.bppir.pishtazan.models.MD_Report;
 
-public class AP_LearnReport extends RecyclerView.Adapter<AP_LearnReport.CustomHolder> {
+public class AP_LearnReport extends RecyclerView.Adapter<AP_LearnReport.customHolder> {
 
     private LayoutInflater layoutInflater;
     private List<MD_Report> md_reports;
@@ -30,31 +28,43 @@ public class AP_LearnReport extends RecyclerView.Adapter<AP_LearnReport.CustomHo
     private ClickItemDetail clickItemDetail;
 
 
-    public interface ClickItemDetail {//____________________________________________________________ ClickItemPerson
+    //______________________________________________________________________________________________ ClickItemPerson
+    public interface ClickItemDetail {
         void clickItemDetail(Integer Position);
-    }//_____________________________________________________________________________________________ ClickItemPerson
+    }
+    //______________________________________________________________________________________________ ClickItemPerson
 
 
+    //______________________________________________________________________________________________ AP_LearnReport
     public AP_LearnReport(List<MD_Report> md_reports, Context context, ClickItemDetail clickItemDetail) {
         this.md_reports = md_reports;
         this.context = context;
         this.clickItemDetail = clickItemDetail;
     }
+    //______________________________________________________________________________________________ AP_LearnReport
 
+
+    //______________________________________________________________________________________________ onCreateViewHolder
     @NonNull
     @Override
-    public AP_LearnReport.CustomHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public customHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (layoutInflater == null)
             layoutInflater = LayoutInflater.from(parent.getContext());
 
-        return new AP_LearnReport.CustomHolder(DataBindingUtil.inflate(layoutInflater, R.layout.adapter_item_learn_report, parent, false));
+        return new customHolder(DataBindingUtil.inflate(layoutInflater, R.layout.adapter_item_learn_report, parent, false));
     }
+    //______________________________________________________________________________________________ onCreateViewHolder
 
+
+    //______________________________________________________________________________________________ onBindViewHolder
     @Override
-    public void onBindViewHolder(@NonNull AP_LearnReport.CustomHolder holder, int position) {
+    public void onBindViewHolder(@NonNull customHolder holder, int position) {
         holder.bind(md_reports.get(position), position);
     }
+    //______________________________________________________________________________________________ onBindViewHolder
 
+
+    //______________________________________________________________________________________________ getItemCount
     @Override
     public int getItemCount() {
         if (md_reports == null)
@@ -62,9 +72,11 @@ public class AP_LearnReport extends RecyclerView.Adapter<AP_LearnReport.CustomHo
 
         return md_reports.size();
     }
+    //______________________________________________________________________________________________ getItemCount
 
 
-    public class CustomHolder extends RecyclerView.ViewHolder {
+    //______________________________________________________________________________________________ customHolder
+    public class customHolder extends RecyclerView.ViewHolder {
 
         AdapterItemLearnReportBinding binding;
 
@@ -80,7 +92,7 @@ public class AP_LearnReport extends RecyclerView.Adapter<AP_LearnReport.CustomHo
         @BindView(R.id.LinearLayoutExamResultDetail)
         LinearLayout LinearLayoutExamResultDetail;
 
-        public CustomHolder(AdapterItemLearnReportBinding binding) {
+        public customHolder(AdapterItemLearnReportBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
             ButterKnife.bind(this, binding.getRoot());
@@ -89,7 +101,7 @@ public class AP_LearnReport extends RecyclerView.Adapter<AP_LearnReport.CustomHo
         public void bind(MD_Report item, final int itemPosition) {
             binding.setReport(item);
             AP_LearnReportDetail ap_reportDetail = new AP_LearnReportDetail(item.getLearningReports());
-            RecyclerViewDetails.setLayoutManager(new LinearLayoutManager(context,RecyclerView.VERTICAL,false));
+            RecyclerViewDetails.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
             RecyclerViewDetails.setAdapter(ap_reportDetail);
             LinearLayoutExpandClick.setOnClickListener(v -> {
                 if (ExpandableLayoutItem.isExpanded())
@@ -103,4 +115,7 @@ public class AP_LearnReport extends RecyclerView.Adapter<AP_LearnReport.CustomHo
         }
 
     }
+    //______________________________________________________________________________________________ customHolder
+
+
 }

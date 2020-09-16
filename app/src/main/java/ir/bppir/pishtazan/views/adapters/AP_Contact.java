@@ -1,12 +1,13 @@
 package ir.bppir.pishtazan.views.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -16,42 +17,55 @@ import ir.bppir.pishtazan.databinding.AdabterContactBinding;
 import ir.bppir.pishtazan.models.MD_Contact;
 import ir.bppir.pishtazan.views.fragments.AddPerson;
 
-public class AP_Contact extends RecyclerView.Adapter<AP_Contact.CustomHolder> {
+public class AP_Contact extends RecyclerView.Adapter<AP_Contact.customHolder> {
 
     private List<MD_Contact> md_contacts;
     private LayoutInflater layoutInflater;
-    private Context context;
     private AddPerson addPerson;
 
-    public AP_Contact(List<MD_Contact> md_contacts, Context context, AddPerson addPerson) {
+
+    //______________________________________________________________________________________________ AP_Contact
+    public AP_Contact(List<MD_Contact> md_contacts, AddPerson addPerson) {
         this.md_contacts = md_contacts;
-        this.context = context;
         this.addPerson = addPerson;
     }
+    //______________________________________________________________________________________________ AP_Contact
 
-    public AP_Contact.CustomHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+    //______________________________________________________________________________________________ onCreateViewHolder
+    @NotNull
+    public customHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
         if (layoutInflater == null) {
             layoutInflater = LayoutInflater.from(parent.getContext());
         }
-        return new AP_Contact.CustomHolder(DataBindingUtil.inflate(layoutInflater, R.layout.adabter_contact, parent, false));
+        return new customHolder(DataBindingUtil.inflate(layoutInflater, R.layout.adabter_contact, parent, false));
     }
+    //______________________________________________________________________________________________ onCreateViewHolder
 
-    public void onBindViewHolder(AP_Contact.CustomHolder holder, int position) {
+
+    //______________________________________________________________________________________________ onBindViewHolder
+    public void onBindViewHolder(customHolder holder, int position) {
         holder.bind(md_contacts.get(position), position);
     }
+    //______________________________________________________________________________________________ onBindViewHolder
 
+
+    //______________________________________________________________________________________________ getItemCount
     public int getItemCount() {
         if (md_contacts == null)
             return 0;
         return md_contacts.size();
     }
+    //______________________________________________________________________________________________ getItemCount
 
-    public class CustomHolder extends RecyclerView.ViewHolder {
+
+    //______________________________________________________________________________________________ customHolder
+    public class customHolder extends RecyclerView.ViewHolder {
 
         AdabterContactBinding binding;
         View view;
 
-        public CustomHolder(AdabterContactBinding binding) {
+        public customHolder(AdabterContactBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
             view = binding.getRoot();
@@ -60,14 +74,13 @@ public class AP_Contact extends RecyclerView.Adapter<AP_Contact.CustomHolder> {
 
         public void bind(MD_Contact item, final int position) {
             binding.setContact(item);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addPerson.clickContact(position);
-                }
-            });
+            view.setOnClickListener(view -> addPerson.clickContact(position));
             binding.executePendingBindings();
         }
 
     }
+    //______________________________________________________________________________________________ customHolder
+
+
+
 }

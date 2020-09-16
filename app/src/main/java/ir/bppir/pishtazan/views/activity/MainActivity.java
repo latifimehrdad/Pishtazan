@@ -10,6 +10,7 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -21,9 +22,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -35,6 +34,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yalantis.ucrop.UCrop;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -57,7 +58,6 @@ import ir.bppir.pishtazan.viewmodels.fragments.VM_Splash;
 
 public class MainActivity extends AppCompatActivity {
 
-    private VM_Main vm_main;
     private NavController navController;
     static final int CAMERA_RESULT = 7126;
     static final int REQUEST_PICK_Gallery = 7127;
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         startFromNotify = getIntent().getIntExtra(getResources().getString(R.string.ML_personId), -1);
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        vm_main = new VM_Main(this);
+        VM_Main vm_main = new VM_Main();
         binding.setMain(vm_main);
         ButterKnife.bind(this);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -189,52 +189,12 @@ public class MainActivity extends AppCompatActivity {
     //______________________________________________________________________________________________ attachBaseContext
 
 
-    //______________________________________________________________________________________________ whiteList
-    private void whiteList() {
-        PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
-        boolean isIgnoringBatteryOptimizations = false;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            isIgnoringBatteryOptimizations = pm.isIgnoringBatteryOptimizations(getPackageName());
-            if (!isIgnoringBatteryOptimizations) {
-                Intent intent = new Intent();
-                intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-                intent.setData(Uri.parse("package:" + getPackageName()));
-                startActivityForResult(intent, 3);
-            }
-        }
-
-    }
-    //______________________________________________________________________________________________ whiteList
-
-
     //______________________________________________________________________________________________ onRequestPermissionsResult
     @Override
     public void onRequestPermissionsResult(
             int requestCode,
-            String permissions[],
-            int[] grantResults) {
-        switch (requestCode) {
-            case 0: {
-/*                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    WhiteList();
-                }*/
-            }
-            case 3: {
-                if (requestCode == 3) {
-                    PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-                    boolean isIgnoringBatteryOptimizations = false;
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                        isIgnoringBatteryOptimizations = pm.isIgnoringBatteryOptimizations(getPackageName());
-                    }
-                    if (isIgnoringBatteryOptimizations) {
-                        // Ignoring battery optimization
-                    } else {
-                        // Not ignoring battery optimization
-                    }
-                }
-            }
-
-        }
+            @NotNull String[] permissions,
+            @NotNull int[] grantResults) {
     }
     //______________________________________________________________________________________________ onRequestPermissionsResult
 
@@ -248,51 +208,42 @@ public class MainActivity extends AppCompatActivity {
 
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         Window window = dialog.getWindow();
-        lp.copyFrom(window.getAttributes());
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        window.setAttributes(lp);
+        if (window != null) {
+            lp.copyFrom(window.getAttributes());
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            window.setAttributes(lp);
+        }
 
-        TextView TextViewCancel = (TextView) dialog.findViewById(R.id.TextViewCancel);
-        RelativeLayout RelativeLayoutCamera = (RelativeLayout) dialog
+        TextView TextViewCancel = dialog.findViewById(R.id.TextViewCancel);
+        RelativeLayout RelativeLayoutCamera = dialog
                 .findViewById(R.id.RelativeLayoutCamera);
 
-        LinearLayout LinearLayoutGallery = (LinearLayout) dialog
+        LinearLayout LinearLayoutGallery = dialog
                 .findViewById(R.id.LinearLayoutGallery);
 
-        LinearLayoutGallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(Intent.createChooser(intent, "انتخاب عکس"), REQUEST_PICK_Gallery);
-                dialog.dismiss();
-            }
+        LinearLayoutGallery.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            startActivityForResult(Intent.createChooser(intent, "انتخاب عکس"), REQUEST_PICK_Gallery);
+            dialog.dismiss();
         });
 
-        RelativeLayoutCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        RelativeLayoutCamera.setOnClickListener(view -> {
 
-                if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                    showCamera();
+            if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                showCamera();
 
-                } else {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_RESULT);
-                    }
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_RESULT);
                 }
-
-                dialog.dismiss();
             }
+
+            dialog.dismiss();
         });
 
-        TextViewCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+        TextViewCancel.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }
@@ -309,12 +260,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     //______________________________________________________________________________________________ getTempUri
+    @SuppressLint("SimpleDateFormat")
     private Uri getTempUri() {
         // Create an image file name
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
         String dt = sdf.format(new Date());
-        File imageFile = null;
-        imageFile = new File(Environment.getExternalStorageDirectory()
+        File imageFile = new File(Environment.getExternalStorageDirectory()
                 + "/MyApp/", "Camera_" + dt + ".jpg");
 
         File file = new File(Environment.getExternalStorageDirectory() + "/MyApp");
@@ -354,7 +305,8 @@ public class MainActivity extends AppCompatActivity {
         } else if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
 
             Uri uri = UCrop.getOutput(data);
-            ImageUrl = uri.toString();
+            if (uri != null)
+                ImageUrl = uri.toString();
             mainPublish.onNext(StaticValues.ML_PictureDialogGetImage);
 //            ImageViewMenu.setImageURI(Uri.parse(new File(MainActivity.ImageUrl).toString()));
         } else if (resultCode == UCrop.RESULT_ERROR) {
@@ -376,14 +328,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     //______________________________________________________________________________________________ showCustomToast
-    public void showCustomToast(String title, int color, Drawable icon, int tintColor, Context context) {
+    public void showCustomToast(String title, Drawable icon, int tintColor, Context context) {
         relativeLayoutToast.setVisibility(View.GONE);
         textViewToast.setText(title);
         imageViewToast.setImageDrawable(icon);
         imageViewToast.setColorFilter(tintColor);
         relativeLayoutToast.startAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_in_left));
         relativeLayoutToast.setVisibility(View.VISIBLE);
-        int delay = 1000;
+        int delay;
         int titleLength = title.length();
         if (titleLength > 10)
             titleLength = titleLength / 10;
@@ -395,10 +347,9 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(() -> {
             relativeLayoutToast.startAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_out_left));
             relativeLayoutToast.setVisibility(View.GONE);
-        },delay);
+        }, delay);
     }
     //______________________________________________________________________________________________ showCustomToast
-
 
 
     //______________________________________________________________________________________________ onBackPressed
