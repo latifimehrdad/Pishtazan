@@ -28,7 +28,7 @@ import ir.bppir.pishtazan.views.application.PishtazanApplication;
 import ir.bppir.pishtazan.views.dialogs.searchspinner.MLSpinnerDialog;
 
 public class PolicyType extends FragmentPrimary implements
-        FragmentPrimary.messageFromObservable {
+        FragmentPrimary.actionFromObservable {
 
     //    private NavController navController;
     private VM_PolicyType vm_policyType;
@@ -145,7 +145,7 @@ public class PolicyType extends FragmentPrimary implements
 
 
     private void init() {//_________________________________________________________________________ init
-        setGetMessageFromObservable(
+        setObservableForGetAction(
                 PolicyType.this,
                 vm_policyType.getPublishSubject(),
                 vm_policyType);
@@ -157,7 +157,7 @@ public class PolicyType extends FragmentPrimary implements
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         DismissLoading();
 
@@ -326,7 +326,7 @@ public class PolicyType extends FragmentPrimary implements
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
-    public void actionWhenFailureRequest() {
+    public void getActionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
 

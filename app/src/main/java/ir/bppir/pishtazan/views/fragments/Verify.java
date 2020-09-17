@@ -23,11 +23,10 @@ import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.FragmentVerifyBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
-import ir.bppir.pishtazan.viewmodels.fragments.VM_Splash;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Verify;
 import ir.bppir.pishtazan.views.dialogs.DialogProgress;
 
-public class Verify extends FragmentPrimary implements FragmentPrimary.messageFromObservable {
+public class Verify extends FragmentPrimary implements FragmentPrimary.actionFromObservable {
 
     private NavController navController;
     private VM_Verify vm_verify;
@@ -106,7 +105,7 @@ public class Verify extends FragmentPrimary implements FragmentPrimary.messageFr
 
     private void init() {//_________________________________________________________________________ init
         navController = Navigation.findNavController(getView());
-        setGetMessageFromObservable(
+        setObservableForGetAction(
                 Verify.this,
                 vm_verify.getPublishSubject(),
                 vm_verify);
@@ -115,7 +114,7 @@ public class Verify extends FragmentPrimary implements FragmentPrimary.messageFr
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         if (action == StaticValues.ML_ReTrySensSms) {
             DismissProgress();
@@ -330,7 +329,7 @@ public class Verify extends FragmentPrimary implements FragmentPrimary.messageFr
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
-    public void actionWhenFailureRequest() {
+    public void getActionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
 

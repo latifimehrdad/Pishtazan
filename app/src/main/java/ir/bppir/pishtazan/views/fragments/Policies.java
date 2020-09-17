@@ -22,7 +22,7 @@ import ir.bppir.pishtazan.viewmodels.fragments.VM_PolicyList;
 import ir.bppir.pishtazan.views.adapters.AP_Policy;
 
 public class Policies extends FragmentPrimary implements
-        FragmentPrimary.messageFromObservable,
+        FragmentPrimary.actionFromObservable,
         AP_Policy.ClickItemPolicy {
 
 
@@ -62,7 +62,7 @@ public class Policies extends FragmentPrimary implements
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setObservableForGetAction(
                 Policies.this,
                 vm_policyList.getPublishSubject(),
                 vm_policyList);
@@ -82,7 +82,7 @@ public class Policies extends FragmentPrimary implements
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         if (action.equals(StaticValues.ML_GetAllPolicy)) {
             SetAdapterPolicies();
@@ -155,7 +155,7 @@ public class Policies extends FragmentPrimary implements
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
-    public void actionWhenFailureRequest() {
+    public void getActionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
 

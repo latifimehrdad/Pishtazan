@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -25,7 +26,7 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Home;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Splash;
 
-public class Home extends FragmentPrimary implements FragmentPrimary.messageFromObservable {
+public class Home extends FragmentPrimary implements FragmentPrimary.actionFromObservable {
 
     private NavController navController;
     private VM_Home vm_home;
@@ -81,7 +82,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.messageFrom
 
     private void init() {//_________________________________________________________________________ init
         navController = Navigation.findNavController(getView());
-        setGetMessageFromObservable(
+        setObservableForGetAction(
                 Home.this,
                 vm_home.getPublishSubject(),
                 vm_home);
@@ -112,7 +113,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.messageFrom
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
@@ -171,7 +172,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.messageFrom
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
-    public void actionWhenFailureRequest() {
+    public void getActionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
 

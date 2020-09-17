@@ -28,14 +28,15 @@ public class FragmentPrimary extends Fragment {
     private DisposableObserver<Byte> disposableObserver;
     private Activity context;
     private View view;
-    private messageFromObservable MessageFromObservable;
+    private actionFromObservable actionFromObservable;
     private VM_Primary vm_primary;
 
 
     //______________________________________________________________________________________________ messageFromObservable
-    public interface messageFromObservable {
-        void getMessageFromObservable(Byte action);
-        void actionWhenFailureRequest();
+    public interface actionFromObservable {
+        void getActionFromObservable(Byte action);
+
+        void getActionWhenFailureRequest();
     }
     //______________________________________________________________________________________________ messageFromObservable
 
@@ -97,24 +98,25 @@ public class FragmentPrimary extends Fragment {
     //______________________________________________________________________________________________ setView
     public void setView(View view) {
         this.view = view;
-        ButterKnife.bind(this, getView());
+        if (getView() != null)
+            ButterKnife.bind(this, getView());
     }
     //______________________________________________________________________________________________ setView
 
 
-    //______________________________________________________________________________________________ setGetMessageFromObservable
-    public void setGetMessageFromObservable(
-            messageFromObservable MessageFromObservable,
+    //______________________________________________________________________________________________ setObservableForGetAction
+    public void setObservableForGetAction(
+            actionFromObservable actionFromObservable,
             PublishSubject<Byte> publishSubject,
             VM_Primary vm_primary) {
-        this.MessageFromObservable = MessageFromObservable;
+        this.actionFromObservable = actionFromObservable;
         this.vm_primary = vm_primary;
         if (disposableObserver != null)
             disposableObserver.dispose();
         disposableObserver = null;
         setObserverToObservable(publishSubject);
     }
-    //______________________________________________________________________________________________ setGetMessageFromObservable
+    //______________________________________________________________________________________________ setObservableForGetAction
 
 
     //______________________________________________________________________________________________ setObserverToObservable
@@ -148,33 +150,32 @@ public class FragmentPrimary extends Fragment {
 
     //______________________________________________________________________________________________ actionHandler
     private void actionHandler(Byte action) {
-        getActivity()
-                .runOnUiThread(() -> {
+        getActivity().runOnUiThread(() -> {
 
-                    MessageFromObservable.getMessageFromObservable(action);
+            actionFromObservable.getActionFromObservable(action);
 
-                    if (vm_primary.getResponseMessage() == null)
-                        return;
+            if (vm_primary.getResponseMessage() == null)
+                return;
 
-                    if (vm_primary.getResponseMessage().equalsIgnoreCase(""))
-                        return;
+            if (vm_primary.getResponseMessage().equalsIgnoreCase(""))
+                return;
 
-                    if ((action == StaticValues.ML_RequestCancel)
-                            || (action == StaticValues.ML_ResponseError)
-                            || (action == StaticValues.ML_ResponseFailure)
-                            || (action == StaticValues.ML_InternetAccessFailed)) {
-                        showMessage(vm_primary.getResponseMessage(),
-                                getResources().getColor(R.color.ML_White),
-                                getResources().getDrawable(R.drawable.ic_baseline_warning),
-                                getResources().getColor(R.color.ML_Harmony));
-                        MessageFromObservable.actionWhenFailureRequest();
-                    } else
-                        showMessage(vm_primary.getResponseMessage()
-                                , getResources().getColor(R.color.ML_White),
-                                getResources().getDrawable(R.drawable.ic_baseline_check_circle),
-                                getResources().getColor(R.color.ML_OK));
+            if ((action.equals(StaticValues.ML_RequestCancel))
+                    || (action.equals(StaticValues.ML_ResponseError))
+                    || (action.equals(StaticValues.ML_ResponseFailure))
+                    || (action.equals(StaticValues.ML_InternetAccessFailed))) {
+                showMessage(vm_primary.getResponseMessage(),
+                        getResources().getColor(R.color.ML_White),
+                        getResources().getDrawable(R.drawable.ic_baseline_warning),
+                        getResources().getColor(R.color.ML_Harmony));
+                actionFromObservable.getActionWhenFailureRequest();
+            } else
+                showMessage(vm_primary.getResponseMessage()
+                        , getResources().getColor(R.color.ML_White),
+                        getResources().getDrawable(R.drawable.ic_baseline_check_circle),
+                        getResources().getColor(R.color.ML_OK));
 
-                });
+        });
     }
     //______________________________________________________________________________________________ actionHandler
 
@@ -182,9 +183,6 @@ public class FragmentPrimary extends Fragment {
     //______________________________________________________________________________________________ showMessage
     public void showMessage(String message, int color, Drawable icon, int tintColor) {
         MainActivity.mainActivity.showCustomToast(message, icon, tintColor, getContext());
-/*        DialogMessage dialogMessage = new DialogMessage(getContext(), message, color, icon, tintColor);
-        dialogMessage.setCancelable(false);
-        dialogMessage.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);*/
     }
     //______________________________________________________________________________________________ showMessage
 

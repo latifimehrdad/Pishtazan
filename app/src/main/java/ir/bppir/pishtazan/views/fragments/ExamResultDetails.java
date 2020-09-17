@@ -20,7 +20,7 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_ExamResultDetail;
 import ir.bppir.pishtazan.views.adapters.AP_ExamResultDetail;
 
-public class ExamResultDetails extends FragmentPrimary implements FragmentPrimary.messageFromObservable {
+public class ExamResultDetails extends FragmentPrimary implements FragmentPrimary.actionFromObservable {
 
     private VM_ExamResultDetail vm_examResultDetail;
     private Integer examResultId;
@@ -53,7 +53,7 @@ public class ExamResultDetails extends FragmentPrimary implements FragmentPrimar
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setObservableForGetAction(
                 ExamResultDetails.this,
                 vm_examResultDetail.getPublishSubject(),
                 vm_examResultDetail);
@@ -64,7 +64,7 @@ public class ExamResultDetails extends FragmentPrimary implements FragmentPrimar
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         GifViewLoading.setVisibility(View.GONE);
         if (action.equals(StaticValues.ML_GetExamResultDetail)) {
@@ -86,7 +86,7 @@ public class ExamResultDetails extends FragmentPrimary implements FragmentPrimar
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
-    public void actionWhenFailureRequest() {
+    public void getActionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
 

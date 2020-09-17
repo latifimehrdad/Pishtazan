@@ -39,7 +39,7 @@ import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
 public class Panel extends FragmentPrimary implements
-        FragmentPrimary.messageFromObservable,
+        FragmentPrimary.actionFromObservable,
         AP_Person.ClickItemPerson {
 
     private NavController navController;
@@ -117,7 +117,7 @@ public class Panel extends FragmentPrimary implements
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
         navController = Navigation.findNavController(getView());
-        setGetMessageFromObservable(
+        setObservableForGetAction(
                 Panel.this,
                 vm_panel.getPublishSubject(),
                 vm_panel);
@@ -150,7 +150,7 @@ public class Panel extends FragmentPrimary implements
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         if (dialog != null) {
             dialog.dismiss();
@@ -847,7 +847,7 @@ public class Panel extends FragmentPrimary implements
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
-    public void actionWhenFailureRequest() {
+    public void getActionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
 

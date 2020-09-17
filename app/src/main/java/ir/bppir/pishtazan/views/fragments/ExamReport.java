@@ -38,7 +38,7 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_ExamReport;
 import ir.bppir.pishtazan.views.adapters.AP_LearnReport;
 
-public class ExamReport extends FragmentPrimary implements FragmentPrimary.messageFromObservable,
+public class ExamReport extends FragmentPrimary implements FragmentPrimary.actionFromObservable,
         AP_LearnReport.ClickItemDetail {
 
 
@@ -103,7 +103,7 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.messa
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setObservableForGetAction(
                 ExamReport.this,
                 vm_examReport.getPublishSubject(),
                 vm_examReport);
@@ -171,7 +171,7 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.messa
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         GifViewLoading.setVisibility(View.GONE);
         GifViewReport.setVisibility(View.GONE);
@@ -285,7 +285,7 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.messa
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
-    public void actionWhenFailureRequest() {
+    public void getActionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
 

@@ -26,7 +26,7 @@ import ir.bppir.pishtazan.viewmodels.fragments.VM_TutorialMovie;
 import ir.bppir.pishtazan.views.adapters.AP_Movie;
 
 public class TutorialMovie extends FragmentPrimary implements
-        FragmentPrimary.messageFromObservable,
+        FragmentPrimary.actionFromObservable,
         AP_Movie.ClickItemTutorialMovie {
 
     private VM_TutorialMovie vm_tutorialMovie;
@@ -76,7 +76,7 @@ public class TutorialMovie extends FragmentPrimary implements
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setObservableForGetAction(
                 TutorialMovie.this,
                 vm_tutorialMovie.getPublishSubject(),
                 vm_tutorialMovie);
@@ -117,7 +117,7 @@ public class TutorialMovie extends FragmentPrimary implements
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         GifViewLoading.setVisibility(View.GONE);
         if (action.equals(StaticValues.ML_GetTutorialMovie)) {
@@ -157,7 +157,7 @@ public class TutorialMovie extends FragmentPrimary implements
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
-    public void actionWhenFailureRequest() {
+    public void getActionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
 

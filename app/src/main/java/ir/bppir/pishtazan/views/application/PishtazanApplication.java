@@ -35,7 +35,6 @@ import ir.bppir.pishtazan.daggers.imageloader.ImageLoaderModule;
 import ir.bppir.pishtazan.daggers.retrofit.DaggerRetrofitComponent;
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitModule;
-import ir.bppir.pishtazan.utility.SSLCertificateHandler;
 
 
 public class PishtazanApplication extends MultiDexApplication {
@@ -46,18 +45,17 @@ public class PishtazanApplication extends MultiDexApplication {
     private RetrofitComponent retrofitComponent;
     private ImageLoaderComponent imageLoaderComponent;
 
+    //______________________________________________________________________________________________ onCreate
     @Override
-    public void onCreate() {//______________________________________________________________________ onCreate
+    public void onCreate() {
         super.onCreate();
         this.context = getApplicationContext();
-/*        setComponentEnabledSetting();*/
-//        SSLCertificateHandler.nuke();
-        ConfigurationCalligraphy();
-        ConfigurationApplicationUtility();
-        ConfigurationDataPicker();
-        ConfigurationRetrofitComponent();
-        ConfigurationRealmComponent();
-        ConfigurationImageLoader();
+        configurationCalligraphy();
+        configurationApplicationUtility();
+        configurationDataPicker();
+        configurationRetrofitComponent();
+        configurationRealmComponent();
+        configurationImageLoader();
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(context.getResources().getString(R.string.ML_Ignore));
@@ -69,20 +67,22 @@ public class PishtazanApplication extends MultiDexApplication {
         intentFilter.addAction(context.getResources().getString(R.string.ML_Failed));
         BroadcastReceiver noti = new NotificationReceiver();
         registerReceiver(noti, intentFilter);
+    }
+    //______________________________________________________________________________________________ onCreate
 
-//        ConfigurationImageLoader();
-    }//_____________________________________________________________________________________________ onCreate
 
-    private void ConfigurationRetrofitComponent() {//_______________________________________________ ConfigurationRetrofitComponent
+    //______________________________________________________________________________________________ configurationRetrofitComponent
+    private void configurationRetrofitComponent() {
         retrofitComponent = DaggerRetrofitComponent
                 .builder()
                 .retrofitModule(new RetrofitModule(context))
                 .build();
-    }//_____________________________________________________________________________________________ ConfigurationRetrofitComponent
+    }
+    //______________________________________________________________________________________________ configurationRetrofitComponent
 
 
-
-    private void ConfigurationImageLoader() {//_____________________________________________________ ConfigurationImageLoader
+    //______________________________________________________________________________________________ configurationImageLoader
+    private void configurationImageLoader() {
 
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .cacheOnDisk(true).cacheInMemory(true)
@@ -109,16 +109,19 @@ public class PishtazanApplication extends MultiDexApplication {
         ImageLoader.getInstance().init(config);
 
         imageLoaderComponent = DaggerImageLoaderComponent.builder().imageLoaderModule(new ImageLoaderModule()).build();
-    }//_____________________________________________________________________________________________ ConfigurationImageLoader()
+    }
+    //______________________________________________________________________________________________ configurationImageLoader
 
 
-
-    public static PishtazanApplication getApplication(Context context) {//__________________________ getApplication
+    //______________________________________________________________________________________________ getApplication
+    public static PishtazanApplication getApplication(Context context) {
         return (PishtazanApplication) context.getApplicationContext();
-    }//_____________________________________________________________________________________________ getApplication
+    }
+    //______________________________________________________________________________________________ getApplication
 
 
-    private void ConfigurationCalligraphy() {//_____________________________________________________ ConfigurationCalligraphy
+    //______________________________________________________________________________________________ configurationCalligraphy
+    private void configurationCalligraphy() {
         ViewPump.init(ViewPump.builder()
                 .addInterceptor(new CalligraphyInterceptor(
                         new CalligraphyConfig.Builder()
@@ -126,54 +129,60 @@ public class PishtazanApplication extends MultiDexApplication {
                                 .setFontAttrId(R.attr.fontPath)
                                 .build()))
                 .build());
-    }//_____________________________________________________________________________________________ ConfigurationCalligraphy
+    }
+    //______________________________________________________________________________________________ configurationCalligraphy
 
 
-    private void ConfigurationRealmComponent() {//__________________________________________________ ConfigurationCalligraphy
+    //______________________________________________________________________________________________ configurationRealmComponent
+    private void configurationRealmComponent() {
         Realm.init(this);
         Realm.setDefaultConfiguration(new RealmConfiguration.Builder()
                 .name("Pishatazan")
                 .schemaVersion(1)
                 .build());
-    }//_____________________________________________________________________________________________ ConfigurationRealmComponent
+    }
+    //______________________________________________________________________________________________ configurationRealmComponent
 
 
-    private void ConfigurationApplicationUtility() {//______________________________________________ ConfigurationApplicationUtility
+    //______________________________________________________________________________________________ configurationApplicationUtility
+    private void configurationApplicationUtility() {
         applicationUtilityComponent = DaggerApplicationUtilityComponent.builder().applicationUtilityModul(new ApplicationUtilityModul()).build();
-    }//_____________________________________________________________________________________________ ConfigurationApplicationUtility
+    }
+    //______________________________________________________________________________________________ configurationApplicationUtility
 
 
-    private void ConfigurationDataPicker() {//______________________________________________________ ConfigurationDataPicker
+    //______________________________________________________________________________________________ configurationDataPicker
+    private void configurationDataPicker() {
         persianPickerComponent = DaggerPersianPickerComponent.builder().persianPickerModule(new PersianPickerModule()).build();
-    }//_____________________________________________________________________________________________ ConfigurationDataPicker
+    }
+    //______________________________________________________________________________________________ configurationDataPicker
 
 
-    public ApplicationUtilityComponent getApplicationUtilityComponent() {//_________________________ getApplicationUtilityComponent
+    //______________________________________________________________________________________________ getApplicationUtilityComponent
+    public ApplicationUtilityComponent getApplicationUtilityComponent() {
         return applicationUtilityComponent;
-    }//_____________________________________________________________________________________________ getApplicationUtilityComponent
+    }
+    //______________________________________________________________________________________________ getApplicationUtilityComponent
 
-    public PersianPickerComponent getPersianPickerComponent() {//___________________________________ getPersianPickerComponent
+
+    //______________________________________________________________________________________________ getPersianPickerComponent
+    public PersianPickerComponent getPersianPickerComponent() {
         return persianPickerComponent;
-    }//_____________________________________________________________________________________________ getPersianPickerComponent
+    }
+    //______________________________________________________________________________________________ getPersianPickerComponent
 
 
-    public RetrofitComponent getRetrofitComponent() {//_____________________________________________ getRetrofitComponent
+    //______________________________________________________________________________________________ getRetrofitComponent
+    public RetrofitComponent getRetrofitComponent() {
         return retrofitComponent;
-    }//_____________________________________________________________________________________________ getRetrofitComponent
+    }
+    //______________________________________________________________________________________________ getRetrofitComponent
 
 
-    private void setComponentEnabledSetting() {//___________________________________________________ setComponentEnabledSetting
-/*        ComponentName receiver = new ComponentName(this, ReceiverLunchAppInBackground.class);
-        PackageManager pm = this.getPackageManager();
-
-        pm.setComponentEnabledSetting(receiver,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP);*/
-    }//_____________________________________________________________________________________________ setComponentEnabledSetting
-
-
-    public ImageLoaderComponent getImageLoaderComponent() {//_______________________________________ getImageLoaderComponent
+    //______________________________________________________________________________________________ getImageLoaderComponent
+    public ImageLoaderComponent getImageLoaderComponent() {
         return imageLoaderComponent;
-    }//_____________________________________________________________________________________________ getImageLoaderComponent
+    }
+    //______________________________________________________________________________________________ getImageLoaderComponent
 
 }

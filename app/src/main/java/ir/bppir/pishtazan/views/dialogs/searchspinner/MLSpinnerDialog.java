@@ -25,7 +25,7 @@ public class MLSpinnerDialog {
     ArrayList<String> items;
     Activity context;
     String dTitle, closeTitle = "Close";
-    OnSpinnerItemClick onSpinerItemClick;
+    OnSpinnerItemClick onSpinnerItemClick;
     AlertDialog alertDialog;
     int pos;
     int style;
@@ -65,7 +65,7 @@ public class MLSpinnerDialog {
     }
 
     public void bindOnSpinerListener(OnSpinnerItemClick onSpinerItemClick1) {
-        this.onSpinerItemClick = onSpinerItemClick1;
+        this.onSpinnerItemClick = onSpinerItemClick1;
     }
 
     public void showSpinerDialog() {
@@ -96,7 +96,7 @@ public class MLSpinnerDialog {
                         pos = j;
                     }
                 }
-                onSpinerItemClick.onClick(t.getText().toString(), pos);
+                onSpinnerItemClick.onClick(t.getText().toString(), pos);
                 closeSpinerDialog();
             }
         });

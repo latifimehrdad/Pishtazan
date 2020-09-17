@@ -42,7 +42,7 @@ import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
-public class Report extends FragmentPrimary implements FragmentPrimary.messageFromObservable {
+public class Report extends FragmentPrimary implements FragmentPrimary.actionFromObservable {
 
 
     private VM_Report vm_report;
@@ -117,7 +117,7 @@ public class Report extends FragmentPrimary implements FragmentPrimary.messageFr
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setObservableForGetAction(
                 Report.this,
                 vm_report.getPublishSubject(),
                 vm_report);
@@ -193,7 +193,7 @@ public class Report extends FragmentPrimary implements FragmentPrimary.messageFr
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         GifViewLoading.setVisibility(View.GONE);
         GifViewReport.setVisibility(View.GONE);
@@ -335,7 +335,7 @@ public class Report extends FragmentPrimary implements FragmentPrimary.messageFr
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
-    public void actionWhenFailureRequest() {
+    public void getActionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
 

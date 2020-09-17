@@ -23,7 +23,7 @@ import ir.bppir.pishtazan.daggers.retrofit.RetrofitApis;
 import ir.bppir.pishtazan.databinding.FragmentMoviePlayerBinding;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_MoviePlayer;
 
-public class MoviePlayer extends FragmentPrimary implements FragmentPrimary.messageFromObservable {
+public class MoviePlayer extends FragmentPrimary implements FragmentPrimary.actionFromObservable {
 
 
     private VM_MoviePlayer vm_moviePlayer;
@@ -65,7 +65,7 @@ public class MoviePlayer extends FragmentPrimary implements FragmentPrimary.mess
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setObservableForGetAction(
                 MoviePlayer.this,
                 vm_moviePlayer.getPublishSubject(),
                 vm_moviePlayer);
@@ -75,7 +75,7 @@ public class MoviePlayer extends FragmentPrimary implements FragmentPrimary.mess
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
@@ -141,7 +141,7 @@ public class MoviePlayer extends FragmentPrimary implements FragmentPrimary.mess
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
-    public void actionWhenFailureRequest() {
+    public void getActionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
 

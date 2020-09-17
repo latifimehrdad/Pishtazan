@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
@@ -25,21 +27,24 @@ public class DialogProgress extends DialogFragment {
 
 
     @BindView(R.id.DialogProgressIgnor)
-    Button DialogProgressIgnor;
+    Button DialogProgressIgnore;
 
     @BindView(R.id.DialogProgressTitle)
     TextView DialogProgressTitle;
 
-
-    public DialogProgress(Context context, String title) {//________________________________________ Start DialogProgress
+    //______________________________________________________________________________________________ DialogProgress
+    public DialogProgress(Context context, String title) {
         this.context = context;
         Title = title;
         StaticFunctions = false;
-    }//_____________________________________________________________________________________________ End DialogProgress
+    }
+    //______________________________________________________________________________________________ DialogProgress
 
 
-    public Dialog onCreateDialog(Bundle savedInstanceState) {//_____________________________________ Start onCreateDialog
-        View view = null;
+    //______________________________________________________________________________________________ onCreateDialog
+    @NotNull
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        View view;
         DialogProgressBinding binding = DataBindingUtil
                 .inflate(LayoutInflater
                                 .from(this.context),
@@ -50,13 +55,12 @@ public class DialogProgress extends DialogFragment {
         view = binding.getRoot();
         ButterKnife.bind(this, view);
         DialogProgressTitle.setText(Title);
-        DialogProgressIgnor.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                StaticFunctions = true;
-                DialogProgress.this.dismiss();
-            }
+        DialogProgressIgnore.setOnClickListener(view1 -> {
+            StaticFunctions = true;
+            DialogProgress.this.dismiss();
         });
         return new AlertDialog.Builder(context).setView(view).create();
-    }//_____________________________________________________________________________________________ End onCreateDialog
+    }
+    //______________________________________________________________________________________________ onCreateDialog
 
 }

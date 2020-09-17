@@ -25,7 +25,7 @@ import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.FragmentMapBinding;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Map;
 
-public class Map extends FragmentPrimary implements FragmentPrimary.messageFromObservable,
+public class Map extends FragmentPrimary implements FragmentPrimary.actionFromObservable,
         OnMapReadyCallback {
 
     private VM_Map vm_map;
@@ -64,7 +64,7 @@ public class Map extends FragmentPrimary implements FragmentPrimary.messageFromO
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setObservableForGetAction(
                 Map.this,
                 vm_map.getPublishSubject(),
                 vm_map);
@@ -76,7 +76,7 @@ public class Map extends FragmentPrimary implements FragmentPrimary.messageFromO
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
 //        if (action.equals(StaticValues.ML_AddressFromMap)){
             getContext().onBackPressed();
@@ -164,7 +164,7 @@ public class Map extends FragmentPrimary implements FragmentPrimary.messageFromO
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
-    public void actionWhenFailureRequest() {
+    public void getActionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
 

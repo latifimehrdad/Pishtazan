@@ -1,5 +1,6 @@
 package ir.bppir.pishtazan.views.fragments;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,7 +14,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -22,6 +22,8 @@ import com.cunoraz.gifview.library.GifView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
@@ -43,15 +45,13 @@ import ir.bppir.pishtazan.views.dialogs.DialogProgress;
 import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
-
 import static ir.bppir.pishtazan.daggers.retrofit.RetrofitApis.Host;
 
 public class EditPerson extends FragmentPrimary implements
-        FragmentPrimary.messageFromObservable {
+        FragmentPrimary.actionFromObservable {
 
     private NavController navController;
     private Byte panelType;
-    private Integer personId;
     private VM_EditPerson vm_editPerson;
     private Byte Degree = -1;
     private DisposableObserver<Byte> disposableObserver;
@@ -59,7 +59,6 @@ public class EditPerson extends FragmentPrimary implements
     private DialogProgress progress;
     private String Lat;
     private String Lng;
-    private String Address;
 
     @BindView(R.id.EditTextName)
     EditText EditTextName;
@@ -120,7 +119,7 @@ public class EditPerson extends FragmentPrimary implements
     @Nullable
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
         if (getView() == null) {
@@ -155,10 +154,12 @@ public class EditPerson extends FragmentPrimary implements
         scrollView.setVisibility(View.GONE);
         GifViewLoading.setVisibility(View.VISIBLE);
 
-        Integer panel = getArguments().getInt(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
-        panelType = panel.byteValue();
-        personId = getArguments().getInt(getContext().getString(R.string.ML_personId), 0);
-        if (panelType == StaticValues.Customer) {
+        assert getArguments() != null;
+        assert getContext() != null;
+        int panel = getArguments().getInt(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
+        panelType = (byte) panel;
+        Integer personId = getArguments().getInt(getContext().getString(R.string.ML_personId), 0);
+        if (panelType.equals(StaticValues.Customer)) {
             vm_editPerson.getCustomer(personId);
         } else {
             vm_editPerson.getColleague(personId);
@@ -169,8 +170,9 @@ public class EditPerson extends FragmentPrimary implements
 
     //______________________________________________________________________________________________ init
     private void init() {
+        assert getView() != null;
         navController = Navigation.findNavController(getView());
-        setGetMessageFromObservable(
+        setObservableForGetAction(
                 EditPerson.this,
                 vm_editPerson.getPublishSubject(),
                 vm_editPerson);
@@ -183,7 +185,6 @@ public class EditPerson extends FragmentPrimary implements
             double slng = vm_editPerson.getPerson().getLang();
             Lat = String.valueOf(slat);
             Lng = String.valueOf(slng);
-            Address = vm_editPerson.getPerson().getAddress();
         }
 
     }
@@ -192,7 +193,7 @@ public class EditPerson extends FragmentPrimary implements
 
     //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void getMessageFromObservable(Byte action) {
+    public void getActionFromObservable(Byte action) {
 
         if (progress != null)
             progress.dismiss();
@@ -200,7 +201,7 @@ public class EditPerson extends FragmentPrimary implements
         GifViewLoading.setVisibility(View.GONE);
 
         finishLoadingSend();
-        if (action == StaticValues.ML_EditSuccess) {
+        if (action.equals(StaticValues.ML_EditSuccess)) {
             Degree = -1;
             EditTextName.getText().clear();
             EditTextPhoneNumber.getText().clear();
@@ -208,6 +209,7 @@ public class EditPerson extends FragmentPrimary implements
             LinearLayoutGiant.setBackground(null);
             LinearLayoutNormal.setBackground(null);
             LinearLayoutPeach.setBackground(null);
+            assert getContext() != null;
             getContext().onBackPressed();
             return;
         }
@@ -233,7 +235,6 @@ public class EditPerson extends FragmentPrimary implements
             double slng = vm_editPerson.getPerson().getLang();
             Lat = String.valueOf(slat);
             Lng = String.valueOf(slng);
-            Address = vm_editPerson.getPerson().getAddress();
         }
 
     }
@@ -244,11 +245,10 @@ public class EditPerson extends FragmentPrimary implements
     private void setClick() {
 
 
-        LinearLayoutMap.setOnClickListener(v -> {
-            navController.navigate(R.id.action_editPerson_to_map);
-        });
+        LinearLayoutMap.setOnClickListener(v -> navController.navigate(R.id.action_editPerson_to_map));
 
         TextViewChooseBirthDay.setOnClickListener(v -> {
+            assert getContext() != null;
             PersianPickerModule.context = getContext();
             PersianDatePickerDialog persianCalendar = PishtazanApplication
                     .getApplication(getContext())
@@ -256,16 +256,16 @@ public class EditPerson extends FragmentPrimary implements
                     .getPersianDatePickerDialog();
 
             persianCalendar.setListener(new Listener() {
+                @SuppressLint("DefaultLocale")
                 @Override
                 public void onDateSelected(PersianCalendar persianCalendar) {
-                    StringBuilder sb2 = new StringBuilder();
-                    sb2.append(persianCalendar.getPersianYear());
-                    sb2.append("/");
-                    sb2.append(String.format("%02d", persianCalendar.getPersianMonth()));
-                    sb2.append("/");
-                    sb2.append(String.format("%02d", persianCalendar.getPersianDay()));
-                    stringDate = sb2.toString();
+                    stringDate = persianCalendar.getPersianYear() +
+                            "/" +
+                            String.format("%02d", persianCalendar.getPersianMonth()) +
+                            "/" +
+                            String.format("%02d", persianCalendar.getPersianDay());
                     TextViewChooseBirthDay.setText(stringDate);
+                    assert getContext() != null;
                     TextViewChooseBirthDay.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_back));
                 }
 
@@ -279,80 +279,59 @@ public class EditPerson extends FragmentPrimary implements
         });
 
 
-        CircleImageViewProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (disposableObserver != null)
-                    disposableObserver.dispose();
-                disposableObserver = null;
-                Uri destination = Uri.fromFile(new File(getContext().getExternalCacheDir(), "cropped.jpg"));
-                File file = new File(destination.getPath());
-                if (file.exists())
-                    file.delete();
-                setObserverToObservable();
-                MainActivity.mainPublish.onNext(StaticValues.ML_PictureDialog);
-            }
+        CircleImageViewProfile.setOnClickListener(view -> {
+            if (disposableObserver != null)
+                disposableObserver.dispose();
+            disposableObserver = null;
+            assert getContext() != null;
+/*            Uri destination = Uri.fromFile(new File(getContext().getExternalCacheDir(), "cropped.jpg"));
+            File file = new File(Objects.requireNonNull(destination.getPath()));
+            if (file.exists()) {
+                boolean d = file.delete();
+            }*/
+            setObserverToObservable();
+            MainActivity.mainPublish.onNext(StaticValues.ML_PictureDialog);
         });
 
-        LinearLayoutCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        LinearLayoutCancel.setOnClickListener(view -> {
+            hideKeyboard();
+            assert getContext() != null;
+            getContext().onBackPressed();
+        });
+
+
+        LinearLayoutSave.setOnClickListener(view -> {
+            String phone = EditTextPhoneNumber.getText().toString();
+            phone = phone.replaceAll(" ", "");
+            phone = phone.replaceAll("-", "");
+            EditTextPhoneNumber.setText(phone);
+            if (checkEmpty()) {
                 hideKeyboard();
-                getActivity().onBackPressed();
+                showLoadingSend();
+                vm_editPerson.editProfile(
+                        panelType,
+                        vm_editPerson.getPerson().getId(),
+                        EditTextName.getText().toString(),
+                        EditTextMobileNumber.getText().toString(),
+                        Degree,
+                        EditTextPhoneNumber.getText().toString(),
+                        TextViewChooseBirthDay.getText().toString(),
+                        EditTextAddress.getText().toString(),
+                        Lat,
+                        Lng,
+                        EditTextNationalCode.getText().toString()
+                );
             }
         });
 
 
-        LinearLayoutSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String phone = EditTextPhoneNumber.getText().toString();
-                phone = phone.replaceAll(" ", "");
-                phone = phone.replaceAll("-", "");
-                EditTextPhoneNumber.setText(phone);
-                if (checkEmpty()) {
-                    hideKeyboard();
-                    showLoadingSend();
-                    vm_editPerson.editProfile(
-                            panelType,
-                            vm_editPerson.getPerson().getId(),
-                            EditTextName.getText().toString(),
-                            EditTextMobileNumber.getText().toString(),
-                            Degree,
-                            EditTextPhoneNumber.getText().toString(),
-                            TextViewChooseBirthDay.getText().toString(),
-                            EditTextAddress.getText().toString(),
-                            Lat,
-                            Lng,
-                            EditTextNationalCode.getText().toString()
-                    );
-                }
-            }
-        });
+        LinearLayoutNormal.setOnClickListener(view -> setPersonDegree(StaticValues.DegreeNormal));
 
 
-        LinearLayoutNormal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setPersonDegree(StaticValues.DegreeNormal);
-            }
-        });
+        LinearLayoutPeach.setOnClickListener(view -> setPersonDegree(StaticValues.DegreePeach));
 
 
-        LinearLayoutPeach.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setPersonDegree(StaticValues.DegreePeach);
-            }
-        });
-
-
-        LinearLayoutGiant.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setPersonDegree(StaticValues.DegreeGiant);
-            }
-        });
+        LinearLayoutGiant.setOnClickListener(view -> setPersonDegree(StaticValues.DegreeGiant));
 
     }
     //______________________________________________________________________________________________ setClick
@@ -363,6 +342,7 @@ public class EditPerson extends FragmentPrimary implements
         LinearLayoutNormal.setBackground(null);
         LinearLayoutPeach.setBackground(null);
         LinearLayoutGiant.setBackground(null);
+        assert getContext() != null;
         if (type.equals(StaticValues.DegreeNormal))
             LinearLayoutNormal.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
         else if (type.equals(StaticValues.DegreePeach))
@@ -389,7 +369,6 @@ public class EditPerson extends FragmentPrimary implements
 
         boolean name = true;
         boolean mobile = true;
-        boolean birthday = true;
         boolean phoneNumber = true;
         boolean national = true;
 
@@ -439,6 +418,7 @@ public class EditPerson extends FragmentPrimary implements
         }*/
 
         if (Degree == -1) {
+            assert getContext() != null;
             showMessage(
                     getContext().getResources().getString(R.string.ChoosePersonDegree),
                     getResources().getColor(R.color.ML_Dialog),
@@ -447,10 +427,7 @@ public class EditPerson extends FragmentPrimary implements
         }
 
 
-        if (mobile && name && phoneNumber && national)
-            return true;
-        else
-            return false;
+        return mobile && name && phoneNumber && national;
 
     }
     //______________________________________________________________________________________________ checkEmpty
@@ -460,6 +437,7 @@ public class EditPerson extends FragmentPrimary implements
     private void showLoadingSend() {
         ImageViewSend.setVisibility(View.GONE);
         GifViewSend.setVisibility(View.VISIBLE);
+        assert getContext() != null;
         TextViewSend.setText(getContext().getResources().getString(R.string.PleaseWait));
 
     }
@@ -471,6 +449,7 @@ public class EditPerson extends FragmentPrimary implements
 
         ImageViewSend.setVisibility(View.VISIBLE);
         GifViewSend.setVisibility(View.GONE);
+        assert getContext() != null;
         TextViewSend.setText(getContext().getResources().getString(R.string.Save));
 
     }
@@ -508,30 +487,19 @@ public class EditPerson extends FragmentPrimary implements
 
     //______________________________________________________________________________________________ actionHandler
     private void actionHandler(Byte action) {
-        getContext().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
+        assert getContext() != null;
+        getContext().runOnUiThread(() -> {
 
-                if (action.equals(StaticValues.ML_PictureDialogGetImage)) {
-                    CircleImageViewProfile.setImageURI(Uri.parse(new File(MainActivity.ImageUrl).toString()));
-                    if (disposableObserver != null)
-                        disposableObserver.dispose();
-                    disposableObserver = null;
-                }
-
+            if (action.equals(StaticValues.ML_PictureDialogGetImage)) {
+                CircleImageViewProfile.setImageURI(Uri.parse(new File(MainActivity.ImageUrl).toString()));
+                if (disposableObserver != null)
+                    disposableObserver.dispose();
+                disposableObserver = null;
             }
+
         });
     }
     //______________________________________________________________________________________________ actionHandler
-
-
-    //______________________________________________________________________________________________ showProgressDialog
-    private void showProgressDialog() {
-        progress = new DialogProgress(getContext(), null);
-        progress.setCancelable(false);
-        progress.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
-    }
-    //______________________________________________________________________________________________ showProgressDialog
 
 
     //______________________________________________________________________________________________ setPersonImage
@@ -573,7 +541,7 @@ public class EditPerson extends FragmentPrimary implements
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
-    public void actionWhenFailureRequest() {
+    public void getActionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
 

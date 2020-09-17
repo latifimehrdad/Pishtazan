@@ -17,7 +17,7 @@ import ir.bppir.pishtazan.databinding.FragmentReportsBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Reports;
 
-public class Reports extends FragmentPrimary implements FragmentPrimary.messageFromObservable {
+public class Reports extends FragmentPrimary implements FragmentPrimary.actionFromObservable {
 
 
     private VM_Reports vm_reports;
@@ -59,7 +59,7 @@ public class Reports extends FragmentPrimary implements FragmentPrimary.messageF
     @Override
     public void onStart() {
         super.onStart();
-        setGetMessageFromObservable(
+        setObservableForGetAction(
                 Reports.this,
                 vm_reports.getPublishSubject(),
                 vm_reports);
@@ -71,7 +71,7 @@ public class Reports extends FragmentPrimary implements FragmentPrimary.messageF
 
     //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void getMessageFromObservable(Byte action) {
+    public void getActionFromObservable(Byte action) {
 
     }
     //______________________________________________________________________________________________ getMessageFromObservable
@@ -101,7 +101,7 @@ public class Reports extends FragmentPrimary implements FragmentPrimary.messageF
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
-    public void actionWhenFailureRequest() {
+    public void getActionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
 

@@ -21,7 +21,7 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Splash;
 import ir.bppir.pishtazan.views.activity.MainActivity;
 
-public class Splash extends FragmentPrimary implements FragmentPrimary.messageFromObservable {
+public class Splash extends FragmentPrimary implements FragmentPrimary.actionFromObservable {
 
 
     private VM_Splash vm_splash;
@@ -68,7 +68,7 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.messageFr
     @Override
     public void onStart() {
         super.onStart();
-        setGetMessageFromObservable(
+        setObservableForGetAction(
                 Splash.this,
                 vm_splash.getPublishSubject(),
                 vm_splash);
@@ -93,7 +93,7 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.messageFr
 
     //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void getMessageFromObservable(Byte action) {
+    public void getActionFromObservable(Byte action) {
 
         if (action == StaticValues.ML_GotoSignUp) {
             navController.navigate(R.id.action_splash_to_signUp);
@@ -126,7 +126,7 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.messageFr
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
-    public void actionWhenFailureRequest() {
+    public void getActionWhenFailureRequest() {
         ImageViewSplash.setAnimation(null);
         linearLayoutLoading.setVisibility(View.GONE);
         linearLayoutRefresh.setVisibility(View.VISIBLE);

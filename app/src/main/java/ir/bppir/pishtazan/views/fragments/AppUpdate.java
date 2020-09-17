@@ -30,7 +30,7 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Update;
 
 public class AppUpdate extends FragmentPrimary implements
-        FragmentPrimary.messageFromObservable {
+        FragmentPrimary.actionFromObservable {
 
 
     private VM_Update vm_update;
@@ -79,7 +79,7 @@ public class AppUpdate extends FragmentPrimary implements
     @Override
     public void onStart() {
         super.onStart();
-        setGetMessageFromObservable(
+        setObservableForGetAction(
                 AppUpdate.this,
                 vm_update.getPublishSubject(),
                 vm_update);
@@ -128,7 +128,8 @@ public class AppUpdate extends FragmentPrimary implements
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getActivity().startActivity(intent);
+                assert getContext() != null;
+                getContext().startActivity(intent);
             }
 
         });
@@ -138,7 +139,7 @@ public class AppUpdate extends FragmentPrimary implements
 
     //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void getMessageFromObservable(Byte action) {
+    public void getActionFromObservable(Byte action) {
 
         handlerDownload = null;
 
@@ -179,10 +180,9 @@ public class AppUpdate extends FragmentPrimary implements
     //______________________________________________________________________________________________ setProgress
 
 
-
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
-    public void actionWhenFailureRequest() {
+    public void getActionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
 

@@ -25,7 +25,7 @@ import ir.bppir.pishtazan.databinding.FragmentSignupBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_SignUp;
 
-public class SignUp extends FragmentPrimary implements FragmentPrimary.messageFromObservable {
+public class SignUp extends FragmentPrimary implements FragmentPrimary.actionFromObservable {
 
     private NavController navController;
     private VM_SignUp vm_signUp;
@@ -86,7 +86,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.messageFr
 
     //______________________________________________________________________________________________ init
     private void init() {
-        setGetMessageFromObservable(
+        setObservableForGetAction(
                 SignUp.this,
                 vm_signUp.getPublishSubject(),
                 vm_signUp);
@@ -98,7 +98,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.messageFr
 
     //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void getMessageFromObservable(Byte action) {
+    public void getActionFromObservable(Byte action) {
 
         dismissLoading();
         if (action.equals(StaticValues.ML_GotoVerify)) {
@@ -183,7 +183,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.messageFr
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
-    public void actionWhenFailureRequest() {
+    public void getActionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
 

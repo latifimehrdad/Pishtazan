@@ -36,7 +36,7 @@ import ir.bppir.pishtazan.views.adapters.AP_Question;
 
 
 public class Quiz extends FragmentPrimary implements
-        FragmentPrimary.messageFromObservable,
+        FragmentPrimary.actionFromObservable,
         AP_Question.clickItemAnswerQuestion {
 
 
@@ -130,7 +130,7 @@ public class Quiz extends FragmentPrimary implements
     @Override
     public void onStart() {
         super.onStart();
-        setGetMessageFromObservable(
+        setObservableForGetAction(
                 Quiz.this,
                 vm_quiz.getPublishSubject(),
                 vm_quiz);
@@ -187,7 +187,7 @@ public class Quiz extends FragmentPrimary implements
 
     //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void getMessageFromObservable(Byte action) {
+    public void getActionFromObservable(Byte action) {
 
         GifViewLoading.setVisibility(View.GONE);
         if (action.equals(StaticValues.ML_GetExam)) {
@@ -354,7 +354,7 @@ public class Quiz extends FragmentPrimary implements
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
-    public void actionWhenFailureRequest() {
+    public void getActionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
 

@@ -16,14 +16,14 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cunoraz.gifview.library.GifView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.jakewharton.rxbinding2.widget.TextViewTextChangeEvent;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -41,9 +41,8 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_AddPerson;
 import ir.bppir.pishtazan.views.adapters.AP_Contact;
 
-public class AddPerson extends FragmentPrimary implements FragmentPrimary.messageFromObservable {
+public class AddPerson extends FragmentPrimary implements FragmentPrimary.actionFromObservable {
 
-    private NavController navController;
     private int panelType;
     private VM_AddPerson vm_addPerson;
     private Dialog dialogContact;
@@ -106,7 +105,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.messag
     @Nullable
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
         if (getView() == null) {
@@ -135,31 +134,25 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.messag
 
     //______________________________________________________________________________________________ init
     private void init() {
-        navController = Navigation.findNavController(getView());
-        setGetMessageFromObservable(
+        setObservableForGetAction(
                 AddPerson.this,
                 vm_addPerson.getPublishSubject(),
                 vm_addPerson);
+        assert getArguments() != null;
+        assert getContext() != null;
         panelType = getArguments().getInt(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
-        if (panelType == StaticValues.Customer) {
-
-        } else {
-
-        }
-
     }
     //______________________________________________________________________________________________ init
 
 
     //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void getMessageFromObservable(Byte action) {
+    public void getActionFromObservable(Byte action) {
 
         finishLoadingSend();
         finishWaiting();
 
-        if (action == StaticValues.ML_AddPerson) {
-//            showContactDialog();
+        if (action.equals(StaticValues.ML_AddPerson)) {
             degree = -1;
             EditTextName.getText().clear();
             EditTextPhoneNumber.getText().clear();
@@ -170,7 +163,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.messag
             return;
         }
 
-        if (action == StaticValues.ML_GetContact) {
+        if (action.equals(StaticValues.ML_GetContact)) {
             md_contacts = vm_addPerson.getMd_contacts();
             if (ap_contact == null) {
                 showContactDialog();
@@ -184,10 +177,9 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.messag
             return;
         }
 
-        if (action == StaticValues.ML_GetContactFilter) {
+        if (action.equals(StaticValues.ML_GetContactFilter)) {
             md_contacts = vm_addPerson.getMd_contactsFilter();
             setContactAdapter();
-            return;
         }
 
 
@@ -198,82 +190,63 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.messag
     //______________________________________________________________________________________________ setClick
     private void setClick() {
 
-        RelativeLayoutAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        RelativeLayoutAdd.setOnClickListener(view -> {
+            hideKeyboard();
+            showWaiting();
+            Handler handler = new Handler();
+            handler.postDelayed(() -> vm_addPerson.getContact(), 1000);
+
+        });
+
+        LinearLayoutCancel.setOnClickListener(view -> {
+            hideKeyboard();
+            if (getContext() != null)
+                getContext().onBackPressed();
+        });
+
+
+        LinearLayoutSave.setOnClickListener(view -> {
+            String phone = EditTextPhoneNumber.getText().toString();
+            phone = phone.replaceAll(" ", "");
+            phone = phone.replaceAll("-", "");
+            EditTextPhoneNumber.setText(phone);
+            if (checkEmpty()) {
                 hideKeyboard();
-                showWaiting();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        vm_addPerson.getContact();
-                    }
-                }, 1000);
-
-            }
-        });
-
-        LinearLayoutCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hideKeyboard();
-                getActivity().onBackPressed();
+                showLoadingSend();
+                vm_addPerson.addPerson(
+                        EditTextName.getText().toString(),
+                        EditTextPhoneNumber.getText().toString(),
+                        degree,
+                        panelType
+                );
             }
         });
 
 
-        LinearLayoutSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String phone = EditTextPhoneNumber.getText().toString();
-                phone = phone.replaceAll(" ", "");
-                phone = phone.replaceAll("-", "");
-                EditTextPhoneNumber.setText(phone);
-                if (checkEmpty()) {
-                    hideKeyboard();
-                    showLoadingSend();
-                    vm_addPerson.addPerson(
-                            EditTextName.getText().toString(),
-                            EditTextPhoneNumber.getText().toString(),
-                            degree,
-                            panelType
-                    );
-                }
-            }
+        LinearLayoutNormal.setOnClickListener(view -> {
+            LinearLayoutPeach.setBackground(null);
+            LinearLayoutGiant.setBackground(null);
+            assert getContext() != null;
+            LinearLayoutNormal.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
+            degree = StaticValues.DegreeNormal;
         });
 
 
-        LinearLayoutNormal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LinearLayoutPeach.setBackground(null);
-                LinearLayoutGiant.setBackground(null);
-                LinearLayoutNormal.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
-                degree = StaticValues.DegreeNormal;
-            }
+        LinearLayoutPeach.setOnClickListener(view -> {
+            LinearLayoutNormal.setBackground(null);
+            LinearLayoutGiant.setBackground(null);
+            assert getContext() != null;
+            LinearLayoutPeach.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
+            degree = StaticValues.DegreePeach;
         });
 
 
-        LinearLayoutPeach.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LinearLayoutNormal.setBackground(null);
-                LinearLayoutGiant.setBackground(null);
-                LinearLayoutPeach.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
-                degree = StaticValues.DegreePeach;
-            }
-        });
-
-
-        LinearLayoutGiant.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LinearLayoutNormal.setBackground(null);
-                LinearLayoutPeach.setBackground(null);
-                LinearLayoutGiant.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
-                degree = StaticValues.DegreeGiant;
-            }
+        LinearLayoutGiant.setOnClickListener(view -> {
+            LinearLayoutNormal.setBackground(null);
+            LinearLayoutPeach.setBackground(null);
+            assert getContext() != null;
+            LinearLayoutGiant.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
+            degree = StaticValues.DegreeGiant;
         });
 
     }
@@ -292,6 +265,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.messag
     private void showLoadingSend() {
         ImageViewSend.setVisibility(View.GONE);
         GifViewSend.setVisibility(View.VISIBLE);
+        assert getContext() != null;
         TextViewSend.setText(getContext().getResources().getString(R.string.PleaseWait));
     }
     //______________________________________________________________________________________________ showLoadingSend
@@ -301,6 +275,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.messag
     private void finishLoadingSend() {
         ImageViewSend.setVisibility(View.VISIBLE);
         GifViewSend.setVisibility(View.GONE);
+        assert getContext() != null;
         TextViewSend.setText(getContext().getResources().getString(R.string.Save));
     }
     //______________________________________________________________________________________________ finishLoadingSend
@@ -310,6 +285,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.messag
     private void showWaiting() {
         GifViewAdd.setVisibility(View.VISIBLE);
         ImageViewAdd.setVisibility(View.GONE);
+        assert getContext() != null;
         TextViewAdd.setText(getContext().getString(R.string.PleaseWait));
         RelativeLayoutAdd.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_bottom_connection));
     }
@@ -320,6 +296,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.messag
     private void finishWaiting() {
         GifViewAdd.setVisibility(View.GONE);
         ImageViewAdd.setVisibility(View.VISIBLE);
+        assert getContext() != null;
         TextViewAdd.setText(getContext().getString(R.string.AddFromContact));
         RelativeLayoutAdd.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_bottom));
     }
@@ -335,12 +312,14 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.messag
             if (dialogContact.isShowing())
                 dialogContact.dismiss();
         dialogContact = null;
+        assert getContext() != null;
         dialogContact = new Dialog(getContext());
         dialogContact.setCancelable(true);
         dialogContact.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogContact.setContentView(R.layout.dialog_contact);
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         Window window = dialogContact.getWindow();
+        assert window != null;
         lp.copyFrom(window.getAttributes());
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         window.setAttributes(lp);
@@ -353,12 +332,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.messag
 
         LinearLayout LinearLayoutCancel = (LinearLayout)
                 dialogContact.findViewById(R.id.LinearLayoutCancel);
-        LinearLayoutCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogContact.dismiss();
-            }
-        });
+        LinearLayoutCancel.setOnClickListener(view -> dialogContact.dismiss());
 
         EditText EditTextName = (EditText)
                 dialogContact.findViewById(R.id.EditTextName);
@@ -429,6 +403,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.messag
         boolean mobile = true;
 
         if (degree == -1) {
+            assert getContext() != null;
             showMessage(
                     getContext().getResources().getString(R.string.ChoosePersonDegree),
                     getResources().getColor(R.color.ML_Dialog),
@@ -451,18 +426,14 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.messag
             name = false;
         }
 
-        if (mobile && name)
-            return true;
-        else
-            return false;
-
+        return mobile && name;
     }
     //______________________________________________________________________________________________ checkEmpty
 
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
-    public void actionWhenFailureRequest() {
+    public void getActionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
 

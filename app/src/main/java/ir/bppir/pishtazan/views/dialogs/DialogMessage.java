@@ -16,6 +16,8 @@ import android.widget.TextView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
@@ -42,23 +44,27 @@ public class DialogMessage extends DialogFragment {
     ImageView DialogImg;
 
 
+    //______________________________________________________________________________________________ DialogMessage
     public DialogMessage(
             Context context,
             String title,
             int color,
             Drawable icon,
-            int tintColor) {//______________________________________________________________________ Start DialogMessage
+            int tintColor) {
         this.context = context;
         Title = title;
         this.color = color;
         this.icon = icon;
         this.tintColor = tintColor;
 
-    }//_____________________________________________________________________________________________ End DialogMessage
+    }
+    //______________________________________________________________________________________________ DialogMessage
 
 
-    public Dialog onCreateDialog(Bundle savedInstanceState) {//_____________________________________ Start onCreateDialog
-        View view = null;
+    //______________________________________________________________________________________________ onCreateDialog
+    @NotNull
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        View view;
         DialogMessageBinding binding = DataBindingUtil
                 .inflate(LayoutInflater
                                 .from(this.context),
@@ -72,15 +78,12 @@ public class DialogMessage extends DialogFragment {
         DialogTitle.setText(Title);
         DialogImg.setImageDrawable(icon);
         DialogImg.setColorFilter(tintColor);
-        LinearLayoutAdd.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                DialogMessage.this.dismiss();
-            }
-        });
+        LinearLayoutAdd.setOnClickListener(view1 -> DialogMessage.this.dismiss());
         Dialog dialog = new AlertDialog.Builder(context).setView(view).create();
         Animation buttom = AnimationUtils.loadAnimation(context, R.anim.slide_in_bottom);
         view.setAnimation(buttom);
         return dialog;
-    }//_____________________________________________________________________________________________ End onCreateDialog
+    }
+    //______________________________________________________________________________________________ onCreateDialog
 
 }

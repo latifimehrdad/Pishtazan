@@ -23,7 +23,7 @@ import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Post;
 import ir.bppir.pishtazan.views.adapters.AP_Post;
 
-public class Post extends FragmentPrimary implements FragmentPrimary.messageFromObservable,
+public class Post extends FragmentPrimary implements FragmentPrimary.actionFromObservable,
         AP_Post.clickItemTutorial {
 
 
@@ -85,7 +85,7 @@ public class Post extends FragmentPrimary implements FragmentPrimary.messageFrom
     @Override
     public void onStart() {
         super.onStart();
-        setGetMessageFromObservable(
+        setObservableForGetAction(
                 Post.this,
                 vm_post.getPublishSubject(),
                 vm_post);
@@ -136,7 +136,7 @@ public class Post extends FragmentPrimary implements FragmentPrimary.messageFrom
 
     //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void getMessageFromObservable(Byte action) {
+    public void getActionFromObservable(Byte action) {
 
         GifViewLoading.setVisibility(View.GONE);
         ImageViewNew.setVisibility(View.VISIBLE);
@@ -185,7 +185,7 @@ public class Post extends FragmentPrimary implements FragmentPrimary.messageFrom
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
-    public void actionWhenFailureRequest() {
+    public void getActionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
 
