@@ -107,7 +107,7 @@
     <string name="createReport">تهیه گزارش</string>
     <string name="RankOfCompany">انتخاب رتبه سازمانی</string>
     <string name="InstallApp">نصب نرم افزار</string>
-    <string name="DownloadingFile">بارگیری فایل ...</string>
+    <string name="DownloadingFile">بارگیری فایل …</string>
     <string name="FileDownloaded">پایان بارگیری فایل</string>
     <string name="EndOfExam">پایان آزمون</string>
     <string name="QuizReport">گزارش آموزش</string>

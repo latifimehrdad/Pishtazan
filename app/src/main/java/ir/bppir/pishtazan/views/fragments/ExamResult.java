@@ -1,5 +1,6 @@
 package ir.bppir.pishtazan.views.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
 import com.cunoraz.gifview.library.GifView;
+
+import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 import ir.bppir.pishtazan.R;
@@ -49,12 +52,13 @@ public class ExamResult extends FragmentPrimary implements
     @BindView(R.id.TextViewAverage)
     TextView TextViewAverage;
 
+    //______________________________________________________________________________________________ onCreateView
     @Nullable
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+            Bundle savedInstanceState) {
         if (getView() == null) {
             Post.ExamResultId = 0;
             FragmentExamResultBinding binding = DataBindingUtil.inflate(
@@ -62,36 +66,43 @@ public class ExamResult extends FragmentPrimary implements
             vm_examResult = new VM_ExamResult(getActivity());
             binding.setExamResult(vm_examResult);
             setView(binding.getRoot());
+            assert getArguments() != null;
+            assert getContext() != null;
             examResultId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
         }
         return getView();
-    }//_____________________________________________________________________________________________ onCreateView
+    }
+    //______________________________________________________________________________________________ onCreateView
 
 
+    //______________________________________________________________________________________________ onStart
     @Override
-    public void onStart() {//_______________________________________________________________________ onStart
+    public void onStart() {
         super.onStart();
         setObservableForGetAction(
                 ExamResult.this,
                 vm_examResult.getPublishSubject(),
                 vm_examResult);
+        assert getContext() != null;
         getContext().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         LinearLayoutExamResult.setVisibility(View.GONE);
         GifViewLoading.setVisibility(View.VISIBLE);
         vm_examResult.getExamResult(examResultId);
-    }//_____________________________________________________________________________________________ onStart
+    }
+    //______________________________________________________________________________________________ onStart
 
 
-
+    //______________________________________________________________________________________________ getActionFromObservable
+    @SuppressLint({"SetTextI18n" , "DefaultLocale"})
     @Override
-    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {
 
         GifViewLoading.setVisibility(View.GONE);
         if (action.equals(StaticValues.ML_GetExam)) {
             LinearLayoutExamResult.setVisibility(View.VISIBLE);
             TextViewDate.setText(vm_examResult.getMd_examResult().getExamDateJ());
 
-            Integer total;
+            int total;
 
             if (vm_examResult.getMd_examResult().getCorrectAnswerCount() != null
                     && vm_examResult.getMd_examResult().getWrongAnswerCount() != null
@@ -102,7 +113,7 @@ public class ExamResult extends FragmentPrimary implements
             else
                 total = 0;
 
-            TextViewTotal.setText(total.toString());
+            TextViewTotal.setText(Integer.toString(total));
 
             TextViewCorrect.setText(vm_examResult.getMd_examResult().getCorrectAnswerCount().toString());
 
@@ -113,11 +124,10 @@ public class ExamResult extends FragmentPrimary implements
             String v = String.format("%.2f", vm_examResult.getMd_examResult().getAverageGrade());
 
             TextViewAverage.setText(v);
-
-            return;
         }
 
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
+    }
+    //______________________________________________________________________________________________ getActionFromObservable
 
 
     //______________________________________________________________________________________________ actionWhenFailureRequest

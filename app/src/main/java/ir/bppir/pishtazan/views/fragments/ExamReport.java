@@ -21,6 +21,8 @@ import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.jakewharton.rxbinding2.widget.TextViewTextChangeEvent;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -82,12 +84,13 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.actio
     RecyclerView RecyclerViewReport;
 
 
+    //______________________________________________________________________________________________ onCreateView
     @Nullable
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+            Bundle savedInstanceState) {
         if (getView() == null) {
             FragmentExamReportBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_exam_report, container, false);
@@ -97,21 +100,26 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.actio
             init();
         }
         return getView();
-    }//_____________________________________________________________________________________________ onCreateView
+    }
+    //______________________________________________________________________________________________ onCreateView
 
 
+    //______________________________________________________________________________________________ onStart
     @Override
-    public void onStart() {//_______________________________________________________________________ onStart
+    public void onStart() {
         super.onStart();
         setObservableForGetAction(
                 ExamReport.this,
                 vm_examReport.getPublishSubject(),
                 vm_examReport);
+        assert getView() != null;
         navController = Navigation.findNavController(getView());
-    }//_____________________________________________________________________________________________ onStart
+    }
+    //______________________________________________________________________________________________ onStart
 
 
-    private void init() {//_________________________________________________________________________ init
+    //______________________________________________________________________________________________ init
+    private void init() {
 
         disposable.add(RxTextView.textChangeEvents(editTextSearch)
                 .skipInitialValue()
@@ -128,7 +136,8 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.actio
         setOnClick();
         vm_examReport.getRecourse();
 
-    }//_____________________________________________________________________________________________ init
+    }
+    //______________________________________________________________________________________________ init
 
 
     //______________________________________________________________________________________________ searchContactsTextWatcher
@@ -165,13 +174,14 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.actio
             }
         }
 
-        SetReportAdapter();
+        setReportAdapter();
     }
     //______________________________________________________________________________________________ searchName
 
 
+    //______________________________________________________________________________________________ getActionFromObservable
     @Override
-    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {
 
         GifViewLoading.setVisibility(View.GONE);
         GifViewReport.setVisibility(View.GONE);
@@ -181,16 +191,16 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.actio
             LinearLayoutFiltering.setVisibility(View.GONE);
             LinearLayoutReport.setVisibility(View.VISIBLE);
             searchName(null);
-            SetReportAdapter();
+            setReportAdapter();
             return;
         }
 
         if (action.equals(StaticValues.ML_GetRecourse)) {
             setMaterialSpinnerType();
-            return;
         }
 
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
+    }
+    //______________________________________________________________________________________________ getActionFromObservable
 
 
     //______________________________________________________________________________________________ setOnClick
@@ -214,10 +224,7 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.actio
         });
 
 
-        MaterialSpinnerSort.setOnItemSelectedListener((view, position, id, item) -> {
-            sortPosition = position;
-
-        });
+        MaterialSpinnerSort.setOnItemSelectedListener((view, position, id, item) -> sortPosition = position);
 
 
         RelativeLayoutReport.setOnClickListener(v -> {
@@ -240,6 +247,7 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.actio
     //______________________________________________________________________________________________ setMaterialSpinnerType
     private void setMaterialSpinnerType() {
         List<String> buildingTypes = new ArrayList<>();
+        assert getContext() != null;
         buildingTypes.add(getContext().getResources().getString(R.string.RankOfCompany));
         for (MD_SpinnerItem item : vm_examReport.getMd_spinnerItems())
             buildingTypes.add(item.getTitle());
@@ -253,6 +261,7 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.actio
     private void setMaterialSpinnerSorting() {
 
         List<String> sorting = new ArrayList<>();
+        assert getContext() != null;
         sorting.add(getContext().getResources().getString(R.string.SortingNeither));
         sorting.add(getContext().getResources().getString(R.string.SortingAverageGrade));
         sorting.add(getContext().getResources().getString(R.string.SortingTotalScore));
@@ -263,17 +272,20 @@ public class ExamReport extends FragmentPrimary implements FragmentPrimary.actio
     //______________________________________________________________________________________________ setMaterialSpinnerSorting
 
 
-    private void SetReportAdapter() {//_____________________________________________________________ SetReportAdapter
+    //______________________________________________________________________________________________ setReportAdapter
+    private void setReportAdapter() {
         AP_LearnReport ap_report = new AP_LearnReport(md_reports, getContext(), ExamReport.this);
         RecyclerViewReport.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewReport.setAdapter(ap_report);
-    }//_____________________________________________________________________________________________ SetReportAdapter
+    }
+    //______________________________________________________________________________________________ setReportAdapter
 
 
     //______________________________________________________________________________________________ clickItemPerson
     @Override
     public void clickItemDetail(Integer Position) {
         Bundle bundle = new Bundle();
+        assert getContext() != null;
         bundle.putInt(getContext().getResources().getString(R.string.ML_Id),
                 vm_examReport.getMd_reports().get(Position).getId());
         bundle.putString(getContext().getResources().getString(R.string.ML_Type),

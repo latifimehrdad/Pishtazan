@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cunoraz.gifview.library.GifView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +39,6 @@ public class ExamResults extends FragmentPrimary implements
     private Integer tutorialId;
     private String examResultType;
     private NavController navController;
-    private Integer personId;
 
     @BindView(R.id.GifViewLoading)
     GifView GifViewLoading;
@@ -61,7 +62,7 @@ public class ExamResults extends FragmentPrimary implements
     @Nullable
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
         if (getView() == null) {
@@ -72,6 +73,8 @@ public class ExamResults extends FragmentPrimary implements
             binding.setExamResults(vm_examResult);
             setView(binding.getRoot());
             setOnClick();
+            assert getArguments() != null;
+            assert getContext() != null;
             examResultId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
             tutorialId = getArguments().getInt(getContext().getResources().getString(R.string.ML_TutorialId), 0);
             examResultType = getArguments().getString(getContext().getResources().getString(R.string.ML_Type),
@@ -86,13 +89,16 @@ public class ExamResults extends FragmentPrimary implements
     @Override
     public void onStart() {
         super.onStart();
+        assert getView() != null;
         navController = Navigation.findNavController(getView());
         setObservableForGetAction(
                 ExamResults.this,
                 vm_examResult.getPublishSubject(),
                 vm_examResult);
+        assert getContext() != null;
         getContext().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        personId = getArguments().getInt(getContext().getResources().getString(R.string.ML_personId), 0);
+        assert getArguments() != null;
+        int personId = getArguments().getInt(getContext().getResources().getString(R.string.ML_personId), 0);
         GifViewLoading.setVisibility(View.VISIBLE);
         if (examResultType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_LastExam))) {
             linearLayoutStatus.setVisibility(View.VISIBLE);
@@ -113,6 +119,7 @@ public class ExamResults extends FragmentPrimary implements
 
         LinearLayoutNewQuiz.setOnClickListener(v -> {
             Post.ExamResultId = -1;
+            assert getContext() != null;
             getContext().onBackPressed();
         });
     }
@@ -127,7 +134,6 @@ public class ExamResults extends FragmentPrimary implements
         if (action.equals(StaticValues.ML_GetExam)) {
             if (vm_examResult.getMd_examResults() != null || vm_examResult.getMd_examResult() != null)
                 setAdapter();
-            return;
         }
     }
     //______________________________________________________________________________________________ getMessageFromObservable
@@ -136,6 +142,7 @@ public class ExamResults extends FragmentPrimary implements
     //______________________________________________________________________________________________ setAdapter
     private void setAdapter() {
 
+        assert getContext() != null;
         if (examResultType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_LastExam))) {
             if (vm_examResult.getMd_examResult().getExamResultStatus() == 0) {
                 textViewStatus.setText(getContext().getResources().getString(R.string.YouFailedTheTest));
@@ -167,6 +174,7 @@ public class ExamResults extends FragmentPrimary implements
     @Override
     public void clickItemResult(Integer Position) {
         Bundle bundle = new Bundle();
+        assert getContext() != null;
         if (examResultType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_LastExam)))
             bundle.putInt(getContext().getResources().getString(R.string.ML_Id),
                     vm_examResult.getMd_examResult().getId());

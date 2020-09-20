@@ -10,12 +10,13 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+
+import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,40 +48,46 @@ public class Home extends FragmentPrimary implements FragmentPrimary.actionFromO
     LinearLayout linearLayoutLogOut;
 
 
+    //______________________________________________________________________________________________ Home
+    public Home() {
+    }
+    //______________________________________________________________________________________________ Home
 
-    public Home() {//_______________________________________________________________________________ Home
 
-    }//_____________________________________________________________________________________________ Home
-
-
+    //______________________________________________________________________________________________ onCreateView
     @Nullable
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+            Bundle savedInstanceState) {
         if (getView() == null) {
             vm_home = new VM_Home(getActivity());
             FragmentHomeBinding binding = DataBindingUtil.inflate(
-                    inflater, R.layout.fragment_home, container,false);
+                    inflater, R.layout.fragment_home, container, false);
             binding.setHome(vm_home);
             setView(binding.getRoot());
             ButterKnife.bind(this, getView());
-            SetClick();
-            StartService();
+            setClick();
+            startService();
         }
         return getView();
-    }//_____________________________________________________________________________________________ onCreateView
+    }
+    //______________________________________________________________________________________________ onCreateView
 
 
+    //______________________________________________________________________________________________ onStart
     @Override
-    public void onStart() {//_______________________________________________________________________ onStart
+    public void onStart() {
         super.onStart();
         init();
-    }//_____________________________________________________________________________________________ onStart
+    }
+    //______________________________________________________________________________________________ onStart
 
 
-    private void init() {//_________________________________________________________________________ init
+    //______________________________________________________________________________________________ init
+    private void init() {
+        assert getView() != null;
         navController = Navigation.findNavController(getView());
         setObservableForGetAction(
                 Home.this,
@@ -88,12 +95,14 @@ public class Home extends FragmentPrimary implements FragmentPrimary.actionFromO
                 vm_home);
         LinearLayoutColleagues.setVisibility(View.GONE);
         LinearLayoutCustomer.setVisibility(View.GONE);
-        SetAnimation();
+        setAnimation();
 
-    }//_____________________________________________________________________________________________ init
+    }
+    //______________________________________________________________________________________________ init
 
 
-    private void SetAnimation() {//_________________________________________________________________ SetAnimation
+    //______________________________________________________________________________________________ setAnimation
+    private void setAnimation() {
 
 
         Animation bounce = AnimationUtils.loadAnimation(getContext(), R.anim.bounce);
@@ -107,27 +116,33 @@ public class Home extends FragmentPrimary implements FragmentPrimary.actionFromO
             LinearLayoutCustomer.setAnimation(inBottom);
             LinearLayoutColleagues.setVisibility(View.VISIBLE);
             LinearLayoutCustomer.setVisibility(View.VISIBLE);
-        },400);
+        }, 400);
 
-    }//_____________________________________________________________________________________________ SetAnimation
+    }
+    //______________________________________________________________________________________________ setAnimation
 
 
+    //______________________________________________________________________________________________ getActionFromObservable
     @Override
-    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {
 
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
+    }
+    //______________________________________________________________________________________________ getActionFromObservable
 
 
-    private void SetClick() {//_____________________________________________________________________  SetClick
+    //______________________________________________________________________________________________ setClick
+    private void setClick() {
 
         linearLayoutLogOut.setOnClickListener(v -> {
             VM_Splash.logOut = true;
+            assert getContext() != null;
             getContext().onBackPressed();
         });
 
         LinearLayoutTutorial.setOnClickListener(v -> {
             Post.ExamResultId = 0;
             Bundle bundle = new Bundle();
+            assert getContext() != null;
             bundle.putString(getContext().getResources().getString(R.string.ML_Type),
                     getContext().getResources().getString(R.string.ML_MyReport));
             navController.navigate(R.id.action_home_to_post, bundle);
@@ -136,38 +151,40 @@ public class Home extends FragmentPrimary implements FragmentPrimary.actionFromO
 
         LinearLayoutColleagues.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
+            assert getContext() != null;
             bundle.putInt(getContext().getString(R.string.ML_PanelType), StaticValues.Colleague);
             navController.navigate(R.id.action_home_to_panel, bundle);
         });
 
         LinearLayoutCustomer.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
+            assert getContext() != null;
             bundle.putInt(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
             navController.navigate(R.id.action_home_to_panel, bundle);
         });
 
         LinearLayoutReports.setOnClickListener(v -> navController.navigate(R.id.action_home_to_reports));
 
-    }//_____________________________________________________________________________________________ SetClick
+    }
+    //______________________________________________________________________________________________ setClick
 
 
-
-    private void StartService() {//_________________________________________________________________ StartService
+    //______________________________________________________________________________________________ startService
+    private void startService() {
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    getContext().sendBroadcast(new Intent(getContext(), ReceiverLunchAppInBackground.class).setAction("ir.bppir.Lunch"));
-                } else {
-                    Intent i = new Intent("ir.bppir.Lunch");
-                    getContext().sendBroadcast(i);
-                }
-
-
+        handler.postDelayed(() -> {
+            assert getContext() != null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                getContext().sendBroadcast(new Intent(getContext(), ReceiverLunchAppInBackground.class).setAction("ir.bppir.Lunch"));
+            } else {
+                Intent i = new Intent("ir.bppir.Lunch");
+                getContext().sendBroadcast(i);
             }
+
+
         }, 1000);
-    }//_____________________________________________________________________________________________ StartService
+    }
+    //______________________________________________________________________________________________ startService
 
 
     //______________________________________________________________________________________________ actionWhenFailureRequest

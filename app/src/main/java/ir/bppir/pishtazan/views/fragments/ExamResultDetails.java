@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cunoraz.gifview.library.GifView;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.databinding.FragmentExamResultDetailsBinding;
@@ -31,12 +33,13 @@ public class ExamResultDetails extends FragmentPrimary implements FragmentPrimar
     @BindView(R.id.RecyclerViewExamResult)
     RecyclerView RecyclerViewExamResult;
 
+    //______________________________________________________________________________________________ onCreateView
     @Nullable
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+            Bundle savedInstanceState) {
         if (getView() == null) {
             Post.ExamResultId = 0;
             FragmentExamResultDetailsBinding binding = DataBindingUtil.inflate(
@@ -44,44 +47,52 @@ public class ExamResultDetails extends FragmentPrimary implements FragmentPrimar
             vm_examResultDetail = new VM_ExamResultDetail(getActivity());
             binding.setExamResult(vm_examResultDetail);
             setView(binding.getRoot());
+            assert getArguments() != null;
+            assert getContext() != null;
             examResultId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
         }
         return getView();
-    }//_____________________________________________________________________________________________ onCreateView
+    }
+    //______________________________________________________________________________________________ onCreateView
 
 
+    //______________________________________________________________________________________________ onStart
     @Override
-    public void onStart() {//_______________________________________________________________________ onStart
+    public void onStart() {
         super.onStart();
         setObservableForGetAction(
                 ExamResultDetails.this,
                 vm_examResultDetail.getPublishSubject(),
                 vm_examResultDetail);
+        assert getContext() != null;
         getContext().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         GifViewLoading.setVisibility(View.VISIBLE);
         vm_examResultDetail.getExamResultDetails(examResultId);
-    }//_____________________________________________________________________________________________ onStart
+    }
+    //______________________________________________________________________________________________ onStart
 
 
+    //______________________________________________________________________________________________ getActionFromObservable
     @Override
-    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {
 
         GifViewLoading.setVisibility(View.GONE);
         if (action.equals(StaticValues.ML_GetExamResultDetail)) {
             if (vm_examResultDetail.getMd_examResultDetails() != null)
-                SetAdapter();
-            return;
+                setAdapter();
         }
 
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
+    }
+    //______________________________________________________________________________________________ getActionFromObservable
 
 
-    private void SetAdapter() {//___________________________________________________________________ SetAdapter
+    //______________________________________________________________________________________________ setAdapter
+    private void setAdapter() {
         AP_ExamResultDetail ap_examResult = new AP_ExamResultDetail(vm_examResultDetail.getMd_examResultDetails());
         RecyclerViewExamResult.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewExamResult.setAdapter(ap_examResult);
-    }//_____________________________________________________________________________________________ SetAdapter
-
+    }
+    //______________________________________________________________________________________________ setAdapter
 
 
     //______________________________________________________________________________________________ actionWhenFailureRequest

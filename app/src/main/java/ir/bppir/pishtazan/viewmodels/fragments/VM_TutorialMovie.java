@@ -49,8 +49,12 @@ public class VM_TutorialMovie extends VM_Primary {
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
                     else {
                         md_education = response.body().getEducation();
-                        notifyChange();
-                        getPublishSubject().onNext(StaticValues.ML_GetNewQuiz);
+                        if (md_education != null) {
+                            notifyChange();
+                            getPublishSubject().onNext(StaticValues.ML_GetNewQuiz);
+                        } else {
+                            getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                        }
                     }
                 }
             }
@@ -62,7 +66,6 @@ public class VM_TutorialMovie extends VM_Primary {
         });
 
     }//_____________________________________________________________________________________________ GetNewQuiz
-
 
 
     public void GetTutorialMovie(Integer tutorialId) {//____________________________________________ GetTutorialMovie
@@ -84,11 +87,10 @@ public class VM_TutorialMovie extends VM_Primary {
             public void onResponse(Call<MR_EducationFiles> call, Response<MR_EducationFiles> response) {
                 if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
-                    if (response.body().getStatue() == 1){
+                    if (response.body().getStatue() == 1) {
                         md_educationFiles = response.body().getEducationFiles();
                         getPublishSubject().onNext(StaticValues.ML_GetTutorialMovie);
-                    }
-                    else
+                    } else
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
                 }
             }
