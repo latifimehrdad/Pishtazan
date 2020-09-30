@@ -16,16 +16,24 @@ import androidx.databinding.DataBindingUtil;
 
 import com.cunoraz.gifview.library.GifView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
+import ir.bppir.pishtazan.daggers.datepicker.PersianPickerModule;
 import ir.bppir.pishtazan.databinding.FragmentPolicyTypeBinding;
+import ir.bppir.pishtazan.models.MD_PolicyType;
 import ir.bppir.pishtazan.utility.ApplicationUtility;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_PolicyType;
 import ir.bppir.pishtazan.views.activity.MainActivity;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
 import ir.bppir.pishtazan.views.dialogs.searchspinner.MLSpinnerDialog;
+import ir.hamsaa.persiandatepicker.Listener;
+import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
+import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
 public class PolicyType extends FragmentPrimary implements
         FragmentPrimary.actionFromObservable {
@@ -33,13 +41,17 @@ public class PolicyType extends FragmentPrimary implements
     //    private NavController navController;
     private VM_PolicyType vm_policyType;
     private MLSpinnerDialog policyTypeDialog;
+    private MLSpinnerDialog SeriesDialog;
     private Integer PolicyTypeId = -1;
+    private Integer SeriesId = -1;
     private boolean ClickPolicyType = false;
+    private boolean ClickSeries = false;
     private Integer PersonId;
     private boolean editMode = false;
     private String textLoading;
     private String SuggestionDateM;
     private Integer Id;
+    private String stringDate;
 
     @BindView(R.id.LayoutPolicyType)
     LinearLayout LayoutPolicyType;
@@ -79,6 +91,15 @@ public class PolicyType extends FragmentPrimary implements
 
     @BindView(R.id.EditTextNationalCode)
     EditText EditTextNationalCode;
+
+    @BindView(R.id.EditTextTrackingCode)
+    EditText EditTextTrackingCode;
+
+    @BindView(R.id.LayoutSeries)
+    LinearLayout LayoutSeries;
+
+    @BindView(R.id.TextSeries)
+    TextView TextSeries;
 
 
     public PolicyType() {//_________________________________________________________________________ PolicyType
@@ -125,6 +146,7 @@ public class PolicyType extends FragmentPrimary implements
             LinearLayoutPolicyTypePrimary.setVisibility(View.GONE);
             Id = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
             PolicyTypeId = getArguments().getInt(getContext().getResources().getString(R.string.ML_PolicyTypeId), 0);
+            SeriesId = getArguments().getInt(getContext().getResources().getString(R.string.ML_SeriesId), 0);
             Long amount = getArguments().getLong(getContext().getResources().getString(R.string.ML_Amount), 0);
             String insured = getArguments().getString(getContext().getResources().getString(R.string.ML_Insured), "");
             String insuredNationalCode = getArguments().getString(getContext().getResources().getString(R.string.ML_InsuredNationalCode), "");
@@ -152,6 +174,7 @@ public class PolicyType extends FragmentPrimary implements
         if (!editMode)
             vm_policyType.getAllPolicyTypes();
         ClickPolicyType = false;
+        ClickSeries = false;
 //        navController = Navigation.findNavController(getView());
     }//_____________________________________________________________________________________________ init
 
@@ -172,6 +195,9 @@ public class PolicyType extends FragmentPrimary implements
             EditTextAmount.getText().clear();
             EditTextDescription.getText().clear();
             EditTextNationalCode.getText().clear();
+            EditTextTrackingCode.getText().clear();
+            TextViewDate.setText("");
+            TextSeries.setText("");
             EditTextName.getText().clear();
             return;
         }
@@ -185,12 +211,48 @@ public class PolicyType extends FragmentPrimary implements
 
     private void SetOnClick() {//___________________________________________________________________ SetOnClick
 
+        LinearLayoutDate.setOnClickListener(v -> {
+            PersianPickerModule.context = getContext();
+            PersianDatePickerDialog persianCalendar = PishtazanApplication
+                    .getApplication(getContext())
+                    .getPersianPickerComponent()
+                    .getPersianDatePickerDialog();
+
+            persianCalendar.setListener(new Listener() {
+                @Override
+                public void onDateSelected(PersianCalendar persianCalendar) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(persianCalendar.getPersianYear());
+                    sb.append("/");
+                    sb.append(String.format("%02d", persianCalendar.getPersianMonth()));
+                    sb.append("/");
+                    sb.append(String.format("%02d", persianCalendar.getPersianDay()));
+                    stringDate = sb.toString();
+                    TextViewDate.setText(stringDate);
+                    LinearLayoutDate.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_back));
+                }
+
+                @Override
+                public void onDismissed() {
+
+                }
+            });
+            persianCalendar.show();
+        });
+
+
         LayoutPolicyType.setOnClickListener(v -> {
             ClickPolicyType = true;
             if ((vm_policyType.getMd_policyTypes() == null) || (vm_policyType.getMd_policyTypes().size() == 0))
                 vm_policyType.getAllPolicyTypes();
             else
                 SetPolicyType();
+        });
+
+
+        LayoutSeries.setOnClickListener(v -> {
+            ClickSeries = true;
+            SetSeries();
         });
 
 
@@ -204,11 +266,14 @@ public class PolicyType extends FragmentPrimary implements
                             Id,
                             PolicyTypeId,
                             PersonId,
-                            Long.valueOf(EditTextAmount.getText().toString()),
+                            Long.valueOf(EditTextAmount.getText().toString().replaceAll("," , "")),
                             EditTextDescription.getText().toString(),
                             SuggestionDateM,
                             EditTextName.getText().toString(),
-                            EditTextNationalCode.getText().toString()
+                            EditTextNationalCode.getText().toString(),
+                            stringDate,
+                            SeriesId,
+                            EditTextTrackingCode.getText().toString()
                     );
                 else
                     vm_policyType.createPolicy(
@@ -217,7 +282,10 @@ public class PolicyType extends FragmentPrimary implements
                             EditTextAmount.getText().toString(),
                             EditTextDescription.getText().toString(),
                             EditTextName.getText().toString(),
-                            EditTextNationalCode.getText().toString());
+                            EditTextNationalCode.getText().toString(),
+                            stringDate,
+                            SeriesId,
+                            EditTextTrackingCode.getText().toString());
             }
 
         });
@@ -250,6 +318,39 @@ public class PolicyType extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ SetPolicyType
 
 
+
+    private void SetSeries() {//________________________________________________________________ SetSeries
+
+        TextSeries.setText(getResources().getString(R.string.ChooseSeries));
+        SeriesId = -1;
+        //spinnerDialog = new SpinnerDialog(getActivity(),items,"Select or Search City","Close Button Text");// With No Animation
+        List<MD_PolicyType> items = new ArrayList<>();
+        items.add(new MD_PolicyType(0, "ماهانه" , "" , ""));
+        items.add(new MD_PolicyType(1, "سه ماهه" , "" , ""));
+        items.add(new MD_PolicyType(2, "شش ماهه" , "" , ""));
+        items.add(new MD_PolicyType(3, "سالانه" , "" , ""));
+
+        SeriesDialog = new MLSpinnerDialog(
+                getActivity(),
+                items,
+                getResources().getString(R.string.SearchPolicyType),
+                R.style.DialogAnimations_SmileWindow,
+                getResources().getString(R.string.Close));// With 	Animation
+        SeriesDialog.setCancellable(true); // for cancellable
+        SeriesDialog.setShowKeyboard(false);// for open keyboard by default
+        SeriesDialog.bindOnSpinerListener((item, position) -> {
+            TextSeries.setText(item);
+            SeriesId = items.get(position).getId();
+            LayoutSeries.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
+        });
+
+        if (ClickSeries)
+            SeriesDialog.showSpinerDialog();
+
+    }//_____________________________________________________________________________________________ SetSeries
+
+
+
     private void DismissLoading() {//_______________________________________________________________ Start DismissLoading
         TextViewLoading.setText(textLoading);
         RelativeLayoutSend.setBackground(getResources().getDrawable(R.drawable.dw_back_bottom));
@@ -272,6 +373,39 @@ public class PolicyType extends FragmentPrimary implements
         boolean type;
         boolean national;
         boolean name;
+        boolean date;
+        boolean trackingCode;
+        boolean series;
+
+        if (SeriesId == -1) {
+            LayoutSeries.setBackground(getResources().getDrawable(R.drawable.dw_edit_back_empty));
+            series = false;
+        } else
+            series = true;
+
+        if (EditTextTrackingCode.getText().length() < 1) {
+            EditTextTrackingCode.setBackgroundResource(R.drawable.dw_edit_back_empty);
+            EditTextTrackingCode.setError(getResources().getString(R.string.EmptyTrackingCode));
+            EditTextTrackingCode.requestFocus();
+            trackingCode = false;
+        } else
+            trackingCode = true;
+
+
+        if (stringDate == null) {
+            LinearLayoutDate.setBackgroundResource(R.drawable.dw_edit_back_empty);
+            date = false;
+        } else
+            date = true;
+
+        if (EditTextNationalCode.getText().length() < 1) {
+            EditTextNationalCode.setBackgroundResource(R.drawable.dw_edit_back_empty);
+            EditTextNationalCode.setError(getResources().getString(R.string.EmptyNationalCode));
+            EditTextNationalCode.requestFocus();
+            national = false;
+        } else
+            national = true;
+
 
         if (EditTextName.getText().length() < 1) {
             EditTextName.setBackgroundResource(R.drawable.dw_edit_back_empty);
@@ -281,14 +415,6 @@ public class PolicyType extends FragmentPrimary implements
         } else
             name = true;
 
-
-        if (EditTextNationalCode.getText().length() < 1) {
-            EditTextNationalCode.setBackgroundResource(R.drawable.dw_edit_back_empty);
-            EditTextNationalCode.setError(getResources().getString(R.string.EmptyNationalCode));
-            EditTextNationalCode.requestFocus();
-            national = false;
-        } else
-            national = true;
 
         if (EditTextAmount.getText().length() < 1) {
             EditTextAmount.setBackgroundResource(R.drawable.dw_edit_back_empty);
@@ -306,7 +432,7 @@ public class PolicyType extends FragmentPrimary implements
             type = true;
 
 
-        return amount && type && name && national;
+        return amount && type && name && national && date && trackingCode && series;
 
     }//_____________________________________________________________________________________________ CheckEmpty
 
@@ -315,6 +441,7 @@ public class PolicyType extends FragmentPrimary implements
     private void SetTextWatcher() {//_______________________________________________________________ Start SetTextWatcher
         EditTextName.addTextChangedListener(textChangeForChangeBack(EditTextName));
         EditTextNationalCode.addTextChangedListener(textChangeForChangeBack(EditTextNationalCode));
+        EditTextTrackingCode.addTextChangedListener(textChangeForChangeBack(EditTextTrackingCode));
 
         ApplicationUtility utility = PishtazanApplication.getApplication(getContext())
                 .getApplicationUtilityComponent()

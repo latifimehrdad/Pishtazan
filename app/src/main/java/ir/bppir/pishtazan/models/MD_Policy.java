@@ -39,8 +39,17 @@ public class MD_Policy {
     @Expose
     String InsuranceNum;
 
+    @SerializedName("DeliveryToBranchDateJ")
+    String DeliveryToBranchDateJ;
 
-    public MD_Policy(Integer id, Integer policyTypeId, MD_PolicyType policyType, Integer customerId, String suggestionDateJ, String suggestionDateM, String description, Long policyAmont, String insured, String insuredNationalCode, String insuranceNum) {
+    @SerializedName("TransactionCode")
+    String TransactionCode;
+
+    @SerializedName("SeriNumber")
+    Integer SeriNumber;
+
+
+    public MD_Policy(Integer id, Integer policyTypeId, MD_PolicyType policyType, Integer customerId, String suggestionDateJ, String suggestionDateM, String description, Long policyAmont, String insured, String insuredNationalCode, String insuranceNum, String deliveryToBranchDateJ, String transactionCode, Integer seriNumber) {
         Id = id;
         PolicyTypeId = policyTypeId;
         PolicyType = policyType;
@@ -52,6 +61,9 @@ public class MD_Policy {
         Insured = insured;
         InsuredNationalCode = insuredNationalCode;
         InsuranceNum = insuranceNum;
+        DeliveryToBranchDateJ = deliveryToBranchDateJ;
+        TransactionCode = transactionCode;
+        SeriNumber = seriNumber;
     }
 
     public Integer getId() {
@@ -140,5 +152,29 @@ public class MD_Policy {
 
     public void setInsuranceNum(String insuranceNum) {
         InsuranceNum = insuranceNum;
+    }
+
+    public String getDeliveryToBranchDateJ() {
+        return DeliveryToBranchDateJ;
+    }
+
+    public void setDeliveryToBranchDateJ(String deliveryToBranchDateJ) {
+        DeliveryToBranchDateJ = deliveryToBranchDateJ;
+    }
+
+    public String getTransactionCode() {
+        return TransactionCode;
+    }
+
+    public void setTransactionCode(String transactionCode) {
+        TransactionCode = transactionCode;
+    }
+
+    public Integer getSeriNumber() {
+        return SeriNumber;
+    }
+
+    public void setSeriNumber(Integer seriNumber) {
+        SeriNumber = seriNumber;
     }
 }

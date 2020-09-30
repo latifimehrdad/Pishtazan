@@ -32,6 +32,7 @@ public class StaticValues {
     public static Byte ML_Maybe = 0;
     public static Byte ML_Possible = 1;
     public static Byte ML_Certain = 2;
+    public static Byte ML_User = 3;
 
     public static Byte Call = 1;
     public static Byte Meeting = 0;

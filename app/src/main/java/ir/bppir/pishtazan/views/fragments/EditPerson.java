@@ -375,14 +375,14 @@ public class EditPerson extends FragmentPrimary implements
 
         if (EditTextMobileNumber.getText().length() != 11) {
             EditTextMobileNumber.setBackgroundResource(R.drawable.dw_edit_empty_background);
-            EditTextMobileNumber.setError(getResources().getString(R.string.EnterPhoneNumber));
+            EditTextMobileNumber.setError(getResources().getString(R.string.EmptyMobileNumber));
             EditTextMobileNumber.requestFocus();
             mobile = false;
         } else {
             String ZeroNine = EditTextMobileNumber.getText().subSequence(0, 2).toString();
             if (!ZeroNine.equalsIgnoreCase("09")) {
                 EditTextMobileNumber.setBackgroundResource(R.drawable.dw_edit_empty_background);
-                EditTextMobileNumber.setError(getResources().getString(R.string.EnterPhoneNumber));
+                EditTextMobileNumber.setError(getResources().getString(R.string.EmptyMobileNumber));
                 EditTextMobileNumber.requestFocus();
                 mobile = false;
             }

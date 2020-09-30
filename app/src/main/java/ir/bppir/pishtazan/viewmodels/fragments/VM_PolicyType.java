@@ -69,7 +69,10 @@ public class VM_PolicyType extends VM_Primary {
             String PolicyAmount,
             String Description,
             String Insured,
-            String InsuredNationalCode) {
+            String InsuredNationalCode,
+            String DeliveryToBranchDateJ,
+            int SeriNumber,
+            String TransactionCode) {
 
         Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
@@ -77,6 +80,7 @@ public class VM_PolicyType extends VM_Primary {
             return;
         }
 
+        PolicyAmount = PolicyAmount.replaceAll("," , "");
         setPrimaryCall(PishtazanApplication
                 .getApplication(getContext())
                 .getRetrofitComponent()
@@ -88,7 +92,10 @@ public class VM_PolicyType extends VM_Primary {
                         UserInfoId.toString(),
                         Description,
                         Insured,
-                        InsuredNationalCode));
+                        InsuredNationalCode,
+                        DeliveryToBranchDateJ,
+                        SeriNumber,
+                        TransactionCode));
 
 
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
@@ -123,7 +130,10 @@ public class VM_PolicyType extends VM_Primary {
             String Description,
             String SuggestionDateM,
             String Insured,
-            String InsuredNationalCode) {
+            String InsuredNationalCode,
+            String DeliveryToBranchDateJ,
+            int SeriNumber,
+            String TransactionCode) {
 
         Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
@@ -144,7 +154,10 @@ public class VM_PolicyType extends VM_Primary {
                         Description,
                         SuggestionDateM,
                         Insured,
-                        InsuredNationalCode));
+                        InsuredNationalCode,
+                        DeliveryToBranchDateJ,
+                        SeriNumber,
+                        TransactionCode));
 
 
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {

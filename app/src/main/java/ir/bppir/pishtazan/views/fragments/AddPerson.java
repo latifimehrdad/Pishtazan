@@ -414,7 +414,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.action
 
         if (EditTextPhoneNumber.getText().length() < 11) {
             EditTextPhoneNumber.setBackgroundResource(R.drawable.dw_edit_empty_background);
-            EditTextPhoneNumber.setError(getResources().getString(R.string.EnterPhoneNumber));
+            EditTextPhoneNumber.setError(getResources().getString(R.string.EmptyMobileNumber));
             EditTextPhoneNumber.requestFocus();
             mobile = false;
         }

@@ -14,6 +14,28 @@
         >
 
         <LinearLayout
+            android:id="@+id/LinearLayoutUser"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+
+            <TextView
+                fontPath="fonts/iransans_web_medium.ttf"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:textColor="@color/ML_HarmonyDark"
+                android:textSize="@dimen/_10sdp"
+                android:gravity="center"
+                android:text="@string/User"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/LinearLayoutCertain"
             android:layout_width="0dp"
             android:layout_height="match_parent"

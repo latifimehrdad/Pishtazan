@@ -22,13 +22,13 @@ public class VM_Verify extends VM_Primary {
     }//_____________________________________________________________________________________________ VM_Verify
 
 
-    public void SendNumber(String PhoneNumber) {//__________________________________________________ SendNumber
+    public void sendNationalCode(String nationalCode) {//__________________________________________________ sendNationalCode
 
-        PhoneNumber = PishtazanApplication
+        nationalCode = PishtazanApplication
                 .getApplication(getContext())
                 .getApplicationUtilityComponent()
                 .getApplicationUtility()
-                .PersianToEnglish(PhoneNumber);
+                .PersianToEnglish(nationalCode);
 
 
         RetrofitComponent retrofitComponent = PishtazanApplication
@@ -37,7 +37,7 @@ public class VM_Verify extends VM_Primary {
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .REQUEST_GENERATE_CODE_CALL(PhoneNumber));
+                .REQUEST_GENERATE_CODE_CALL(nationalCode));
 
         getPrimaryCall().enqueue(new Callback<MR_GenerateCode>() {
             @Override
@@ -57,15 +57,15 @@ public class VM_Verify extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ SendNumber
+    }//_____________________________________________________________________________________________ sendNationalCode
 
 
-    public void VerifyNumber(String PhoneNumber, String VerifyCode) {//_____________________________ SendNumber
-        PhoneNumber = PishtazanApplication
+    public void verifyNationalCode(String nationalCode, String VerifyCode) {//_____________________________ verifyNationalCode
+        nationalCode = PishtazanApplication
                 .getApplication(getContext())
                 .getApplicationUtilityComponent()
                 .getApplicationUtility()
-                .PersianToEnglish(PhoneNumber);
+                .PersianToEnglish(nationalCode);
 
         VerifyCode = PishtazanApplication
                 .getApplication(getContext())
@@ -79,7 +79,7 @@ public class VM_Verify extends VM_Primary {
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .REQUEST_VERIFY_CODE_CALL(PhoneNumber, getFirebaseToken(), VerifyCode));
+                .REQUEST_VERIFY_CODE_CALL(nationalCode, getFirebaseToken(), VerifyCode));
 
         getPrimaryCall().enqueue(new Callback<MRVerifyCode>() {
             @Override
@@ -99,7 +99,7 @@ public class VM_Verify extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ SendNumber
+    }//_____________________________________________________________________________________________ verifyNationalCode
 
 
     private void SaveLogin(MRVerifyCode md) {//_____________________________________________ SaveLogin

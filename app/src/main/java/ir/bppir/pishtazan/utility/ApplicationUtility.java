@@ -387,6 +387,7 @@ public class ApplicationUtility {
                     editText.addTextChangedListener(this);
                 }
                 editText.setSelection(editText.getText().length());
+                editText.setBackgroundResource(R.drawable.dw_edit_back);
 
             }
         };

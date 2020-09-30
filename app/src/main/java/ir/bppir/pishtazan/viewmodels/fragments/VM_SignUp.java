@@ -14,7 +14,7 @@ import retrofit2.Response;
 
 public class VM_SignUp extends VM_Primary {
 
-    private String phoneNumber;
+    private String nationalCode;
 
     //______________________________________________________________________________________________ VM_SignUp
     public VM_SignUp(Activity context) {
@@ -26,11 +26,11 @@ public class VM_SignUp extends VM_Primary {
     //______________________________________________________________________________________________ sendNumber
     public void sendNumber() {
 
-        phoneNumber = PishtazanApplication
+        nationalCode = PishtazanApplication
                 .getApplication(getContext())
                 .getApplicationUtilityComponent()
                 .getApplicationUtility()
-                .PersianToEnglish(phoneNumber);
+                .PersianToEnglish(nationalCode);
 
 
         RetrofitComponent retrofitComponent = PishtazanApplication
@@ -39,7 +39,7 @@ public class VM_SignUp extends VM_Primary {
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .REQUEST_GENERATE_CODE_CALL(phoneNumber));
+                .REQUEST_GENERATE_CODE_CALL(nationalCode));
 
         if (getPrimaryCall() == null)
             return;
@@ -68,15 +68,15 @@ public class VM_SignUp extends VM_Primary {
 
 
     //______________________________________________________________________________________________ getPhoneNumber
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getNationalCode() {
+        return nationalCode;
     }
     //______________________________________________________________________________________________ getPhoneNumber
 
 
     //______________________________________________________________________________________________ setPhoneNumber
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setNationalCode(String nationalCode) {
+        this.nationalCode = nationalCode;
     }
     //______________________________________________________________________________________________ setPhoneNumber
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="ir.bppir.pishtazan">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -29,8 +30,8 @@
         android:icon="@drawable/pishtaz_logo"
         android:label="@string/app_name"
         android:roundIcon="@drawable/pishtaz_logo"
-        android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
+        android:supportsRtl="false"
+        tools:replace="android:supportsRtl"
         android:theme="@style/AppTheme">
 
 

@@ -222,6 +222,52 @@
             android:background="@color/ML_Dialog"
             android:layout_marginTop="@dimen/_3sdp"/>
 
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/LinearLayoutConvertToUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/_11sdp"
+                android:textColor="@color/colorPrimaryDark"
+                android:gravity="right|center_vertical"
+                android:text="@string/ConvertToUser"
+                android:padding="@dimen/_5sdp"/>
+
+            <ImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:src="@drawable/ic_exchange"
+                android:tint="@color/colorAccent"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/ML_Dialog"
+            android:layout_marginTop="@dimen/_3sdp"/>
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -395,6 +441,18 @@
             android:layout_marginTop="@dimen/_3sdp"/>
 
     </LinearLayout>
+
+
+    <TextView
+        fontPath="fonts/iransans_web_medium.ttf"
+        android:id="@+id/textViewActionDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:gravity="right"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/_12sdp"
+        android:text="@string/EmptyNationalCodeDialog"/>
 
 
     <LinearLayout

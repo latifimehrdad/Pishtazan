@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="grid"
@@ -14,6 +13,24 @@
         android:layout_height="match_parent"
         android:background="@color/ML_Dialog"
         android:focusableInTouchMode="true">
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+        <com.cunoraz.gifview.library.GifView
+            android:id="@+id/GifViewLoading"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:background="@drawable/dw_choose_current_map"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:padding="@dimen/_5sdp"
+            custom:gif="@drawable/loading3" />
 
     </RelativeLayout>
 

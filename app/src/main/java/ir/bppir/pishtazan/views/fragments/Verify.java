@@ -30,7 +30,7 @@ public class Verify extends FragmentPrimary implements FragmentPrimary.actionFro
 
     private NavController navController;
     private VM_Verify vm_verify;
-    private String PhoneNumber;
+    private String nationalCode;
     private boolean ReTryGetSMSClick = false;
     private Handler timer;
     private Runnable runnable;
@@ -88,7 +88,7 @@ public class Verify extends FragmentPrimary implements FragmentPrimary.actionFro
             progressBar.setProgress(0);
             ReTryGetSMS();
             SetClick();
-            StartTimer(60);
+            StartTimer(120);
         }
         return getView();
     }//_____________________________________________________________________________________________ onCreateView
@@ -109,16 +109,18 @@ public class Verify extends FragmentPrimary implements FragmentPrimary.actionFro
                 Verify.this,
                 vm_verify.getPublishSubject(),
                 vm_verify);
-        PhoneNumber = getArguments().getString(getString(R.string.ML_PhoneNumber));
+        nationalCode = getArguments().getString(getString(R.string.ML_NationalCode));
     }//_____________________________________________________________________________________________ init
 
 
     @Override
     public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
+        DismissDialogLoading();
+
         if (action == StaticValues.ML_ReTrySensSms) {
             DismissProgress();
-            StartTimer(60);
+            StartTimer(120);
             return;
         }
 
@@ -132,7 +134,6 @@ public class Verify extends FragmentPrimary implements FragmentPrimary.actionFro
         if ((action == StaticValues.ML_ResponseError) ||
                 (action == StaticValues.ML_ResponseFailure) ||
                 (action == StaticValues.ML_RequestCancel)) {
-            DismissDialogLoading();
             return;
         }
 
@@ -147,7 +148,7 @@ public class Verify extends FragmentPrimary implements FragmentPrimary.actionFro
             public void onClick(View v) {
                 if (ReTryGetSMSClick) {
                     ShowProgressDialog();
-                    vm_verify.SendNumber(PhoneNumber);
+                    vm_verify.sendNationalCode(nationalCode);
                 }
             }
         });
@@ -243,7 +244,7 @@ public class Verify extends FragmentPrimary implements FragmentPrimary.actionFro
 
             hideKeyboard();
             ShowProgressDialog();
-            vm_verify.VerifyNumber(PhoneNumber, code);
+            vm_verify.verifyNationalCode(nationalCode, code);
         }
 
     }//_____________________________________________________________________________________________ End SetBackVerifyCode

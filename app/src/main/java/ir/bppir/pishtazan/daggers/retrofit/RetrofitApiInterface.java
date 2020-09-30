@@ -27,7 +27,6 @@ import ir.bppir.pishtazan.models.MR_SpinnerItem;
 import ir.bppir.pishtazan.models.MR_StatisticalReport;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -37,13 +36,11 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
 public interface RetrofitApiInterface {
 
     String Version = "/api";
-    String Colleague = "Colleague";
     String Policy = "Policy.";
     String Reminder = "Reminder.";
     String Customer = "Customer.";
@@ -70,7 +67,7 @@ public interface RetrofitApiInterface {
     @POST(Version + "/CreateCustomer")
     Call<MR_Primary> ADD_CUSTOMER
             (
-                    @FieldMap Map<String,String> params
+                    @FieldMap Map<String, String> params
 
             );
 
@@ -89,7 +86,7 @@ public interface RetrofitApiInterface {
     @POST(Version + "/CreateColleague")
     Call<MR_Primary> CREATE_COLLEAGUE
             (
-                    @FieldMap Map<String,String> params
+                    @FieldMap Map<String, String> params
             );
 
 
@@ -172,7 +169,6 @@ public interface RetrofitApiInterface {
                     @Field("UserInfoId") Integer UserInfoId
             );
 
-
     @GET()
     Call<MD_GetAddres> getAddress(
             @Url String url
@@ -194,7 +190,6 @@ public interface RetrofitApiInterface {
                     @Field("UserInfoId") Integer UserInfoId,
                     @Field("Id") Integer Id
             );
-
 
 
     @Multipart
@@ -253,7 +248,10 @@ public interface RetrofitApiInterface {
                     @Field(Policy + "UserInfoId") String UserInfoId,
                     @Field(Policy + "Description") String Description,
                     @Field(Policy + "Insured") String Insured,
-                    @Field(Policy + "InsuredNationalCode") String InsuredNationalCode
+                    @Field(Policy + "InsuredNationalCode") String InsuredNationalCode,
+                    @Field(Policy + "DeliveryToBranchDateJ") String DeliveryToBranchDateJ,
+                    @Field(Policy + "SeriNumber") int SeriNumber,
+                    @Field(Policy + "TransactionCode") String TransactionCode
             );
 
 
@@ -280,10 +278,13 @@ public interface RetrofitApiInterface {
                     @Field(Policy + "Description") String Description,
                     @Field(Policy + "SuggestionDateM") String SuggestionDateM,
                     @Field(Policy + "Insured") String Insured,
-                    @Field(Policy + "InsuredNationalCode") String InsuredNationalCode
+                    @Field(Policy + "InsuredNationalCode") String InsuredNationalCode,
+                    @Field(Policy + "DeliveryToBranchDateJ") String DeliveryToBranchDateJ,
+                    @Field(Policy + "SeriNumber") int SeriNumber,
+                    @Field(Policy + "TransactionCode") String TransactionCode
             );
 
-    
+
     @FormUrlEncoded
     @POST(Version + "/CreateReminder")
     Call<MR_Primary> CREATE_REMINDER_CUSTOMER
@@ -381,7 +382,7 @@ public interface RetrofitApiInterface {
     Call<MR_ExamResult> SEND_ANSWER
             (
                     @Body MD_SendAnswer sendAnswer
-                    );
+            );
 
     @FormUrlEncoded
     @POST(Version + "/GetExamResultById")
@@ -448,14 +449,9 @@ public interface RetrofitApiInterface {
             );
 
 
-
     @GET(Version + "/GetRecources")
-    Call<MR_SpinnerItem> GET_RECOURCES
+    Call<MR_SpinnerItem> GET_RESOURCES
             ();
-
-    @Streaming
-    @GET
-    Call<ResponseBody> downloadFile(@Url String urlString);
 
 
     @GET(Version + "/hi")

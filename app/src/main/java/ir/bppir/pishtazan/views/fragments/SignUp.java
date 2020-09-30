@@ -31,8 +31,8 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.actionFro
     private VM_SignUp vm_signUp;
 
 
-    @BindView(R.id.EditPhoneNumber)
-    EditText EditPhoneNumber;
+    @BindView(R.id.EditNationalCode)
+    EditText EditNationalCode;
 
     @BindView(R.id.ButtonSignUp)
     RelativeLayout ButtonSignUp;
@@ -103,7 +103,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.actionFro
         dismissLoading();
         if (action.equals(StaticValues.ML_GotoVerify)) {
             Bundle bundle = new Bundle();
-            bundle.putString(getRes().getString(R.string.ML_PhoneNumber), EditPhoneNumber.getText().toString());
+            bundle.putString(getRes().getString(R.string.ML_NationalCode), EditNationalCode.getText().toString());
             navController.navigate(R.id.action_signUp_to_verify, bundle);
         }
 
@@ -131,19 +131,11 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.actionFro
 
         boolean mobile = true;
 
-        if (EditPhoneNumber.getText().length() != 11) {
-            EditPhoneNumber.setBackgroundResource(R.drawable.dw_edit_empty_background);
-            EditPhoneNumber.setError(getRes().getString(R.string.EnterPhoneNumber));
-            EditPhoneNumber.requestFocus();
+        if (EditNationalCode.getText().length() != 10) {
+            EditNationalCode.setBackgroundResource(R.drawable.dw_edit_empty_background);
+            EditNationalCode.setError(getRes().getString(R.string.EnterNationalCode));
+            EditNationalCode.requestFocus();
             mobile = false;
-        } else {
-            String ZeroNine = EditPhoneNumber.getText().subSequence(0, 2).toString();
-            if (!ZeroNine.equalsIgnoreCase("09")) {
-                EditPhoneNumber.setBackgroundResource(R.drawable.dw_edit_empty_background);
-                EditPhoneNumber.setError(getRes().getString(R.string.EnterPhoneNumber));
-                EditPhoneNumber.requestFocus();
-                mobile = false;
-            }
         }
 
         return mobile;
@@ -154,7 +146,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.actionFro
 
     //______________________________________________________________________________________________ setTextWatcher
     private void setTextWatcher() {
-        EditPhoneNumber.addTextChangedListener(textChangeForChangeBack(EditPhoneNumber));
+        EditNationalCode.addTextChangedListener(textChangeForChangeBack(EditNationalCode));
     }
     //______________________________________________________________________________________________ setTextWatcher
 

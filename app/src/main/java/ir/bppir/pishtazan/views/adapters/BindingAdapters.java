@@ -193,6 +193,13 @@ public class BindingAdapters {
                     textView.setText(context.getResources().getString(R.string.NationalCode) + " : " + text);
                 }
                 break;
+            case "dateDelivery":
+                textView.setText(context.getResources().getString(R.string.DeliveryDate) + " : " + text);
+                break;
+
+            case "transactionCode":
+                textView.setText(context.getResources().getString(R.string.TrackingCode) + " : " + text);
+                break;
         }
 
     }
@@ -210,6 +217,24 @@ public class BindingAdapters {
             Integer h = value % 60;
             Integer min = value / 60;
             textView.setText(context.getResources().getString(R.string.MovieTime) + "  " + String.format("%02d", min) + ":" + String.format("%02d", h));
+        } else if(tag.equalsIgnoreCase("seriNumber")) {
+            String text = "";
+            switch (value){
+                case 0:
+                    text = "ماهانه";
+                    break;
+                case 1:
+                    text = "سه ماهه";
+                    break;
+                case 2:
+                    text = "شش ماهه";
+                    break;
+                case 3:
+                    text = "سالانه";
+                    break;
+
+            }
+            textView.setText(context.getResources().getString(R.string.SeriesNumber) + " : " + text);
         } else {
             if (value != null)
                 textView.setText(value.toString());

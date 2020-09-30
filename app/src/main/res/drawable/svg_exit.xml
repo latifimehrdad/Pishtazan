@@ -5,11 +5,11 @@
         <aapt:attr name="android:fillColor">
             <gradient android:endX="512" android:endY="256"
                 android:startX="0" android:startY="256" android:type="linear">
-                <item android:color="#FF00F1FF" android:offset="0"/>
-                <item android:color="#FF00D8FF" android:offset="0.231"/>
-                <item android:color="#FF00C0FF" android:offset="0.5138"/>
-                <item android:color="#FF00B2FF" android:offset="0.7773"/>
-                <item android:color="#FF00ADFF" android:offset="1"/>
+                <item android:color="#FF5353" android:offset="0"/>
+                <item android:color="#DF2121" android:offset="0.231"/>
+                <item android:color="#AA0A0A" android:offset="0.5138"/>
+                <item android:color="#870202" android:offset="0.7773"/>
+                <item android:color="#5C0000" android:offset="1"/>
             </gradient>
         </aapt:attr>
     </path>

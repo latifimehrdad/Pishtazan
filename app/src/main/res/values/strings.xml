@@ -3,8 +3,9 @@
     <string name="app_name">Pishtazan</string>
     <string name="google_map_api_key">AIzaSyDEHvSeqbbcTr81zQNk3OUgo0cM25SaMLQ</string>
 
-    <string name="EnterPhoneNumber">شماره تلفن همراه خود را وارد نمایید</string>
+    <string name="EnterNationalCode">کد ملی خود را وارد نمایید</string>
     <string name="MobileNumber">تلفن همراه</string>
+    <string name="EmptyMobileNumber">تلفن همراه را وارد نمایید</string>
     <string name="GetVerifyCode">دریافت کد</string>
     <string name="Cancel">بیخیال</string>
     <string name="NationalCode">کد ملی</string>
@@ -19,6 +20,7 @@
     <string name="ColleaguePanel">پنل همکاران</string>
     <string name="CustomerPanel">پنل مشتریان</string>
     <string name="Certain">قطعی</string>
+    <string name="User">کاربر</string>
     <string name="Maybe">بالقوه</string>
     <string name="Possible">بالفعل</string>
     <string name="AddPerson">اضافه کردن افراد</string>
@@ -72,12 +74,14 @@
     <string name="Failed">ناموفق</string>
     <string name="ChoosePolicyType">انتخاب نوع پیشنویس</string>
     <string name="SearchPolicyType">جستجوی نوع پیشنویس</string>
+    <string name="ChooseSeries">انتخاب نوع شماره سری</string>
     <string name="Amount">مبلغ</string>
     <string name="Description">توضیحات</string>
     <string name="SavePolicy">ثبت پیشنویس</string>
     <string name="EditPolicy">ویرایش پیشنویس</string>
     <string name="EmptyAmount">مبلغ را وارد نمایید</string>
     <string name="EmptyNationalCode">کد ملی را وارد نمایید</string>
+    <string name="EmptyTrackingCode">کد پیگیری را وارد نمایید</string>
     <string name="PoliciesList">لیست پیشنویس ها</string>
     <string name="InsuranceList">لیست بیمه نامه ها</string>
     <string name="AddNewPolicy">اضافه کردن پیشنویس جدید</string>
@@ -122,6 +126,7 @@
     <string name="EmptyList">لیست خالی است</string>
     <string name="ConvertToCustomer">انتقال به لیست مشتری های قطعی</string>
     <string name="ConvertToColleague">انتقال به لیست همکاران</string>
+    <string name="ConvertToUser">تبدیل به کاربر</string>
     <string name="GetPhoneNumber">دریافت شماره موبایل</string>
     <string name="Reports">گزارشات</string>
     <string name="FeeReport">گزارش کارمزد</string>
@@ -133,7 +138,12 @@
     <string name="YouFailedTheTest">شما در آزمون رد شدید</string>
     <string name="ReTry">تلاش مجدد</string>
     <string name="LogOut">خروج از حساب</string>
-
+    <string name="EmptyNationalCodeDialog">شما حتما باید کد ملی این مشتری را با کلیک بر روی منوی بالا ثبت کنید تا منوهای دیگر باز شود</string>
+    <string name="insuredLastName">نام بیمه شده</string>
+    <string name="insuredNationalCode">کد ملی بیمه شده</string>
+    <string name="DeliveryDate">تاریخ تحویل به شعبه</string>
+    <string name="TrackingCode">کد پیگیری</string>
+    <string name="SeriesNumber">شماره سری</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>
@@ -162,5 +172,7 @@
     <string name="ML_MyReport">MyReport</string>
     <string name="ML_MySubsetReport">MySubsetReport</string>
     <string name="ML_TutorialId">TutorialId</string>
+    <string name="ML_NationalCode">NationalCode</string>
+    <string name="ML_SeriesId">ML_SeriesId</string>
 
 </resources>

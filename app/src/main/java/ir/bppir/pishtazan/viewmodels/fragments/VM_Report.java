@@ -45,7 +45,7 @@ public class VM_Report extends VM_Primary {
                 .getApplication(getContext())
                 .getRetrofitComponent()
                 .getRetrofitApiInterface()
-                .GET_RECOURCES());
+                .GET_RESOURCES());
 
         getPrimaryCall().enqueue(new Callback<MR_SpinnerItem>() {
             @Override

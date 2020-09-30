@@ -75,6 +75,9 @@ public class Panel extends FragmentPrimary implements
     @BindView(R.id.LinearLayoutCertain)
     LinearLayout LinearLayoutCertain;
 
+    @BindView(R.id.LinearLayoutUser)
+    LinearLayout LinearLayoutUser;
+
     @BindView(R.id.GifViewLoading)
     GifView GifViewLoading;
 
@@ -132,8 +135,10 @@ public class Panel extends FragmentPrimary implements
         panelType = temp.byteValue();
         if (panelType == StaticValues.Colleague) {
             TextViewTitle.setText(getContext().getResources().getString(R.string.ColleaguePanel));
+            LinearLayoutUser.setVisibility(View.VISIBLE);
         } else {
             TextViewTitle.setText(getContext().getResources().getString(R.string.CustomerPanel));
+            LinearLayoutUser.setVisibility(View.GONE);
         }
 
     }//_____________________________________________________________________________________________ init
@@ -210,6 +215,7 @@ public class Panel extends FragmentPrimary implements
             public void onClick(View view) {
                 LinearLayoutPossible.setBackground(null);
                 LinearLayoutCertain.setBackground(null);
+                LinearLayoutUser.setBackground(null);
                 LinearLayoutMaybe.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
                 PersonType = StaticValues.ML_Maybe;
                 GetList();
@@ -222,6 +228,7 @@ public class Panel extends FragmentPrimary implements
                 LinearLayoutAdd.setVisibility(View.INVISIBLE);
                 LinearLayoutMaybe.setBackground(null);
                 LinearLayoutCertain.setBackground(null);
+                LinearLayoutUser.setBackground(null);
                 LinearLayoutPossible.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
                 PersonType = StaticValues.ML_Possible;
                 GetList();
@@ -234,8 +241,23 @@ public class Panel extends FragmentPrimary implements
                 LinearLayoutAdd.setVisibility(View.INVISIBLE);
                 LinearLayoutMaybe.setBackground(null);
                 LinearLayoutPossible.setBackground(null);
+                LinearLayoutUser.setBackground(null);
                 LinearLayoutCertain.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
                 PersonType = StaticValues.ML_Certain;
+                GetList();
+            }
+        });
+
+
+        LinearLayoutUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LinearLayoutAdd.setVisibility(View.INVISIBLE);
+                LinearLayoutMaybe.setBackground(null);
+                LinearLayoutPossible.setBackground(null);
+                LinearLayoutCertain.setBackground(null);
+                LinearLayoutUser.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
+                PersonType = StaticValues.ML_User;
                 GetList();
             }
         });
@@ -277,35 +299,29 @@ public class Panel extends FragmentPrimary implements
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         window.setAttributes(lp);
 
-        LinearLayout LinearLayoutCompleteInformation = (LinearLayout)
-                dialog.findViewById(R.id.LinearLayoutCompleteInformation);
+        LinearLayout LinearLayoutCompleteInformation = dialog.findViewById(R.id.LinearLayoutCompleteInformation);
 
-        LinearLayout LinearLayoutCallReminder = (LinearLayout)
-                dialog.findViewById(R.id.LinearLayoutCallReminder);
+        LinearLayout LinearLayoutCallReminder = dialog.findViewById(R.id.LinearLayoutCallReminder);
 
-        LinearLayout LinearLayoutMeetingReminder = (LinearLayout)
-                dialog.findViewById(R.id.LinearLayoutMeetingReminder);
+        LinearLayout LinearLayoutMeetingReminder = dialog.findViewById(R.id.LinearLayoutMeetingReminder);
 
-        LinearLayout LinearLayoutConvertToCustomer = (LinearLayout)
-                dialog.findViewById(R.id.LinearLayoutConvertToCustomer);
+        LinearLayout LinearLayoutConvertToCustomer = dialog.findViewById(R.id.LinearLayoutConvertToCustomer);
 
-        LinearLayout LinearLayoutConvertToColleague = (LinearLayout)
-                dialog.findViewById(R.id.LinearLayoutConvertToColleague);
+        LinearLayout LinearLayoutConvertToColleague = dialog.findViewById(R.id.LinearLayoutConvertToColleague);
 
-        LinearLayout LinearLayoutDeleteFromList = (LinearLayout)
-                dialog.findViewById(R.id.LinearLayoutDeleteFromList);
+        LinearLayout LinearLayoutDeleteFromList = dialog.findViewById(R.id.LinearLayoutDeleteFromList);
 
-        LinearLayout LinearLayoutCancel = (LinearLayout)
-                dialog.findViewById(R.id.LinearLayoutCancel);
+        LinearLayout LinearLayoutCancel = dialog.findViewById(R.id.LinearLayoutCancel);
 
-        LinearLayout LinearLayoutQuestionnaire = (LinearLayout)
-                dialog.findViewById(R.id.LinearLayoutQuestionnaire);
+        LinearLayout LinearLayoutQuestionnaire = dialog.findViewById(R.id.LinearLayoutQuestionnaire);
 
-        LinearLayout LinearLayoutInsurance = (LinearLayout)
-                dialog.findViewById(R.id.LinearLayoutInsurance);
+        LinearLayout LinearLayoutInsurance = dialog.findViewById(R.id.LinearLayoutInsurance);
 
-        LinearLayout LinearLayoutNoArchived = (LinearLayout)
-                dialog.findViewById(R.id.LinearLayoutNoArchived);
+        LinearLayout LinearLayoutNoArchived = dialog.findViewById(R.id.LinearLayoutNoArchived);
+
+        TextView textView = dialog.findViewById(R.id.textViewActionDialog);
+
+        LinearLayout LinearLayoutConvertToUser = dialog.findViewById(R.id.LinearLayoutConvertToUser);
 
         if (SwitchMaterialArchived.isChecked()) {
             LinearLayoutCompleteInformation.setVisibility(View.GONE);
@@ -316,16 +332,20 @@ public class Panel extends FragmentPrimary implements
             LinearLayoutDeleteFromList.setVisibility(View.GONE);
             LinearLayoutQuestionnaire.setVisibility(View.GONE);
             LinearLayoutInsurance.setVisibility(View.GONE);
+            LinearLayoutConvertToUser.setVisibility(View.GONE);
             LinearLayoutNoArchived.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.GONE);
         } else
             LinearLayoutNoArchived.setVisibility(View.GONE);
 
         if (panelType == StaticValues.Customer) {
             LinearLayoutConvertToColleague.setVisibility(View.GONE);
+            LinearLayoutConvertToUser.setVisibility(View.GONE);
             if (PersonType == StaticValues.ML_Certain) {
-                LinearLayoutCompleteInformation.setVisibility(View.GONE);
-                LinearLayoutCallReminder.setVisibility(View.GONE);
-                LinearLayoutMeetingReminder.setVisibility(View.GONE);
+                textView.setVisibility(View.GONE);
+//                LinearLayoutCompleteInformation.setVisibility(View.GONE);
+//                LinearLayoutCallReminder.setVisibility(View.GONE);
+//                LinearLayoutMeetingReminder.setVisibility(View.GONE);
                 LinearLayoutConvertToCustomer.setVisibility(View.GONE);
                 LinearLayoutConvertToColleague.setVisibility(View.GONE);
                 LinearLayoutDeleteFromList.setVisibility(View.GONE);
@@ -333,22 +353,53 @@ public class Panel extends FragmentPrimary implements
 //                LinearLayoutInsurance.setVisibility(View.GONE);
                 LinearLayoutNoArchived.setVisibility(View.GONE);
             } else if (PersonType == StaticValues.ML_Possible) {
-                LinearLayoutInsurance.setVisibility(View.GONE);
-                LinearLayoutQuestionnaire.setVisibility(View.GONE);
+                if (vm_panel.getPersonList().get(Position).getNationalCode() == null) {
+                    LinearLayoutCallReminder.setVisibility(View.GONE);
+                    LinearLayoutMeetingReminder.setVisibility(View.GONE);
+                    LinearLayoutConvertToCustomer.setVisibility(View.GONE);
+                    LinearLayoutConvertToColleague.setVisibility(View.GONE);
+                    LinearLayoutDeleteFromList.setVisibility(View.GONE);
+                    LinearLayoutQuestionnaire.setVisibility(View.GONE);
+                    LinearLayoutInsurance.setVisibility(View.GONE);
+                    LinearLayoutNoArchived.setVisibility(View.GONE);
+                    textView.setVisibility(View.VISIBLE);
+                } else {
+                    textView.setVisibility(View.GONE);
+                    LinearLayoutInsurance.setVisibility(View.GONE);
+                    LinearLayoutQuestionnaire.setVisibility(View.GONE);
+                }
             }
         } else {
             LinearLayoutConvertToCustomer.setVisibility(View.GONE);
             LinearLayoutQuestionnaire.setVisibility(View.GONE);
             if (PersonType == StaticValues.ML_Certain) {
-                LinearLayoutCompleteInformation.setVisibility(View.GONE);
-                LinearLayoutCallReminder.setVisibility(View.GONE);
-                LinearLayoutMeetingReminder.setVisibility(View.GONE);
+                textView.setVisibility(View.GONE);
+//                LinearLayoutCompleteInformation.setVisibility(View.GONE);
+//                LinearLayoutCallReminder.setVisibility(View.GONE);
+//                LinearLayoutMeetingReminder.setVisibility(View.GONE);
                 LinearLayoutConvertToCustomer.setVisibility(View.GONE);
                 LinearLayoutConvertToColleague.setVisibility(View.GONE);
                 LinearLayoutDeleteFromList.setVisibility(View.GONE);
                 LinearLayoutNoArchived.setVisibility(View.GONE);
-            } else
-                LinearLayoutInsurance.setVisibility(View.GONE);
+            } else {
+                if (vm_panel.getPersonList().get(Position).getNationalCode() == null) {
+                    LinearLayoutCallReminder.setVisibility(View.GONE);
+                    LinearLayoutMeetingReminder.setVisibility(View.GONE);
+                    LinearLayoutConvertToCustomer.setVisibility(View.GONE);
+                    LinearLayoutConvertToColleague.setVisibility(View.GONE);
+                    LinearLayoutDeleteFromList.setVisibility(View.GONE);
+                    LinearLayoutQuestionnaire.setVisibility(View.GONE);
+                    LinearLayoutInsurance.setVisibility(View.GONE);
+                    LinearLayoutNoArchived.setVisibility(View.GONE);
+                    LinearLayoutConvertToUser.setVisibility(View.GONE);
+                    textView.setVisibility(View.VISIBLE);
+                } else {
+                    LinearLayoutConvertToUser.setVisibility(View.GONE);
+                    LinearLayoutConvertToColleague.setVisibility(View.GONE);
+                    textView.setVisibility(View.GONE);
+                    LinearLayoutInsurance.setVisibility(View.GONE);
+                }
+            }
         }
 
         LinearLayoutQuestionnaire.setOnClickListener(v -> {
@@ -811,7 +862,7 @@ public class Panel extends FragmentPrimary implements
             bundle.putBoolean(getContext().getResources().getString(R.string.ML_Type), false);
             navController.navigate(R.id.action_panel_to_policyType, bundle);
         } else
-        vm_panel.moveToCertain(panelType, Position);
+            vm_panel.moveToCertain(panelType, Position);
     }//_____________________________________________________________________________________________ MoveToPossible
 
 
@@ -842,7 +893,6 @@ public class Panel extends FragmentPrimary implements
         bundle.putInt(getContext().getString(R.string.ML_personId), vm_panel.getPersonList().get(Position).getId());
         navController.navigate(R.id.action_panel_to_editPerson, bundle);
     }//_____________________________________________________________________________________________ EditProfilePerson
-
 
 
     //______________________________________________________________________________________________ actionWhenFailureRequest

@@ -117,7 +117,7 @@ public class Policies extends FragmentPrimary implements
     @Override
     public void clickItemPolicy(Integer Position) {//_______________________________________________ clickItemPolicy
 
-        if (typePolicies.equals(StaticValues.PolicyStatusQuestionnaire)) {
+        /*if (typePolicies.equals(StaticValues.PolicyStatusQuestionnaire)) {
             Bundle bundle = new Bundle();
             bundle.putInt(getContext().getResources().getString(R.string.ML_personId), PersonId);
             bundle.putBoolean(getContext().getResources().getString(R.string.ML_Type), true);
@@ -147,7 +147,7 @@ public class Policies extends FragmentPrimary implements
                     insuredNationalCode);
 
             navController.navigate(R.id.action_policies_to_policyType, bundle);
-        }
+        }*/
 
     }//_____________________________________________________________________________________________ clickItemPolicy
 

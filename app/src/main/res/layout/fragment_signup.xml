@@ -61,7 +61,7 @@
                             android:gravity="center"
                             android:maxLines="2"
                             fontPath="fonts/iransans_web_medium.ttf"
-                            android:text="@string/EnterPhoneNumber"
+                            android:text="@string/EnterNationalCode"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/_9sdp" />
 
@@ -75,7 +75,7 @@
 
 
                             <EditText
-                                android:id="@+id/EditPhoneNumber"
+                                android:id="@+id/EditNationalCode"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
@@ -85,9 +85,9 @@
                                 android:gravity="center"
                                 android:textColor="@color/colorPrimaryDark"
                                 android:textSize="@dimen/_12sdp"
-                                android:hint="@string/MobileNumber"
-                                android:maxLength="11"
-                                android:text="@={signup.phoneNumber}"
+                                android:hint="@string/NationalCode"
+                                android:maxLength="10"
+                                android:text="@={signup.nationalCode}"
                                 />
 
                             <ImageView
