@@ -16,7 +16,7 @@
     <color name="ML_Red">#CF1818</color>
     <color name="ML_RedQuestion">#AC0B0B</color>
     <color name="ML_RedDark">#6A0000</color>
-    <color name="ML_EditEmpty">#FAD85A</color>
+    <color name="ML_EditEmpty">#FAE391</color>
     <color name="ML_Trans">#00000000</color>
     <color name="ML_WhiteGray">#EBEAEA</color>
     <color name="ML_OK">#058101</color>
@@ -27,6 +27,8 @@
     <color name="mlWave2">#5BB1FB</color>
     <color name="mlWave3">#15DF89</color>
     <color name="mlToastBack">#303030</color>
+
+    <color name="mlTransparent">#00000000</color>
 
 
 </resources>
