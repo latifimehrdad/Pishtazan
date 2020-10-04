@@ -39,6 +39,12 @@ public class DownloadTask extends AsyncTask<String, Integer, String> {
         OutputStream output = null;
         HttpURLConnection connection = null;
         try {
+
+            File file = new File(Environment.getExternalStorageDirectory() + "/pishtazan/");
+            if (!file.exists()) {
+                file.mkdir();
+            }
+
             URL url = new URL(sUrl[0]);
             connection = (HttpURLConnection) url.openConnection();
             connection.connect();

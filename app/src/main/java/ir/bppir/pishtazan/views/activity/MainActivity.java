@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -84,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.imageViewToast)
     ImageView imageViewToast;
 
+    @BindView(R.id.textViewVersion)
+    TextView textViewVersion;
 
     //______________________________________________________________________________________________ onCreate
     @Override
@@ -103,6 +106,16 @@ public class MainActivity extends AppCompatActivity {
         setObserverToObservable();
         relativeLayoutToast.setVisibility(View.GONE);
         MainActivity.mainActivity = this;
+
+        PackageInfo pInfo;
+        float versionName = 0;
+        try {
+            pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            versionName = Float.valueOf(pInfo.versionName);
+            textViewVersion.setText(getResources().getString(R.string.PowerBy) + " V : " + versionName);
+        } catch (PackageManager.NameNotFoundException ignored) {
+        }
+
     }
     //______________________________________________________________________________________________ onCreate
 

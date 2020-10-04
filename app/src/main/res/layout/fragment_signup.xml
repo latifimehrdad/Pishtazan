@@ -144,16 +144,6 @@
                         </RelativeLayout>
 
 
-                        <ir.bppir.pishtazan.views.CustomLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            custom:lmTextColor="@color/ML_HarmonyDark"
-                            custom:mlInputType="number"
-                            custom:mlWidth="@dimen/_100sdp"
-                            custom:mlTextSize="@dimen/_12sdp"
-                            custom:mlText="@string/GetVerifyCode"
-                            />
-
                     </LinearLayout>
 
                 </ScrollView>
