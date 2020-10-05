@@ -57,7 +57,7 @@ public class VM_AddPerson extends VM_Primary {
             userIsNotAuthorization();
             return;
         }
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params = new HashMap<>();
         params.put("FullName", name);
         params.put("UserInfoId", UserInfoId.toString());
         params.put("MobileNumber", phone);
@@ -149,7 +149,7 @@ public class VM_AddPerson extends VM_Primary {
             Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
                     null, null, null, null);
             if ((cur != null ? cur.getCount() : 0) > 0) {
-                while (cur != null && cur.moveToNext()) {
+                while (cur.moveToNext()) {
                     String id = cur.getString(
                             cur.getColumnIndex(ContactsContract.Contacts._ID));
                     String name = cur.getString(cur.getColumnIndex(
@@ -167,7 +167,7 @@ public class VM_AddPerson extends VM_Primary {
                             phoneNo = phoneNo.replaceAll("-", "");
                             String temp = phoneNo.substring(0, 3);
                             if (temp.equals("+98")) {
-                                phoneNo = "0" + phoneNo.substring(3, phoneNo.length());
+                                phoneNo = "0" + phoneNo.substring(3);
                             }
                             md_contacts.add(new MD_Contact(name, phoneNo));
                         }

@@ -2,7 +2,6 @@ package ir.bppir.pishtazan.viewmodels.fragments;
 
 import android.app.Activity;
 
-import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
 import ir.bppir.pishtazan.models.MR_GenerateCode;
 import ir.bppir.pishtazan.utility.StaticValues;

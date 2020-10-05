@@ -8,11 +8,9 @@ public class NotificationManagerClass {
 
 
     private android.app.Notification notification;
-    private Integer ServiceId;
 
 
     public NotificationManagerClass(Context context, Integer serviceId) {//_________________________ NotificationManagerClass
-        ServiceId = serviceId;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationNew aNew = new NotificationNew(context, serviceId);
             notification = aNew.getNotification();

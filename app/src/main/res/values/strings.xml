@@ -130,6 +130,7 @@
     <string name="GetPhoneNumber">دریافت شماره موبایل</string>
     <string name="Reports">گزارشات</string>
     <string name="FeeReport">گزارش کارمزد</string>
+    <string name="portfoReport">گزارش بردرو و پرتفو</string>
     <string name="ChangePicture">تغییر عکس</string>
     <string name="EmptyPhoneNumber">شماره تلفن را کامل وارد نمایید</string>
     <string name="EmptyNational">شماره ملی را وارد نمایید</string>
@@ -174,5 +175,7 @@
     <string name="ML_TutorialId">TutorialId</string>
     <string name="ML_NationalCode">NationalCode</string>
     <string name="ML_SeriesId">ML_SeriesId</string>
+    <string name="ML_Wage">ML_Wage</string>
+    <string name="ML_Portfo">ML_Portfo</string>
 
 </resources>

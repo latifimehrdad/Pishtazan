@@ -11,13 +11,128 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/ML_Dialog"
         android:focusableInTouchMode="true">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutDates"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_10sdp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutTo"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/TextViewTo"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/_27sdp"
+                        android:background="@drawable/dw_edit_back"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/_12sdp"
+                        android:hint="@string/DateTo"
+                        />
+
+                    <ImageView
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/dw_icon_background"
+                        android:src="@drawable/ic_baseline_date_range"
+                        android:tint="@color/ML_Harmony" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutFrom"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/TextViewFrom"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/_27sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:background="@drawable/dw_edit_back"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/_12sdp"
+                        android:hint="@string/DateFrom"
+                        />
+
+                    <ImageView
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/dw_icon_background"
+                        android:src="@drawable/ic_baseline_date_range"
+                        android:tint="@color/ML_Harmony" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutReport"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/dw_back_bottom"
+                android:minHeight="@dimen/_35sdp"
+                android:paddingTop="@dimen/_3sdp"
+                android:paddingBottom="@dimen/_3sdp">
+
+                <ImageView
+                    android:id="@+id/ImageViewReport"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/svg_to_do_list"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:tint="@color/ML_Harmony" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/createReport"
+                    fontPath="fonts/iransans_web_medium.ttf"
+                    android:textColor="@color/ML_White"
+                    android:textSize="@dimen/_12sdp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
 
         <WebView
             android:id="@+id/webView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
 
 
         <com.cunoraz.gifview.library.GifView

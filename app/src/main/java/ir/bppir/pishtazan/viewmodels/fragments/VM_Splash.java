@@ -33,16 +33,12 @@ public class VM_Splash extends VM_Primary {
 
         Realm realm = Realm.getDefaultInstance();
         RealmResults<DB_UserInfo> userInfo = realm.where(DB_UserInfo.class).findAll();
-        if (userInfo.size() > 0)
-            isLogin = true;
-        else
-            isLogin = false;
+        isLogin = userInfo.size() > 0;
 
         if (!isLogin)
             sendMessageToObservable(StaticValues.ML_GotoSignUp);
         else
             sendMessageToObservable(StaticValues.ML_GotoHome);
-
 
     }
     //______________________________________________________________________________________________ checkLogin
@@ -106,7 +102,7 @@ public class VM_Splash extends VM_Primary {
         float versionName = 0;
         try {
             pInfo = getContext().getPackageManager().getPackageInfo(getContext().getPackageName(), 0);
-            versionName = Float.valueOf(pInfo.versionName);
+            versionName = Float.parseFloat(pInfo.versionName);
         } catch (PackageManager.NameNotFoundException ignored) {
         }
 

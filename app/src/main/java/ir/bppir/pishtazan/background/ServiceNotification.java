@@ -19,7 +19,7 @@ public class ServiceNotification extends Service {
 
 
         if (alarmNotify == null) {
-            Integer id = 6780;
+            int id = 6780;
             NotificationManagerClass managerClass =
                     new NotificationManagerClass(getApplicationContext(), id);
             alarmNotify = managerClass.getNotification();

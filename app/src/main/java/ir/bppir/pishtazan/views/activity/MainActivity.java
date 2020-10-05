@@ -108,10 +108,10 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.mainActivity = this;
 
         PackageInfo pInfo;
-        float versionName = 0;
+        float versionName;
         try {
             pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            versionName = Float.valueOf(pInfo.versionName);
+            versionName = Float.parseFloat(pInfo.versionName);
             textViewVersion.setText(getResources().getString(R.string.PowerBy) + " V : " + versionName);
         } catch (PackageManager.NameNotFoundException ignored) {
         }

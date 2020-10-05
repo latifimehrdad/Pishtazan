@@ -394,12 +394,7 @@ public class VM_EditPerson extends VM_Primary {
         }
 
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getPublishSubject().onNext(StaticValues.ML_AddressFromMap);
-            }
-        }, 500);
+        handler.postDelayed(() -> getPublishSubject().onNext(StaticValues.ML_AddressFromMap), 500);
 
 
     }
@@ -425,13 +420,6 @@ public class VM_EditPerson extends VM_Primary {
         return AddressString;
     }
     //______________________________________________________________________________________________ getAddressString
-
-
-    //______________________________________________________________________________________________ setAddressString
-    public void setAddressString(String addressString) {
-        AddressString = addressString;
-    }
-    //______________________________________________________________________________________________ setAddressString
 
 
     //______________________________________________________________________________________________ getPerson

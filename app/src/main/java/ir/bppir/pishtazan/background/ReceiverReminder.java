@@ -1,5 +1,6 @@
 package ir.bppir.pishtazan.background;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -36,16 +37,16 @@ public class ReceiverReminder extends BroadcastReceiver {
         Calendar TimeCheck = Calendar.getInstance();
         TimeCheck.add(Calendar.MINUTE, -3);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("HHmm");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("HHmm");
 //        String TimeBefore = sdf.format(TimeCheck.getTime());
-        Long TimeBefore = Long.valueOf(sdf.format(TimeCheck.getTime()));
+        long TimeBefore = Long.parseLong(sdf.format(TimeCheck.getTime()));
 
         TimeCheck = Calendar.getInstance();
         TimeCheck.add(Calendar.MINUTE, 3);
 
 //        String TimeNext = sdf.format(TimeCheck.getTime());
 
-        Long TimeNext = Long.valueOf(sdf.format(TimeCheck.getTime()));
+        long TimeNext = Long.parseLong(sdf.format(TimeCheck.getTime()));
 
         Byte[] type = new Byte[2];
         type[0] = StaticValues.Call;
@@ -67,7 +68,7 @@ public class ReceiverReminder extends BroadcastReceiver {
         Log.i("meri", "Date : " + CurrentDateString + " TimeBefore : " + TimeBefore + " TimeNext : " + TimeNext);
         Log.i("meri", "notifications Size : " + notifications.size() + " Call");
         if (notifications.size() > 0) {
-            Log.i("meri", "notifications Size : " + notifications.size() + " Name : " + notifications.first().getPersonName());
+            //Log.i("meri", "notifications Size : " + notifications.size() + " Name : " + notifications.first().getPersonName());
             for(DB_Notification notification : notifications) {
                 realm.beginTransaction();
 //                NotificationManagerClass managerClass = new NotificationManagerClass(context, notification);
@@ -78,7 +79,7 @@ public class ReceiverReminder extends BroadcastReceiver {
 
         TimeCheck = Calendar.getInstance();
         TimeCheck.add(Calendar.MINUTE, 15);
-        TimeNext = Long.valueOf(sdf.format(TimeCheck.getTime()));
+        TimeNext = Long.parseLong(sdf.format(TimeCheck.getTime()));
 
 
         type[0] = StaticValues.Meeting;
@@ -99,7 +100,7 @@ public class ReceiverReminder extends BroadcastReceiver {
         Log.i("meri", "notifications Size : " + notificationsMeeting.size() + " Meeting");
         Log.i("meri", "Date : " + CurrentDateString + " TimeBefore : " + TimeBefore + " TimeNext : " + TimeNext);
         if (notificationsMeeting.size() > 0) {
-            Log.i("meri", "notifications Size : " + notificationsMeeting.size() + " Name : " + notificationsMeeting.first().getPersonName());
+            //Log.i("meri", "notifications Size : " + notificationsMeeting.size() + " Name : " + notificationsMeeting.first().getPersonName());
             for(DB_Notification notification : notificationsMeeting) {
                 realm.beginTransaction();
 //                NotificationManagerClass managerClass = new NotificationManagerClass(context, notification);

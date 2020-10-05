@@ -26,7 +26,6 @@ public class NotificationNew {
 
     private boolean ShowAlways;
     private Context context;
-    private String CHANNEL_ONE_NAME = "PishtazanNotification";
     private String CHANNEL_ONE_ID = "ir.bppir.pishtazan.PishtazanNotification";
     private NotificationManager notifyManager;
     private android.app.Notification notification;
@@ -176,8 +175,9 @@ public class NotificationNew {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void CreateChannelsEvent() {//___________________________________________________________ CreateChannelsEvent
+        String CHANNEL_ONE_NAME = "PishtazanNotification";
         NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ONE_ID,
-                CHANNEL_ONE_NAME, notifyManager.IMPORTANCE_HIGH);
+                CHANNEL_ONE_NAME, NotificationManager.IMPORTANCE_HIGH);
         notificationChannel.setLightColor(context.getResources().getColor(R.color.colorPrimary));
         notificationChannel.setShowBadge(true);
         notificationChannel.enableLights(true);

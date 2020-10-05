@@ -32,8 +32,11 @@ public class Reports extends FragmentPrimary implements FragmentPrimary.actionFr
     @BindView(R.id.LinearLayoutExamReport)
     LinearLayout LinearLayoutExamReport;
 
-    @BindView(R.id.LinearLayoutReportGrid)
-    LinearLayout LinearLayoutReportGrid;
+    @BindView(R.id.LinearLayoutWageReportGrid)
+    LinearLayout LinearLayoutWageReportGrid;
+
+    @BindView(R.id.LinearLayoutPortfoReportGrid)
+    LinearLayout LinearLayoutPortfoReportGrid;
 
     //______________________________________________________________________________________________ onCreateView
     @Nullable
@@ -94,7 +97,17 @@ public class Reports extends FragmentPrimary implements FragmentPrimary.actionFr
 
         LinearLayoutExamReport.setOnClickListener(v -> navController.navigate(R.id.action_reports_to_examReport));
 
-        LinearLayoutReportGrid.setOnClickListener(v -> navController.navigate(R.id.action_reports_to_reportGrid));
+        LinearLayoutWageReportGrid.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString(getContext().getResources().getString(R.string.ML_Type), getContext().getResources().getString(R.string.ML_Wage));
+            navController.navigate(R.id.action_reports_to_reportGrid, bundle);
+        });
+
+        LinearLayoutPortfoReportGrid.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString(getContext().getResources().getString(R.string.ML_Type), getContext().getResources().getString(R.string.ML_Portfo));
+            navController.navigate(R.id.action_reports_to_reportGrid, bundle);
+        });
     }
     //______________________________________________________________________________________________ setOnClick
 

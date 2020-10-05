@@ -25,8 +25,6 @@ public class VM_Quiz extends VM_Primary {
     private List<MD_Question> md_questions;
     private Integer examResult;
 
-    private MD_ExamResult md_examResult;
-
 
     //______________________________________________________________________________________________ VM_Quiz
     public VM_Quiz(Activity activity) {
@@ -133,7 +131,6 @@ public class VM_Quiz extends VM_Primary {
                     if (response.body().getStatue() == 0)
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
                     else {
-                        md_examResult = response.body().getExamResult();
                         getPublishSubject().onNext(StaticValues.ML_SendAnswer);
                     }
                 }

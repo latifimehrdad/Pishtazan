@@ -86,19 +86,19 @@ public class VM_Primary extends BaseObservable {
         try {
             JSONObject jObjError = new JSONObject(response.errorBody().string());
             String jobErrorString = jObjError.toString();
-            String message = "";
+            StringBuilder message = new StringBuilder();
             if (jobErrorString.contains("messages")) {
                 JSONArray jsonArray = jObjError.getJSONArray("messages");
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject temp = new JSONObject(jsonArray.get(i).toString());
-                    message = message + temp.getString("message");
-                    message = message + "\n";
+                    message.append(temp.getString("message"));
+                    message.append("\n");
                 }
             } else {
-                message = message + jObjError.getString("Message");
+                message.append(jObjError.getString("Message"));
             }
-            return message;
+            return message.toString();
         } catch (Exception ex) {
             return ex.toString();
         }
@@ -108,14 +108,14 @@ public class VM_Primary extends BaseObservable {
 
     //______________________________________________________________________________________________ getResponseMessages
     public String getResponseMessages(Response<MR_Primary> response) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         if (response.body().getMessages() != null && response.body().getMessages().size() > 0)
             for (String message : response.body().getMessages())
-                result = result + message + System.getProperty("line.separator");
+                result.append(message).append(System.getProperty("line.separator"));
         else
-            result = response.body().getMessage();
+            result = new StringBuilder(response.body().getMessage());
 
-        return result;
+        return result.toString();
     }
     //______________________________________________________________________________________________ getResponseMessages
 
@@ -126,7 +126,6 @@ public class VM_Primary extends BaseObservable {
         if (getPrimaryCall() == null) {
             setResponseMessage("");
             getPublishSubject().onNext(StaticValues.ML_RequestCancel);
-            return;
         } else {
             if (getPrimaryCall().isCanceled()) {
                 setResponseMessage("");

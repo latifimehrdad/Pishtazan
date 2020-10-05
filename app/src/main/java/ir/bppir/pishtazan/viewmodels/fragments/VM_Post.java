@@ -4,10 +4,8 @@ import android.app.Activity;
 
 import java.util.List;
 
-import ir.bppir.pishtazan.models.MD_Education;
 import ir.bppir.pishtazan.models.MD_EducationCategoryVms;
 import ir.bppir.pishtazan.models.MR_EducationCategoryVms;
-import ir.bppir.pishtazan.models.MR_LastEducation;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
