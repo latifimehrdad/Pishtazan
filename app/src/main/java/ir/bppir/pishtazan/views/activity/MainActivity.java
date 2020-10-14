@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -12,7 +13,9 @@ import androidx.navigation.Navigation;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -24,6 +27,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -34,6 +38,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.generic.RoundingParams;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.yalantis.ucrop.UCrop;
 
 import org.jetbrains.annotations.NotNull;
@@ -51,7 +57,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
+import io.realm.Realm;
+import io.realm.RealmResults;
 import ir.bppir.pishtazan.R;
+import ir.bppir.pishtazan.database.DB_UserInfo;
 import ir.bppir.pishtazan.databinding.ActivityMainBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.activity.VM_Main;
@@ -72,6 +81,12 @@ public class MainActivity extends AppCompatActivity {
     public static Integer startFromNotify = -1;
     public static MainActivity mainActivity;
     private boolean doubleBackToExitPressedOnce = false;
+    private boolean preLogin = false;
+    private VM_Main vm_main;
+
+
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer_layout;
 
     @BindView(R.id.ImageViewMenu)
     ImageView ImageViewMenu;
@@ -88,13 +103,20 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.textViewVersion)
     TextView textViewVersion;
 
+    @BindView(R.id.simpleDraweeViewProfile)
+    SimpleDraweeView simpleDraweeViewProfile;
+
+    @BindView(R.id.linearLayoutLogOut)
+    LinearLayout linearLayoutLogOut;
+
+
     //______________________________________________________________________________________________ onCreate
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         startFromNotify = getIntent().getIntExtra(getResources().getString(R.string.ML_personId), -1);
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        VM_Main vm_main = new VM_Main();
+        vm_main = new VM_Main();
         binding.setMain(vm_main);
         ButterKnife.bind(this);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -107,6 +129,11 @@ public class MainActivity extends AppCompatActivity {
         relativeLayoutToast.setVisibility(View.GONE);
         MainActivity.mainActivity = this;
 
+        RoundingParams roundingParams = RoundingParams.fromCornersRadius(5f);
+        roundingParams.setBorder(getResources().getColor(R.color.colorAccent), 3);
+        roundingParams.setCornersRadii(30, 30, 0, 0);
+        simpleDraweeViewProfile.getHierarchy().setRoundingParams(roundingParams);
+
         PackageInfo pInfo;
         float versionName;
         try {
@@ -115,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
             textViewVersion.setText(getResources().getString(R.string.PowerBy) + " V : " + versionName);
         } catch (PackageManager.NameNotFoundException ignored) {
         }
+        setListener();
 
     }
     //______________________________________________________________________________________________ onCreate
@@ -397,6 +425,95 @@ public class MainActivity extends AppCompatActivity {
 
     }
     //______________________________________________________________________________________________ onBackPressed
+
+
+
+    //______________________________________________________________________________________________ setListener
+    @SuppressLint("RtlHardcoded")
+    private void setListener() {
+
+        linearLayoutLogOut.setOnClickListener(v -> {
+            deleteUserAndLogOut();
+        });
+
+        ImageViewMenu.setOnClickListener(v -> {
+            drawer_layout.openDrawer(Gravity.RIGHT, true);
+        });
+
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+
+            String fragment = "";
+            if (destination.getLabel() != null)
+                fragment = destination.getLabel().toString();
+
+            if ((fragment.equalsIgnoreCase("Splash")) ||
+                    (fragment.equalsIgnoreCase("SignUp")) ||
+                    (fragment.equalsIgnoreCase("Verify")) ||
+                    (fragment.equalsIgnoreCase("AppUpdate"))) {
+                if (!preLogin) {
+                    ImageViewMenu.setVisibility(View.GONE);
+                    preLogin = true;
+                    lockDrawer();
+                }
+
+            } else {
+                if (preLogin) {
+                    ImageViewMenu.setVisibility(View.VISIBLE);
+                    unLockDrawer();
+                    preLogin = false;
+                }
+            }
+
+        });
+    }
+    //______________________________________________________________________________________________ setListener
+
+
+
+
+
+    //______________________________________________________________________________________________ checkLogin
+    public void deleteUserAndLogOut() {
+
+        try {
+            Realm realm = Realm.getDefaultInstance();
+            RealmResults<DB_UserInfo> userInfo = realm.where(DB_UserInfo.class).findAll();
+            realm.beginTransaction();
+            userInfo.deleteAllFromRealm();
+            realm.commitTransaction();
+        } finally {
+            Handler handler = new Handler();
+            handler.postDelayed(() -> {
+                Intent mStartActivity = new Intent(this, MainActivity.class);
+                mStartActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                mStartActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                int mPendingIntentId = 7126;
+                PendingIntent mPendingIntent = PendingIntent.getActivity(this, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+                AlarmManager mgr = (AlarmManager) MainActivity.this.getSystemService(this.ALARM_SERVICE);
+                if (mgr != null)
+                    mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+                System.exit(0);
+            }, 1000);
+        }
+    }
+    //______________________________________________________________________________________________ checkLogin
+
+
+
+    //______________________________________________________________________________________________ unLockDrawer
+    public void unLockDrawer() {
+        drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+    }
+    //______________________________________________________________________________________________ unLockDrawer
+
+
+    //______________________________________________________________________________________________ lockDrawer
+    public void lockDrawer() {
+        drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }
+    //______________________________________________________________________________________________ lockDrawer
+
 
 
 }

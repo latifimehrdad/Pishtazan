@@ -55,7 +55,7 @@
     <string name="DegreePeach">هلو</string>
     <string name="DegreeGiant">غول</string>
     <string name="ChoosePersonDegree">درجه شخص را انتخاب کنید</string>
-    <string name="CallWith">تماس با</string>
+    <string name="CallWith">یادآوری جهت تماس با</string>
     <string name="Clock">ساعت</string>
     <string name="MeetingWith">جلسه با</string>
     <string name="Calling">گرفتن تماس</string>
@@ -79,6 +79,7 @@
     <string name="Description">توضیحات</string>
     <string name="SavePolicy">ثبت پیشنویس</string>
     <string name="EditPolicy">ویرایش پیشنویس</string>
+    <string name="EditProfile">ویرایش پروفایل</string>
     <string name="EmptyAmount">مبلغ را وارد نمایید</string>
     <string name="EmptyNationalCode">کد ملی را وارد نمایید</string>
     <string name="EmptyTrackingCode">کد پیگیری را وارد نمایید</string>
@@ -145,6 +146,11 @@
     <string name="DeliveryDate">تاریخ تحویل به شعبه</string>
     <string name="TrackingCode">کد پیگیری</string>
     <string name="SeriesNumber">شماره سری</string>
+    <string name="ResultTitleCall1">آیا با</string>
+    <string name="ResultTitleCall2">تماس گرفته اید؟</string>
+    <string name="ResultTitleMeet1">جلسه با</string>
+    <string name="ResultTitleMeet2">چطور بود؟</string>
+    <string name="chargeWallet">افزایش موجودی</string>
 
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>

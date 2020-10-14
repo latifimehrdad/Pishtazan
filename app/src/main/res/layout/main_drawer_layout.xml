@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+
+    android:orientation="vertical"
+    android:layout_width="@dimen/_180sdp"
+    android:layout_height="match_parent"
+    android:layout_gravity="end"
+    android:gravity="center_horizontal"
+    android:background="@color/ML_White">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/simpleDraweeViewProfile"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        fresco:placeholderImage="@drawable/logo_pishtazan"
+        />
+
+    <LinearLayout
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/_3sdp"
+        android:paddingBottom="@dimen/_3sdp"
+        android:paddingRight="@dimen/_5sdp"
+        android:paddingLeft="@dimen/_5sdp"
+        android:gravity="center"
+        android:background="@drawable/dw_menu_edit_profile">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="@dimen/_9sdp"
+            android:textColor="@color/ML_White"
+            android:gravity="center"
+            android:text="@string/EditProfile"/>
+
+        <ImageView
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:tint="@color/ML_White"
+            android:src="@drawable/ic_baseline_edit"
+            android:layout_marginLeft="@dimen/_2sdp"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        fontPath="fonts/iransans_web_medium.ttf"
+        android:id="@+id/textViewUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:textSize="@dimen/_9sdp"
+        android:textColor="@color/colorAccent"
+        android:gravity="center"
+        android:text="مهرداد لطیفی " />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/ML_Dialog"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:gravity="center">
+
+        <TextView
+            fontPath="fonts/vazir_medium.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:textSize="@dimen/_11sdp"
+            android:textColor="@color/ML_White"
+            android:gravity="center"
+            android:text="100,000 ریال"
+            android:background="@drawable/button_red"/>
+
+        <TextView
+            fontPath="fonts/vazir_medium.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:textSize="@dimen/_9sdp"
+            android:textColor="@color/colorAccent"
+            android:gravity="center"
+            android:text="موجودی" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:gravity="center"
+        android:background="@drawable/dw_back_item_report">
+
+        <TextView
+            fontPath="fonts/vazir_medium.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_9sdp"
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:padding="@dimen/_3sdp"
+            android:text="@string/chargeWallet"/>
+
+        <ImageView
+            android:layout_width="@dimen/_17sdp"
+            android:layout_height="@dimen/_17sdp"
+            android:tint="@color/colorPrimaryDark"
+            android:src="@drawable/ic_wallet"
+            android:layout_marginLeft="@dimen/_3sdp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/ML_Dialog"
+        android:layout_margin="@dimen/_5sdp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/_3sdp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <TextView
+            fontPath="fonts/vazir_medium.ttf"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:lines="2"
+            android:gravity="center"
+            android:textSize="@dimen/_10sdp"
+            android:padding="@dimen/_2sdp"
+            android:background="@drawable/dw_verify_edit"
+            android:textColor="@color/colorPrimary"
+            android:text="مجموعه نمره \n 152"/>
+
+        <TextView
+            fontPath="fonts/vazir_medium.ttf"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:lines="2"
+            android:gravity="center"
+            android:textSize="@dimen/_10sdp"
+            android:padding="@dimen/_2sdp"
+            android:background="@drawable/dw_verify_edit"
+            android:textColor="@color/colorPrimary"
+            android:text="مجموعه امتیاز \n 152"/>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayoutLogOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_5sdp"
+        android:background="@color/ML_RedDark"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="@dimen/_11sdp"
+            android:gravity="right"
+            android:textColor="@color/ML_White"
+            android:text="@string/LogOut"/>
+
+        <LinearLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginBottom="@dimen/_3sdp"
+            android:background="@color/ML_Dialog"
+            android:alpha="0.3"/>
+
+        <ImageView
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:tint="@color/ML_White"
+            android:src="@drawable/ic_logout"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -296,7 +296,8 @@ public interface RetrofitApiInterface {
                     @Field(Reminder + "ReminderType") Byte ReminderType,
                     @Field(Reminder + "ReminderResult") Integer ReminderResult,
                     @Field(Reminder + "CustomerId") Integer CustomerId,
-                    @Field(Reminder + "RelationDateTimeJ") String RelationDateTime
+                    @Field(Reminder + "RelationDateTimeJ") String RelationDateTime,
+                    @Field(Reminder + "ResultTitle") String ResultTitle
             );
 
 
@@ -311,7 +312,8 @@ public interface RetrofitApiInterface {
                     @Field(Reminder + "ReminderType") Byte ReminderType,
                     @Field(Reminder + "ReminderResult") Integer ReminderResult,
                     @Field(Reminder + "ColleagueId") Integer ColleagueId,
-                    @Field(Reminder + "RelationDateTimeJ") String RelationDateTime
+                    @Field(Reminder + "RelationDateTimeJ") String RelationDateTime,
+                    @Field(Reminder + "ResultTitle") String ResultTitle
             );
 
 

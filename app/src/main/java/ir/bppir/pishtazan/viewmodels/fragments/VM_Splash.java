@@ -3,6 +3,7 @@ package ir.bppir.pishtazan.viewmodels.fragments;
 import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
 import ir.bppir.pishtazan.database.DB_UserInfo;
@@ -42,7 +43,6 @@ public class VM_Splash extends VM_Primary {
 
     }
     //______________________________________________________________________________________________ checkLogin
-
 
 
     //______________________________________________________________________________________________ checkLogin

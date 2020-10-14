@@ -145,6 +145,7 @@ public class VM_Panel extends VM_Primary {
             String Name,
             Integer PersonId) {
 
+        String result = "";
         StringBuilder title = new StringBuilder();
         if (ReminderTypes.equals(StaticValues.Call))
             title.append(getContext().getResources().getString(R.string.CallWith));
@@ -157,10 +158,23 @@ public class VM_Panel extends VM_Primary {
             PersonId = personList.get(Position).getId();
             title.append(personList.get(Position).getFullName());
         }
-        title.append(" در ");
-        title.append(getContext().getResources().getString(R.string.Clock));
-        title.append(" ");
-        title.append(stringTime);
+        if (ReminderTypes.equals(StaticValues.Meeting)) {
+            title.append(" در ");
+            title.append(getContext().getResources().getString(R.string.Clock));
+            title.append(" ");
+            title.append(stringTime);
+
+            result = getContext().getResources().getString(R.string.ResultTitleMeet1);
+            result = result + " " + personList.get(Position).getFullName();
+            result = result + " " + getContext().getResources().getString(R.string.ResultTitleMeet2);
+
+        } else {
+            result = getContext().getResources().getString(R.string.ResultTitleCall1);
+            result = result + " " + personList.get(Position).getFullName();
+            result = result + " " + getContext().getResources().getString(R.string.ResultTitleCall2);
+        }
+
+
 
         setPrimaryCall(PishtazanApplication
                 .getApplication(getContext())
@@ -174,7 +188,8 @@ public class VM_Panel extends VM_Primary {
                         ReminderTypes,
                         0,
                         PersonId,
-                        stringDate
+                        stringDate,
+                        result
                 ));
 
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
@@ -209,6 +224,7 @@ public class VM_Panel extends VM_Primary {
             String Name,
             Integer PersonId) {
 
+        String result = "";
         StringBuilder title = new StringBuilder();
         if (ReminderTypes.equals(StaticValues.Call))
             title.append(getContext().getResources().getString(R.string.CallWith));
@@ -221,10 +237,22 @@ public class VM_Panel extends VM_Primary {
             PersonId = personList.get(Position).getId();
             title.append(personList.get(Position).getFullName());
         }
-        title.append(" در ");
-        title.append(getContext().getResources().getString(R.string.Clock));
-        title.append(" ");
-        title.append(stringTime);
+
+        if (ReminderTypes.equals(StaticValues.Meeting)) {
+            title.append(" در ");
+            title.append(getContext().getResources().getString(R.string.Clock));
+            title.append(" ");
+            title.append(stringTime);
+
+            result = getContext().getResources().getString(R.string.ResultTitleMeet1);
+            result = result + " " + personList.get(Position).getFullName();
+            result = result + " " + getContext().getResources().getString(R.string.ResultTitleMeet2);
+
+        } else {
+            result = getContext().getResources().getString(R.string.ResultTitleCall1);
+            result = result + " " + personList.get(Position).getFullName();
+            result = result + " " + getContext().getResources().getString(R.string.ResultTitleCall2);
+        }
 
         setPrimaryCall(PishtazanApplication
                 .getApplication(getContext())
@@ -238,7 +266,8 @@ public class VM_Panel extends VM_Primary {
                         ReminderTypes,
                         0,
                         PersonId,
-                        stringDate
+                        stringDate,
+                        result
                 ));
 
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {

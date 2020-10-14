@@ -25,7 +25,6 @@ import ir.bppir.pishtazan.background.ReceiverLunchAppInBackground;
 import ir.bppir.pishtazan.databinding.FragmentHomeBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Home;
-import ir.bppir.pishtazan.viewmodels.fragments.VM_Splash;
 
 public class Home extends FragmentPrimary implements FragmentPrimary.actionFromObservable {
 
@@ -43,9 +42,6 @@ public class Home extends FragmentPrimary implements FragmentPrimary.actionFromO
 
     @BindView(R.id.LinearLayoutReports)
     LinearLayout LinearLayoutReports;
-
-    @BindView(R.id.linearLayoutLogOut)
-    LinearLayout linearLayoutLogOut;
 
 
     //______________________________________________________________________________________________ Home
@@ -133,11 +129,6 @@ public class Home extends FragmentPrimary implements FragmentPrimary.actionFromO
     //______________________________________________________________________________________________ setClick
     private void setClick() {
 
-        linearLayoutLogOut.setOnClickListener(v -> {
-            VM_Splash.logOut = true;
-            assert getContext() != null;
-            getContext().onBackPressed();
-        });
 
         LinearLayoutTutorial.setOnClickListener(v -> {
             Post.ExamResultId = 0;

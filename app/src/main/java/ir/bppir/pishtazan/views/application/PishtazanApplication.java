@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 
 import androidx.multidex.MultiDexApplication;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.nostra13.universalimageloader.cache.memory.BaseMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -50,6 +51,7 @@ public class PishtazanApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         this.context = getApplicationContext();
+        Fresco.initialize(context);
         configurationCalligraphy();
         configurationApplicationUtility();
         configurationDataPicker();
