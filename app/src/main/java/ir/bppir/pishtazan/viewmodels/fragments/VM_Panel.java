@@ -147,7 +147,15 @@ public class VM_Panel extends VM_Primary {
 
         String result = "";
         StringBuilder title = new StringBuilder();
-        if (ReminderTypes.equals(StaticValues.Call))
+        if (Position == null)
+            title.append(Name);
+        else {
+            title.append(personList.get(Position).getFullName());
+            PersonId = personList.get(Position).getId();
+        }
+        result = title.toString();
+
+/*        if (ReminderTypes.equals(StaticValues.Call))
             title.append(getContext().getResources().getString(R.string.CallWith));
         else
             title.append(getContext().getResources().getString(R.string.MeetingWith));
@@ -157,8 +165,9 @@ public class VM_Panel extends VM_Primary {
         } else {
             PersonId = personList.get(Position).getId();
             title.append(personList.get(Position).getFullName());
-        }
-        if (ReminderTypes.equals(StaticValues.Meeting)) {
+        }*/
+
+/*        if (ReminderTypes.equals(StaticValues.Meeting)) {
             title.append(" در ");
             title.append(getContext().getResources().getString(R.string.Clock));
             title.append(" ");
@@ -172,9 +181,7 @@ public class VM_Panel extends VM_Primary {
             result = getContext().getResources().getString(R.string.ResultTitleCall1);
             result = result + " " + personList.get(Position).getFullName();
             result = result + " " + getContext().getResources().getString(R.string.ResultTitleCall2);
-        }
-
-
+        }*/
 
         setPrimaryCall(PishtazanApplication
                 .getApplication(getContext())
@@ -226,7 +233,15 @@ public class VM_Panel extends VM_Primary {
 
         String result = "";
         StringBuilder title = new StringBuilder();
-        if (ReminderTypes.equals(StaticValues.Call))
+        if (Position == null)
+            title.append(Name);
+        else {
+            title.append(personList.get(Position).getFullName());
+            PersonId = personList.get(Position).getId();
+        }
+        result = title.toString();
+
+/*        if (ReminderTypes.equals(StaticValues.Call))
             title.append(getContext().getResources().getString(R.string.CallWith));
         else
             title.append(getContext().getResources().getString(R.string.MeetingWith));
@@ -252,7 +267,7 @@ public class VM_Panel extends VM_Primary {
             result = getContext().getResources().getString(R.string.ResultTitleCall1);
             result = result + " " + personList.get(Position).getFullName();
             result = result + " " + getContext().getResources().getString(R.string.ResultTitleCall2);
-        }
+        }*/
 
         setPrimaryCall(PishtazanApplication
                 .getApplication(getContext())

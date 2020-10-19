@@ -152,6 +152,7 @@
     <string name="ResultTitleMeet2">چطور بود؟</string>
     <string name="chargeWallet">افزایش موجودی</string>
 
+
     //___________________________ Values For SharedPreference ______________________________________
     <string name="ML_PhoneNumber">PhoneNumber</string>
     <string name="ML_PanelType">PanelType</string>
