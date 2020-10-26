@@ -109,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.linearLayoutLogOut)
     LinearLayout linearLayoutLogOut;
 
+    @BindView(R.id.linearLayoutAddAmount)
+    LinearLayout linearLayoutAddAmount;
 
     //______________________________________________________________________________________________ onCreate
     @Override
@@ -132,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
         RoundingParams roundingParams = RoundingParams.fromCornersRadius(5f);
         roundingParams.setBorder(getResources().getColor(R.color.colorAccent), 3);
         roundingParams.setCornersRadii(30, 30, 0, 0);
+        simpleDraweeViewProfile.setActualImageResource(R.drawable.logo_pishtazan);
         simpleDraweeViewProfile.getHierarchy().setRoundingParams(roundingParams);
 
         PackageInfo pInfo;
@@ -142,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
             textViewVersion.setText(getResources().getString(R.string.PowerBy) + " V : " + versionName);
         } catch (PackageManager.NameNotFoundException ignored) {
         }
+
         setListener();
 
     }
@@ -431,6 +435,11 @@ public class MainActivity extends AppCompatActivity {
     //______________________________________________________________________________________________ setListener
     @SuppressLint("RtlHardcoded")
     private void setListener() {
+
+        linearLayoutAddAmount.setOnClickListener(v -> {
+            drawer_layout.closeDrawer(Gravity.RIGHT, true);
+            navController.navigate(R.id.gotoPayment);
+        });
 
         linearLayoutLogOut.setOnClickListener(v -> {
             deleteUserAndLogOut();

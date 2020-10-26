@@ -410,7 +410,6 @@
         android:label="AppUpdate"
         tools:layout="@layout/fragment_update"/>
 
-
     <fragment
         android:id="@+id/examReport"
         android:name="ir.bppir.pishtazan.views.fragments.ExamReport"
@@ -467,5 +466,20 @@
         android:name="ir.bppir.pishtazan.views.fragments.ReportGrid"
         android:label="ReportGrid"
         tools:layout="@layout/fr_report_grid"/>
+
+    <fragment
+        android:id="@+id/payment"
+        android:name="ir.bppir.pishtazan.views.fragments.Payment"
+        tools:layout="Payment"
+        android:label="@string/Payment"/>
+
+    <action
+        android:id="@+id/gotoPayment"
+        app:destination="@id/payment"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"/>
+
 
 </navigation>

@@ -76,6 +76,7 @@
     <string name="SearchPolicyType">جستجوی نوع پیشنویس</string>
     <string name="ChooseSeries">انتخاب نوع شماره سری</string>
     <string name="Amount">مبلغ</string>
+    <string name="Payment">پرداخت</string>
     <string name="Description">توضیحات</string>
     <string name="SavePolicy">ثبت پیشنویس</string>
     <string name="EditPolicy">ویرایش پیشنویس</string>
@@ -151,6 +152,8 @@
     <string name="ResultTitleMeet1">جلسه با</string>
     <string name="ResultTitleMeet2">چطور بود؟</string>
     <string name="chargeWallet">افزایش موجودی</string>
+    <string name="AmountT">مبلغ (تومان)</string>
+
 
 
     //___________________________ Values For SharedPreference ______________________________________

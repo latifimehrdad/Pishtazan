@@ -180,11 +180,8 @@ public class EditPerson extends FragmentPrimary implements
         if (VM_Map.map_Address != null) {
             vm_editPerson.setAddress(VM_Map.map_Address);
             vm_editPerson.setAddressString();
-
-            double slat = vm_editPerson.getPerson().getLat();
-            double slng = vm_editPerson.getPerson().getLang();
-            Lat = String.valueOf(slat);
-            Lng = String.valueOf(slng);
+            Lat = vm_editPerson.getAddress().getLat();
+            Lng = vm_editPerson.getAddress().getLon();
         }
 
     }
@@ -231,10 +228,8 @@ public class EditPerson extends FragmentPrimary implements
             setPersonDegree(level);
             setPersonImage(CircleImageViewProfile, vm_editPerson.getPerson().getImage());
             stringDate = vm_editPerson.getPerson().getBirthDateJ();
-            double slat = vm_editPerson.getPerson().getLat();
-            double slng = vm_editPerson.getPerson().getLang();
-            Lat = String.valueOf(slat);
-            Lng = String.valueOf(slng);
+            Lat = "";
+            Lng = "";
         }
 
     }

@@ -17,6 +17,7 @@ import ir.bppir.pishtazan.models.MR_ExamResults;
 import ir.bppir.pishtazan.models.MR_GenerateCode;
 import ir.bppir.pishtazan.models.MR_GetAllPerson;
 import ir.bppir.pishtazan.models.MR_LastEducation;
+import ir.bppir.pishtazan.models.MR_Payment;
 import ir.bppir.pishtazan.models.MR_PersonNumber;
 import ir.bppir.pishtazan.models.MR_Policy;
 import ir.bppir.pishtazan.models.MR_PolicyType;
@@ -496,5 +497,17 @@ public interface RetrofitApiInterface {
                     @Field("SortingResourceId") Integer SortingResourceId,
                     @Field("SortByTotalActivity") boolean SortByTotalActivity
             );
+
+
+
+    @FormUrlEncoded
+    @POST(Version + "/Payment")
+    Call<MR_Payment> Payment
+            (
+                    @Field("UserInfoId") Integer UserInfoId,
+                    @Field("Price") Long Price
+            );
+
+
 
 }
