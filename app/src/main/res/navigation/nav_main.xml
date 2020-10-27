@@ -470,12 +470,13 @@
     <fragment
         android:id="@+id/payment"
         android:name="ir.bppir.pishtazan.views.fragments.Payment"
-        tools:layout="Payment"
-        android:label="@string/Payment"/>
+        tools:layout="@layout/fragment_payment"
+        android:label="Payment"/>
 
     <action
         android:id="@+id/gotoPayment"
         app:destination="@id/payment"
+        app:launchSingleTop="true"
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_right"
         app:popEnterAnim="@anim/slide_in_right"

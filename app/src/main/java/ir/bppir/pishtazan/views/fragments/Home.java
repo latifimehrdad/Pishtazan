@@ -25,6 +25,7 @@ import ir.bppir.pishtazan.background.ReceiverLunchAppInBackground;
 import ir.bppir.pishtazan.databinding.FragmentHomeBinding;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Home;
+import ir.bppir.pishtazan.views.activity.MainActivity;
 
 public class Home extends FragmentPrimary implements FragmentPrimary.actionFromObservable {
 
@@ -92,6 +93,10 @@ public class Home extends FragmentPrimary implements FragmentPrimary.actionFromO
         LinearLayoutColleagues.setVisibility(View.GONE);
         LinearLayoutCustomer.setVisibility(View.GONE);
         setAnimation();
+        if (MainActivity.mainActivity.payment) {
+            MainActivity.mainActivity.payment = false;
+            navController.navigate(R.id.gotoPayment);
+        }
 
     }
     //______________________________________________________________________________________________ init

@@ -72,6 +72,7 @@
     <string name="OutOfIran">آدرس انتخابی خارج از ایران است</string>
     <string name="ChooseBirthDay">انتخاب تاریخ تولد</string>
     <string name="Failed">ناموفق</string>
+    <string name="successful">موفق</string>
     <string name="ChoosePolicyType">انتخاب نوع پیشنویس</string>
     <string name="SearchPolicyType">جستجوی نوع پیشنویس</string>
     <string name="ChooseSeries">انتخاب نوع شماره سری</string>
@@ -153,6 +154,8 @@
     <string name="ResultTitleMeet2">چطور بود؟</string>
     <string name="chargeWallet">افزایش موجودی</string>
     <string name="AmountT">مبلغ (تومان)</string>
+    <string name="transactions">تراکنش ها</string>
+    <string name="statue">وضعیت</string>
 
 
 
@@ -187,5 +190,6 @@
     <string name="ML_SeriesId">ML_SeriesId</string>
     <string name="ML_Wage">ML_Wage</string>
     <string name="ML_Portfo">ML_Portfo</string>
+    <string name="ML_Payment">ML_Payment</string>
 
 </resources>

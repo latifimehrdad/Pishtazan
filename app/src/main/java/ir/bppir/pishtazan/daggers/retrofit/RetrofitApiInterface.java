@@ -26,6 +26,7 @@ import ir.bppir.pishtazan.models.MRVerifyCode;
 import ir.bppir.pishtazan.models.MR_Question;
 import ir.bppir.pishtazan.models.MR_SpinnerItem;
 import ir.bppir.pishtazan.models.MR_StatisticalReport;
+import ir.bppir.pishtazan.models.MR_Transaction;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -508,6 +509,11 @@ public interface RetrofitApiInterface {
                     @Field("Price") Long Price
             );
 
-
+    @FormUrlEncoded
+    @POST(Version + "/GetAllTransactions")
+    Call<MR_Transaction> getAllTransactions
+            (
+                    @Field("UserInfoId") Integer UserInfoId
+            );
 
 }

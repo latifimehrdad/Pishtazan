@@ -14,6 +14,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.models.MD_ExamResultDetail;
@@ -24,6 +28,21 @@ import ir.bppir.pishtazan.views.application.PishtazanApplication;
 import static ir.bppir.pishtazan.daggers.retrofit.RetrofitApis.Host;
 
 public class BindingAdapters {
+
+    //______________________________________________________________________________________________ setTransactionState
+    @BindingAdapter(value = "setTransactionState")
+    public static void setTransactionState(TextView textView, boolean value) {
+        Context context = textView.getContext();
+        if (value) {
+            textView.setText(context.getResources().getString(R.string.statue) + " : " + context.getResources().getString(R.string.successful));
+            textView.setTextColor(context.getResources().getColor(R.color.ML_OK));
+        } else {
+            textView.setText(context.getResources().getString(R.string.statue) + " : " + context.getResources().getString(R.string.Failed));
+            textView.setTextColor(context.getResources().getColor(R.color.ML_RedQuestion));
+        }
+    }
+    //______________________________________________________________________________________________ setTransactionState
+
 
 
     //______________________________________________________________________________________________ setViewVisible
@@ -150,6 +169,17 @@ public class BindingAdapters {
             radioButton.setChecked(false);
     }
     //______________________________________________________________________________________________ setValueForRadioButton
+
+
+    //______________________________________________________________________________________________ setTextViewDateTime
+    @BindingAdapter(value = {"setTextViewDate" , "setTextViewTime"})
+    public static void setTextViewDateTime(TextView textView, String date, Date time) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
+        Context context = textView.getContext();
+        date = simpleDateFormat.format(time) + " - " + date;
+        textView.setText(context.getResources().getString(R.string.Date) + " : " + date);
+    }
+    //______________________________________________________________________________________________ setTextViewDateTime
 
 
     //______________________________________________________________________________________________ setTextViewText

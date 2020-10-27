@@ -1,6 +1,5 @@
 package ir.bppir.pishtazan.views.fragments;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,10 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cunoraz.gifview.library.GifView;
 
@@ -21,19 +24,13 @@ import org.jetbrains.annotations.NotNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.bppir.pishtazan.R;
-import ir.bppir.pishtazan.daggers.datepicker.PersianPickerModule;
-import ir.bppir.pishtazan.databinding.FragmentEditPersonBinding;
 import ir.bppir.pishtazan.databinding.FragmentPaymentBinding;
 import ir.bppir.pishtazan.utility.ApplicationUtility;
 import ir.bppir.pishtazan.utility.StaticValues;
-import ir.bppir.pishtazan.viewmodels.fragments.VM_EditPerson;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Map;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Payment;
-import ir.bppir.pishtazan.views.activity.MainActivity;
+import ir.bppir.pishtazan.views.adapters.AP_Transaction;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
-import ir.hamsaa.persiandatepicker.Listener;
-import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
-import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
 public class Payment extends FragmentPrimary implements
         FragmentPrimary.actionFromObservable {
@@ -43,14 +40,26 @@ public class Payment extends FragmentPrimary implements
     @BindView(R.id.editTextAmount)
     EditText editTextAmount;
 
-    @BindView(R.id.relativeLayoutPayment)
-    RelativeLayout relativeLayoutPayment;
+    @BindView(R.id.linearLayoutPayment)
+    LinearLayout linearLayoutPayment;
 
     @BindView(R.id.imgProgress)
     ImageView imgProgress;
 
     @BindView(R.id.ProgressGif)
     GifView ProgressGif;
+
+    @BindView(R.id.recyclerViewPayment)
+    RecyclerView recyclerViewPayment;
+
+    @BindView(R.id.gifViewLoading)
+    GifView gifViewLoading;
+
+    @BindView(R.id.linearLayoutPay)
+    LinearLayout linearLayoutPay;
+
+    @BindView(R.id.textViewNothing)
+    TextView textViewNothing;
 
     //______________________________________________________________________________________________ onCreateView
     @Nullable
@@ -83,6 +92,7 @@ public class Payment extends FragmentPrimary implements
                 Payment.this,
                 vm_payment.getPublishSubject(),
                 vm_payment);
+        getAllTransaction();
     }
     //______________________________________________________________________________________________ onStart
 
@@ -95,11 +105,17 @@ public class Payment extends FragmentPrimary implements
         ProgressGif.setVisibility(View.GONE);
 
         if (action.equals(StaticValues.ML_Payment)) {
-            getContext().onBackPressed();
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(vm_payment.getUrl()));
             startActivity(i);
+            return;
         }
+
+        if (action.equals(StaticValues.ML_Transaction)) {
+            setAdapter();
+            return;
+        }
+
     }
     //______________________________________________________________________________________________ getMessageFromObservable
 
@@ -109,6 +125,7 @@ public class Payment extends FragmentPrimary implements
     public void getActionWhenFailureRequest() {
         imgProgress.setVisibility(View.VISIBLE);
         ProgressGif.setVisibility(View.GONE);
+        gifViewLoading.setVisibility(View.GONE);
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
 
@@ -127,7 +144,7 @@ public class Payment extends FragmentPrimary implements
     //______________________________________________________________________________________________ setClick
     private void setClick() {
 
-        relativeLayoutPayment.setOnClickListener(v -> {
+        linearLayoutPayment.setOnClickListener(v -> {
 
             if (CheckEmpty()) {
                 hideKeyboard();
@@ -158,5 +175,33 @@ public class Payment extends FragmentPrimary implements
     }
     //______________________________________________________________________________________________ CheckEmpty
 
+
+
+    //______________________________________________________________________________________________ setAdapter
+    private void setAdapter() {
+
+        if (vm_payment.getMd_transactions().size() > 0) {
+            AP_Transaction ap_transaction = new AP_Transaction(vm_payment.getMd_transactions());
+            recyclerViewPayment.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+            recyclerViewPayment.setAdapter(ap_transaction);
+            recyclerViewPayment.setVisibility(View.VISIBLE);
+            textViewNothing.setVisibility(View.GONE);
+        } else {
+            recyclerViewPayment.setVisibility(View.GONE);
+            textViewNothing.setVisibility(View.VISIBLE);
+        }
+        gifViewLoading.setVisibility(View.GONE);
+    }
+    //______________________________________________________________________________________________ setAdapter
+
+
+    //______________________________________________________________________________________________ getAllTransaction
+    private void getAllTransaction() {
+        textViewNothing.setVisibility(View.GONE);
+        gifViewLoading.setVisibility(View.VISIBLE);
+        recyclerViewPayment.setVisibility(View.GONE);
+        vm_payment.getAllTransactions();
+    }
+    //______________________________________________________________________________________________ getAllTransaction
 
 }

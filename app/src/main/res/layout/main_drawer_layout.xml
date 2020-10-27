@@ -113,8 +113,11 @@
             android:textSize="@dimen/_9sdp"
             android:textColor="@color/colorPrimaryDark"
             android:gravity="center"
-            android:padding="@dimen/_3sdp"
-            android:text="@string/chargeWallet"/>
+            android:paddingTop="@dimen/_3sdp"
+            android:paddingBottom="@dimen/_3sdp"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:text="@string/transactions"/>
 
         <ImageView
             android:layout_width="@dimen/_17sdp"

@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     static final int REQUEST_PICK_Gallery = 7127;
     static final int REQUEST_PICK = 7126;
     private Uri mCurrentPhotoPath;
+    public boolean payment;
     final int MAX_WIDTH = 1024;
     final int MAX_HEIGHT = 1024;
     public static PublishSubject<Byte> mainPublish;
@@ -147,6 +148,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setListener();
+
+        payment = getIntent().getBooleanExtra(getString(R.string.ML_Payment), false);
 
     }
     //______________________________________________________________________________________________ onCreate
@@ -459,7 +462,8 @@ public class MainActivity extends AppCompatActivity {
             if ((fragment.equalsIgnoreCase("Splash")) ||
                     (fragment.equalsIgnoreCase("SignUp")) ||
                     (fragment.equalsIgnoreCase("Verify")) ||
-                    (fragment.equalsIgnoreCase("AppUpdate"))) {
+                    (fragment.equalsIgnoreCase("AppUpdate")) ||
+                    (fragment.equalsIgnoreCase("Payment"))) {
                 if (!preLogin) {
                     ImageViewMenu.setVisibility(View.GONE);
                     preLogin = true;
