@@ -228,8 +228,8 @@ public class EditPerson extends FragmentPrimary implements
             setPersonDegree(level);
             setPersonImage(CircleImageViewProfile, vm_editPerson.getPerson().getImage());
             stringDate = vm_editPerson.getPerson().getBirthDateJ();
-            Lat = "";
-            Lng = "";
+            Lat = String.valueOf(vm_editPerson.getPerson().getLat());
+            Lng = String.valueOf(vm_editPerson.getPerson().getLang());
         }
 
     }

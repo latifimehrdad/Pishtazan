@@ -353,12 +353,13 @@ public class Panel extends FragmentPrimary implements
 //                LinearLayoutInsurance.setVisibility(View.GONE);
                 LinearLayoutNoArchived.setVisibility(View.GONE);
             } else if (PersonType == StaticValues.ML_Possible) {
-                if (vm_panel.getPersonList().get(Position).getNationalCode() == null) {
-                    LinearLayoutCallReminder.setVisibility(View.GONE);
-                    LinearLayoutMeetingReminder.setVisibility(View.GONE);
+                if (vm_panel.getPersonList().get(Position).getNationalCode() == null ||
+                        vm_panel.getPersonList().get(Position).getNationalCode().equalsIgnoreCase("")) {
+/*                    LinearLayoutCallReminder.setVisibility(View.GONE);
+                    LinearLayoutMeetingReminder.setVisibility(View.GONE);*/
                     LinearLayoutConvertToCustomer.setVisibility(View.GONE);
                     LinearLayoutConvertToColleague.setVisibility(View.GONE);
-                    LinearLayoutDeleteFromList.setVisibility(View.GONE);
+/*                    LinearLayoutDeleteFromList.setVisibility(View.GONE);*/
                     LinearLayoutQuestionnaire.setVisibility(View.GONE);
                     LinearLayoutInsurance.setVisibility(View.GONE);
                     LinearLayoutNoArchived.setVisibility(View.GONE);
@@ -382,7 +383,8 @@ public class Panel extends FragmentPrimary implements
                 LinearLayoutDeleteFromList.setVisibility(View.GONE);
                 LinearLayoutNoArchived.setVisibility(View.GONE);
             } else {
-                if (vm_panel.getPersonList().get(Position).getNationalCode() == null) {
+                if (vm_panel.getPersonList().get(Position).getNationalCode() == null ||
+                        vm_panel.getPersonList().get(Position).getNationalCode().equalsIgnoreCase("")) {
                     LinearLayoutCallReminder.setVisibility(View.GONE);
                     LinearLayoutMeetingReminder.setVisibility(View.GONE);
                     LinearLayoutConvertToCustomer.setVisibility(View.GONE);

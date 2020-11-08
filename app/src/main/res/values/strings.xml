@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name">Pishtazan</string>
-    <string name="google_map_api_key">AIzaSyDEHvSeqbbcTr81zQNk3OUgo0cM25SaMLQ</string>
+    <string name="google_map_api_key">AIzaSyCe3_dcTjuUlQn5-tUoCti9T4gvJZDJ9ps</string>
 
     <string name="EnterNationalCode">کد ملی خود را وارد نمایید</string>
     <string name="MobileNumber">تلفن همراه</string>
@@ -142,7 +142,7 @@
     <string name="YouFailedTheTest">شما در آزمون رد شدید</string>
     <string name="ReTry">تلاش مجدد</string>
     <string name="LogOut">خروج از حساب</string>
-    <string name="EmptyNationalCodeDialog">شما حتما باید کد ملی این مشتری را با کلیک بر روی منوی بالا ثبت کنید تا منوهای دیگر باز شود</string>
+    <string name="EmptyNationalCodeDialog">شما حتما باید کد ملی این مشتری را با کلیک بر روی منوی {تکمیل اطلاعات} ثبت کنید تا منوهای دیگر نمایش داده شود</string>
     <string name="insuredLastName">نام بیمه شده</string>
     <string name="insuredNationalCode">کد ملی بیمه شده</string>
     <string name="DeliveryDate">تاریخ تحویل به شعبه</string>

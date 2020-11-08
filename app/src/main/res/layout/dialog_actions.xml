@@ -444,16 +444,15 @@
 
 
     <TextView
-        fontPath="fonts/iransans_web_medium.ttf"
         android:id="@+id/textViewActionDialog"
+        fontPath="fonts/iransans_web_medium.ttf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_5sdp"
         android:gravity="right"
+        android:padding="@dimen/_5sdp"
+        android:text="@string/EmptyNationalCodeDialog"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="@dimen/_12sdp"
-        android:text="@string/EmptyNationalCodeDialog"/>
-
+        android:textSize="@dimen/_11sdp" />
 
     <LinearLayout
         android:id="@+id/LinearLayoutCancel"
