@@ -36,7 +36,9 @@
     <string name="ChooseAction">انتخاب عملیات</string>
     <string name="CompleteInformation">تکمیل اطلاعات</string>
     <string name="SetCallReminder">ثبت یادآوری تماس</string>
+    <string name="callReminders">لیست یادآوری تماس ها</string>
     <string name="SetMeetingReminder">ثبت یادآوری جلسه</string>
+    <string name="meetingReminders">لیست یادآوری جلسه ها</string>
     <string name="DeleteFromList">حذف کردن از لیست</string>
     <string name="ChooseDate">انتخاب تاریخ</string>
     <string name="ChooseTime">انتخاب ساعت</string>
@@ -156,6 +158,11 @@
     <string name="AmountT">مبلغ (تومان)</string>
     <string name="transactions">تراکنش ها</string>
     <string name="statue">وضعیت</string>
+    <string name="newReminder">یادآوری جدید</string>
+    <string name="reminderDate">تاریخ یادآوری</string>
+    <string name="reminderTime">ساعت یادآوری</string>
+    <string name="result">نتیجه</string>
+    <string name="withoutResult">بدون نتیجه</string>
 
 
 
@@ -191,5 +198,6 @@
     <string name="ML_Wage">ML_Wage</string>
     <string name="ML_Portfo">ML_Portfo</string>
     <string name="ML_Payment">ML_Payment</string>
+    <string name="ML_Name">ML_Name</string>
 
 </resources>

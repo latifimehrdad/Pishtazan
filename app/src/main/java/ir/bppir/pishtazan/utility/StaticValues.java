@@ -97,6 +97,8 @@ public class StaticValues {
     public static Byte ML_InternetAccessFailed = 38;
     public static Byte ML_Payment = 39;
     public static Byte ML_Transaction = 40;
+    public static Byte ML_Reminder = 41;
+    public static Byte ML_DeleteReminder = 42;
 
 
 

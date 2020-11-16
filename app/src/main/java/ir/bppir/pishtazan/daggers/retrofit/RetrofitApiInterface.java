@@ -24,6 +24,7 @@ import ir.bppir.pishtazan.models.MR_PolicyType;
 import ir.bppir.pishtazan.models.MR_Primary;
 import ir.bppir.pishtazan.models.MRVerifyCode;
 import ir.bppir.pishtazan.models.MR_Question;
+import ir.bppir.pishtazan.models.MR_Reminder;
 import ir.bppir.pishtazan.models.MR_SpinnerItem;
 import ir.bppir.pishtazan.models.MR_StatisticalReport;
 import ir.bppir.pishtazan.models.MR_Transaction;
@@ -515,5 +516,28 @@ public interface RetrofitApiInterface {
             (
                     @Field("UserInfoId") Integer UserInfoId
             );
+
+
+
+    @FormUrlEncoded
+    @POST(Version + "/GetAllReminders")
+    Call<MR_Reminder> getAllReminders
+            (
+                    @Field("Id") Integer Id,
+                    @Field("UserInfoId") Integer UserInfoId,
+                    @Field("ReminderTypes") Integer ReminderTypes,
+                    @Field("RelationType") Byte RelationType,
+                    @Field("IsDeleted") Integer IsDeleted
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/DeleteReminder")
+    Call<MR_Primary> deleteReminders
+            (
+                    @Field("Id") Integer Id,
+                    @Field("UserInfoId") Integer UserInfoId
+            );
+
 
 }

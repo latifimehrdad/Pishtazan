@@ -430,7 +430,12 @@ public class Panel extends FragmentPrimary implements
             public void onClick(View view) {
                 dialog.dismiss();
                 dialog = null;
-                ShowCallReminder(Position);
+                Bundle bundle = new Bundle();
+                bundle.putInt(getResources().getString(R.string.ML_personId), vm_panel.getPersonList().get(Position).getId());
+                bundle.putInt(getResources().getString(R.string.ML_Type), StaticValues.Call);
+                bundle.putByte(getResources().getString(R.string.ML_PanelType), panelType);
+                bundle.putString(getResources().getString(R.string.ML_Name), vm_panel.getPersonList().get(Position).getFullName());
+                navController.navigate(R.id.action_panel_to_reminder, bundle);
 
             }
         });
@@ -440,7 +445,12 @@ public class Panel extends FragmentPrimary implements
             public void onClick(View view) {
                 dialog.dismiss();
                 dialog = null;
-                ShowMeetingReminder(Position);
+                Bundle bundle = new Bundle();
+                bundle.putInt(getResources().getString(R.string.ML_personId), vm_panel.getPersonList().get(Position).getId());
+                bundle.putInt(getResources().getString(R.string.ML_Type), StaticValues.Meeting);
+                bundle.putByte(getResources().getString(R.string.ML_PanelType), panelType);
+                bundle.putString(getResources().getString(R.string.ML_Name), vm_panel.getPersonList().get(Position).getFullName());
+                navController.navigate(R.id.action_panel_to_reminder, bundle);
             }
         });
 
@@ -505,202 +515,6 @@ public class Panel extends FragmentPrimary implements
         navController.navigate(R.id.action_panel_to_policies, bundle);
     }//_____________________________________________________________________________________________ ShowSavePolicyType
 
-
-    private void ShowCallReminder(Integer Position) {//_____________________________________________ ShowCallReminder
-
-        if (dialog != null)
-            dialog.dismiss();
-        dialog = null;
-
-        stringDate = "";
-        dialog = null;
-        dialog = new Dialog(getContext());
-        dialog.setCancelable(false);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_reminder);
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        Window window = dialog.getWindow();
-        lp.copyFrom(window.getAttributes());
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        window.setAttributes(lp);
-
-        ImageView ImageViewSave = (ImageView)
-                dialog.findViewById(R.id.ImageViewSave);
-
-        GifView ProgressGif = (GifView)
-                dialog.findViewById(R.id.ProgressGif);
-
-        ProgressGif.setVisibility(View.GONE);
-        ImageViewSave.setVisibility(View.VISIBLE);
-
-        TimePicker TimePickerReminder = (TimePicker)
-                dialog.findViewById(R.id.TimePickerReminder);
-
-        TextView TextViewChooseDate = (TextView)
-                dialog.findViewById(R.id.TextViewChooseDate);
-
-        TextViewChooseDate.setOnClickListener(view -> {
-
-            PersianPickerModule.context = getContext();
-            PersianDatePickerDialog persianCalendar = PishtazanApplication
-                    .getApplication(getContext())
-                    .getPersianPickerComponent()
-                    .getPersianDatePickerDialog();
-
-            persianCalendar.setListener(new Listener() {
-                @Override
-                public void onDateSelected(PersianCalendar persianCalendar) {
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(persianCalendar.getPersianYear());
-                    sb.append("/");
-                    sb.append(String.format("%02d", persianCalendar.getPersianMonth()));
-                    sb.append("/");
-                    sb.append(String.format("%02d", persianCalendar.getPersianDay()));
-                    stringDate = sb.toString();
-                    TextViewChooseDate.setText(stringDate);
-                    TextViewChooseDate.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_back));
-                }
-
-                @Override
-                public void onDismissed() {
-
-                }
-            });
-            persianCalendar.show();
-        });
-
-        LinearLayout LinearLayoutCancel = (LinearLayout)
-                dialog.findViewById(R.id.LinearLayoutCancel);
-
-        LinearLayoutCancel.setOnClickListener(view -> {
-            dialog.dismiss();
-            dialog = null;
-        });
-
-        LinearLayout LinearLayoutSave = (LinearLayout)
-                dialog.findViewById(R.id.LinearLayoutSave);
-
-        LinearLayoutSave.setOnClickListener(view -> {
-            if (stringDate.length() < 8) {
-                TextViewChooseDate.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_empty_background));
-                return;
-            }
-            StringBuilder sb = new StringBuilder();
-            sb.append(String.format("%02d", TimePickerReminder.getCurrentHour()));
-            sb.append(":");
-            sb.append(String.format("%02d", TimePickerReminder.getCurrentMinute()));
-            stringTime = sb.toString();
-            ProgressGif.setVisibility(View.VISIBLE);
-            ImageViewSave.setVisibility(View.GONE);
-            SaveCallReminder(Position);
-        });
-
-        dialog.show();
-
-    }//_____________________________________________________________________________________________ ShowCallReminder
-
-
-    private void ShowMeetingReminder(Integer Position) {//__________________________________________ ShowMeetingReminder
-
-        if (dialog != null)
-            dialog.dismiss();
-        dialog = null;
-
-        stringDate = "";
-        dialog = null;
-        dialog = new Dialog(getContext());
-        dialog.setCancelable(false);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_reminder);
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        Window window = dialog.getWindow();
-        lp.copyFrom(window.getAttributes());
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        window.setAttributes(lp);
-
-        TimePicker TimePickerReminder = (TimePicker)
-                dialog.findViewById(R.id.TimePickerReminder);
-
-        TextView TextViewChooseDate = (TextView)
-                dialog.findViewById(R.id.TextViewChooseDate);
-
-        ImageView ImageViewSave = (ImageView)
-                dialog.findViewById(R.id.ImageViewSave);
-
-        GifView ProgressGif = (GifView)
-                dialog.findViewById(R.id.ProgressGif);
-
-        ProgressGif.setVisibility(View.GONE);
-        ImageViewSave.setVisibility(View.VISIBLE);
-
-        TextViewChooseDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                PersianPickerModule.context = getContext();
-                PersianDatePickerDialog persianCalendar = PishtazanApplication
-                        .getApplication(getContext())
-                        .getPersianPickerComponent()
-                        .getPersianDatePickerDialog();
-
-                persianCalendar.setListener(new Listener() {
-                    @Override
-                    public void onDateSelected(PersianCalendar persianCalendar) {
-                        StringBuilder sb = new StringBuilder();
-                        sb.append(persianCalendar.getPersianYear());
-                        sb.append("/");
-                        sb.append(String.format("%02d", persianCalendar.getPersianMonth()));
-                        sb.append("/");
-                        sb.append(String.format("%02d", persianCalendar.getPersianDay()));
-                        stringDate = sb.toString();
-                        TextViewChooseDate.setText(stringDate);
-                        TextViewChooseDate.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_back));
-                    }
-
-                    @Override
-                    public void onDismissed() {
-
-                    }
-                });
-                persianCalendar.show();
-            }
-        });
-
-        LinearLayout LinearLayoutCancel = (LinearLayout)
-                dialog.findViewById(R.id.LinearLayoutCancel);
-
-        LinearLayoutCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                dialog = null;
-            }
-        });
-
-        LinearLayout LinearLayoutSave = (LinearLayout)
-                dialog.findViewById(R.id.LinearLayoutSave);
-
-        LinearLayoutSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (stringDate.length() < 8) {
-                    TextViewChooseDate.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_empty_background));
-                    return;
-                }
-                StringBuilder sb = new StringBuilder();
-                sb.append(String.format("%02d", TimePickerReminder.getCurrentHour()));
-                sb.append(":");
-                sb.append(String.format("%02d", TimePickerReminder.getCurrentMinute()));
-                stringTime = sb.toString();
-                ProgressGif.setVisibility(View.VISIBLE);
-                ImageViewSave.setVisibility(View.GONE);
-                SaveMeetingReminder(Position);
-            }
-        });
-
-        dialog.show();
-
-    }//_____________________________________________________________________________________________ ShowMeetingReminder
 
 
     public void ShowDeleteQuestion(Integer Position, View view) {//____________________________________________ ShowMeetingReminder
@@ -840,21 +654,6 @@ public class Panel extends FragmentPrimary implements
 
     }//_____________________________________________________________________________________________ AdapterMoveToPossible
 
-
-    private void SaveCallReminder(Integer Position) {//_____________________________________________ SaveCallReminder
-        if (panelType.equals(StaticValues.Customer))
-            vm_panel.saveCustomerReminder(StaticValues.Call, Position, stringDate, stringTime, "", 0);
-        else
-            vm_panel.saveColleagueReminder(StaticValues.Call, Position, stringDate, stringTime, "", 0);
-    }//_____________________________________________________________________________________________ SaveCallReminder
-
-
-    private void SaveMeetingReminder(Integer Position) {//__________________________________________ SaveMeetingReminder
-        if (panelType.equals(StaticValues.Customer))
-            vm_panel.saveCustomerReminder(StaticValues.Meeting, Position, stringDate, stringTime, "", 0);
-        else
-            vm_panel.saveColleagueReminder(StaticValues.Meeting, Position, stringDate, stringTime, "", 0);
-    }//_____________________________________________________________________________________________ SaveMeetingReminder
 
 
     private void MoveToCertain(Integer Position) {//_______________________________________________ MoveToPossible

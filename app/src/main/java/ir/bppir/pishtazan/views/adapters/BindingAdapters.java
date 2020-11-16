@@ -29,6 +29,22 @@ import static ir.bppir.pishtazan.daggers.retrofit.RetrofitApis.Host;
 
 public class BindingAdapters {
 
+
+    //______________________________________________________________________________________________ setReminderResult
+    @BindingAdapter(value = "setReminderResult")
+    public static void setReminderResult(TextView textView, Byte result) {
+        Context context = textView.getContext();
+        if (result == 0)
+            textView.setText(context.getResources().getString(R.string.withoutResult));
+        else if (result == 1)
+            textView.setText(context.getResources().getString(R.string.successful));
+        else
+            textView.setText(context.getResources().getString(R.string.Failed));
+    }
+    //______________________________________________________________________________________________ setReminderResult
+
+
+
     //______________________________________________________________________________________________ setTransactionState
     @BindingAdapter(value = "setTransactionState")
     public static void setTransactionState(TextView textView, boolean value) {

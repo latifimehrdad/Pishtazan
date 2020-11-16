@@ -72,7 +72,7 @@
                 android:textSize="@dimen/_11sdp"
                 android:textColor="@color/colorPrimaryDark"
                 android:gravity="right|center_vertical"
-                android:text="@string/SetCallReminder"
+                android:text="@string/callReminders"
                 android:padding="@dimen/_5sdp"/>
 
             <ImageView
@@ -116,7 +116,7 @@
                 android:textSize="@dimen/_11sdp"
                 android:textColor="@color/colorPrimaryDark"
                 android:gravity="right|center_vertical"
-                android:text="@string/SetMeetingReminder"
+                android:text="@string/meetingReminders"
                 android:padding="@dimen/_5sdp"/>
 
             <ImageView

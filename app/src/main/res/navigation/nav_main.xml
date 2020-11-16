@@ -139,6 +139,8 @@
         <argument android:name="@string/ML_Type"
             android:defaultValue="0"/>
 
+        <argument android:name="@string/ML_Name"/>
+
         <action
             android:id="@+id/action_panel_to_addPerson"
             app:destination="@id/addPerson"
@@ -167,6 +169,14 @@
         <action
             android:id="@+id/action_panel_to_policyType"
             app:destination="@id/policyType"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+        <action
+            android:id="@+id/action_panel_to_reminder"
+            app:destination="@id/reminder"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
@@ -481,6 +491,12 @@
         app:exitAnim="@anim/slide_out_right"
         app:popEnterAnim="@anim/slide_in_right"
         app:popExitAnim="@anim/slide_out_left"/>
+
+    <fragment
+        android:id="@+id/reminder"
+        android:name="ir.bppir.pishtazan.views.fragments.Reminder"
+        android:label="Reminder"
+        tools:layout="@layout/fragment_reminder"/>
 
 
 </navigation>
