@@ -87,7 +87,7 @@ public class AP_Reminder extends RecyclerView.Adapter<AP_Reminder.CustomHolder> 
         public void bind(MD_Reminder item, final int itemPosition) {
             binding.setReminder(item);
 
-            imageViewDelete.setOnClickListener(v -> clickItem.deleteClick(itemPosition, viewParent));
+            //imageViewDelete.setOnClickListener(v -> clickItem.deleteClick(itemPosition, viewParent));
 
             binding.executePendingBindings();
 
