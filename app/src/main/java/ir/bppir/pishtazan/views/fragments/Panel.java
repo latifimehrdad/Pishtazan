@@ -335,71 +335,72 @@ public class Panel extends FragmentPrimary implements
             LinearLayoutConvertToUser.setVisibility(View.GONE);
             LinearLayoutNoArchived.setVisibility(View.VISIBLE);
             textView.setVisibility(View.GONE);
-        } else
+        } else {
             LinearLayoutNoArchived.setVisibility(View.GONE);
 
-        if (panelType == StaticValues.Customer) {
-            LinearLayoutConvertToColleague.setVisibility(View.GONE);
-            LinearLayoutConvertToUser.setVisibility(View.GONE);
-            if (PersonType == StaticValues.ML_Certain) {
-                textView.setVisibility(View.GONE);
+            if (panelType == StaticValues.Customer) {
+                LinearLayoutConvertToColleague.setVisibility(View.GONE);
+                LinearLayoutConvertToUser.setVisibility(View.GONE);
+                if (PersonType == StaticValues.ML_Certain) {
+                    textView.setVisibility(View.GONE);
 //                LinearLayoutCompleteInformation.setVisibility(View.GONE);
 //                LinearLayoutCallReminder.setVisibility(View.GONE);
 //                LinearLayoutMeetingReminder.setVisibility(View.GONE);
-                LinearLayoutConvertToCustomer.setVisibility(View.GONE);
-                LinearLayoutConvertToColleague.setVisibility(View.GONE);
-                LinearLayoutDeleteFromList.setVisibility(View.GONE);
+                    LinearLayoutConvertToCustomer.setVisibility(View.GONE);
+                    LinearLayoutConvertToColleague.setVisibility(View.GONE);
+                    LinearLayoutDeleteFromList.setVisibility(View.GONE);
 //                LinearLayoutQuestionnaire.setVisibility(View.GONE);
 //                LinearLayoutInsurance.setVisibility(View.GONE);
-                LinearLayoutNoArchived.setVisibility(View.GONE);
-            } else if (PersonType == StaticValues.ML_Possible) {
-                if (vm_panel.getPersonList().get(Position).getNationalCode() == null ||
-                        vm_panel.getPersonList().get(Position).getNationalCode().equalsIgnoreCase("")) {
+                    LinearLayoutNoArchived.setVisibility(View.GONE);
+                } else if (PersonType == StaticValues.ML_Possible) {
+                    if (vm_panel.getPersonList().get(Position).getNationalCode() == null ||
+                            vm_panel.getPersonList().get(Position).getNationalCode().equalsIgnoreCase("")) {
 /*                    LinearLayoutCallReminder.setVisibility(View.GONE);
                     LinearLayoutMeetingReminder.setVisibility(View.GONE);*/
-                    LinearLayoutConvertToCustomer.setVisibility(View.GONE);
-                    LinearLayoutConvertToColleague.setVisibility(View.GONE);
-/*                    LinearLayoutDeleteFromList.setVisibility(View.GONE);*/
-                    LinearLayoutQuestionnaire.setVisibility(View.GONE);
-                    LinearLayoutInsurance.setVisibility(View.GONE);
-                    LinearLayoutNoArchived.setVisibility(View.GONE);
-                    textView.setVisibility(View.VISIBLE);
-                } else {
-                    textView.setVisibility(View.GONE);
-                    LinearLayoutInsurance.setVisibility(View.GONE);
-                    LinearLayoutQuestionnaire.setVisibility(View.GONE);
+                        LinearLayoutConvertToCustomer.setVisibility(View.GONE);
+                        LinearLayoutConvertToColleague.setVisibility(View.GONE);
+                        /*                    LinearLayoutDeleteFromList.setVisibility(View.GONE);*/
+                        LinearLayoutQuestionnaire.setVisibility(View.GONE);
+                        LinearLayoutInsurance.setVisibility(View.GONE);
+                        LinearLayoutNoArchived.setVisibility(View.GONE);
+                        textView.setVisibility(View.VISIBLE);
+                    } else {
+                        textView.setVisibility(View.GONE);
+                        LinearLayoutInsurance.setVisibility(View.GONE);
+                        LinearLayoutQuestionnaire.setVisibility(View.GONE);
+                    }
                 }
-            }
-        } else {
-            LinearLayoutConvertToCustomer.setVisibility(View.GONE);
-            LinearLayoutQuestionnaire.setVisibility(View.GONE);
-            if (PersonType == StaticValues.ML_Certain) {
-                textView.setVisibility(View.GONE);
+            } else {
+                LinearLayoutConvertToCustomer.setVisibility(View.GONE);
+                LinearLayoutQuestionnaire.setVisibility(View.GONE);
+                if (PersonType == StaticValues.ML_Certain) {
+                    textView.setVisibility(View.GONE);
 //                LinearLayoutCompleteInformation.setVisibility(View.GONE);
 //                LinearLayoutCallReminder.setVisibility(View.GONE);
 //                LinearLayoutMeetingReminder.setVisibility(View.GONE);
-                LinearLayoutConvertToCustomer.setVisibility(View.GONE);
-                LinearLayoutConvertToColleague.setVisibility(View.GONE);
-                LinearLayoutDeleteFromList.setVisibility(View.GONE);
-                LinearLayoutNoArchived.setVisibility(View.GONE);
-            } else {
-                if (vm_panel.getPersonList().get(Position).getNationalCode() == null ||
-                        vm_panel.getPersonList().get(Position).getNationalCode().equalsIgnoreCase("")) {
-/*                    LinearLayoutCallReminder.setVisibility(View.GONE);
-                    LinearLayoutMeetingReminder.setVisibility(View.GONE);*/
                     LinearLayoutConvertToCustomer.setVisibility(View.GONE);
                     LinearLayoutConvertToColleague.setVisibility(View.GONE);
-/*                    LinearLayoutDeleteFromList.setVisibility(View.GONE);*/
-                    LinearLayoutQuestionnaire.setVisibility(View.GONE);
-                    LinearLayoutInsurance.setVisibility(View.GONE);
+                    LinearLayoutDeleteFromList.setVisibility(View.GONE);
                     LinearLayoutNoArchived.setVisibility(View.GONE);
-                    LinearLayoutConvertToUser.setVisibility(View.GONE);
-                    textView.setVisibility(View.VISIBLE);
                 } else {
-                    LinearLayoutConvertToUser.setVisibility(View.GONE);
-                    LinearLayoutConvertToColleague.setVisibility(View.GONE);
-                    textView.setVisibility(View.GONE);
-                    LinearLayoutInsurance.setVisibility(View.GONE);
+                    if (vm_panel.getPersonList().get(Position).getNationalCode() == null ||
+                            vm_panel.getPersonList().get(Position).getNationalCode().equalsIgnoreCase("")) {
+/*                    LinearLayoutCallReminder.setVisibility(View.GONE);
+                    LinearLayoutMeetingReminder.setVisibility(View.GONE);*/
+                        LinearLayoutConvertToCustomer.setVisibility(View.GONE);
+                        LinearLayoutConvertToColleague.setVisibility(View.GONE);
+                        /*                    LinearLayoutDeleteFromList.setVisibility(View.GONE);*/
+                        LinearLayoutQuestionnaire.setVisibility(View.GONE);
+                        LinearLayoutInsurance.setVisibility(View.GONE);
+                        LinearLayoutNoArchived.setVisibility(View.GONE);
+                        LinearLayoutConvertToUser.setVisibility(View.GONE);
+                        textView.setVisibility(View.VISIBLE);
+                    } else {
+                        LinearLayoutConvertToUser.setVisibility(View.GONE);
+                        LinearLayoutConvertToColleague.setVisibility(View.GONE);
+                        textView.setVisibility(View.GONE);
+                        LinearLayoutInsurance.setVisibility(View.GONE);
+                    }
                 }
             }
         }
