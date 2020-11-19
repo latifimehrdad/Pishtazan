@@ -541,13 +541,10 @@ public interface RetrofitApiInterface {
             );
 
 
-
-    @FormUrlEncoded
-    @POST(Version + "/UserSidebarInformation")
-    Call<MR_UserInfoVM> userSidebarInformation
-            (
-                    @Field("UserInfoId") Integer UserInfoId
-            );
+    @GET()
+    Call<MR_UserInfoVM> userSidebarInformation(
+            @Url String url
+    );
 
 
 }

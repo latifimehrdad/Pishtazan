@@ -17,6 +17,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static ir.bppir.pishtazan.daggers.retrofit.RetrofitApis.Host;
+
 public class VM_Splash extends VM_Primary {
 
     boolean isLogin = false;
@@ -136,12 +138,13 @@ public class VM_Splash extends VM_Primary {
             return;
         }
 
+        String host = Host + "/api/GetUserInformation/" + userInfoId.toString();
 
         setPrimaryCall(PishtazanApplication
                 .getApplication(getContext())
                 .getRetrofitComponent()
                 .getRetrofitApiInterface()
-                .userSidebarInformation(userInfoId));
+                .userSidebarInformation(host));
 
         if (getPrimaryCall() == null)
             return;

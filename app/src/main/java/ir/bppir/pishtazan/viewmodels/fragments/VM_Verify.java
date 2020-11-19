@@ -17,6 +17,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static ir.bppir.pishtazan.daggers.retrofit.RetrofitApis.Host;
+
 public class VM_Verify extends VM_Primary {
 
     public VM_Verify(Activity context) {//__________________________________________________________ VM_Verify
@@ -130,12 +132,13 @@ public class VM_Verify extends VM_Primary {
             return;
         }
 
+        String host = Host + "/api/GetUserInformation/" + userInfoId.toString();
 
         setPrimaryCall(PishtazanApplication
                 .getApplication(getContext())
                 .getRetrofitComponent()
                 .getRetrofitApiInterface()
-                .userSidebarInformation(userInfoId));
+                .userSidebarInformation(host));
 
         if (getPrimaryCall() == null)
             return;
