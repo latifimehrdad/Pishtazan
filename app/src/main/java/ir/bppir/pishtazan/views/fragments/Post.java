@@ -52,6 +52,9 @@ public class Post extends FragmentPrimary implements FragmentPrimary.actionFromO
     @BindView(R.id.LinearLayoutExam)
     LinearLayout LinearLayoutExam;
 
+    @BindView(R.id.linearLayoutHistory)
+    LinearLayout linearLayoutHistory;
+
 
     //______________________________________________________________________________________________ onCreateView
     @Nullable
@@ -110,13 +113,18 @@ public class Post extends FragmentPrimary implements FragmentPrimary.actionFromO
 
     //______________________________________________________________________________________________ init
     private void init() {
-        GifViewLoading.setVisibility(View.VISIBLE);
-        if (postType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_MyReport)))
-            LinearLayoutExam.setVisibility(View.VISIBLE);
-        else
-            LinearLayoutExam.setVisibility(View.GONE);
 
-        vm_post.GetPost(personId);
+        if (postType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_MyReport))) {
+            LinearLayoutExam.setVisibility(View.VISIBLE);
+            linearLayoutHistory.setVisibility(View.VISIBLE);
+        } else {
+            GifViewLoading.setVisibility(View.VISIBLE);
+            LinearLayoutExam.setVisibility(View.GONE);
+            linearLayoutHistory.setVisibility(View.GONE);
+            vm_post.GetPost(personId);
+        }
+
+
     }
     //______________________________________________________________________________________________ init
 
@@ -129,6 +137,12 @@ public class Post extends FragmentPrimary implements FragmentPrimary.actionFromO
             bundle.putInt(getContext().getResources().getString(R.string.ML_Id), 0);
             bundle.putString(getContext().getResources().getString(R.string.ML_Type), getContext().getResources().getString(R.string.ML_LastExam));
             navController.navigate(R.id.action_post_to_tutorialMovie, bundle);
+        });
+
+        linearLayoutHistory.setOnClickListener(v -> {
+            GifViewLoading.setVisibility(View.VISIBLE);
+            RecyclerViewPost.setAdapter(null);
+            vm_post.GetPost(personId);
         });
     }
     //______________________________________________________________________________________________ setClick

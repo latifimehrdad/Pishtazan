@@ -102,6 +102,7 @@
     <string name="NextQuestion">سوال بعدی</string>
     <string name="NewLearn">آموزش جدید</string>
     <string name="ReTryQuiz">تکرار آزمون</string>
+    <string name="examHistory">تاریخچه آزمون</string>
     <string name="Minute">دقیقه</string>
     <string name="TotalQuestion">تعداد کل سوالات</string>
     <string name="CorrectAnswerCount">تعداد پاسخ درست</string>
