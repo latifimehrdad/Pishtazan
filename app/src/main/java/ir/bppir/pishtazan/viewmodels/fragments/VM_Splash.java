@@ -8,8 +8,10 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import ir.bppir.pishtazan.database.DB_UserInfo;
 import ir.bppir.pishtazan.models.MD_Update;
+import ir.bppir.pishtazan.models.MR_UserInfoVM;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
+import ir.bppir.pishtazan.views.activity.MainActivity;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,7 +41,7 @@ public class VM_Splash extends VM_Primary {
         if (!isLogin)
             sendMessageToObservable(StaticValues.ML_GotoSignUp);
         else
-            sendMessageToObservable(StaticValues.ML_GotoHome);
+            getUserInfoVM();
 
     }
     //______________________________________________________________________________________________ checkLogin
@@ -121,4 +123,56 @@ public class VM_Splash extends VM_Primary {
         return md_update;
     }
     //______________________________________________________________________________________________ getMd_update
+
+
+
+
+    //______________________________________________________________________________________________ getUserInfoVM
+    public void getUserInfoVM() {
+
+        Integer userInfoId = getUserId();
+        if (userInfoId == 0) {
+            userIsNotAuthorization();
+            return;
+        }
+
+
+        setPrimaryCall(PishtazanApplication
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .userSidebarInformation(userInfoId));
+
+        if (getPrimaryCall() == null)
+            return;
+
+        getPrimaryCall().enqueue(new Callback<MR_UserInfoVM>() {
+            @Override
+            public void onResponse(Call<MR_UserInfoVM> call, Response<MR_UserInfoVM> response) {
+                if (responseIsOk(response)) {
+                    if (response.body() != null) {
+                        if (response.body().getStatue() == 1) {
+                            if (response.body().getUserInfoVM() != null) {
+                                MainActivity.mainActivity.md_userInfoVM = response.body().getUserInfoVM();
+                                sendMessageToObservable(StaticValues.ML_GotoHome);
+                            } else
+                                deleteUserAndLogOut();
+                        } else
+                            deleteUserAndLogOut();
+                    } else
+                        deleteUserAndLogOut();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MR_UserInfoVM> call, Throwable t) {
+                callIsFailure();
+            }
+        });
+
+    }
+    //______________________________________________________________________________________________ getUserInfoVM
+
+
+
 }

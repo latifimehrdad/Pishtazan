@@ -163,6 +163,9 @@
     <string name="reminderTime">ساعت یادآوری</string>
     <string name="result">نتیجه</string>
     <string name="withoutResult">بدون نتیجه</string>
+    <string name="totalScore">مجموع نمره</string>
+    <string name="totalPrivileges">مجموع امتیاز</string>
+    <string name="toman">تومان</string>
 
 
 

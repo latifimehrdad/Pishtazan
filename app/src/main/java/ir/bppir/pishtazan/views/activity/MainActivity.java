@@ -1,5 +1,6 @@
 package ir.bppir.pishtazan.views.activity;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -40,6 +41,7 @@ import android.widget.Toast;
 
 import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.annotations.SerializedName;
 import com.yalantis.ucrop.UCrop;
 
 import org.jetbrains.annotations.NotNull;
@@ -62,9 +64,14 @@ import io.realm.RealmResults;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.database.DB_UserInfo;
 import ir.bppir.pishtazan.databinding.ActivityMainBinding;
+import ir.bppir.pishtazan.models.MD_UserInfoVM;
+import ir.bppir.pishtazan.utility.ApplicationUtility;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.activity.VM_Main;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_Splash;
+import ir.bppir.pishtazan.views.application.PishtazanApplication;
+
+import static ir.bppir.pishtazan.daggers.retrofit.RetrofitApis.Host;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -84,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean doubleBackToExitPressedOnce = false;
     private boolean preLogin = false;
     private VM_Main vm_main;
+    public MD_UserInfoVM md_userInfoVM;
 
 
     @BindView(R.id.drawer_layout)
@@ -112,6 +120,19 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.linearLayoutAddAmount)
     LinearLayout linearLayoutAddAmount;
+
+    @BindView(R.id.textViewScore)
+    TextView textViewScore;
+
+    @BindView(R.id.textViewPrivileges)
+    TextView textViewPrivileges;
+
+    @BindView(R.id.textViewUserName)
+    TextView textViewUserName;
+
+    @BindView(R.id.textViewWallet)
+    TextView textViewWallet;
+
 
     //______________________________________________________________________________________________ onCreate
     @Override
@@ -434,7 +455,6 @@ public class MainActivity extends AppCompatActivity {
     //______________________________________________________________________________________________ onBackPressed
 
 
-
     //______________________________________________________________________________________________ setListener
     @SuppressLint("RtlHardcoded")
     private void setListener() {
@@ -483,9 +503,6 @@ public class MainActivity extends AppCompatActivity {
     //______________________________________________________________________________________________ setListener
 
 
-
-
-
     //______________________________________________________________________________________________ checkLogin
     public void deleteUserAndLogOut() {
 
@@ -513,10 +530,25 @@ public class MainActivity extends AppCompatActivity {
     //______________________________________________________________________________________________ checkLogin
 
 
-
     //______________________________________________________________________________________________ unLockDrawer
     public void unLockDrawer() {
         drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        textViewScore.setText(getResources().getString(R.string.totalScore) + System.lineSeparator() + md_userInfoVM.getScores());
+        textViewPrivileges.setText(getResources().getString(R.string.totalPrivileges) + System.lineSeparator() + md_userInfoVM.getPrivileges());
+        if (md_userInfoVM.getName() != null)
+            textViewUserName.setText(md_userInfoVM.getName());
+
+        ApplicationUtility utility = PishtazanApplication.getApplication(this)
+                .getApplicationUtilityComponent()
+                .getApplicationUtility();
+
+        Long walet = Math.round(md_userInfoVM.getWallet());
+        textViewWallet.setText(utility.splitNumberOfAmount(walet) + " " + getResources().getString(R.string.toman));
+
+        if (md_userInfoVM.getImage() != null && !md_userInfoVM.getImage().isEmpty()) {
+            String url = Host + md_userInfoVM.getImage();
+            simpleDraweeViewProfile.setImageURI(url);
+        }
     }
     //______________________________________________________________________________________________ unLockDrawer
 
@@ -526,7 +558,6 @@ public class MainActivity extends AppCompatActivity {
         drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
     //______________________________________________________________________________________________ lockDrawer
-
 
 
 }

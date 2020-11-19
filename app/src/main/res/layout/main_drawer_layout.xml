@@ -30,20 +30,21 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="@dimen/_9sdp"
-            android:textColor="@color/ML_White"
+            android:textColor="@color/ML_AdapterPerson"
             android:gravity="center"
             android:text="@string/EditProfile"/>
 
         <ImageView
             android:layout_width="@dimen/_18sdp"
             android:layout_height="@dimen/_18sdp"
-            android:tint="@color/ML_White"
+            android:tint="@color/ML_AdapterPerson"
             android:src="@drawable/ic_baseline_edit"
             android:layout_marginLeft="@dimen/_2sdp"/>
 
     </LinearLayout>
 
     <TextView
+
         fontPath="fonts/iransans_web_medium.ttf"
         android:id="@+id/textViewUserName"
         android:layout_width="match_parent"
@@ -53,8 +54,7 @@
         android:layout_marginLeft="@dimen/_5sdp"
         android:textSize="@dimen/_9sdp"
         android:textColor="@color/colorAccent"
-        android:gravity="center"
-        android:text="مهرداد لطیفی " />
+        android:gravity="center" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -74,14 +74,14 @@
         android:gravity="center">
 
         <TextView
+            android:id="@+id/textViewWallet"
             fontPath="fonts/vazir_medium.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_5sdp"
-            android:textSize="@dimen/_11sdp"
+            android:textSize="@dimen/_10sdp"
             android:textColor="@color/ML_White"
             android:gravity="center"
-            android:text="100,000 ریال"
             android:background="@drawable/button_red"/>
 
         <TextView
@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/_5sdp"
             android:layout_marginLeft="@dimen/_5sdp"
-            android:textSize="@dimen/_9sdp"
+            android:textSize="@dimen/_7sdp"
             android:textColor="@color/colorAccent"
             android:gravity="center"
             android:text="موجودی" />
@@ -145,6 +145,7 @@
 
 
         <TextView
+            android:id="@+id/textViewScore"
             fontPath="fonts/vazir_medium.ttf"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="wrap_content"
@@ -155,9 +156,10 @@
             android:padding="@dimen/_2sdp"
             android:background="@drawable/dw_verify_edit"
             android:textColor="@color/colorPrimary"
-            android:text="مجموعه نمره \n 152"/>
+/>
 
         <TextView
+            android:id="@+id/textViewPrivileges"
             fontPath="fonts/vazir_medium.ttf"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="wrap_content"
@@ -168,7 +170,7 @@
             android:padding="@dimen/_2sdp"
             android:background="@drawable/dw_verify_edit"
             android:textColor="@color/colorPrimary"
-            android:text="مجموعه امتیاز \n 152"/>
+/>
 
 
     </LinearLayout>

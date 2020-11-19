@@ -28,6 +28,7 @@ import ir.bppir.pishtazan.models.MR_Reminder;
 import ir.bppir.pishtazan.models.MR_SpinnerItem;
 import ir.bppir.pishtazan.models.MR_StatisticalReport;
 import ir.bppir.pishtazan.models.MR_Transaction;
+import ir.bppir.pishtazan.models.MR_UserInfoVM;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -536,6 +537,15 @@ public interface RetrofitApiInterface {
     Call<MR_Primary> deleteReminders
             (
                     @Field("Id") Integer Id,
+                    @Field("UserInfoId") Integer UserInfoId
+            );
+
+
+
+    @FormUrlEncoded
+    @POST(Version + "/UserSidebarInformation")
+    Call<MR_UserInfoVM> userSidebarInformation
+            (
                     @Field("UserInfoId") Integer UserInfoId
             );
 

@@ -8,8 +8,10 @@ import ir.bppir.pishtazan.daggers.retrofit.RetrofitComponent;
 import ir.bppir.pishtazan.database.DB_UserInfo;
 import ir.bppir.pishtazan.models.MR_GenerateCode;
 import ir.bppir.pishtazan.models.MRVerifyCode;
+import ir.bppir.pishtazan.models.MR_UserInfoVM;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
+import ir.bppir.pishtazan.views.activity.MainActivity;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -114,8 +116,55 @@ public class VM_Verify extends VM_Primary {
             if (realm != null)
                 realm.close();
         }
-        getPublishSubject().onNext(StaticValues.ML_GotoHome);
+        getUserInfoVM();
     }//_____________________________________________________________________________________________ SaveLogin
 
+
+
+    //______________________________________________________________________________________________ getUserInfoVM
+    public void getUserInfoVM() {
+
+        Integer userInfoId = getUserId();
+        if (userInfoId == 0) {
+            userIsNotAuthorization();
+            return;
+        }
+
+
+        setPrimaryCall(PishtazanApplication
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .userSidebarInformation(userInfoId));
+
+        if (getPrimaryCall() == null)
+            return;
+
+        getPrimaryCall().enqueue(new Callback<MR_UserInfoVM>() {
+            @Override
+            public void onResponse(Call<MR_UserInfoVM> call, Response<MR_UserInfoVM> response) {
+                if (responseIsOk(response)) {
+                    if (response.body() != null) {
+                        if (response.body().getStatue() == 1) {
+                            if (response.body().getUserInfoVM() != null) {
+                                MainActivity.mainActivity.md_userInfoVM = response.body().getUserInfoVM();
+                                getPublishSubject().onNext(StaticValues.ML_GotoHome);
+                            } else
+                                getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                        } else
+                            getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    } else
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MR_UserInfoVM> call, Throwable t) {
+                callIsFailure();
+            }
+        });
+
+    }
+    //______________________________________________________________________________________________ getUserInfoVM
 
 }

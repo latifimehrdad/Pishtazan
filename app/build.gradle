@@ -8,10 +8,10 @@ android {
 
     defaultConfig {
         applicationId "ir.bppir.pishtazan"
-        minSdkVersion 18
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
-        versionName "1.9"
+        versionName "1.10"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

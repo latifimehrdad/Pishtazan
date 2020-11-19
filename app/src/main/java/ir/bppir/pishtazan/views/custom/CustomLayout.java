@@ -1,4 +1,4 @@
-package ir.bppir.pishtazan.views;
+package ir.bppir.pishtazan.views.custom;
 
 import android.content.Context;
 import android.content.res.TypedArray;
