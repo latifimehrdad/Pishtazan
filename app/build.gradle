@@ -11,7 +11,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
-        versionName "2.01"
+        versionName "2.02"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -87,7 +87,7 @@ dependencies {
 
     implementation 'com.github.yalantis:ucrop:2.2.2'
 
-    implementation 'com.linsea:universalvideoview:1.1.0@aar'
+    implementation 'com.github.latifimehrdad:latifiVideoPlayer:1.0'
 
     implementation 'com.google.firebase:firebase-messaging:20.2.4'
 

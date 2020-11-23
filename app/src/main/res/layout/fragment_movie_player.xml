@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/black">
 
-            <com.universalvideoview.UniversalVideoView
+            <ir.mlcode.latifivideoplayerlibrary.UniversalVideoView
                 android:id="@+id/universalVideoViewMovie"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -25,7 +25,7 @@
                 app:uvv_autoRotation="true"
                 app:uvv_fitXY="false" />
 
-            <com.universalvideoview.UniversalMediaController
+            <ir.mlcode.latifivideoplayerlibrary.UniversalMediaController
                 android:id="@+id/universalMediaController"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"

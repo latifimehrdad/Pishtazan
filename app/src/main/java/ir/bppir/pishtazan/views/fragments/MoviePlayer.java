@@ -14,14 +14,14 @@ import android.widget.VideoView;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
-import com.universalvideoview.UniversalMediaController;
-import com.universalvideoview.UniversalVideoView;
-
 import butterknife.BindView;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.daggers.retrofit.RetrofitApis;
+
 import ir.bppir.pishtazan.databinding.FragmentMoviePlayerBinding;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_MoviePlayer;
+import ir.mlcode.latifivideoplayerlibrary.UniversalMediaController;
+import ir.mlcode.latifivideoplayerlibrary.UniversalVideoView;
 
 public class MoviePlayer extends FragmentPrimary implements FragmentPrimary.actionFromObservable {
 
