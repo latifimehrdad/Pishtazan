@@ -10,6 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,9 +25,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cunoraz.gifview.library.GifView;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.jakewharton.rxbinding2.widget.RxTextView;
+import com.jakewharton.rxbinding2.widget.TextViewTextChangeEvent;
+
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.daggers.datepicker.PersianPickerModule;
 import ir.bppir.pishtazan.databinding.FragmentPanelBinding;
@@ -52,6 +61,7 @@ public class Panel extends FragmentPrimary implements
     private String stringTime;
     private boolean GoToAddPerson;
     private View personPositionView;
+    private CompositeDisposable disposable = new CompositeDisposable();
 
 
     @BindView(R.id.LinearLayoutParent)
@@ -87,6 +97,12 @@ public class Panel extends FragmentPrimary implements
     @BindView(R.id.TextViewNothing)
     TextView TextViewNothing;
 
+    @BindView(R.id.editTextName)
+    EditText editTextName;
+
+    @BindView(R.id.switchMaterialSort)
+    SwitchMaterial switchMaterialSort;
+
 
     public Panel() {//______________________________________________________________________________ Panel
 
@@ -109,6 +125,7 @@ public class Panel extends FragmentPrimary implements
             SetClick();
             PersonType = 0;
             LinearLayoutAdd.setVisibility(View.VISIBLE);
+            editTextName.setVisibility(View.INVISIBLE);
             init();
             /*            GetList();*/
         }
@@ -141,7 +158,42 @@ public class Panel extends FragmentPrimary implements
             LinearLayoutUser.setVisibility(View.GONE);
         }
 
+        disposable.add(RxTextView.textChangeEvents(editTextName)
+                .skipInitialValue()
+                .debounce(600, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(searchContactsTextWatcher()));
+
     }//_____________________________________________________________________________________________ init
+
+
+
+
+
+    //______________________________________________________________________________________________ searchContactsTextWatcher
+    private DisposableObserver<TextViewTextChangeEvent> searchContactsTextWatcher() {
+        return new DisposableObserver<TextViewTextChangeEvent>() {
+            @Override
+            public void onNext(TextViewTextChangeEvent textViewTextChangeEvent) {
+                if (editTextName.getText().toString().isEmpty())
+                 hideKeyboard();
+                GetList();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+    }
+    //______________________________________________________________________________________________ searchContactsTextWatcher
+
+
 
 
     private void GetList() {//______________________________________________________________________ GetList
@@ -150,7 +202,10 @@ public class Panel extends FragmentPrimary implements
         GifViewLoading.setVisibility(View.VISIBLE);
         if (vm_panel.getPersonList() != null)
             vm_panel.getPersonList().clear();
-        vm_panel.getPerson(panelType, PersonType, SwitchMaterialArchived.isChecked());
+        String fullName = editTextName.getText().toString();
+        if (fullName.isEmpty())
+            fullName = null;
+        vm_panel.getPerson(panelType, PersonType, SwitchMaterialArchived.isChecked(), fullName, switchMaterialSort.isChecked());
     }//_____________________________________________________________________________________________ GetList
 
 
@@ -164,8 +219,6 @@ public class Panel extends FragmentPrimary implements
         GifViewLoading.setVisibility(View.GONE);
 
         if (action == StaticValues.ML_GetPerson) {
-            if (PersonType == StaticValues.ML_Maybe)
-                LinearLayoutAdd.setVisibility(View.VISIBLE);
             SetAdapterPerson();
             return;
         }
@@ -213,12 +266,17 @@ public class Panel extends FragmentPrimary implements
         LinearLayoutMaybe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                editTextName.setVisibility(View.INVISIBLE);
+                editTextName.setText("");
+                SwitchMaterialArchived.setChecked(false);
+                switchMaterialSort.setChecked(false);
+                LinearLayoutAdd.setVisibility(View.VISIBLE);
                 LinearLayoutPossible.setBackground(null);
                 LinearLayoutCertain.setBackground(null);
                 LinearLayoutUser.setBackground(null);
                 LinearLayoutMaybe.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
                 PersonType = StaticValues.ML_Maybe;
-                GetList();
+//                GetList();
             }
         });
 
@@ -226,12 +284,16 @@ public class Panel extends FragmentPrimary implements
             @Override
             public void onClick(View view) {
                 LinearLayoutAdd.setVisibility(View.INVISIBLE);
+                editTextName.setText("");
+                SwitchMaterialArchived.setChecked(false);
+                switchMaterialSort.setChecked(false);
+                editTextName.setVisibility(View.VISIBLE);
                 LinearLayoutMaybe.setBackground(null);
                 LinearLayoutCertain.setBackground(null);
                 LinearLayoutUser.setBackground(null);
                 LinearLayoutPossible.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
                 PersonType = StaticValues.ML_Possible;
-                GetList();
+//                GetList();
             }
         });
 
@@ -239,12 +301,16 @@ public class Panel extends FragmentPrimary implements
             @Override
             public void onClick(View view) {
                 LinearLayoutAdd.setVisibility(View.INVISIBLE);
+                editTextName.setText("");
+                SwitchMaterialArchived.setChecked(false);
+                switchMaterialSort.setChecked(false);
+                editTextName.setVisibility(View.VISIBLE);
                 LinearLayoutMaybe.setBackground(null);
                 LinearLayoutPossible.setBackground(null);
                 LinearLayoutUser.setBackground(null);
                 LinearLayoutCertain.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
                 PersonType = StaticValues.ML_Certain;
-                GetList();
+//                GetList();
             }
         });
 
@@ -253,16 +319,22 @@ public class Panel extends FragmentPrimary implements
             @Override
             public void onClick(View view) {
                 LinearLayoutAdd.setVisibility(View.INVISIBLE);
+                editTextName.setText("");
+                SwitchMaterialArchived.setChecked(false);
+                switchMaterialSort.setChecked(false);
+                editTextName.setVisibility(View.VISIBLE);
                 LinearLayoutMaybe.setBackground(null);
                 LinearLayoutPossible.setBackground(null);
                 LinearLayoutCertain.setBackground(null);
                 LinearLayoutUser.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
                 PersonType = StaticValues.ML_User;
-                GetList();
+//                GetList();
             }
         });
 
         SwitchMaterialArchived.setOnClickListener(v -> GetList());
+
+        switchMaterialSort.setOnClickListener(v -> GetList());
 
     }//_____________________________________________________________________________________________ SetClick
 

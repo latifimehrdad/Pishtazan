@@ -29,16 +29,16 @@ public class VM_Panel extends VM_Primary {
 
 
     //______________________________________________________________________________________________ getPerson
-    public void getPerson(int panelType, Byte PersonType, boolean isDeleted) {
+    public void getPerson(int panelType, Byte PersonType, boolean isDeleted, String fullName, boolean sort) {
 
         cancelRequest();
 
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             if (panelType == StaticValues.Customer)
-                getAllCustomers(PersonType, isDeleted);
+                getAllCustomers(PersonType, isDeleted, fullName, sort);
             else
-                getAllColleagues(PersonType, isDeleted);
+                getAllColleagues(PersonType, isDeleted, fullName, sort);
         }, 200);
 
     }
@@ -46,7 +46,7 @@ public class VM_Panel extends VM_Primary {
 
 
     //______________________________________________________________________________________________ getAllCustomers
-    private void getAllCustomers(Byte PersonType, boolean isDeleted) {
+    private void getAllCustomers(Byte PersonType, boolean isDeleted, String fullName, boolean sort) {
 
         Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
@@ -58,7 +58,7 @@ public class VM_Panel extends VM_Primary {
                 .getApplication(getContext())
                 .getRetrofitComponent()
                 .getRetrofitApiInterface()
-                .GET_ALL_CUSTOMERS(UserInfoId, PersonType, isDeleted));
+                .GET_ALL_CUSTOMERS(UserInfoId, PersonType, isDeleted, fullName, sort));
 
         getPrimaryCall().enqueue(new Callback<MR_GetAllPerson>() {
             @Override
@@ -88,7 +88,7 @@ public class VM_Panel extends VM_Primary {
 
 
     //______________________________________________________________________________________________ getAllColleagues
-    private void getAllColleagues(Byte PersonType, boolean isDeleted) {
+    private void getAllColleagues(Byte PersonType, boolean isDeleted, String fullName, boolean sort) {
 
         Integer UserInfoId = getUserId();
         if (UserInfoId == 0) {
@@ -100,7 +100,7 @@ public class VM_Panel extends VM_Primary {
                 .getApplication(getContext())
                 .getRetrofitComponent()
                 .getRetrofitApiInterface()
-                .GET_ALL_COLLEAGUES(UserInfoId, PersonType, isDeleted));
+                .GET_ALL_COLLEAGUES(UserInfoId, PersonType, isDeleted, fullName, sort));
 
         getPrimaryCall().enqueue(new Callback<MR_GetAllPerson>() {
             @Override

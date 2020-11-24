@@ -40,6 +40,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 public interface RetrofitApiInterface {
@@ -76,13 +77,14 @@ public interface RetrofitApiInterface {
             );
 
 
-    @FormUrlEncoded
-    @POST(Version + "/GetAllCustomers")
+    @GET(Version + "/GetAllCustomers")
     Call<MR_GetAllPerson> GET_ALL_CUSTOMERS
             (
-                    @Field("UserInfoId") Integer UserInfoId,
-                    @Field("CustomerStatus") Byte CustomerStatus,
-                    @Field("IsDeleted") boolean IsDeleted
+                    @Query("UserInfoId") Integer UserInfoId,
+                    @Query("CustomerStatus") Byte CustomerStatus,
+                    @Query("IsDeleted") boolean IsDeleted,
+                    @Query("FullName") String FullName,
+                    @Query("SortByLevel") boolean SortByLevel
             );
 
 
@@ -94,13 +96,14 @@ public interface RetrofitApiInterface {
             );
 
 
-    @FormUrlEncoded
-    @POST(Version + "/GetAllColleagues")
+    @GET(Version + "/GetAllColleagues")
     Call<MR_GetAllPerson> GET_ALL_COLLEAGUES
             (
-                    @Field("UserInfoId") Integer UserInfoId,
-                    @Field("ColleagueStatus") Byte ColleagueStatus,
-                    @Field("IsDeleted") boolean IsDeleted
+                    @Query("UserInfoId") Integer UserInfoId,
+                    @Query("ColleagueStatus") Byte ColleagueStatus,
+                    @Query("IsDeleted") boolean IsDeleted,
+                    @Query("FullName") String FullName,
+                    @Query("SortByLevel") boolean SortByLevel
             );
 
 

@@ -108,66 +108,52 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|right"
-        android:padding="@dimen/_2sdp">
+        android:padding="@dimen/_4sdp">
 
-        <com.cunoraz.gifview.library.GifView
-            android:id="@+id/GifViewLoading"
-            android:layout_width="@dimen/_35sdp"
-            android:layout_height="@dimen/_35sdp"
-            android:background="@drawable/dw_choose_current_map"
-            android:visibility="gone"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:padding="@dimen/_5sdp"
-            custom:gif="@drawable/loading3" />
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/SwitchMaterialArchived"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layoutDirection="rtl"
-            android:layout_marginRight="@dimen/_5sdp"
-            android:text="@string/Archived"/>
+            android:orientation="vertical"
+            android:gravity="right"
+            android:layout_weight="0.7">
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/SwitchMaterialArchived"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:textSize="@dimen/_9sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:text="@string/Archived"/>
+
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchMaterialSort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:textSize="@dimen/_9sdp"
+                android:text="@string/sortByLevel"/>
+
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_10sdp"
+            android:gravity="right"
+            android:hint="@string/SearchName"
+            />
+
+
 
 
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/_3sdp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="@dimen/_15sdp"
-            android:textColor="@color/ML_Black"
-            android:text="0"
-            android:gravity="center"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="@dimen/_15sdp"
-            android:textColor="@color/ML_Black"
-            android:text="0"
-            android:gravity="center"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:layout_marginRight="@dimen/_5sdp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="@dimen/_15sdp"
-            android:textColor="@color/ML_Black"
-            android:text="0"
-            android:gravity="center"/>
-
-    </LinearLayout>
 
 </LinearLayout>
