@@ -30,6 +30,7 @@ public class Policies extends FragmentPrimary implements
     private NavController navController;
     private Integer PersonId;
     private Byte typePolicies;
+    private Byte panelType;
 
     @BindView(R.id.ButtonNew)
     Button ButtonNew;
@@ -69,6 +70,7 @@ public class Policies extends FragmentPrimary implements
 
         navController = Navigation.findNavController(getView());
         PersonId = getArguments().getInt(getContext().getResources().getString(R.string.ML_personId), 0);
+        panelType = getArguments().getByte(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
         Integer temp = getArguments().getInt(getContext().getResources().getString(R.string.ML_Type), StaticValues.PolicyStatusQuestionnaire);
         typePolicies = temp.byteValue();
         if (typePolicies.equals(StaticValues.PolicyStatusQuestionnaire))
@@ -99,6 +101,7 @@ public class Policies extends FragmentPrimary implements
             bundle.putInt(getContext().getResources().getString(R.string.ML_personId), PersonId);
             bundle.putBoolean(getContext().getResources().getString(R.string.ML_Type), false);
             bundle.putString(getContext().getResources().getString(R.string.ML_Date), "");
+            bundle.putByte(getContext().getResources().getString(R.string.ML_PanelType), panelType);
             navController.navigate(R.id.action_policies_to_policyType, bundle);
         });
 

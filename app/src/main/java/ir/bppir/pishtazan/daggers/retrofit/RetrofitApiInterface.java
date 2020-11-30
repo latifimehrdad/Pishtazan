@@ -213,7 +213,7 @@ public interface RetrofitApiInterface {
                     @Part("Address") RequestBody Address,
                     @Part("Lat") RequestBody Lat,
                     @Part("Lang") RequestBody Lang,
-                    @Part("UserInfoId") RequestBody UserInfoId,
+                    @Part("ColleagueId") RequestBody ColleagueId,
                     @Part("NationalCode") RequestBody NationalCode,
                     @Part("Level") RequestBody Level
             );

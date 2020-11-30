@@ -585,6 +585,7 @@ public class Panel extends FragmentPrimary implements
         Bundle bundle = new Bundle();
         bundle.putInt(getContext().getResources().getString(R.string.ML_personId), vm_panel.getPersonList().get(Position).getId());
         bundle.putInt(getContext().getResources().getString(R.string.ML_Type), type);
+        bundle.putByte(getContext().getResources().getString(R.string.ML_PanelType), panelType);
         navController.navigate(R.id.action_panel_to_policies, bundle);
     }//_____________________________________________________________________________________________ ShowSavePolicyType
 

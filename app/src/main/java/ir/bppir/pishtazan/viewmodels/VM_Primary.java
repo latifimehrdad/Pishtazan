@@ -162,6 +162,21 @@ public class VM_Primary extends BaseObservable {
     //______________________________________________________________________________________________ getUserId
 
 
+
+    //______________________________________________________________________________________________ getColleagueId
+    public Integer getColleagueId() {
+
+        DB_UserInfo db_userInfo = getUserInfo();
+        if (db_userInfo == null)
+            return 0;
+        else
+            return db_userInfo.getColleagueId();
+    }
+    //______________________________________________________________________________________________ getColleagueId
+
+
+
+
     //______________________________________________________________________________________________ userIsNotAuthorization
     public void userIsNotAuthorization() {
         setResponseMessage(getContext().getResources().getString(R.string.UserIsNotAuthorization));

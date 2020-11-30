@@ -52,6 +52,7 @@ public class PolicyType extends FragmentPrimary implements
     private String SuggestionDateM;
     private Integer Id;
     private String stringDate;
+    private Byte panelType;
 
     @BindView(R.id.LayoutPolicyType)
     LinearLayout LayoutPolicyType;
@@ -101,6 +102,8 @@ public class PolicyType extends FragmentPrimary implements
     @BindView(R.id.TextSeries)
     TextView TextSeries;
 
+    @BindView(R.id.linearLayoutCustomer)
+    LinearLayout linearLayoutCustomer;
 
     public PolicyType() {//_________________________________________________________________________ PolicyType
     }//_____________________________________________________________________________________________ PolicyType
@@ -132,6 +135,12 @@ public class PolicyType extends FragmentPrimary implements
         PersonId = getArguments().getInt(getContext().getResources().getString(R.string.ML_personId), 0);
         editMode = getArguments().getBoolean(getContext().getResources().getString(R.string.ML_Type), false);
         SuggestionDateM = getArguments().getString(getContext().getResources().getString(R.string.ML_Date), "");
+        panelType = getArguments().getByte(getContext().getString(R.string.ML_PanelType), StaticValues.Customer);
+
+        if (panelType.equals(StaticValues.Colleague))
+            linearLayoutCustomer.setVisibility(View.VISIBLE);
+        else
+            linearLayoutCustomer.setVisibility(View.GONE);
 
 //        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 //        try {

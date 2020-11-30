@@ -76,8 +76,8 @@ public class VM_EditPerson extends VM_Primary {
                 .getApplicationUtility()
                 .PersianToEnglish(eMobileNumber);
 
-        Integer eUserInfoId = getUserId();
-        if (eUserInfoId == 0) {
+        Integer eColleagueId = getColleagueId();
+        if (eColleagueId == 0) {
             userIsNotAuthorization();
             return;
         }
@@ -94,7 +94,7 @@ public class VM_EditPerson extends VM_Primary {
         RequestBody Id = RequestBody.create(MediaType.parse("multipart/form-data"), eId.toString());
         RequestBody FullName = RequestBody.create(MediaType.parse("multipart/form-data"), eFullName);
         RequestBody MobileNumber = RequestBody.create(MediaType.parse("multipart/form-data"), eMobileNumber);
-        RequestBody UserInfoId = RequestBody.create(MediaType.parse("multipart/form-data"), eUserInfoId.toString());
+        RequestBody ColleagueId = RequestBody.create(MediaType.parse("multipart/form-data"), eColleagueId.toString());
         RequestBody Level = RequestBody.create(MediaType.parse("multipart/form-data"), eLevel.toString());
         RequestBody PhoneNumber = RequestBody.create(MediaType.parse("multipart/form-data"), ePhoneNumber);
         RequestBody BirthDateJ = RequestBody.create(MediaType.parse("multipart/form-data"), eBirthDateJ);
@@ -117,7 +117,7 @@ public class VM_EditPerson extends VM_Primary {
                         Address,
                         Lat,
                         Lang,
-                        UserInfoId,
+                        ColleagueId,
                         NationalCode,
                         Level));
 

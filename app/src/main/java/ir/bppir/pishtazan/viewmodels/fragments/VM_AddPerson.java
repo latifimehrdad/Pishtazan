@@ -52,14 +52,14 @@ public class VM_AddPerson extends VM_Primary {
                 .getApplicationUtility()
                 .PersianToEnglish(phone);
 
-        Integer UserInfoId = getUserId();
-        if (UserInfoId == 0) {
+        Integer ColleagueId = getColleagueId();
+        if (ColleagueId == 0) {
             userIsNotAuthorization();
             return;
         }
         Map<String, String> params = new HashMap<>();
         params.put("FullName", name);
-        params.put("UserInfoId", UserInfoId.toString());
+        params.put("ColleagueId", ColleagueId.toString());
         params.put("MobileNumber", phone);
         params.put("Level", degree.toString());
 
