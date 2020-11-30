@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -404,6 +405,46 @@ public class BindingAdapters {
 
     }
     //______________________________________________________________________________________________ setPersonImageReport
+
+
+
+    //______________________________________________________________________________________________ setPersonImage
+    @BindingAdapter(value = "setNotificationImage")
+    public static void setNotificationImage(ImageView imageView, String url) {
+
+        ImageLoader imageLoader = PishtazanApplication
+                .getApplication(imageView.getContext())
+                .getImageLoaderComponent()
+                .getImageLoader();
+
+        url = Host + url;
+
+        imageLoader.displayImage(url, imageView, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+                imageView.setImageResource(R.drawable.image_before_load);
+            }
+
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                imageView.setImageResource(R.drawable.image_before_load);
+            }
+
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                if (loadedImage == null)
+                    imageView.setImageResource(R.drawable.image_before_load);
+            }
+
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
+                imageView.setImageResource(R.drawable.image_before_load);
+            }
+        });
+
+    }
+    //______________________________________________________________________________________________ setPersonImage
+
 
 
 }

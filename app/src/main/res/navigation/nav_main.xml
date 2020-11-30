@@ -512,7 +512,29 @@
         android:id="@+id/notification"
         android:name="ir.bppir.pishtazan.views.fragments.Notifications"
         android:label="Notification"
-        tools:layout="@layout/notifications"/>
+        tools:layout="@layout/notifications">
 
+        <argument android:name="@string/ML_Title"/>
+        <argument android:name="@string/ML_Description"/>
+        <argument android:name="@string/ML_ImageUrl"/>
+        <argument android:name="@string/ML_Date"/>
+
+        <action
+            android:id="@+id/action_notifications_to_detail"
+            app:destination="@id/detailNotification"
+            app:launchSingleTop="true"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/detailNotification"
+        android:name="ir.bppir.pishtazan.views.fragments.DetailNotification"
+        tools:layout="@layout/notification_detail"
+        android:label="detailNotification"/>
 
 </navigation>

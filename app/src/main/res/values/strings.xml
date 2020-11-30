@@ -205,5 +205,7 @@
     <string name="ML_Portfo">ML_Portfo</string>
     <string name="ML_Payment">ML_Payment</string>
     <string name="ML_Name">ML_Name</string>
+    <string name="ML_Title">ML_Title</string>
+    <string name="ML_ImageUrl">ML_ImageUrl</string>
 
 </resources>

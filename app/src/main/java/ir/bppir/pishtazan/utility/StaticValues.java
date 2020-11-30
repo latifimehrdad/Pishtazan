@@ -99,6 +99,7 @@ public class StaticValues {
     public static Byte ML_Transaction = 40;
     public static Byte ML_Reminder = 41;
     public static Byte ML_DeleteReminder = 42;
+    public static Byte ML_GetNotifications = 43;
 
 
 

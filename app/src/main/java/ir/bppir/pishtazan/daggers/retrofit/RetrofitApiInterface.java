@@ -17,6 +17,7 @@ import ir.bppir.pishtazan.models.MR_ExamResults;
 import ir.bppir.pishtazan.models.MR_GenerateCode;
 import ir.bppir.pishtazan.models.MR_GetAllPerson;
 import ir.bppir.pishtazan.models.MR_LastEducation;
+import ir.bppir.pishtazan.models.MR_Notifications;
 import ir.bppir.pishtazan.models.MR_Payment;
 import ir.bppir.pishtazan.models.MR_PersonNumber;
 import ir.bppir.pishtazan.models.MR_Policy;
@@ -549,7 +550,7 @@ public interface RetrofitApiInterface {
 
 
     @GET(Version + "/GetNotifList")
-    Call<MR_UserInfoVM> GetNotifList(
+    Call<MR_Notifications> GetNotifList(
             @Query("IsDeleted") boolean IsDeleted
     );
 

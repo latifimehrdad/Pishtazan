@@ -153,7 +153,7 @@
                 android:textColor="@color/ML_White"
                 android:textSize="@dimen/_9sdp"
                 fontPath="fonts/iransans_web_medium.ttf"
-                android:text="@string/Tutorial"
+                android:text="@string/notifications"
                 android:layout_marginTop="@dimen/_3sdp"/>
 
         </LinearLayout>
