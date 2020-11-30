@@ -114,6 +114,7 @@ public class Post extends FragmentPrimary implements FragmentPrimary.actionFromO
     //______________________________________________________________________________________________ init
     private void init() {
 
+        RecyclerViewPost.setVisibility(View.GONE);
         if (postType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_MyReport))) {
             LinearLayoutExam.setVisibility(View.VISIBLE);
             linearLayoutHistory.setVisibility(View.VISIBLE);
@@ -170,6 +171,7 @@ public class Post extends FragmentPrimary implements FragmentPrimary.actionFromO
         AP_Post ap_post = new AP_Post(vm_post.getMd_educationCategoryVms(), Post.this);
         RecyclerViewPost.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewPost.setAdapter(ap_post);
+        RecyclerViewPost.setVisibility(View.VISIBLE);
     }
     //______________________________________________________________________________________________ setAdapter
 

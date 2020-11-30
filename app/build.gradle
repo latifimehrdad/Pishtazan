@@ -10,8 +10,8 @@ android {
         applicationId "ir.bppir.pishtazan"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 1
-        versionName "2.03"
+        versionCode 2
+        versionName "2.04"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
