@@ -505,7 +505,6 @@ public interface RetrofitApiInterface {
             );
 
 
-
     @FormUrlEncoded
     @POST(Version + "/Payment")
     Call<MR_Payment> Payment
@@ -520,7 +519,6 @@ public interface RetrofitApiInterface {
             (
                     @Field("UserInfoId") Integer UserInfoId
             );
-
 
 
     @FormUrlEncoded
@@ -549,5 +547,10 @@ public interface RetrofitApiInterface {
             @Url String url
     );
 
+
+    @GET(Version + "/GetNotifList")
+    Call<MR_UserInfoVM> GetNotifList(
+            @Query("IsDeleted") boolean IsDeleted
+    );
 
 }

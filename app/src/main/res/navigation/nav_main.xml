@@ -121,6 +121,15 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"/>
 
+
+        <action
+            android:id="@+id/action_home_to_notification"
+            app:destination="@id/notification"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
     </fragment>
 
     <fragment
@@ -497,6 +506,13 @@
         android:name="ir.bppir.pishtazan.views.fragments.Reminder"
         android:label="Reminder"
         tools:layout="@layout/fragment_reminder"/>
+
+
+    <fragment
+        android:id="@+id/notification"
+        android:name="ir.bppir.pishtazan.views.fragments.Notifications"
+        android:label="Notification"
+        tools:layout="@layout/notifications"/>
 
 
 </navigation>

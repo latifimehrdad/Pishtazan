@@ -44,6 +44,9 @@ public class Home extends FragmentPrimary implements FragmentPrimary.actionFromO
     @BindView(R.id.LinearLayoutReports)
     LinearLayout LinearLayoutReports;
 
+    @BindView(R.id.linearLayoutNotification)
+    LinearLayout linearLayoutNotification;
+
 
     //______________________________________________________________________________________________ Home
     public Home() {
@@ -160,6 +163,8 @@ public class Home extends FragmentPrimary implements FragmentPrimary.actionFromO
         });
 
         LinearLayoutReports.setOnClickListener(v -> navController.navigate(R.id.action_home_to_reports));
+
+        linearLayoutNotification.setOnClickListener(v -> navController.navigate(R.id.action_home_to_notification));
 
     }
     //______________________________________________________________________________________________ setClick

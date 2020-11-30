@@ -131,6 +131,34 @@
         </LinearLayout>
 
 
+        <LinearLayout
+            android:id="@+id/linearLayoutNotification"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:background="@drawable/dw_back_home_notifi"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:tint="@color/ML_White"
+                android:src="@drawable/ic_bell"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/ML_White"
+                android:textSize="@dimen/_9sdp"
+                fontPath="fonts/iransans_web_medium.ttf"
+                android:text="@string/Tutorial"
+                android:layout_marginTop="@dimen/_3sdp"/>
+
+        </LinearLayout>
+
+
     </RelativeLayout>
 
 </layout>
