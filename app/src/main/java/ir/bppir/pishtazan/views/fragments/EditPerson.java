@@ -45,6 +45,7 @@ import ir.bppir.pishtazan.views.dialogs.DialogProgress;
 import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
+
 import static ir.bppir.pishtazan.daggers.retrofit.RetrofitApis.Host;
 
 public class EditPerson extends FragmentPrimary implements
@@ -199,6 +200,10 @@ public class EditPerson extends FragmentPrimary implements
 
         finishLoadingSend();
         if (action.equals(StaticValues.ML_EditSuccess)) {
+            Uri destination = Uri.fromFile(new File(getContext().getExternalCacheDir(), "cropped.jpg"));
+            File file = new File(destination.getPath());
+            if (file.exists())
+                file.delete();
             Degree = -1;
             EditTextName.getText().clear();
             EditTextPhoneNumber.getText().clear();

@@ -6,6 +6,7 @@ import java.util.Map;
 import ir.bppir.pishtazan.models.MD_GetAddres;
 import ir.bppir.pishtazan.models.MD_SendAnswer;
 import ir.bppir.pishtazan.models.MD_Update;
+import ir.bppir.pishtazan.models.MR_AddPersonal;
 import ir.bppir.pishtazan.models.MR_AnalyticalReport;
 import ir.bppir.pishtazan.models.MR_Education;
 import ir.bppir.pishtazan.models.MR_EducationCategoryVms;
@@ -71,7 +72,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/CreateCustomer")
-    Call<MR_Primary> ADD_CUSTOMER
+    Call<MR_AddPersonal> ADD_CUSTOMER
             (
                     @FieldMap Map<String, String> params
 
@@ -253,7 +254,7 @@ public interface RetrofitApiInterface {
                     @Field(Policy + "PolicyTypeId") String PolicyTypeId,
                     @Field(Policy + "CustomerId") String CustomerId,
                     @Field(Policy + "PolicyAmont") String PolicyAmont,
-                    @Field(Policy + "UserInfoId") String UserInfoId,
+                    @Field(Policy + "ColleagueId") String ColleagueId,
                     @Field(Policy + "Description") String Description,
                     @Field(Policy + "Insured") String Insured,
                     @Field(Policy + "InsuredNationalCode") String InsuredNationalCode,

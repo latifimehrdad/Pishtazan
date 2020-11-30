@@ -105,6 +105,15 @@ public class PolicyType extends FragmentPrimary implements
     @BindView(R.id.linearLayoutCustomer)
     LinearLayout linearLayoutCustomer;
 
+    @BindView(R.id.editTextInsurerName)
+    EditText editTextInsurerName;
+
+    @BindView(R.id.editTextInsurerMobile)
+    EditText editTextInsurerMobile;
+
+    @BindView(R.id.editTextInsurerNational)
+    EditText editTextInsurerNational;
+
     public PolicyType() {//_________________________________________________________________________ PolicyType
     }//_____________________________________________________________________________________________ PolicyType
 
@@ -208,6 +217,9 @@ public class PolicyType extends FragmentPrimary implements
             TextViewDate.setText("");
             TextSeries.setText("");
             EditTextName.getText().clear();
+            editTextInsurerName.getText().clear();
+            editTextInsurerMobile.getText().clear();
+            editTextInsurerNational.getText().clear();
             return;
         }
 
@@ -275,7 +287,7 @@ public class PolicyType extends FragmentPrimary implements
                             Id,
                             PolicyTypeId,
                             PersonId,
-                            Long.valueOf(EditTextAmount.getText().toString().replaceAll("," , "")),
+                            Long.valueOf(EditTextAmount.getText().toString().replaceAll(",", "")),
                             EditTextDescription.getText().toString(),
                             SuggestionDateM,
                             EditTextName.getText().toString(),
@@ -284,17 +296,35 @@ public class PolicyType extends FragmentPrimary implements
                             SeriesId,
                             EditTextTrackingCode.getText().toString()
                     );
-                else
-                    vm_policyType.createPolicy(
-                            PolicyTypeId.toString(),
-                            PersonId.toString(),
-                            EditTextAmount.getText().toString(),
-                            EditTextDescription.getText().toString(),
-                            EditTextName.getText().toString(),
-                            EditTextNationalCode.getText().toString(),
-                            stringDate,
-                            SeriesId,
-                            EditTextTrackingCode.getText().toString());
+                else {
+                    if (panelType.equals(StaticValues.Customer))
+                        vm_policyType.createPolicy(
+                                PolicyTypeId.toString(),
+                                PersonId.toString(),
+                                EditTextAmount.getText().toString(),
+                                EditTextDescription.getText().toString(),
+                                EditTextName.getText().toString(),
+                                EditTextNationalCode.getText().toString(),
+                                stringDate,
+                                SeriesId,
+                                EditTextTrackingCode.getText().toString(),
+                                true);
+                    else
+                        vm_policyType.addCustomer(
+                                PolicyTypeId.toString(),
+                                PersonId.toString(),
+                                EditTextAmount.getText().toString(),
+                                EditTextDescription.getText().toString(),
+                                EditTextName.getText().toString(),
+                                EditTextNationalCode.getText().toString(),
+                                stringDate,
+                                SeriesId,
+                                EditTextTrackingCode.getText().toString(),
+                                editTextInsurerName.getText().toString(),
+                                editTextInsurerMobile.getText().toString(),
+                                editTextInsurerNational.getText().toString());
+
+                }
             }
 
         });
@@ -327,17 +357,16 @@ public class PolicyType extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ SetPolicyType
 
 
-
     private void SetSeries() {//________________________________________________________________ SetSeries
 
         TextSeries.setText(getResources().getString(R.string.ChooseSeries));
         SeriesId = -1;
         //spinnerDialog = new SpinnerDialog(getActivity(),items,"Select or Search City","Close Button Text");// With No Animation
         List<MD_PolicyType> items = new ArrayList<>();
-        items.add(new MD_PolicyType(0, "ماهانه" , "" , ""));
-        items.add(new MD_PolicyType(1, "سه ماهه" , "" , ""));
-        items.add(new MD_PolicyType(2, "شش ماهه" , "" , ""));
-        items.add(new MD_PolicyType(3, "سالانه" , "" , ""));
+        items.add(new MD_PolicyType(0, "ماهانه", "", ""));
+        items.add(new MD_PolicyType(1, "سه ماهه", "", ""));
+        items.add(new MD_PolicyType(2, "شش ماهه", "", ""));
+        items.add(new MD_PolicyType(3, "سالانه", "", ""));
 
         SeriesDialog = new MLSpinnerDialog(
                 getActivity(),
@@ -357,7 +386,6 @@ public class PolicyType extends FragmentPrimary implements
             SeriesDialog.showSpinerDialog();
 
     }//_____________________________________________________________________________________________ SetSeries
-
 
 
     private void DismissLoading() {//_______________________________________________________________ Start DismissLoading
@@ -386,11 +414,46 @@ public class PolicyType extends FragmentPrimary implements
         boolean trackingCode;
         boolean series;
 
+        boolean insurerName = true;
+        boolean insurerMobile = true;
+        boolean insurerNational = true;
+
         if (SeriesId == -1) {
             LayoutSeries.setBackground(getResources().getDrawable(R.drawable.dw_edit_back_empty));
             series = false;
         } else
             series = true;
+
+
+        if (panelType.equals(StaticValues.Colleague)) {
+            if (editTextInsurerNational.getText().length() < 1) {
+                editTextInsurerNational.setBackgroundResource(R.drawable.dw_edit_back_empty);
+                editTextInsurerNational.setError(getResources().getString(R.string.EmptyNationalCode));
+                editTextInsurerNational.requestFocus();
+                insurerNational = false;
+            } else
+                insurerNational = true;
+
+
+            if (editTextInsurerMobile.getText().length() < 1) {
+                editTextInsurerMobile.setBackgroundResource(R.drawable.dw_edit_back_empty);
+                editTextInsurerMobile.setError(getResources().getString(R.string.EmptyMobileNumber));
+                editTextInsurerMobile.requestFocus();
+                insurerMobile = false;
+            } else
+                insurerMobile = true;
+
+
+            if (editTextInsurerName.getText().length() < 1) {
+                editTextInsurerName.setBackgroundResource(R.drawable.dw_edit_back_empty);
+                editTextInsurerName.setError(getResources().getString(R.string.EmptyMobileNumber));
+                editTextInsurerName.requestFocus();
+                insurerName = false;
+            } else
+                insurerName = true;
+        }
+
+
 
         if (EditTextTrackingCode.getText().length() < 1) {
             EditTextTrackingCode.setBackgroundResource(R.drawable.dw_edit_back_empty);
@@ -441,16 +504,20 @@ public class PolicyType extends FragmentPrimary implements
             type = true;
 
 
-        return amount && type && name && national && date && trackingCode && series;
+
+        return amount && type && name && national && date && trackingCode && series && insurerMobile && insurerName && insurerNational;
 
     }//_____________________________________________________________________________________________ CheckEmpty
-
 
 
     private void SetTextWatcher() {//_______________________________________________________________ Start SetTextWatcher
         EditTextName.addTextChangedListener(textChangeForChangeBack(EditTextName));
         EditTextNationalCode.addTextChangedListener(textChangeForChangeBack(EditTextNationalCode));
         EditTextTrackingCode.addTextChangedListener(textChangeForChangeBack(EditTextTrackingCode));
+
+        editTextInsurerNational.addTextChangedListener(textChangeForChangeBack(editTextInsurerNational));
+        editTextInsurerMobile.addTextChangedListener(textChangeForChangeBack(editTextInsurerMobile));
+        editTextInsurerName.addTextChangedListener(textChangeForChangeBack(editTextInsurerName));
 
         ApplicationUtility utility = PishtazanApplication.getApplication(getContext())
                 .getApplicationUtilityComponent()

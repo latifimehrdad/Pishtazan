@@ -12,6 +12,7 @@ import java.util.Map;
 
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.models.MD_Contact;
+import ir.bppir.pishtazan.models.MR_AddPersonal;
 import ir.bppir.pishtazan.models.MR_Primary;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
@@ -70,9 +71,9 @@ public class VM_AddPerson extends VM_Primary {
                 .getRetrofitApiInterface()
                 .ADD_CUSTOMER(params));
 
-        getPrimaryCall().enqueue(new Callback<MR_Primary>() {
+        getPrimaryCall().enqueue(new Callback<MR_AddPersonal>() {
             @Override
-            public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
+            public void onResponse(Call<MR_AddPersonal> call, Response<MR_AddPersonal> response) {
                 if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
@@ -83,7 +84,7 @@ public class VM_AddPerson extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MR_Primary> call, Throwable t) {
+            public void onFailure(Call<MR_AddPersonal> call, Throwable t) {
                 callIsFailure();
             }
         });

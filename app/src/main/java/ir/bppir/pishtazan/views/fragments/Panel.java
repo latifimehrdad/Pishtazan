@@ -469,7 +469,7 @@ public class Panel extends FragmentPrimary implements
                         textView.setVisibility(View.VISIBLE);
                     } else {
                         LinearLayoutConvertToUser.setVisibility(View.GONE);
-                        LinearLayoutConvertToColleague.setVisibility(View.GONE);
+//                        LinearLayoutConvertToColleague.setVisibility(View.GONE);
                         textView.setVisibility(View.GONE);
                         LinearLayoutInsurance.setVisibility(View.GONE);
                     }
@@ -735,9 +735,15 @@ public class Panel extends FragmentPrimary implements
             Bundle bundle = new Bundle();
             bundle.putInt(getContext().getResources().getString(R.string.ML_personId), vm_panel.getPersonList().get(Position).getId());
             bundle.putBoolean(getContext().getResources().getString(R.string.ML_Type), false);
+            bundle.putByte(getContext().getResources().getString(R.string.ML_PanelType), panelType);
             navController.navigate(R.id.action_panel_to_policyType, bundle);
-        } else
-            vm_panel.moveToCertain(panelType, Position);
+        } else {
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getResources().getString(R.string.ML_personId), vm_panel.getPersonList().get(Position).getId());
+            bundle.putBoolean(getContext().getResources().getString(R.string.ML_Type), false);
+            bundle.putByte(getContext().getResources().getString(R.string.ML_PanelType), panelType);
+            navController.navigate(R.id.action_panel_to_policyType, bundle);
+        }
     }//_____________________________________________________________________________________________ MoveToPossible
 
 

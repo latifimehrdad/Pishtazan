@@ -131,7 +131,7 @@
     <string name="NoArchive">بازگشت به لیست</string>
     <string name="EmptyList">لیست خالی است</string>
     <string name="ConvertToCustomer">انتقال به لیست مشتری های قطعی</string>
-    <string name="ConvertToColleague">انتقال به لیست همکاران</string>
+    <string name="ConvertToColleague">انتقال به همکاران قطعی</string>
     <string name="ConvertToUser">تبدیل به کاربر</string>
     <string name="GetPhoneNumber">دریافت شماره موبایل</string>
     <string name="Reports">گزارشات</string>
@@ -169,6 +169,9 @@
     <string name="toman">تومان</string>
     <string name="sortByLevel">مرتب سازی بر اساس درجه</string>
     <string name="notifications">اعلان ها</string>
+    <string name="insurerName">نام بیمه گذار</string>
+    <string name="insurerNational">کد ملی بیمه گذار</string>
+    <string name="insurerMobile">تلفن همراه بیمه گذار</string>
 
 
 
