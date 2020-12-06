@@ -3,7 +3,9 @@ package ir.bppir.pishtazan.views.fragments;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -13,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -104,6 +107,10 @@ public class Panel extends FragmentPrimary implements
     SwitchMaterial switchMaterialSort;
 
 
+    @BindView(R.id.relativeLayoutPanel)
+    RelativeLayout relativeLayoutPanel;
+
+
     public Panel() {//______________________________________________________________________________ Panel
 
     }//_____________________________________________________________________________________________ Panel
@@ -167,16 +174,13 @@ public class Panel extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ init
 
 
-
-
-
     //______________________________________________________________________________________________ searchContactsTextWatcher
     private DisposableObserver<TextViewTextChangeEvent> searchContactsTextWatcher() {
         return new DisposableObserver<TextViewTextChangeEvent>() {
             @Override
             public void onNext(TextViewTextChangeEvent textViewTextChangeEvent) {
                 if (editTextName.getText().toString().isEmpty())
-                 hideKeyboard();
+                    hideKeyboard();
                 GetList();
             }
 
@@ -191,8 +195,6 @@ public class Panel extends FragmentPrimary implements
         };
     }
     //______________________________________________________________________________________________ searchContactsTextWatcher
-
-
 
 
     private void GetList() {//______________________________________________________________________ GetList
@@ -251,6 +253,60 @@ public class Panel extends FragmentPrimary implements
 
 
     private void SetClick() {//_____________________________________________________________________ SetClick
+
+        relativeLayoutPanel.setOnTouchListener(new View.OnTouchListener() {
+
+            int downX, upX;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    downX = (int) event.getX();
+                    return true;
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    upX = (int) event.getX();
+                    if (upX - downX > 100) {
+                        swipeListLeft();
+                        // swipe right
+                    } else if (downX - upX > -100) {
+                        swipeListRight();
+                        // swipe left
+                    }
+                    return true;
+
+                }
+                return false;
+            }
+        });
+
+
+        RecyclerViewPanel.setOnTouchListener(new View.OnTouchListener() {
+
+            int downX, upX;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    downX = (int) event.getX();
+                    return true;
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    upX = (int) event.getX();
+                    if (upX - downX > 100) {
+                        swipeListLeft();
+                        // swipe right
+                    } else if (downX - upX > -100) {
+                        swipeListRight();
+                        // swipe left
+                    }
+                    return true;
+
+                }
+                return false;
+            }
+        });
+
 
         LinearLayoutAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -335,6 +391,90 @@ public class Panel extends FragmentPrimary implements
         switchMaterialSort.setOnClickListener(v -> GetList());
 
     }//_____________________________________________________________________________________________ SetClick
+
+
+    //______________________________________________________________________________________________ swipeListLeft
+    private void swipeListLeft() {
+
+        if (PersonType.equals(StaticValues.ML_Maybe)) {
+            LinearLayoutAdd.setVisibility(View.INVISIBLE);
+            editTextName.setText("");
+            SwitchMaterialArchived.setChecked(false);
+            switchMaterialSort.setChecked(false);
+            editTextName.setVisibility(View.VISIBLE);
+            LinearLayoutMaybe.setBackground(null);
+            LinearLayoutCertain.setBackground(null);
+            LinearLayoutUser.setBackground(null);
+            LinearLayoutPossible.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
+            PersonType = StaticValues.ML_Possible;
+        } else if (PersonType.equals(StaticValues.ML_Possible)) {
+            LinearLayoutAdd.setVisibility(View.INVISIBLE);
+            editTextName.setText("");
+            SwitchMaterialArchived.setChecked(false);
+            switchMaterialSort.setChecked(false);
+            editTextName.setVisibility(View.VISIBLE);
+            LinearLayoutMaybe.setBackground(null);
+            LinearLayoutPossible.setBackground(null);
+            LinearLayoutUser.setBackground(null);
+            LinearLayoutCertain.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
+            PersonType = StaticValues.ML_Certain;
+        } else if (PersonType.equals(StaticValues.ML_Certain)) {
+            if (panelType.equals(StaticValues.Colleague)) {
+                LinearLayoutAdd.setVisibility(View.INVISIBLE);
+                editTextName.setText("");
+                SwitchMaterialArchived.setChecked(false);
+                switchMaterialSort.setChecked(false);
+                editTextName.setVisibility(View.VISIBLE);
+                LinearLayoutMaybe.setBackground(null);
+                LinearLayoutPossible.setBackground(null);
+                LinearLayoutCertain.setBackground(null);
+                LinearLayoutUser.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
+                PersonType = StaticValues.ML_User;
+            }
+        }
+    }
+    //______________________________________________________________________________________________ swipeListLeft
+
+
+    //______________________________________________________________________________________________ swipeListRight
+    private void swipeListRight() {
+
+        if (PersonType.equals(StaticValues.ML_User)) {
+            LinearLayoutAdd.setVisibility(View.INVISIBLE);
+            editTextName.setText("");
+            SwitchMaterialArchived.setChecked(false);
+            switchMaterialSort.setChecked(false);
+            editTextName.setVisibility(View.VISIBLE);
+            LinearLayoutMaybe.setBackground(null);
+            LinearLayoutPossible.setBackground(null);
+            LinearLayoutUser.setBackground(null);
+            LinearLayoutCertain.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
+            PersonType = StaticValues.ML_Certain;
+        } else if (PersonType.equals(StaticValues.ML_Certain)) {
+            LinearLayoutAdd.setVisibility(View.INVISIBLE);
+            editTextName.setText("");
+            SwitchMaterialArchived.setChecked(false);
+            switchMaterialSort.setChecked(false);
+            editTextName.setVisibility(View.VISIBLE);
+            LinearLayoutMaybe.setBackground(null);
+            LinearLayoutCertain.setBackground(null);
+            LinearLayoutUser.setBackground(null);
+            LinearLayoutPossible.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
+            PersonType = StaticValues.ML_Possible;
+        } else if (PersonType.equals(StaticValues.ML_Possible)) {
+            editTextName.setText("");
+            SwitchMaterialArchived.setChecked(false);
+            switchMaterialSort.setChecked(false);
+            LinearLayoutAdd.setVisibility(View.VISIBLE);
+            LinearLayoutPossible.setBackground(null);
+            LinearLayoutCertain.setBackground(null);
+            LinearLayoutUser.setBackground(null);
+            LinearLayoutMaybe.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
+            PersonType = StaticValues.ML_Maybe;
+        }
+
+    }
+    //______________________________________________________________________________________________ swipeListRight
 
 
     private void SetAdapterPerson() {//_____________________________________________________________ SetAdapterPerson
@@ -588,7 +728,6 @@ public class Panel extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ ShowSavePolicyType
 
 
-
     public void ShowDeleteQuestion(Integer Position, View view) {//____________________________________________ ShowMeetingReminder
 
         if (dialog != null)
@@ -725,7 +864,6 @@ public class Panel extends FragmentPrimary implements
         dialog.show();
 
     }//_____________________________________________________________________________________________ AdapterMoveToPossible
-
 
 
     private void MoveToCertain(Integer Position) {//_______________________________________________ MoveToPossible
