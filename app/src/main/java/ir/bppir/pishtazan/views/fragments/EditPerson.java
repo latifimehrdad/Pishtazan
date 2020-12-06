@@ -228,11 +228,16 @@ public class EditPerson extends FragmentPrimary implements
             EditTextPhoneNumber.setText(vm_editPerson.getPerson().getPhoneNumber());
             EditTextNationalCode.setText(vm_editPerson.getPerson().getNationalCode());
             EditTextAddress.setText(vm_editPerson.getPerson().getAddress());
-            TextViewChooseBirthDay.setText(vm_editPerson.getPerson().getBirthDateJ());
+            String bDate = vm_editPerson.getPerson().getBirthDateJ();
+            if (bDate == null || bDate.isEmpty())
+                TextViewChooseBirthDay.setText(getContext().getResources().getString(R.string.ChooseBirthDay));
+            else
+                TextViewChooseBirthDay.setText(vm_editPerson.getPerson().getBirthDateJ());
             Byte level = vm_editPerson.getPerson().getLevel().byteValue();
             setPersonDegree(level);
             setPersonImage(CircleImageViewProfile, vm_editPerson.getPerson().getImage());
             stringDate = vm_editPerson.getPerson().getBirthDateJ();
+
             Lat = String.valueOf(vm_editPerson.getPerson().getLat());
             Lng = String.valueOf(vm_editPerson.getPerson().getLang());
         }

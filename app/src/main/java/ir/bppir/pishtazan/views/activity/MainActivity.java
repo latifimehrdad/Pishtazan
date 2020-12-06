@@ -133,6 +133,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.textViewWallet)
     TextView textViewWallet;
 
+    @BindView(R.id.linearLayoutSlider)
+    LinearLayout linearLayoutSlider;
+
 
     //______________________________________________________________________________________________ onCreate
     @Override
@@ -458,6 +461,8 @@ public class MainActivity extends AppCompatActivity {
     //______________________________________________________________________________________________ setListener
     @SuppressLint("RtlHardcoded")
     private void setListener() {
+
+        linearLayoutSlider.setOnClickListener(v ->{});
 
         linearLayoutAddAmount.setOnClickListener(v -> {
             drawer_layout.closeDrawer(Gravity.RIGHT, true);

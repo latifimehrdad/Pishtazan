@@ -34,6 +34,7 @@ public class Post extends FragmentPrimary implements FragmentPrimary.actionFromO
     private String postType;
     private Integer personId;
 
+
     @BindView(R.id.RecyclerViewPost)
     RecyclerView RecyclerViewPost;
 
@@ -141,9 +142,10 @@ public class Post extends FragmentPrimary implements FragmentPrimary.actionFromO
         });
 
         linearLayoutHistory.setOnClickListener(v -> {
-            GifViewLoading.setVisibility(View.VISIBLE);
+            navController.navigate(R.id.action_post_to_exam);
+            /*GifViewLoading.setVisibility(View.VISIBLE);
             RecyclerViewPost.setAdapter(null);
-            vm_post.GetPost(personId);
+            vm_post.GetPost(personId);*/
         });
     }
     //______________________________________________________________________________________________ setClick

@@ -26,26 +26,25 @@
         android:background="@color/ML_Dialog"
         android:layout_margin="@dimen/_10sdp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/_9sdp"
-        android:textColor="@color/ML_Dark"
-        android:text="@string/ChooseTime"/>
 
-    <TimePicker
-        android:id="@+id/TimePickerReminder"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/TextViewChooseTime"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:timePickerMode="spinner"
-        />
+        android:gravity="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/_12sdp"
+        android:text="@string/ChooseTime"
+        android:background="@drawable/dw_edit_back"
+        android:padding="@dimen/_10sdp"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_margin="@dimen/_5sdp"
+        android:layout_margin="@dimen/_10sdp"
         >
 
         <LinearLayout

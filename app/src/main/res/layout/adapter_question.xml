@@ -50,7 +50,6 @@
                     app:TextRadioButton="@{question.firstChoose}"
                     app:userAnswerRadioButton="@{question.userAnswer}"
                     app:radioButtonTag="@{1}"
-                    android:background="@color/ML_Harmony"
                     />
 
                 <RadioButton
@@ -64,7 +63,6 @@
                     app:TextRadioButton="@{question.secondChoose}"
                     app:userAnswerRadioButton="@{question.userAnswer}"
                     app:radioButtonTag="@{2}"
-                    android:background="@color/ML_HarmonyDark"
                     />
 
                 <RadioButton
@@ -78,7 +76,6 @@
                     app:TextRadioButton="@{question.thirdChoose}"
                     app:userAnswerRadioButton="@{question.userAnswer}"
                     app:radioButtonTag="@{3}"
-                    android:background="@color/ML_Red"
                     />
 
                 <RadioButton
@@ -92,7 +89,6 @@
                     app:TextRadioButton="@{question.forthChoose}"
                     app:userAnswerRadioButton="@{question.userAnswer}"
                     app:radioButtonTag="@{4}"
-                    android:background="@color/ML_RedDark"
                     />
 
             </RadioGroup>

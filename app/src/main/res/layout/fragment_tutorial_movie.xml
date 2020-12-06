@@ -91,7 +91,7 @@
                 android:padding="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:gravity="center"
-                android:background="@drawable/dw_back_bottom">
+                android:background="@drawable/dw_back_new_question">
 
                 <TextView
                     android:layout_width="wrap_content"

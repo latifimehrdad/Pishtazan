@@ -172,8 +172,9 @@ public class Quiz extends FragmentPrimary implements
             questionPosition--;
             if (questionPosition > -1)
                 animationChangeQuestion(false);
-            else
+            else {
                 questionPosition++;
+            }
         });
 
         LinearLayoutNextQuestion.setOnClickListener(v -> {
@@ -224,6 +225,7 @@ public class Quiz extends FragmentPrimary implements
 
     //______________________________________________________________________________________________ initExam
     private void initExam() {
+        LinearLayoutPreviousQuestion.setVisibility(View.INVISIBLE);
         LinearLayoutStart.setVisibility(View.VISIBLE);
         LinearLayoutExam.setVisibility(View.VISIBLE);
         questionTime = vm_quiz.getMr_exam().getExam().getExamTime();
@@ -260,6 +262,16 @@ public class Quiz extends FragmentPrimary implements
             RecyclerViewQuestion.setVisibility(View.VISIBLE);
 
         }, 400);
+
+        if (questionPosition == 0)
+            LinearLayoutPreviousQuestion.setVisibility(View.INVISIBLE);
+        else
+            LinearLayoutPreviousQuestion.setVisibility(View.VISIBLE);
+
+        if (questionPosition+1 == vm_quiz.getMd_questions().size())
+            LinearLayoutNextQuestion.setVisibility(View.INVISIBLE);
+        else
+            LinearLayoutNextQuestion.setVisibility(View.VISIBLE);
 
 /*        Handler handler = new Handler();
         handler.postDelayed(() -> {

@@ -399,6 +399,35 @@
             app:popExitAnim="@anim/slide_out_left"/>
 
 
+
+        <action
+            android:id="@+id/action_post_to_exam"
+            app:destination="@id/exam"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+
+
+    </fragment>
+
+
+
+    <fragment
+        android:id="@+id/exam"
+        android:name="ir.bppir.pishtazan.views.fragments.Exam"
+        android:label="Exam"
+        tools:layout="@layout/fragment_exam">
+
+        <action
+            android:id="@+id/action_exam_to_tutorial"
+            app:destination="@id/tutorial"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
     </fragment>
 
     <fragment

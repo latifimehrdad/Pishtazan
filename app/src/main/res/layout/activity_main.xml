@@ -125,7 +125,8 @@
 
         </RelativeLayout>
 
-        <include layout="@layout/main_drawer_layout"/>
+        <include layout="@layout/main_drawer_layout"
+            android:id="@+id/linearLayoutSlider"/>
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

@@ -125,7 +125,6 @@ public class Panel extends FragmentPrimary implements
             SetClick();
             PersonType = 0;
             LinearLayoutAdd.setVisibility(View.VISIBLE);
-            editTextName.setVisibility(View.INVISIBLE);
             init();
             /*            GetList();*/
         }
@@ -266,7 +265,6 @@ public class Panel extends FragmentPrimary implements
         LinearLayoutMaybe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editTextName.setVisibility(View.INVISIBLE);
                 editTextName.setText("");
                 SwitchMaterialArchived.setChecked(false);
                 switchMaterialSort.setChecked(false);

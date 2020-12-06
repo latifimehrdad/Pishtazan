@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_5sdp"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TimePicker
+        android:id="@+id/TimePickerReminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:timePickerMode="spinner"
+        />
+
+    <TextView
+        android:id="@+id/textViewChoose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Choose"
+        android:textSize="@dimen/_12sdp"
+        android:textColor="@color/ML_Dark"
+        android:gravity="center"
+        android:layout_margin="@dimen/_5sdp"/>
+
+</LinearLayout>

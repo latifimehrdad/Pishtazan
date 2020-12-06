@@ -190,6 +190,7 @@ public class Reminder extends FragmentPrimary implements
         dialog = null;
 
         stringDate = "";
+        stringTime = "";
         dialog = null;
         dialog = new Dialog(getContext());
         dialog.setCancelable(false);
@@ -210,8 +211,7 @@ public class Reminder extends FragmentPrimary implements
         ProgressGif.setVisibility(View.GONE);
         ImageViewSave.setVisibility(View.VISIBLE);
 
-        TimePicker TimePickerReminder = (TimePicker)
-                dialog.findViewById(R.id.TimePickerReminder);
+        TextView TextViewChooseTime = dialog.findViewById(R.id.TextViewChooseTime);
 
         TextView TextViewChooseDate = (TextView)
                 dialog.findViewById(R.id.TextViewChooseDate);
@@ -246,6 +246,36 @@ public class Reminder extends FragmentPrimary implements
             persianCalendar.show();
         });
 
+
+
+        TextViewChooseTime.setOnClickListener(v -> {
+            Dialog dialogTime = new Dialog(getContext());
+            dialogTime.setCancelable(false);
+            dialogTime.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialogTime.setContentView(R.layout.dialog_time);
+            WindowManager.LayoutParams lp1 = new WindowManager.LayoutParams();
+            Window window1 = dialog.getWindow();
+            lp1.copyFrom(window1.getAttributes());
+            lp1.width = WindowManager.LayoutParams.MATCH_PARENT;
+            window1.setAttributes(lp1);
+
+            TextView textViewChoose = dialogTime.findViewById(R.id.textViewChoose);
+            TimePicker TimePickerReminder = dialogTime.findViewById(R.id.TimePickerReminder);
+
+            textViewChoose.setOnClickListener(view -> {
+                StringBuilder sb = new StringBuilder();
+                sb.append(String.format("%02d", TimePickerReminder.getCurrentHour()));
+                sb.append(":");
+                sb.append(String.format("%02d", TimePickerReminder.getCurrentMinute()));
+                stringTime = sb.toString();
+                TextViewChooseTime.setText(stringTime);
+                TextViewChooseTime.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_back));
+                dialogTime.dismiss();
+            });
+            dialogTime.show();
+
+        });
+
         LinearLayout LinearLayoutCancel = (LinearLayout)
                 dialog.findViewById(R.id.LinearLayoutCancel);
 
@@ -258,15 +288,17 @@ public class Reminder extends FragmentPrimary implements
                 dialog.findViewById(R.id.LinearLayoutSave);
 
         LinearLayoutSave.setOnClickListener(view -> {
+
             if (stringDate.length() < 8) {
                 TextViewChooseDate.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_empty_background));
                 return;
             }
-            StringBuilder sb = new StringBuilder();
-            sb.append(String.format("%02d", TimePickerReminder.getCurrentHour()));
-            sb.append(":");
-            sb.append(String.format("%02d", TimePickerReminder.getCurrentMinute()));
-            stringTime = sb.toString();
+
+            if (stringTime.length() < 5) {
+                TextViewChooseTime.setBackground(getContext().getResources().getDrawable(R.drawable.dw_edit_empty_background));
+                return;
+            }
+
             ProgressGif.setVisibility(View.VISIBLE);
             ImageViewSave.setVisibility(View.GONE);
             if (reminderType == 1)
