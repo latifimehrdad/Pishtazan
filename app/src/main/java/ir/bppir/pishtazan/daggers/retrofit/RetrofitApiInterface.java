@@ -276,6 +276,17 @@ public interface RetrofitApiInterface {
 
 
     @FormUrlEncoded
+    @POST(Version + "/GetAllPolicies")
+    Call<MR_Policy> GET_ALL_POLICIES_Colleague
+            (
+                    @Field("UserInfoId") Integer UserInfoId,
+                    @Field("ColleagueId") Integer ColleagueId,
+                    @Field("PolicyStatus") Byte PolicyStatus,
+                    @Field("IsDeleted") boolean IsDeleted
+            );
+
+
+    @FormUrlEncoded
     @POST(Version + "/EditPolicy")
     Call<MR_Primary> EDIT_POLICY
             (

@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:padding="@dimen/_10sdp"
         android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_20sdp"
         android:orientation="vertical">
 
         <Button
@@ -33,7 +34,7 @@
             android:layout_width="match_parent"
             tools:listitem="@layout/adapter_item_policy"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_5sdp"
             android:padding="@dimen/_5sdp"/>
 

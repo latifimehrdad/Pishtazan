@@ -254,22 +254,40 @@ public class Panel extends FragmentPrimary implements
 
     private void SetClick() {//_____________________________________________________________________ SetClick
 
-        relativeLayoutPanel.setOnTouchListener(new View.OnTouchListener() {
+
+        View.OnTouchListener onTouchListener = new View.OnTouchListener() {
 
             int downX, upX;
+            int downY, upY;
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     downX = (int) event.getX();
+                    downY = (int) event.getY();
                     return true;
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     upX = (int) event.getX();
-                    if (upX - downX > 100) {
+                    upY = (int) event.getY();
+
+                    Log.i("meri", "downX : " + downX + "     upX : " + upX + "     MathX : " + Math.abs(upX-downX));
+                    Log.i("meri", "downY : " + downY + "     upY : " + upY + "     MathY : " + Math.abs(upY-downY));
+
+                    if (Math.abs(downY - upY) > 90)
+                        return false;
+
+
+                    if (upX == downX)
+                        return false;
+
+                    if (Math.abs(upX-downX) < 120)
+                        return false;
+
+                    if (upX - downX > 130) {
                         swipeListLeft();
                         // swipe right
-                    } else if (downX - upX > -100) {
+                    } else if (downX - upX > -130) {
                         swipeListRight();
                         // swipe left
                     }
@@ -278,34 +296,13 @@ public class Panel extends FragmentPrimary implements
                 }
                 return false;
             }
-        });
+        };
 
 
-        RecyclerViewPanel.setOnTouchListener(new View.OnTouchListener() {
+        relativeLayoutPanel.setOnTouchListener(onTouchListener);
 
-            int downX, upX;
 
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    downX = (int) event.getX();
-                    return true;
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    upX = (int) event.getX();
-                    if (upX - downX > 100) {
-                        swipeListLeft();
-                        // swipe right
-                    } else if (downX - upX > -100) {
-                        swipeListRight();
-                        // swipe left
-                    }
-                    return true;
-
-                }
-                return false;
-            }
-        });
+        RecyclerViewPanel.setOnTouchListener(onTouchListener);
 
 
         LinearLayoutAdd.setOnClickListener(new View.OnClickListener() {
@@ -582,7 +579,6 @@ public class Panel extends FragmentPrimary implements
                 }
             } else {
                 LinearLayoutConvertToCustomer.setVisibility(View.GONE);
-                LinearLayoutQuestionnaire.setVisibility(View.GONE);
                 if (PersonType == StaticValues.ML_Certain) {
                     textView.setVisibility(View.GONE);
 //                LinearLayoutCompleteInformation.setVisibility(View.GONE);
@@ -606,6 +602,7 @@ public class Panel extends FragmentPrimary implements
                         LinearLayoutConvertToUser.setVisibility(View.GONE);
                         textView.setVisibility(View.VISIBLE);
                     } else {
+                        LinearLayoutQuestionnaire.setVisibility(View.GONE);
                         LinearLayoutConvertToUser.setVisibility(View.GONE);
 //                        LinearLayoutConvertToColleague.setVisibility(View.GONE);
                         textView.setVisibility(View.GONE);
@@ -614,6 +611,8 @@ public class Panel extends FragmentPrimary implements
                 }
             }
         }
+
+
 
         LinearLayoutQuestionnaire.setOnClickListener(v -> {
             dialog.dismiss();

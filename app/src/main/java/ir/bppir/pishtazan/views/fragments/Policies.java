@@ -74,10 +74,16 @@ public class Policies extends FragmentPrimary implements
         Integer temp = getArguments().getInt(getContext().getResources().getString(R.string.ML_Type), StaticValues.PolicyStatusQuestionnaire);
         typePolicies = temp.byteValue();
         if (typePolicies.equals(StaticValues.PolicyStatusQuestionnaire))
-            vm_policyList.getAllPolicies(PersonId, StaticValues.PolicyStatusQuestionnaire);
+            if (panelType.equals(StaticValues.Customer))
+                vm_policyList.getAllPolicies(PersonId, StaticValues.PolicyStatusQuestionnaire);
+            else
+                vm_policyList.getAllPoliciesColleague(PersonId, StaticValues.PolicyStatusQuestionnaire);
         else {
             ButtonNew.setVisibility(View.GONE);
-            vm_policyList.getAllPolicies(PersonId, StaticValues.PolicyStatusInsurance);
+            if (panelType.equals(StaticValues.Customer))
+                vm_policyList.getAllPolicies(PersonId, StaticValues.PolicyStatusInsurance);
+            else
+                vm_policyList.getAllPoliciesColleague(PersonId, StaticValues.PolicyStatusInsurance);
         }
 
     }//_____________________________________________________________________________________________ onStart
@@ -153,7 +159,6 @@ public class Policies extends FragmentPrimary implements
         }*/
 
     }//_____________________________________________________________________________________________ clickItemPolicy
-
 
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
