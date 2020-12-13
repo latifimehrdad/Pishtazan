@@ -216,7 +216,8 @@ public interface RetrofitApiInterface {
                     @Part("Lang") RequestBody Lang,
                     @Part("ColleagueId") RequestBody ColleagueId,
                     @Part("NationalCode") RequestBody NationalCode,
-                    @Part("Level") RequestBody Level
+                    @Part("Level") RequestBody Level,
+                    @Part("SendSMS") RequestBody SendSMS
             );
 
 

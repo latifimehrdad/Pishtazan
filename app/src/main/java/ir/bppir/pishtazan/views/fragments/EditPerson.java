@@ -19,6 +19,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.cunoraz.gifview.library.GifView;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -115,6 +116,9 @@ public class EditPerson extends FragmentPrimary implements
     @BindView(R.id.GifViewLoading)
     GifView GifViewLoading;
 
+    @BindView(R.id.switchMaterialBirthDay)
+    SwitchMaterial switchMaterialBirthDay;
+
 
     //______________________________________________________________________________________________ onCreateView
     @Nullable
@@ -135,6 +139,7 @@ public class EditPerson extends FragmentPrimary implements
             setClick();
             stringDate = "";
             getPersonInfo();
+
         }
         return getView();
     }
@@ -177,6 +182,9 @@ public class EditPerson extends FragmentPrimary implements
                 EditPerson.this,
                 vm_editPerson.getPublishSubject(),
                 vm_editPerson);
+
+        if (panelType.equals(StaticValues.Colleague))
+            switchMaterialBirthDay.setVisibility(View.GONE);
 
         if (VM_Map.map_Address != null) {
             vm_editPerson.setAddress(VM_Map.map_Address);
@@ -228,6 +236,7 @@ public class EditPerson extends FragmentPrimary implements
             EditTextPhoneNumber.setText(vm_editPerson.getPerson().getPhoneNumber());
             EditTextNationalCode.setText(vm_editPerson.getPerson().getNationalCode());
             EditTextAddress.setText(vm_editPerson.getPerson().getAddress());
+            switchMaterialBirthDay.setChecked(vm_editPerson.getPerson().isSendSMS());
             String bDate = vm_editPerson.getPerson().getBirthDateJ();
             if (bDate == null || bDate.isEmpty())
                 TextViewChooseBirthDay.setText(getContext().getResources().getString(R.string.ChooseBirthDay));
@@ -250,7 +259,10 @@ public class EditPerson extends FragmentPrimary implements
     private void setClick() {
 
 
-        LinearLayoutMap.setOnClickListener(v -> navController.navigate(R.id.action_editPerson_to_map));
+        LinearLayoutMap.setOnClickListener(v -> {
+            if (MainActivity.mainActivity.setPermission())
+                navController.navigate(R.id.action_editPerson_to_map);
+        });
 
         TextViewChooseBirthDay.setOnClickListener(v -> {
             assert getContext() != null;
@@ -285,6 +297,10 @@ public class EditPerson extends FragmentPrimary implements
 
 
         CircleImageViewProfile.setOnClickListener(view -> {
+
+            if (!MainActivity.mainActivity.setPermission())
+                return;
+
             if (disposableObserver != null)
                 disposableObserver.dispose();
             disposableObserver = null;
@@ -320,11 +336,12 @@ public class EditPerson extends FragmentPrimary implements
                         EditTextMobileNumber.getText().toString(),
                         Degree,
                         EditTextPhoneNumber.getText().toString(),
-                        TextViewChooseBirthDay.getText().toString(),
+                        stringDate,
                         EditTextAddress.getText().toString(),
                         Lat,
                         Lng,
-                        EditTextNationalCode.getText().toString()
+                        EditTextNationalCode.getText().toString(),
+                        switchMaterialBirthDay.isChecked()
                 );
             }
         });
@@ -376,6 +393,7 @@ public class EditPerson extends FragmentPrimary implements
         boolean mobile = true;
         boolean phoneNumber = true;
         boolean national = true;
+        boolean birthday = true;
 
 
         if (EditTextMobileNumber.getText().length() != 11) {
@@ -417,10 +435,12 @@ public class EditPerson extends FragmentPrimary implements
             name = false;
         }
 
-/*        if ((stringDate.length() == 0)) {
-            TextViewChooseBirthDay.setBackgroundResource(R.drawable.dw_edit_empty_background);
-            birthday = false;
-        }*/
+        if (panelType.equals(StaticValues.Customer))
+            if (switchMaterialBirthDay.isChecked())
+                if (stringDate == null || stringDate.length() == 0) {
+                    TextViewChooseBirthDay.setBackgroundResource(R.drawable.dw_edit_empty_background);
+                    birthday = false;
+                }
 
         if (Degree == -1) {
             assert getContext() != null;
@@ -432,7 +452,7 @@ public class EditPerson extends FragmentPrimary implements
         }
 
 
-        return mobile && name && phoneNumber && national;
+        return mobile && name && phoneNumber && national && birthday;
 
     }
     //______________________________________________________________________________________________ checkEmpty

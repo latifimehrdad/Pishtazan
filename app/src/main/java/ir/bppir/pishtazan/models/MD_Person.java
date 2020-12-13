@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import butterknife.BindView;
+
 public class MD_Person {
 
     Integer Id;
@@ -84,10 +86,13 @@ public class MD_Person {
     @Expose
     Integer ColleagueStatus;
 
+    @SerializedName("SendSMS")
+    boolean SendSMS;
+
     public MD_Person() {
     }
 
-    public MD_Person(Integer id, String fullName, Integer locationStateId, String phoneNumber, String mobileNumber, String description, String CDate, String MDate, String DDate, String birthDateJ, String birthDateM, String address, double lat, double lang, String image, Integer userInfoId, MD_UserInfo userInfo, String nationalCode, boolean isDelete, Integer level, float completenessPercent, List<MD_Policy> policies, boolean apiRecieved, Integer customerStatus, Integer colleagueStatus) {
+    public MD_Person(Integer id, String fullName, Integer locationStateId, String phoneNumber, String mobileNumber, String description, String CDate, String MDate, String DDate, String birthDateJ, String birthDateM, String address, double lat, double lang, String image, Integer userInfoId, MD_UserInfo userInfo, String nationalCode, boolean isDelete, Integer level, float completenessPercent, List<MD_Policy> policies, boolean apiRecieved, Integer customerStatus, Integer colleagueStatus, boolean sendSMS) {
         Id = id;
         FullName = fullName;
         LocationStateId = locationStateId;
@@ -113,6 +118,7 @@ public class MD_Person {
         ApiRecieved = apiRecieved;
         CustomerStatus = customerStatus;
         ColleagueStatus = colleagueStatus;
+        SendSMS = sendSMS;
     }
 
     public Integer getId() {
@@ -313,5 +319,13 @@ public class MD_Person {
 
     public void setCustomerStatus(Integer customerStatus) {
         CustomerStatus = customerStatus;
+    }
+
+    public boolean isSendSMS() {
+        return SendSMS;
+    }
+
+    public void setSendSMS(boolean sendSMS) {
+        SendSMS = sendSMS;
     }
 }

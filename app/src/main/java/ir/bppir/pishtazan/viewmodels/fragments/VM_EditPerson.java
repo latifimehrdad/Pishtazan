@@ -46,12 +46,21 @@ public class VM_EditPerson extends VM_Primary {
             String eAddress,
             String eLat,
             String eLang,
-            String eNationalCode) {
+            String eNationalCode,
+            boolean birthDay) {
+
+        if (eBirthDateJ != null)
+            eBirthDateJ = PishtazanApplication
+                    .getApplication(getContext())
+                    .getApplicationUtilityComponent()
+                    .getApplicationUtility()
+                    .PersianToEnglish(eBirthDateJ);
+        else eBirthDateJ = "";
 
         if (panelId.equals(StaticValues.Customer))
-            editCustomerProfile(eId, eFullName, eMobileNumber, eLevel, ePhoneNumber, eBirthDateJ, eAddress, eLat, eLang, eNationalCode);
+            editCustomerProfile(eId, eFullName, eMobileNumber, eLevel, ePhoneNumber, eBirthDateJ, eAddress, eLat, eLang, eNationalCode, birthDay);
         else
-            editColleagueProfile(eId, eFullName, eMobileNumber, eLevel, ePhoneNumber, eBirthDateJ, eAddress, eLat, eLang, eNationalCode);
+            editColleagueProfile(eId, eFullName, eMobileNumber, eLevel, ePhoneNumber, eBirthDateJ, eAddress, eLat, eLang, eNationalCode, birthDay);
 
     }
     //______________________________________________________________________________________________ editProfile
@@ -68,7 +77,8 @@ public class VM_EditPerson extends VM_Primary {
             String eAddress,
             String eLat,
             String eLang,
-            String eNationalCode) {
+            String eNationalCode,
+            boolean birthDay) {
 
         eMobileNumber = PishtazanApplication
                 .getApplication(getContext())
@@ -102,6 +112,10 @@ public class VM_EditPerson extends VM_Primary {
         RequestBody Lat = RequestBody.create(MediaType.parse("multipart/form-data"), eLat);
         RequestBody Lang = RequestBody.create(MediaType.parse("multipart/form-data"), eLang);
         RequestBody NationalCode = RequestBody.create(MediaType.parse("multipart/form-data"), eNationalCode);
+        RequestBody BirthDay = RequestBody.create(MediaType.parse("multipart/form-data"), "0");
+        if (birthDay)
+            BirthDay = RequestBody.create(MediaType.parse("multipart/form-data"), "1");
+//        RequestBody BirthDay = RequestBody.create(MediaType.parse("text/plain"), Boolean.TRUE.toString());
 
         setPrimaryCall(PishtazanApplication
                 .getApplication(getContext())
@@ -119,7 +133,8 @@ public class VM_EditPerson extends VM_Primary {
                         Lang,
                         ColleagueId,
                         NationalCode,
-                        Level));
+                        Level,
+                        BirthDay));
 
         getPrimaryCall().enqueue(new Callback<MR_Primary>() {
             @Override
@@ -154,7 +169,8 @@ public class VM_EditPerson extends VM_Primary {
             String eAddress,
             String eLat,
             String eLang,
-            String eNationalCode) {
+            String eNationalCode,
+            boolean birthDay) {
 
         eMobileNumber = PishtazanApplication
                 .getApplication(getContext())

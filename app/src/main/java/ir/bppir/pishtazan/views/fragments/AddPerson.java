@@ -39,6 +39,7 @@ import ir.bppir.pishtazan.databinding.FragmentAddPersonBinding;
 import ir.bppir.pishtazan.models.MD_Contact;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.fragments.VM_AddPerson;
+import ir.bppir.pishtazan.views.activity.MainActivity;
 import ir.bppir.pishtazan.views.adapters.AP_Contact;
 
 public class AddPerson extends FragmentPrimary implements FragmentPrimary.actionFromObservable {
@@ -160,6 +161,7 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.action
             LinearLayoutGiant.setBackground(null);
             LinearLayoutNormal.setBackground(null);
             LinearLayoutPeach.setBackground(null);
+            getContext().onBackPressed();
             return;
         }
 
@@ -191,10 +193,12 @@ public class AddPerson extends FragmentPrimary implements FragmentPrimary.action
     private void setClick() {
 
         RelativeLayoutAdd.setOnClickListener(view -> {
-            hideKeyboard();
-            showWaiting();
-            Handler handler = new Handler();
-            handler.postDelayed(() -> vm_addPerson.getContact(), 1000);
+            if (MainActivity.mainActivity.setPermission()) {
+                hideKeyboard();
+                showWaiting();
+                Handler handler = new Handler();
+                handler.postDelayed(() -> vm_addPerson.getContact(), 1000);
+            }
 
         });
 

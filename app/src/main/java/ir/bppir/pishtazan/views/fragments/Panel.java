@@ -259,7 +259,6 @@ public class Panel extends FragmentPrimary implements
 
             int downX, upX;
             int downY, upY;
-
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
@@ -588,6 +587,7 @@ public class Panel extends FragmentPrimary implements
                     LinearLayoutConvertToColleague.setVisibility(View.GONE);
                     LinearLayoutDeleteFromList.setVisibility(View.GONE);
                     LinearLayoutNoArchived.setVisibility(View.GONE);
+                    LinearLayoutConvertToUser.setVisibility(View.GONE);
                 } else {
                     if (vm_panel.getPersonList().get(Position).getNationalCode() == null ||
                             vm_panel.getPersonList().get(Position).getNationalCode().equalsIgnoreCase("")) {

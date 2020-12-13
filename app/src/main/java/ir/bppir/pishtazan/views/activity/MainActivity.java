@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //______________________________________________________________________________________________ setPermission
-    public void setPermission() {
+    public boolean setPermission() {
 
         int permissionLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
         int permissionPhone = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
@@ -248,7 +248,10 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,
                     listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),
                     0);
+            return false;
         }
+
+        return true;
 
     }
     //______________________________________________________________________________________________ setPermission

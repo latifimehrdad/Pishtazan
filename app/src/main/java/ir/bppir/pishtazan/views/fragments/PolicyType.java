@@ -220,6 +220,7 @@ public class PolicyType extends FragmentPrimary implements
             editTextInsurerName.getText().clear();
             editTextInsurerMobile.getText().clear();
             editTextInsurerNational.getText().clear();
+            getContext().onBackPressed();
             return;
         }
 
