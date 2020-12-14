@@ -162,6 +162,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/linearLayoutNationalCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -265,8 +266,6 @@
 
                 </LinearLayout>
 
-                <include layout="@layout/layout_degree_person"/>
-
                 <LinearLayout
                     android:id="@+id/LinearLayoutMap"
                     android:layout_width="match_parent"
@@ -291,6 +290,41 @@
                         app:civ_border_color="@color/colorAccent"
                         android:src="@drawable/google_maps_icon"/>
 
+
+                </LinearLayout>
+
+                <include layout="@layout/layout_degree_person"
+                    android:id="@+id/linearLayoutDegree"/>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal">
+
+
+                    <EditText
+                        android:id="@+id/editTextDescription"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/_40sdp"
+                        android:background="@drawable/dw_edit_back"
+                        android:gravity="right"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/_12sdp"
+                        android:hint="@string/Description"
+                        android:maxLines="3"
+                        />
+
+                    <ImageView
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/dw_icon_background"
+                        android:src="@drawable/svg_to_do_list"
+                        android:tint="@color/ML_Harmony" />
 
                 </LinearLayout>
 

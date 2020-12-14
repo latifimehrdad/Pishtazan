@@ -119,6 +119,15 @@ public class EditPerson extends FragmentPrimary implements
     @BindView(R.id.switchMaterialBirthDay)
     SwitchMaterial switchMaterialBirthDay;
 
+    @BindView(R.id.linearLayoutDescription)
+    LinearLayout linearLayoutDescription;
+
+    @BindView(R.id.linearLayoutNationalCode)
+    LinearLayout linearLayoutNationalCode;
+
+    @BindView(R.id.linearLayoutDegree)
+    LinearLayout linearLayoutDegree;
+
 
     //______________________________________________________________________________________________ onCreateView
     @Nullable
@@ -139,7 +148,6 @@ public class EditPerson extends FragmentPrimary implements
             setClick();
             stringDate = "";
             getPersonInfo();
-
         }
         return getView();
     }
@@ -185,6 +193,14 @@ public class EditPerson extends FragmentPrimary implements
 
         if (panelType.equals(StaticValues.Colleague))
             switchMaterialBirthDay.setVisibility(View.GONE);
+
+        if (panelType.equals(StaticValues.ML_User)) {
+            linearLayoutNationalCode.setVisibility(View.GONE);
+            switchMaterialBirthDay.setVisibility(View.GONE);
+            linearLayoutDegree.setVisibility(View.GONE);
+        } else {
+            linearLayoutDescription.setVisibility(View.GONE);
+        }
 
         if (VM_Map.map_Address != null) {
             vm_editPerson.setAddress(VM_Map.map_Address);
@@ -394,6 +410,7 @@ public class EditPerson extends FragmentPrimary implements
         boolean phoneNumber = true;
         boolean national = true;
         boolean birthday = true;
+        boolean degree = true;
 
 
         if (EditTextMobileNumber.getText().length() != 11) {
@@ -442,17 +459,19 @@ public class EditPerson extends FragmentPrimary implements
                     birthday = false;
                 }
 
-        if (Degree == -1) {
-            assert getContext() != null;
-            showMessage(
-                    getContext().getResources().getString(R.string.ChoosePersonDegree),
-                    getResources().getColor(R.color.ML_Dialog),
-                    getResources().getDrawable(R.drawable.ic_baseline_warning),
-                    getResources().getColor(R.color.ML_Red));
-        }
+        if (!panelType.equals(StaticValues.ML_User))
+            if (Degree == -1) {
+                degree = false;
+                assert getContext() != null;
+                showMessage(
+                        getContext().getResources().getString(R.string.ChoosePersonDegree),
+                        getResources().getColor(R.color.ML_Dialog),
+                        getResources().getDrawable(R.drawable.ic_baseline_warning),
+                        getResources().getColor(R.color.ML_Red));
+            }
 
 
-        return mobile && name && phoneNumber && national && birthday;
+        return mobile && name && phoneNumber && national && birthday && degree;
 
     }
     //______________________________________________________________________________________________ checkEmpty

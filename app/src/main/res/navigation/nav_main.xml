@@ -132,6 +132,10 @@
 
     </fragment>
 
+
+
+
+
     <fragment
         android:id="@+id/panel"
         android:name="ir.bppir.pishtazan.views.fragments.Panel"
@@ -529,6 +533,17 @@
         app:exitAnim="@anim/slide_out_right"
         app:popEnterAnim="@anim/slide_in_right"
         app:popExitAnim="@anim/slide_out_left"/>
+
+
+    <action
+        android:id="@+id/gotoEditUser"
+        app:destination="@id/editPerson"
+        app:launchSingleTop="true"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"/>
+
 
     <fragment
         android:id="@+id/reminder"
