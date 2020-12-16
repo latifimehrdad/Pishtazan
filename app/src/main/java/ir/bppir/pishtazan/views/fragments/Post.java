@@ -72,6 +72,9 @@ public class Post extends FragmentPrimary implements FragmentPrimary.actionFromO
             setView(binding.getRoot());
             postType = getArguments().getString(getContext().getResources().getString(R.string.ML_Type),
                     getContext().getResources().getString(R.string.ML_MyReport));
+            if (postType.equals("null"))
+                postType = getContext().getResources().getString(R.string.ML_MyReport);
+
             if (postType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_MySubsetReport)))
                 personId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
             else

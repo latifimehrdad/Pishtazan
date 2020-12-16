@@ -102,6 +102,7 @@
             android:layout_height="match_parent"
             tools:listitem="@layout/adapter_tutorial"
             android:layout_below="@id/LinearLayoutExam"
+            android:layout_marginTop="@dimen/_30sdp"
             android:padding="@dimen/_5sdp"/>
 
         <com.cunoraz.gifview.library.GifView

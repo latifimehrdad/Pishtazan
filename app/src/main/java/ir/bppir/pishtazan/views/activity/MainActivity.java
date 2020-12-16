@@ -9,7 +9,10 @@ import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
+import androidx.navigation.NavGraph;
+import androidx.navigation.NavInflater;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -41,6 +44,7 @@ import android.widget.Toast;
 
 import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.annotations.SerializedName;
 import com.yalantis.ucrop.UCrop;
 
@@ -137,6 +141,14 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout linearLayoutSlider;
 
 
+    @BindView(R.id.linearLayoutEditProfile)
+    LinearLayout linearLayoutEditProfile;
+
+
+    @BindView(R.id.BottomNav1)
+    BottomNavigationView BottomNav1;
+
+
     //______________________________________________________________________________________________ onCreate
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
         binding.setMain(vm_main);
         ButterKnife.bind(this);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupWithNavController(BottomNav1, navController);
         mainPublish = PublishSubject.create();
         setPermission();
         if (disposableObserver != null)
@@ -465,6 +478,15 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("RtlHardcoded")
     private void setListener() {
 
+        linearLayoutEditProfile.setOnClickListener(v -> {
+            drawer_layout.closeDrawer(Gravity.RIGHT, true);
+            Bundle bundle = new Bundle();
+            bundle.putInt(getString(R.string.ML_PanelType), StaticValues.ML_User);
+            bundle.putInt(getString(R.string.ML_personId), vm_main.getColleagueId());
+            navController.navigate(R.id.gotoEditUser, bundle);
+        });
+
+
         linearLayoutSlider.setOnClickListener(v ->{});
 
         linearLayoutAddAmount.setOnClickListener(v -> {
@@ -494,15 +516,22 @@ public class MainActivity extends AppCompatActivity {
                     (fragment.equalsIgnoreCase("Payment"))) {
                 if (!preLogin) {
                     ImageViewMenu.setVisibility(View.GONE);
+                    BottomNav1.setVisibility(View.GONE);
                     preLogin = true;
                     lockDrawer();
                 }
 
             } else {
                 if (preLogin) {
-                    ImageViewMenu.setVisibility(View.VISIBLE);
                     unLockDrawer();
                     preLogin = false;
+                    ImageViewMenu.setVisibility(View.VISIBLE);
+                    BottomNav1.setVisibility(View.VISIBLE);
+                    NavInflater navInflater = navController.getNavInflater();
+                    NavGraph graph = navInflater.inflate(R.navigation.nav_main);
+                    graph.setStartDestination(R.id.home);
+                    navController.setGraph(graph);
+
                 }
             }
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/BottomNav1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:defaultFocusHighlightEnabled="false"
+        android:background="@color/colorPrimary"
+        app:menu="@menu/bottom_nav1"
+        app:itemIconSize="@dimen/_15sdp"
+        app:itemTextColor="@color/ML_Harmony"
+        app:itemIconTint="@color/ML_Harmony"
+        />
+
+</RelativeLayout>

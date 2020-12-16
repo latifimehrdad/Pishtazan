@@ -333,7 +333,7 @@ public class Panel extends FragmentPrimary implements
         LinearLayoutPossible.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LinearLayoutAdd.setVisibility(View.INVISIBLE);
+                LinearLayoutAdd.setVisibility(View.GONE);
                 editTextName.setText("");
                 SwitchMaterialArchived.setChecked(false);
                 switchMaterialSort.setChecked(false);
@@ -350,7 +350,7 @@ public class Panel extends FragmentPrimary implements
         LinearLayoutCertain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LinearLayoutAdd.setVisibility(View.INVISIBLE);
+                LinearLayoutAdd.setVisibility(View.GONE);
                 editTextName.setText("");
                 SwitchMaterialArchived.setChecked(false);
                 switchMaterialSort.setChecked(false);
@@ -368,7 +368,7 @@ public class Panel extends FragmentPrimary implements
         LinearLayoutUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LinearLayoutAdd.setVisibility(View.INVISIBLE);
+                LinearLayoutAdd.setVisibility(View.GONE);
                 editTextName.setText("");
                 SwitchMaterialArchived.setChecked(false);
                 switchMaterialSort.setChecked(false);
@@ -393,7 +393,7 @@ public class Panel extends FragmentPrimary implements
     private void swipeListLeft() {
 
         if (PersonType.equals(StaticValues.ML_Maybe)) {
-            LinearLayoutAdd.setVisibility(View.INVISIBLE);
+            LinearLayoutAdd.setVisibility(View.GONE);
             editTextName.setText("");
             SwitchMaterialArchived.setChecked(false);
             switchMaterialSort.setChecked(false);
@@ -404,7 +404,7 @@ public class Panel extends FragmentPrimary implements
             LinearLayoutPossible.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
             PersonType = StaticValues.ML_Possible;
         } else if (PersonType.equals(StaticValues.ML_Possible)) {
-            LinearLayoutAdd.setVisibility(View.INVISIBLE);
+            LinearLayoutAdd.setVisibility(View.GONE);
             editTextName.setText("");
             SwitchMaterialArchived.setChecked(false);
             switchMaterialSort.setChecked(false);
@@ -416,7 +416,7 @@ public class Panel extends FragmentPrimary implements
             PersonType = StaticValues.ML_Certain;
         } else if (PersonType.equals(StaticValues.ML_Certain)) {
             if (panelType.equals(StaticValues.Colleague)) {
-                LinearLayoutAdd.setVisibility(View.INVISIBLE);
+                LinearLayoutAdd.setVisibility(View.GONE);
                 editTextName.setText("");
                 SwitchMaterialArchived.setChecked(false);
                 switchMaterialSort.setChecked(false);
@@ -436,7 +436,7 @@ public class Panel extends FragmentPrimary implements
     private void swipeListRight() {
 
         if (PersonType.equals(StaticValues.ML_User)) {
-            LinearLayoutAdd.setVisibility(View.INVISIBLE);
+            LinearLayoutAdd.setVisibility(View.GONE);
             editTextName.setText("");
             SwitchMaterialArchived.setChecked(false);
             switchMaterialSort.setChecked(false);
@@ -447,7 +447,7 @@ public class Panel extends FragmentPrimary implements
             LinearLayoutCertain.setBackground(getContext().getResources().getDrawable(R.drawable.dw_back_recycler));
             PersonType = StaticValues.ML_Certain;
         } else if (PersonType.equals(StaticValues.ML_Certain)) {
-            LinearLayoutAdd.setVisibility(View.INVISIBLE);
+            LinearLayoutAdd.setVisibility(View.GONE);
             editTextName.setText("");
             SwitchMaterialArchived.setChecked(false);
             switchMaterialSort.setChecked(false);
