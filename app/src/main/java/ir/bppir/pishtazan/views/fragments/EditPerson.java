@@ -128,6 +128,12 @@ public class EditPerson extends FragmentPrimary implements
     @BindView(R.id.linearLayoutDegree)
     LinearLayout linearLayoutDegree;
 
+    @BindView(R.id.linearLayoutMobile)
+    LinearLayout linearLayoutMobile;
+
+    @BindView(R.id.editTextDescription)
+    EditText editTextDescription;
+
 
     //______________________________________________________________________________________________ onCreateView
     @Nullable
@@ -175,9 +181,10 @@ public class EditPerson extends FragmentPrimary implements
         Integer personId = getArguments().getInt(getContext().getString(R.string.ML_personId), 0);
         if (panelType.equals(StaticValues.Customer)) {
             vm_editPerson.getCustomer(personId);
-        } else {
+        } else if (panelType.equals(StaticValues.Colleague)){
             vm_editPerson.getColleague(personId);
-        }
+        } else
+            vm_editPerson.getUser();
     }
     //______________________________________________________________________________________________ getPersonInfo
 
@@ -198,6 +205,7 @@ public class EditPerson extends FragmentPrimary implements
             linearLayoutNationalCode.setVisibility(View.GONE);
             switchMaterialBirthDay.setVisibility(View.GONE);
             linearLayoutDegree.setVisibility(View.GONE);
+            linearLayoutMobile.setVisibility(View.GONE);
         } else {
             linearLayoutDescription.setVisibility(View.GONE);
         }
@@ -235,6 +243,11 @@ public class EditPerson extends FragmentPrimary implements
             LinearLayoutGiant.setBackground(null);
             LinearLayoutNormal.setBackground(null);
             LinearLayoutPeach.setBackground(null);
+            vm_editPerson.getUserInfoVM();
+            return;
+        }
+
+        if (action.equals(StaticValues.ML_GotoHome)){
             assert getContext() != null;
             getContext().onBackPressed();
             return;
@@ -252,6 +265,7 @@ public class EditPerson extends FragmentPrimary implements
             EditTextPhoneNumber.setText(vm_editPerson.getPerson().getPhoneNumber());
             EditTextNationalCode.setText(vm_editPerson.getPerson().getNationalCode());
             EditTextAddress.setText(vm_editPerson.getPerson().getAddress());
+            editTextDescription.setText(vm_editPerson.getPerson().getDescription());
             switchMaterialBirthDay.setChecked(vm_editPerson.getPerson().isSendSMS());
             String bDate = vm_editPerson.getPerson().getBirthDateJ();
             if (bDate == null || bDate.isEmpty())
@@ -267,6 +281,7 @@ public class EditPerson extends FragmentPrimary implements
 
             Lat = String.valueOf(vm_editPerson.getPerson().getLat());
             Lng = String.valueOf(vm_editPerson.getPerson().getLang());
+
         }
 
     }
@@ -359,7 +374,8 @@ public class EditPerson extends FragmentPrimary implements
                         Lat,
                         Lng,
                         EditTextNationalCode.getText().toString(),
-                        switchMaterialBirthDay.isChecked()
+                        switchMaterialBirthDay.isChecked(),
+                        editTextDescription.getText().toString()
                 );
             }
         });

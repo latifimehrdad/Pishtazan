@@ -570,6 +570,14 @@ public class MainActivity extends AppCompatActivity {
     //______________________________________________________________________________________________ unLockDrawer
     public void unLockDrawer() {
         drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        setProfile();
+    }
+    //______________________________________________________________________________________________ unLockDrawer
+
+
+
+    //______________________________________________________________________________________________ setProfile
+    public void setProfile() {
         textViewScore.setText(getResources().getString(R.string.totalScore) + System.lineSeparator() + md_userInfoVM.getScores());
         textViewPrivileges.setText(getResources().getString(R.string.totalPrivileges) + System.lineSeparator() + md_userInfoVM.getPrivileges());
         if (md_userInfoVM.getName() != null)
@@ -587,7 +595,8 @@ public class MainActivity extends AppCompatActivity {
             simpleDraweeViewProfile.setImageURI(url);
         }
     }
-    //______________________________________________________________________________________________ unLockDrawer
+    //______________________________________________________________________________________________ setProfile
+
 
 
     //______________________________________________________________________________________________ lockDrawer

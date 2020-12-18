@@ -9,10 +9,14 @@ import java.io.File;
 import ir.bppir.pishtazan.R;
 import ir.bppir.pishtazan.models.MD_GetAddres;
 import ir.bppir.pishtazan.models.MD_Person;
+import ir.bppir.pishtazan.models.MD_UserInfo;
+import ir.bppir.pishtazan.models.MD_UserInfoVM;
 import ir.bppir.pishtazan.models.MR_GetAllPerson;
 import ir.bppir.pishtazan.models.MR_Primary;
+import ir.bppir.pishtazan.models.MR_UserInfoVM;
 import ir.bppir.pishtazan.utility.StaticValues;
 import ir.bppir.pishtazan.viewmodels.VM_Primary;
+import ir.bppir.pishtazan.views.activity.MainActivity;
 import ir.bppir.pishtazan.views.application.PishtazanApplication;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -20,6 +24,8 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static ir.bppir.pishtazan.daggers.retrofit.RetrofitApis.Host;
 
 public class VM_EditPerson extends VM_Primary {
 
@@ -47,7 +53,8 @@ public class VM_EditPerson extends VM_Primary {
             String eLat,
             String eLang,
             String eNationalCode,
-            boolean birthDay) {
+            boolean birthDay,
+            String eDescription) {
 
         if (eBirthDateJ != null)
             eBirthDateJ = PishtazanApplication
@@ -59,9 +66,9 @@ public class VM_EditPerson extends VM_Primary {
 
         if (panelId.equals(StaticValues.Customer))
             editCustomerProfile(eId, eFullName, eMobileNumber, eLevel, ePhoneNumber, eBirthDateJ, eAddress, eLat, eLang, eNationalCode, birthDay);
-        else
+        else if (panelId.equals(StaticValues.Colleague))
             editColleagueProfile(eId, eFullName, eMobileNumber, eLevel, ePhoneNumber, eBirthDateJ, eAddress, eLat, eLang, eNationalCode, birthDay);
-
+        else editUserProfile(getColleagueId(), eFullName,ePhoneNumber,eBirthDateJ,eAddress,eLat,eLang,eMobileNumber,eDescription);
     }
     //______________________________________________________________________________________________ editProfile
 
@@ -285,6 +292,157 @@ public class VM_EditPerson extends VM_Primary {
     //______________________________________________________________________________________________ getCustomer
 
 
+
+
+    //______________________________________________________________________________________________ getUser
+    public void getUser() {
+
+        Integer Id = getColleagueId();
+        if (Id == 0) {
+            userIsNotAuthorization();
+            return;
+        }
+
+        setPrimaryCall(PishtazanApplication
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .GET_User_Info(Id));
+
+        getPrimaryCall().enqueue(new Callback<MR_GetAllPerson>() {
+            @Override
+            public void onResponse(Call<MR_GetAllPerson> call, Response<MR_GetAllPerson> response) {
+                if (responseIsOk(response)) {
+                    setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 0)
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    else {
+                        MD_UserInfo info = response.body().getUserInfo();
+                        MD_Person p = new MD_Person(
+                             info.getId(),
+                             info.getFullName(),
+                             info.getLocationStateId(),
+                             info.getPhoneNumber(),
+                             info.getMobileNumber()
+                             ,info.getDescription(),
+                             null,
+                             null,
+                             null,
+                             info.getBrithDateJ(),
+                             null,
+                             info.getAddress(),
+                             info.getLat(),
+                             info.getLang(),
+                             info.getImage(),
+                             info.getUserInfoId(),
+                             info,
+                             info.getNationalCode(),
+                             info.isDelete(),
+                                null,
+                                0,
+                                null,
+                                false,
+                                null,
+                                null,
+                                false
+                        );
+                        person = p;
+                        setResponseMessage("");
+                        sendMessageToObservable(StaticValues.ML_GetPerson);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MR_GetAllPerson> call, Throwable t) {
+                callIsFailure();
+            }
+        });
+
+    }
+    //______________________________________________________________________________________________ getUser
+
+
+
+
+    //______________________________________________________________________________________________ editColleagueProfile
+    public void editUserProfile(
+            Integer eId,
+            String eFullName,
+            String ePhoneNumber,
+            String eBirthDateJ,
+            String eAddress,
+            String eLat,
+            String eLang,
+            String eMobileNumber,
+            String eDescription) {
+
+
+        Integer eUserInfoId = getUserId();
+        if (eUserInfoId == 0) {
+            userIsNotAuthorization();
+            return;
+        }
+
+        Uri destination = Uri.fromFile(new File(getContext().getExternalCacheDir(), "cropped.jpg"));
+        File file = new File(destination.getPath());
+        MultipartBody.Part Image = null;
+
+        if (file.exists())
+            Image = MultipartBody
+                    .Part
+                    .createFormData("Image", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+
+        RequestBody Id = RequestBody.create(MediaType.parse("multipart/form-data"), eId.toString());
+        RequestBody FullName = RequestBody.create(MediaType.parse("multipart/form-data"), eFullName);
+        RequestBody PhoneNumber = RequestBody.create(MediaType.parse("multipart/form-data"), ePhoneNumber);
+        RequestBody BirthDateJ = RequestBody.create(MediaType.parse("multipart/form-data"), eBirthDateJ);
+        RequestBody Address = RequestBody.create(MediaType.parse("multipart/form-data"), eAddress);
+        RequestBody Lat = RequestBody.create(MediaType.parse("multipart/form-data"), eLat);
+        RequestBody Lang = RequestBody.create(MediaType.parse("multipart/form-data"), eLang);
+        RequestBody MobileNumber = RequestBody.create(MediaType.parse("multipart/form-data"), eMobileNumber);
+        RequestBody Description = RequestBody.create(MediaType.parse("multipart/form-data"), eDescription);
+
+        setPrimaryCall(PishtazanApplication
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .EDIT_User(
+                        Image,
+                        Id,
+                        FullName,
+                        PhoneNumber,
+                        BirthDateJ,
+                        Address,
+                        Lat,
+                        Lang,
+                        MobileNumber,
+                        Description));
+
+        getPrimaryCall().enqueue(new Callback<MR_Primary>() {
+            @Override
+            public void onResponse(Call<MR_Primary> call, Response<MR_Primary> response) {
+                if (responseIsOk(response)) {
+                    setResponseMessage(response.body().getMessage());
+                    if (response.body().getStatue() == 1)
+                        getPublishSubject().onNext(StaticValues.ML_EditSuccess);
+                    else
+                        getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MR_Primary> call, Throwable t) {
+                callIsFailure();
+            }
+        });
+
+    }
+    //______________________________________________________________________________________________ editColleagueProfile
+
+
+
+
     //______________________________________________________________________________________________ getColleague
     public void getColleague(Integer personId) {
 
@@ -323,6 +481,55 @@ public class VM_EditPerson extends VM_Primary {
 
     }
     //______________________________________________________________________________________________ getColleague
+
+
+
+    //______________________________________________________________________________________________ getUserInfoVM
+    public void getUserInfoVM() {
+
+        Integer userInfoId = getUserId();
+        if (userInfoId == 0) {
+            userIsNotAuthorization();
+            return;
+        }
+
+        String host = Host + "/api/GetUserInformation/" + userInfoId.toString();
+
+        setPrimaryCall(PishtazanApplication
+                .getApplication(getContext())
+                .getRetrofitComponent()
+                .getRetrofitApiInterface()
+                .userSidebarInformation(host));
+
+        if (getPrimaryCall() == null)
+            return;
+
+        getPrimaryCall().enqueue(new Callback<MR_UserInfoVM>() {
+            @Override
+            public void onResponse(Call<MR_UserInfoVM> call, Response<MR_UserInfoVM> response) {
+                if (responseIsOk(response)) {
+                    if (response.body() != null) {
+                        if (response.body().getStatue() == 1) {
+                            if (response.body().getUserInfoVM() != null) {
+                                MainActivity.mainActivity.md_userInfoVM = response.body().getUserInfoVM();
+                                MainActivity.mainActivity.setProfile();
+                                sendMessageToObservable(StaticValues.ML_GotoHome);
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MR_UserInfoVM> call, Throwable t) {
+                callIsFailure();
+            }
+        });
+
+    }
+    //______________________________________________________________________________________________ getUserInfoVM
+
+
 
 
     //______________________________________________________________________________________________ setAddressString

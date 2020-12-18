@@ -49,7 +49,7 @@ public class VM_Verify extends VM_Primary {
                 if (responseIsOk(response)) {
                     setResponseMessage(response.body().getMessage());
                     if (response.body().getStatue() == 1)
-                        getPublishSubject().onNext(StaticValues.ML_GotoVerify);
+                        getPublishSubject().onNext(StaticValues.ML_ReTrySensSms);
                     else
                         getPublishSubject().onNext(StaticValues.ML_ResponseError);
                 }

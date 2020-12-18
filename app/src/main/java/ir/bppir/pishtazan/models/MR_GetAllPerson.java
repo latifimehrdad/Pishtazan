@@ -23,6 +23,10 @@ public class MR_GetAllPerson extends MR_Primary {
     @Expose
     List<MD_Person> Colleagues;
 
+    @SerializedName("UserInfo")
+    @Expose
+    MD_UserInfo UserInfo;
+
 
     public MR_GetAllPerson(Integer statue, String message, List<String> messages) {
         super(statue, message, messages);
@@ -59,5 +63,13 @@ public class MR_GetAllPerson extends MR_Primary {
 
     public void setColleagues(List<MD_Person> colleagues) {
         Colleagues = colleagues;
+    }
+
+    public MD_UserInfo getUserInfo() {
+        return UserInfo;
+    }
+
+    public void setUserInfo(MD_UserInfo userInfo) {
+        UserInfo = userInfo;
     }
 }

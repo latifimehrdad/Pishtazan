@@ -201,6 +201,14 @@ public interface RetrofitApiInterface {
             );
 
 
+    @FormUrlEncoded
+    @POST(Version + "/GetColleagueById")
+    Call<MR_GetAllPerson> GET_User_Info
+            (
+                    @Field("Id") Integer Id
+            );
+
+
     @Multipart
     @POST(Version + "/EditCustomer")
     Call<MR_Primary> EDIT_CUSTOMER
@@ -237,6 +245,23 @@ public interface RetrofitApiInterface {
                     @Part("UserInfoId") RequestBody UserInfoId,
                     @Part("NationalCode") RequestBody NationalCode,
                     @Part("Level") RequestBody Level
+            );
+
+
+    @Multipart
+    @POST(Version + "/EditColleague")
+    Call<MR_Primary> EDIT_User
+            (
+                    @Part MultipartBody.Part Image,
+                    @Part("Id") RequestBody Id,
+                    @Part("FullName") RequestBody FullName,
+                    @Part("PhoneNumber") RequestBody PhoneNumber,
+                    @Part("BirthDateJ") RequestBody BirthDateJ,
+                    @Part("Address") RequestBody Address,
+                    @Part("Lat") RequestBody Lat,
+                    @Part("Lang") RequestBody Lang,
+                    @Part("MobileNumber") RequestBody MobileNumber,
+                    @Part("Description") RequestBody Description
             );
 
 
