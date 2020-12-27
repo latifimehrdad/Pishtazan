@@ -282,7 +282,10 @@ public class BindingAdapters {
 
             }
             textView.setText(context.getResources().getString(R.string.SeriesNumber) + " : " + text);
-        } else {
+        } else if (tag.equalsIgnoreCase("id")) {
+            String text = context.getResources().getString(R.string.id) + " : " + value.toString();
+            textView.setText(text);
+        }  else {
             if (value != null)
                 textView.setText(value.toString());
             else
